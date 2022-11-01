@@ -7,6 +7,7 @@ namespace Dal;
 internal static class DataSource
 {
     static internal readonly RandomNumberGenerator RandomNum = RandomNumberGenerator.Create();
-    static internal Product ProductArray = new Product[50];
+    static internal Array ProductArray = new Array(Array.Empty<Product>(50));
+    static internal Array ProductArray = new Array()
 
 }
