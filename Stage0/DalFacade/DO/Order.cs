@@ -17,5 +17,7 @@ public struct Order
     	Price: {Price}
     	Amount in stock: {InStock}
     ";
+
+    public 
 }
 
