@@ -12,12 +12,14 @@ public struct Order
     DateTime DeliveryDate { get; set; }
 
     public override string ToString() => $@"
-        Product ID={ID}: {Name}, 
-        category - {Category}
-    	Price: {Price}
-    	Amount in stock: {InStock}
+        Product ID:{ID}, 
+        CustomerName: {CustomerName}
+    	CustomerEmail: {CustomerEmail}
+    	CustomeAdress: {CustomeAdress}
+        OrderDate: {OrderDate}
+        ShipDate: {ShipDate}
+        DeliveryDate: {DeliveryDate}
     ";
 
-    public 
 }
 
