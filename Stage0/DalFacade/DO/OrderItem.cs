@@ -1,6 +1,5 @@
-﻿
+﻿using DO;
 using System.Xml.Linq;
-
 namespace DO;
 
 public struct OrderItem
@@ -11,9 +10,9 @@ public struct OrderItem
     public int Amount { get; set; }
 
     public override string ToString() => $@"
-        Product ID={ID}: {Name}, 
-        category - {Category}
+        Product ID={ProductID}
+        Order ID={OrderID}
     	Price: {Price}
-    	Amount in stock: {InStock}";
+    	Amount: {Amount}";
 
 }
