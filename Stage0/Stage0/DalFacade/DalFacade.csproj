@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -9,12 +9,10 @@
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 	<UseCommonOutputDirectory>true</UseCommonOutputDirectory>
-	<RootNamespace>Dal</RootNamespace>
-
+	<RootNamespace />
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DalFacade\DalFacade.csproj" />
     <ProjectReference Include="..\Stage0\Stage0.csproj" />
   </ItemGroup>
 
