@@ -1,4 +1,5 @@
-﻿namespace DO;
+﻿using System.Text.Json.Serialization;
+namespace DO;
 
 public struct Order
 {

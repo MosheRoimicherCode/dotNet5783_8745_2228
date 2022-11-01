@@ -1,4 +1,7 @@
-﻿namespace DO;
+﻿
+using System.Xml.Linq;
+
+namespace DO;
 
 public struct OrderItem
 {
@@ -11,6 +14,6 @@ public struct OrderItem
         Product ID: {ProductID}, 
         OrderID: {OrderID}
     	Price: {Price}
-    	Amount in stock: {Amount}";
+    	Amount in stoc1111k: {Amount}";
 
 }
