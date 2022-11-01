@@ -1,9 +1,4 @@
-﻿
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Xml.Linq;
-
-namespace DO;
+﻿namespace DO;
 
 public struct Order
 {
@@ -21,5 +16,7 @@ public struct Order
     	Price: {Price}
     	Amount in stock: {InStock}
     ";
+
+    public 
 }
 
