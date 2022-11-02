@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DalFacade\DalFacade.csproj" />
-    <ProjectReference Include="..\Stage0\Stage0.csproj" />
   </ItemGroup>
 
 </Project>
