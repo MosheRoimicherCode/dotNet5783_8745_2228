@@ -3,6 +3,10 @@ namespace DO;
 
 public struct Order
 {
+    public Order(int I, string CN, string CE, string CA, DateTime OD, DateTime SD, DateTime DD)
+    {
+        ID = I; CustomerName = CN; CustomerEmail = CE; CustomeAdress = CA; OrderDate = OD; ShipDate = SD; DeliveryDate = DD;
+    }
     public int ID { get; set; }
     public string CustomerName { get; set; }
     public string CustomerEmail { get; set; }
