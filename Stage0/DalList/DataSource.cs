@@ -19,17 +19,17 @@ internal static class DataSource
     /// add objects to arrays functions
     /// </summary>
     /// <param name="p"></param>
-    static void AddProduct(Product p)
+    static internal void AddProduct(Product p)
     {
         _productArr[Config._productArrIndex] = p;
         Config._productArrIndex++;
     }
-    static void AddOrder(Order p)
+    static internal void AddOrder(Order p)
     {
         _orderArr[Config._orderArrIndex] = p;
         Config._orderArrIndex++;
     }
-    static void AddOrderItem(OrderItem p)
+    static internal void AddOrderItem(OrderItem p)
     {
         _orderItemArr[Config._orderItemArrIndex] = p;
         Config._orderItemArrIndex++;
@@ -69,10 +69,10 @@ internal static class DataSource
 
 
         ///create a random element that create a new random number each call
-        Random r = new Random();
+        Random randomNum = new Random();
         ///
-        TimeSpan t1 = TimeSpan.FromDays(r.Next(0, -10));
-        TimeSpan t2 = TimeSpan.FromDays(r.Next(-10, -20));
+        TimeSpan t1 = TimeSpan.FromDays(randomNum.Next(0, -10));
+        TimeSpan t2 = TimeSpan.FromDays(randomNum.Next(-10, -20));
         TimeSpan t3 = TimeSpan.FromDays(r.Next(-20, -30));
 
         for (int i = 0; i < 20; i++)
