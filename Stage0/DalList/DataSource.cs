@@ -21,20 +21,24 @@ internal static class DataSource
     /// <param name="p"></param>
     static void AddProduct(Product p)
     {
-        _productArr[_productArrIndex] = p;
-        _productArrIndex++;
+        _productArr[Config._productArrIndex] = p;
+        Config._productArrIndex++;
     }
     static void AddOrder(Order p)
     {
-        _orderArr[_orderArrIndex] = p;
-        _orderArrIndex++;
+        _orderArr[Config._orderArrIndex] = p;
+        Config._orderArrIndex++;
     }
     static void AddOrderItem(OrderItem p)
     {
-        _orderItemArr[_orderItemArrIndex] = p;
-        _orderItemArrIndex++;
+        _orderItemArr[Config._orderItemArrIndex] = p;
+        Config._orderItemArrIndex++;
     }
 
+
+    /// <summary>
+    /// 
+    /// </summary>
     static void s_Initialize()
     {
         
@@ -63,28 +67,31 @@ internal static class DataSource
         p = new Product(283944, "crocks", 200, 0);
         AddProduct(p);
 
+
+        ///create a random element that create a new random number each call
         Random r = new Random();
+        ///
         TimeSpan t1 = TimeSpan.FromDays(r.Next(0, -10));
         TimeSpan t2 = TimeSpan.FromDays(r.Next(-10, -20));
         TimeSpan t3 = TimeSpan.FromDays(r.Next(-20, -30));
 
         for (int i = 0; i < 20; i++)
         {
-            Order ord = new Order(Config._idNumberOrder, "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
+            Order ord = new Order(Config.Get_idNumberItemOrder(), "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
             AddOrder(ord);
-            Config._idNumberOrder++;
+            ///Config._idNumberOrder++;
         }
         for (int i = 0; i < 10; i++)
         {
-            Order ord = new Order(Config._idNumberOrder, "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
+            Order ord = new Order(Config.Get_idNumberItemOrder(), "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
             AddOrder(ord);
-            Config._idNumberOrder++;
+            ///Config._idNumberOrder++;
         }
         for (int i = 0; i < 10; i++)
         {
-            Order ord = new Order(Config._idNumberOrder, "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
+            Order ord = new Order(Config.Get_idNumberItemOrder(), "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
             AddOrder(ord);
-            Config._idNumberOrder++;
+           /// Config._idNumberOrder++;
         }
 
     }
@@ -99,6 +106,23 @@ internal static class DataSource
         static internal int _orderItemArrIndex = 0;
         static internal int _idNumberOrder = 0;
         static internal int _idNumberItemOrder = 0;
+
+        /// <summary>
+        /// get ID parameters funcs
+        /// </summary>
+        /// <returns> int </returns>
+        static public int Get_idNumberOrder()
+        {
+            int temp = _idNumberOrder;
+            _idNumberOrder++;
+            return temp;
+        }
+        static public int Get_idNumberItemOrder()
+        {
+            int temp = _idNumberItemOrder;
+            _idNumberItemOrder++;
+            return temp;
+        }
     }
 
 }
