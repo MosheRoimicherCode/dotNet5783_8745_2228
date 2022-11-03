@@ -6,7 +6,7 @@ namespace Dal;
 public class DalOrder
 {
     
-    /// Add order to Data Base
+    /// Add order to Data Base/ חסד לבדוק שהמספר המזהה עוד לא קיים
     public int CreateOrder(Order order)
     {
         order.ID = Config.Get_idNumberOrder();     ///insert automatic ID (delete input ID)
@@ -29,14 +29,14 @@ public class DalOrder
         throw new Exception("Not found a order with this Id");
     }
 
-    ///return order array
+    ///return copy of order array
     public Order[] CopyOrderArray()
     {
         int tempIndex = 0;
         Order[] newArray = new Order[100];
         foreach (Order order in _orderArr)
         {
-            newArray[tempIndex] = order;
+            newArray[tempIndex++] = order;
         }
         return newArray;
     }
@@ -55,6 +55,10 @@ public class DalOrder
                 {
                     _orderArr[i] = _orderArr[j];
                 }
+                ///delete last object and resize index
+                Order nullOrder = new Order();
+                _orderArr[Config._orderArrIndex] = nullOrder;
+                Config._orderArrIndex--;
             }
         }
         ///if not found return a message

@@ -104,8 +104,8 @@ internal static class DataSource
         static internal int _productArrIndex = 0;
         static internal int _orderArrIndex = 0;
         static internal int _orderItemArrIndex = 0;
-        static internal int _idNumberOrder = 0;
-        static internal int _idNumberItemOrder = 0;
+        static internal int _idNumberOrder = 1;
+        static internal int _idNumberItemOrder = 1;
 
         /// <summary>
         /// get ID parameters funcs
@@ -123,6 +123,7 @@ internal static class DataSource
             _idNumberItemOrder++;
             return temp;
         }
+
     }
 
 }

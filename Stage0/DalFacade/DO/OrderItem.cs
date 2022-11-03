@@ -14,6 +14,6 @@ public struct OrderItem
         Product ID: {ProductID}, 
         OrderID: {OrderID}
     	Price: {Price}
-    	Amount in stoc1111k: {Amount}";
+    	Amount in stock: {Amount}";
 
 }
