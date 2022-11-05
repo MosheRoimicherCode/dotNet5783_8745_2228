@@ -1,7 +1,8 @@
-﻿using static Dal.DataSource;
-using DO;
+﻿using DO;
+using static Dal.DataSource;
 namespace Dal;
 
+///A class for connect with Product struck
 public class DalProduct
 {
     /// Add Product to Data Base

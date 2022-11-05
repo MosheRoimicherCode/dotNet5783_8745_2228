@@ -1,8 +1,9 @@
 ﻿using DO;
 using static Dal.DataSource;
-
 namespace Dal;
 
+
+///A class for connect with Order struck
 public class DalOrder
 {
     

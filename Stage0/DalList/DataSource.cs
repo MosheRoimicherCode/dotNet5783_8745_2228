@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 
 namespace Dal;
 
+///data source class
 internal static class DataSource
 {
     /// <summary>
@@ -15,10 +16,7 @@ internal static class DataSource
     static internal Order[] _orderArr = new Order[100];
     static internal OrderItem[] _orderItemArr = new OrderItem[200];
 
-    /// <summary>
     /// add objects to arrays functions
-    /// </summary>
-    /// <param name="p"></param>
     static internal void AddProduct(Product p)
     {
         _productArr[Config._productArrIndex] = p;
@@ -98,19 +96,15 @@ internal static class DataSource
 
     static internal class Config
     {
-        /// <summary>
         /// set arrays index
-        /// </summary>
         static internal int _productArrIndex = 0;
         static internal int _orderArrIndex = 0;
         static internal int _orderItemArrIndex = 0;
         static internal int _idNumberOrder = 1;
         static internal int _idNumberItemOrder = 1;
 
-        /// <summary>
+
         /// get ID parameters funcs
-        /// </summary>
-        /// <returns> int </returns>
         static public int Get_idNumberOrder()
         {
             int temp = _idNumberOrder;

@@ -2,6 +2,7 @@
 using static Dal.DataSource;
 namespace Dal;
 
+///A class for connect with ORderItem struck
 public class DalOrderItem
 {
     /// Add order item item to Data Base
