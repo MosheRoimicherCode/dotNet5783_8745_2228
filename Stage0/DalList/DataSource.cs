@@ -21,18 +21,18 @@ internal static class DataSource
     /// <param name="p"></param>
     static void AddProduct(Product p)
     {
-        _productArr[_productArrIndex] = p;
-        _productArrIndex++;
+        _productArr[Config._productArrIndex] = p;
+        Config._productArrIndex++;
     }
     static void AddOrder(Order p)
     {
-        _orderArr[_orderArrIndex] = p;
-        _orderArrIndex++;
+        _orderArr[Config._orderArrIndex] = p;
+        Config._orderArrIndex++;
     }
     static void AddOrderItem(OrderItem p)
     {
-        _orderItemArr[_orderItemArrIndex] = p;
-        _orderItemArrIndex++;
+        _orderItemArr[Config._orderItemArrIndex] = p;
+        Config._orderItemArrIndex++;
     }
 
     static void s_Initialize()
