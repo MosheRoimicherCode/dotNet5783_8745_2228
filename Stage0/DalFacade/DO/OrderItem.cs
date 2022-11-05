@@ -6,7 +6,7 @@ namespace DO;
 public struct OrderItem
 {
     ///contructor
-    public OrderItem(int PI, int OI, int P, int A) 
+    public OrderItem(int PI, int OI, double P, int A) 
     { 
         ProductID = PI;
         OrderID = OI;
