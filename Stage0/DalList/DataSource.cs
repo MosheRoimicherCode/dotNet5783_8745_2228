@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 
 namespace Dal;
 
+///data source class
 internal static class DataSource
 {
     /// <summary>
@@ -15,26 +16,27 @@ internal static class DataSource
     static internal Order[] _orderArr = new Order[100];
     static internal OrderItem[] _orderItemArr = new OrderItem[200];
 
-    /// <summary>
     /// add objects to arrays functions
-    /// </summary>
-    /// <param name="p"></param>
-    static void AddProduct(Product p)
+    static internal void AddProduct(Product p)
     {
         _productArr[Config._productArrIndex] = p;
         Config._productArrIndex++;
     }
-    static void AddOrder(Order p)
+    static internal void AddOrder(Order p)
     {
         _orderArr[Config._orderArrIndex] = p;
         Config._orderArrIndex++;
     }
-    static void AddOrderItem(OrderItem p)
+    static internal void AddOrderItem(OrderItem p)
     {
         _orderItemArr[Config._orderItemArrIndex] = p;
         Config._orderItemArrIndex++;
     }
 
+
+    /// <summary>
+    /// 
+    /// </summary>
     static void s_Initialize()
     {
         
@@ -63,42 +65,59 @@ internal static class DataSource
         p = new Product(283944, "crocks", 200, 0);
         AddProduct(p);
 
-        Random r = new Random();
-        TimeSpan t1 = TimeSpan.FromDays(r.Next(0, -10));
-        TimeSpan t2 = TimeSpan.FromDays(r.Next(-10, -20));
+
+        ///create a random element that create a new random number each call
+        Random randomNum = new Random();
+        ///
+        TimeSpan t1 = TimeSpan.FromDays(randomNum.Next(0, -10));
+        TimeSpan t2 = TimeSpan.FromDays(randomNum.Next(-10, -20));
         TimeSpan t3 = TimeSpan.FromDays(r.Next(-20, -30));
 
         for (int i = 0; i < 20; i++)
         {
-            Order ord = new Order(Config._idNumberOrder, "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
+            Order ord = new Order(Config.Get_idNumberItemOrder(), "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
             AddOrder(ord);
-            Config._idNumberOrder++;
+            ///Config._idNumberOrder++;
         }
         for (int i = 0; i < 10; i++)
         {
-            Order ord = new Order(Config._idNumberOrder, "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
+            Order ord = new Order(Config.Get_idNumberItemOrder(), "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
             AddOrder(ord);
-            Config._idNumberOrder++;
+            ///Config._idNumberOrder++;
         }
         for (int i = 0; i < 10; i++)
         {
-            Order ord = new Order(Config._idNumberOrder, "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
+            Order ord = new Order(Config.Get_idNumberItemOrder(), "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
             AddOrder(ord);
-            Config._idNumberOrder++;
+           /// Config._idNumberOrder++;
         }
 
     }
 
     static internal class Config
     {
-        /// <summary>
         /// set arrays index
-        /// </summary>
         static internal int _productArrIndex = 0;
         static internal int _orderArrIndex = 0;
         static internal int _orderItemArrIndex = 0;
-        static internal int _idNumberOrder = 0;
-        static internal int _idNumberItemOrder = 0;
+        static internal int _idNumberOrder = 1;
+        static internal int _idNumberItemOrder = 1;
+
+
+        /// get ID parameters funcs
+        static public int Get_idNumberOrder()
+        {
+            int temp = _idNumberOrder;
+            _idNumberOrder++;
+            return temp;
+        }
+        static public int Get_idNumberItemOrder()
+        {
+            int temp = _idNumberItemOrder;
+            _idNumberItemOrder++;
+            return temp;
+        }
+
     }
 
 }
