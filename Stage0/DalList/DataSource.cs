@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Data;
 using System.Security.Cryptography;
+using static DO.Enums;
 
 namespace Dal;
 
@@ -44,7 +45,7 @@ internal static class DataSource
         ///int num = _randomNum.Next();
         ///
 
-        Product p = new Product(647238, "shirt", 80, 30);
+        Product p = new Product(647238, "shirt", 80, 2.basic, 30);
         AddProduct(p);
         p = new Product(839422, "shoes", 200, 12);
         AddProduct(p);
@@ -71,27 +72,40 @@ internal static class DataSource
         ///
         TimeSpan t1 = TimeSpan.FromDays(randomNum.Next(0, -10));
         TimeSpan t2 = TimeSpan.FromDays(randomNum.Next(-10, -20));
-        TimeSpan t3 = TimeSpan.FromDays(r.Next(-20, -30));
+        TimeSpan t3 = TimeSpan.FromDays(randomNum.Next(-20, -30));
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 10; i++)
         {
             Order ord = new Order(Config.Get_idNumberItemOrder(), "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
             AddOrder(ord);
             ///Config._idNumberOrder++;
         }
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 5; i++)
         {
             Order ord = new Order(Config.Get_idNumberItemOrder(), "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
             AddOrder(ord);
             ///Config._idNumberOrder++;
         }
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 5; i++)
         {
             Order ord = new Order(Config.Get_idNumberItemOrder(), "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
             AddOrder(ord);
            /// Config._idNumberOrder++;
         }
 
+        for (int j = 0; j < 2; j++)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                OrderItem ordI = new OrderItem(_productArr[i].ID, _orderArr[i].ID, _productArr[i].Price, randomNum.Next(0, 50));
+                AddOrderItem(ordI);
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                OrderItem ordI = new OrderItem(_productArr[i].ID, _orderArr[i + 10].ID, _productArr[i].Price, randomNum.Next(0, 50));
+                AddOrderItem(ordI);
+            }
+        }
     }
 
     static internal class Config

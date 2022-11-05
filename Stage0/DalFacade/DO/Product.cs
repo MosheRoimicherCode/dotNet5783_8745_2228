@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using static DO.Enums;
 
 namespace DO;
 
@@ -6,11 +7,12 @@ namespace DO;
 public struct Product
 {
     ///constractor
-    public Product(int I, string N, double P, int In)
+    public Product(int I, string N, double P, Category c, int In)
     { 
         ID = I;
         Name = N; 
-        Price = P; 
+        Price = P;
+        Category = c;
         InStock = In; 
     }
 
@@ -18,7 +20,7 @@ public struct Product
     public int ID { get; set; }
     public string Name { get; set; }
     public double Price { get; set; }
-    public Enums.Category Category { get; set; }
+    public Category Category { get; set; }
     public int InStock { get; set; }
 
     ///funcs
