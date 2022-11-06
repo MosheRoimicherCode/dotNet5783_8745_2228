@@ -40,30 +40,30 @@ internal static class DataSource
     /// </summary>
     static void s_Initialize()
     {
-        
+
         ///Random _randomNum = new Random();
         ///int num = _randomNum.Next();
         ///
 
-        Product p = new Product(647238, "shirt", 80, 2.basic, 30);
+        Product p = new Product(647238, "shirt", 80, (Category)2, 30);
         AddProduct(p);
-        p = new Product(839422, "shoes", 200, 12);
+        p = new Product(839422, "shoes", 200, (Category)2, 12);
         AddProduct(p);
-        p = new Product(930494, "pens", 120, 29);
+        p = new Product(930494, "pens", 120, (Category)2, 29);
         AddProduct(p);
-        p = new Product(647248, "hat", 500, 35);
+        p = new Product(647248, "hat", 500, (Category)2, 35);
         AddProduct(p);
-        p = new Product(897238, "socks", 30, 80);
+        p = new Product(897238, "socks", 30, (Category)2, 80);
         AddProduct(p);
-        p = new Product(197238, "suit", 1000, 90);
+        p = new Product(197238, "suit", 1000, (Category)2, 90);
         AddProduct(p);
-        p = new Product(372892, "tie", 150, 55);
+        p = new Product(372892, "tie", 150, (Category)2, 55);
         AddProduct(p);
-        p = new Product(382984, "belt", 50, 45);
+        p = new Product(382984, "belt", 50, (Category)2, 45);
         AddProduct(p);
-        p = new Product(647238, "tshirt", 35, 85);
+        p = new Product(647238, "tshirt", 35, (Category)2, 85);
         AddProduct(p);
-        p = new Product(283944, "crocks", 200, 0);
+        p = new Product(283944, "crocks", 200, (Category)2, 0);
         AddProduct(p);
 
 
@@ -90,7 +90,7 @@ internal static class DataSource
         {
             Order ord = new Order(Config.Get_idNumberItemOrder(), "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
             AddOrder(ord);
-           /// Config._idNumberOrder++;
+            /// Config._idNumberOrder++;
         }
 
         for (int j = 0; j < 2; j++)
