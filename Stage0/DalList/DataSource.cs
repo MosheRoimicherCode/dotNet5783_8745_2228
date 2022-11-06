@@ -34,10 +34,6 @@ internal static class DataSource
         Config._orderItemArrIndex++;
     }
 
-
-    /// <summary>
-    /// 
-    /// </summary>
     static void s_Initialize()
     {
 
