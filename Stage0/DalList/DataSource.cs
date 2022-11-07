@@ -23,6 +23,7 @@ internal static class DataSource
     /// add objects to arrays functions
     static internal void AddProduct(Product p)
     {
+        Product p1 = p;
         _productArr[Config._productArrIndex] = p;
         Config._productArrIndex++;
     }
@@ -40,6 +41,9 @@ internal static class DataSource
 
     private static void s_Initialize()
     {
+        int[] arr = new int[3];
+        arr[0] = 1;
+        Console.WriteLine(arr[0]);
         Product[] _productArr = new Product[50];
         Order[] _orderArr = new Order[100];
         OrderItem[] _orderItemArr = new OrderItem[200];

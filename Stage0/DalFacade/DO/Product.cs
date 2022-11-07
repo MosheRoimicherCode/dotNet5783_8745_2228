@@ -9,19 +9,19 @@ public struct Product
     ///constractor
     public Product(int I, string N, double P, Category c, int In)
     { 
-        ID = I;
-        Name = N; 
-        Price = P;
-        Category = c;
-        InStock = In; 
+        int ID = I;
+        string Name = N;
+        double Price = P;
+        Category Category = c;
+        int InStock = In; 
     }
 
     ///data
-    public int ID { get; set; }
-    public string Name { get; set; }
-    public double Price { get; set; }
-    public Category Category { get; set; }
-    public int InStock { get; set; }
+    public int ID;
+    public string Name;
+    public double Price;
+    public Category Category;
+    public int InStock;
 
     ///funcs
     public override string ToString() => $@"
