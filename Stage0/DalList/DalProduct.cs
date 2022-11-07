@@ -93,6 +93,7 @@ public class DalProduct {
                 {
                     ///if finned, replace the product with a new one
                     _productArr[i] = newProduct;
+                    return;
                 }
             }
             ///if not found return a message

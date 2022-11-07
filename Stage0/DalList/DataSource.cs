@@ -36,7 +36,6 @@ internal static class DataSource
         _orderItemArr[Config._orderItemArrIndex] = p;
         Config._orderItemArrIndex++;
     }
-
  
     static private void s_Initialize()
     {
@@ -61,37 +60,43 @@ internal static class DataSource
         p = new Product(283944, "crocks", 200, (Category)2, 0);
         AddProduct(p);
 
-
         //create a random element that create a new random number each call
         Random randomNum = new Random();
         ///
         TimeSpan t1 = TimeSpan.FromDays(randomNum.Next(20, 30));
         TimeSpan t2 = TimeSpan.FromDays(randomNum.Next(10, 20));
         TimeSpan t3 = TimeSpan.FromDays(randomNum.Next(0, 10));
-        void timespan()
+
+        static DateTime randate()
         {
-            TimeSpan t1 = TimeSpan.FromDays(randomNum.Next(20, 30));
-            TimeSpan t2 = TimeSpan.FromDays(randomNum.Next(10, 20));
-            TimeSpan t3 = TimeSpan.FromDays(randomNum.Next(0, 10));
+            Random rnd = new Random();
+            DateTime datetoday = DateTime.Now;
+
+            int rndYear = rnd.Next(1995, datetoday.Year);
+            int rndMonth = rnd.Next(1, 12);
+            int rndDay = rnd.Next(1, 31);
+
+            DateTime generateDate = new DateTime(rndYear, rndMonth, rndDay);
+            return generateDate;
         }
 
         int a = 0;
         for (int i = 0; i < 10; i++)
         {
-            timespan();
-            Order ord = new Order(Config.Get_idNumberItemOrder(), "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", DateTime.Now.Subtract(t3), DateTime.Now.Subtract(t2), DateTime.Now.Subtract(t1));
+            DateTime d = randate();
+            Order ord = new Order(Config.Get_idNumberItemOrder(), "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", d, d.AddDays(randomNum.Next(0, 10)), d.AddDays(randomNum.Next(10, 20)));
             AddOrder(ord);
         }
         for (int i = 0; i < 5; i++)
         {
-            timespan();
-            Order ord = new Order(Config.Get_idNumberItemOrder(), "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
+            DateTime d = randate();
+            Order ord = new Order(Config.Get_idNumberItemOrder(), "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", d, d.AddDays(randomNum.Next(0, 10)), d.AddDays(randomNum.Next(10, 20)));
             AddOrder(ord);
         }
         for (int i = 0; i < 5; i++)
         {
-            timespan();
-            Order ord = new Order(Config.Get_idNumberItemOrder(), "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
+            DateTime d = randate();
+            Order ord = new Order(Config.Get_idNumberItemOrder(), "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", d, d.AddDays(randomNum.Next(0, 10)), d.AddDays(randomNum.Next(10, 20)));
             AddOrder(ord);
         }
 

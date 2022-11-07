@@ -109,7 +109,9 @@ public class Program
                             int ID5 = Convert.ToInt32(Console.ReadLine());
                             _dalProduct.DeleteProduct(ID5);
                             Console.WriteLine(ID5);
-
+                            break;
+                        case "6":
+                            _dalProduct.CopyProductArray();
                             break;
                     }
                 }
@@ -169,6 +171,9 @@ public class Program
                             _dalOrder.DeleteOrder(ID5);
                             Console.WriteLine(ID5);
                             break;
+                        case "6":
+                            _dalOrder.CopyOrderArray();
+                            break;
                     }
                 }
                 else if (choice1 == "oi")
@@ -219,6 +224,9 @@ public class Program
 
                             _dalOrderItem.DeleteOrderItem(ID5, ID6);
                             Console.WriteLine(ID5);
+                            break;
+                        case "6":
+                            _dalOrderItem.CopyOrderItemArray();
                             break;
                     }
                 }

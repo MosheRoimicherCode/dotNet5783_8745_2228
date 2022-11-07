@@ -72,6 +72,7 @@ public class DalOrderItem {
                 OrderItem nullOrderItem = new OrderItem();
                 _orderItemArr[Config._orderItemArrIndex] = nullOrderItem;
                 Config._orderItemArrIndex--;
+                return;
             }
         }
         ///if not found return a message
@@ -89,6 +90,7 @@ public class DalOrderItem {
             {
                 ///if finned, replace the product with a new one
                 _orderItemArr[i] = newOrderItem;
+                return;
             }
         }
         ///if not found return a message

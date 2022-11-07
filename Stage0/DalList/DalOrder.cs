@@ -76,6 +76,7 @@ public class DalOrder
                 Order nullOrder = new Order();
                 _orderArr[Config._orderArrIndex] = nullOrder;
                 Config._orderArrIndex--;
+                return;
             }
         }
         ///if not found return a message
@@ -93,6 +94,7 @@ public class DalOrder
             {
                 ///if finned, replace the order with a new one
                 _orderArr[i] = newOrder;
+                return;
             }
         }
         ///if not found return a message
