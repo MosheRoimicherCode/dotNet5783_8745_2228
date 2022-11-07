@@ -24,7 +24,7 @@ internal static class DataSource
     /// add objects to arrays functions
     static internal void AddProduct(Product p)
     {
-        Product[] _productArr = new Product[50];
+        //Product[] _productArr = new Product[50];
 
         int index = Config._productArrIndex;
         _productArr[index] = p;

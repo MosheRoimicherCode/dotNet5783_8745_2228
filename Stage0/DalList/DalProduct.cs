@@ -5,6 +5,8 @@ namespace Dal;
 ///A class for connect with Product struck
 public class DalProduct
 {
+    DalProduct()
+    { }
     ///const
     public DalProduct(Product p)
     {
@@ -18,7 +20,7 @@ public class DalProduct
     }
 
     ///search for product by Id and return the spessific product
-    public Product GetOrder(int ProductID)
+    public Product GetProduct(int ProductID)
     {
         foreach (Product product in _productArr)
         {
@@ -27,6 +29,16 @@ public class DalProduct
             {
                 return product;
             }
+        }
+        ///in case of Id not found, throw exeption
+        throw new Exception("Not found a product with this Id");
+    }
+
+    public Product GetAll()
+    {
+        foreach (Product product in _productArr)
+        {
+            GetProduct(product.ID);
         }
         ///in case of Id not found, throw exeption
         throw new Exception("Not found a product with this Id");

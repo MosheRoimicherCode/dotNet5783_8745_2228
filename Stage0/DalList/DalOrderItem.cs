@@ -31,6 +31,16 @@ public class DalOrderItem {
         throw new Exception("Not found a orderItem with this Id");
     }
 
+    public Product GetAll()
+    {
+        foreach (OrderItem orderItem in _orderItemArr)
+        {
+            GetOrderItem(orderItem.ProductID, orderItem.OrderID);
+        }
+        ///in case of Id not found, throw exeption
+        throw new Exception("Not found a product with this Id");
+    }
+
     ///return a new copy of orderItem array
     public OrderItem[] CopyOrderItemArray()
     {
