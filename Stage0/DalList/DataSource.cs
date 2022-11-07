@@ -10,11 +10,8 @@ namespace Dal;
 ///data source class
 internal static class DataSource
 {
-    static DataSource()
-    {
-        s_Initialize();
-    }
-    
+    static DataSource() => s_Initialize();
+
     /// define arrays for classes;
     static internal readonly RandomNumberGenerator _randomNum = RandomNumberGenerator.Create();
     static internal Product[] _productArr;
@@ -24,7 +21,7 @@ internal static class DataSource
     /// add objects to arrays functions
     static internal void AddProduct(Product p)
     {
-        //Product[] _productArr = new Product[50];
+        Product[] _productArr = new Product[50];
 
         int index = Config._productArrIndex;
         _productArr[0].ID = p.ID;
@@ -78,38 +75,38 @@ internal static class DataSource
         TimeSpan t2 = TimeSpan.FromDays(randomNum.Next(-10, -20));
         TimeSpan t3 = TimeSpan.FromDays(randomNum.Next(-20, -30));
 
-        int a = 0;
-        Order order = new Order(Config.Get_idNumberItemOrder(),"sss","ddd","aaa", DateTime.Now,DateTime.Now,DateTime.Now);
-        AddOrder(order);
-        for (int i = 0; i < 10; i++)
-        {
-            Order ord = new Order(Config.Get_idNumberItemOrder(), "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
-            AddOrder(ord);
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            Order ord = new Order(Config.Get_idNumberItemOrder(), "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
-            AddOrder(ord);
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            Order ord = new Order(Config.Get_idNumberItemOrder(), "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
-            AddOrder(ord);
-        }
+        //int a = 0;
+        //Order order = new Order(Config.Get_idNumberItemOrder(),"sss","ddd","aaa", DateTime.Now,DateTime.Now,DateTime.Now);
+        //AddOrder(order);
+        //for (int i = 0; i < 10; i++)
+        //{
+        //    Order ord = new Order(Config.Get_idNumberItemOrder(), "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
+        //    AddOrder(ord);
+        //}
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    Order ord = new Order(Config.Get_idNumberItemOrder(), "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
+        //    AddOrder(ord);
+        //}
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    Order ord = new Order(Config.Get_idNumberItemOrder(), "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
+        //    AddOrder(ord);
+        //}
 
-        for (int j = 0; j < 2; j++)
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                OrderItem ordI = new OrderItem(_productArr[i].ID, _orderArr[i].ID, _productArr[i].Price, randomNum.Next(0, 50));
-                AddOrderItem(ordI);
-            }
-            for (int i = 0; i < 10; i++)
-            {
-                OrderItem ordI = new OrderItem(_productArr[i].ID, _orderArr[i + 10].ID, _productArr[i].Price, randomNum.Next(0, 50));
-                AddOrderItem(ordI);
-            }
-        }
+        //for (int j = 0; j < 2; j++)
+        //{
+        //    for (int i = 0; i < 10; i++)
+        //    {
+        //        OrderItem ordI = new OrderItem(_productArr[i].ID, _orderArr[i].ID, _productArr[i].Price, randomNum.Next(0, 50));
+        //        AddOrderItem(ordI);
+        //    }
+        //    for (int i = 0; i < 10; i++)
+        //    {
+        //        OrderItem ordI = new OrderItem(_productArr[i].ID, _orderArr[i + 10].ID, _productArr[i].Price, randomNum.Next(0, 50));
+        //        AddOrderItem(ordI);
+        //    }
+        //}
     }
 
     static internal class Config
