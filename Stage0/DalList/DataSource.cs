@@ -1,4 +1,5 @@
 ﻿using DO;
+using System;
 using System.Collections;
 using System.Data;
 using System.Diagnostics;
@@ -36,8 +37,7 @@ internal static class DataSource
         Config._orderItemArrIndex++;
     }
 
-    
-    
+ 
     static private void s_Initialize()
     {
         Product p = new Product(123456, "shirt", 80, (Category)2, 30);
@@ -65,23 +65,32 @@ internal static class DataSource
         //create a random element that create a new random number each call
         Random randomNum = new Random();
         ///
-        TimeSpan t1 = TimeSpan.FromDays(randomNum.Next(20,30));
+        TimeSpan t1 = TimeSpan.FromDays(randomNum.Next(20, 30));
         TimeSpan t2 = TimeSpan.FromDays(randomNum.Next(10, 20));
         TimeSpan t3 = TimeSpan.FromDays(randomNum.Next(0, 10));
+        void timespan()
+        {
+            TimeSpan t1 = TimeSpan.FromDays(randomNum.Next(20, 30));
+            TimeSpan t2 = TimeSpan.FromDays(randomNum.Next(10, 20));
+            TimeSpan t3 = TimeSpan.FromDays(randomNum.Next(0, 10));
+        }
 
         int a = 0;
         for (int i = 0; i < 10; i++)
         {
-            Order ord = new Order(Config.Get_idNumberItemOrder(), "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
+            timespan();
+            Order ord = new Order(Config.Get_idNumberItemOrder(), "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", DateTime.Now.Subtract(t3), DateTime.Now.Subtract(t2), DateTime.Now.Subtract(t1));
             AddOrder(ord);
         }
         for (int i = 0; i < 5; i++)
         {
+            timespan();
             Order ord = new Order(Config.Get_idNumberItemOrder(), "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
             AddOrder(ord);
         }
         for (int i = 0; i < 5; i++)
         {
+            timespan();
             Order ord = new Order(Config.Get_idNumberItemOrder(), "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
             AddOrder(ord);
         }
