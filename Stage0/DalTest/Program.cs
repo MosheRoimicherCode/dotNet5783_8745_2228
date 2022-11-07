@@ -8,6 +8,16 @@ internal class program
    
     public void Program()
     {
+        Product product = new Product();
+        DalProduct _dalProduct = new DalProduct(product);
+
+        Order order = new Order();
+        DalOrder _dalOrder = new DalOrder(order);
+
+        OrderItem orderItem = new OrderItem();
+        DalOrderItem _dalOrderItem = new DalOrderItem(orderItem);
+
+
         //Order qqq = new Order(0, "sss", "ddd", "fff", DateTime.Now, DateTime.Now, DateTime.Now);
         //DalOrder rrr = new DalOrder(qqq);
         //int I, string CN, string CE, string CA, DateTime OD, DateTime SD, DateTime DD
@@ -47,15 +57,15 @@ internal class program
                         Console.WriteLine("enter inStock:");
                         int inStock = Convert.ToInt32(Console.ReadLine());
                         Product p1 = new Product(ID1, name, price, c, inStock);
-                        DalProduct.CreateProduct(p1);
+                        _dalProduct.CreateProduct(p1);
                         break;
                     case "2":
                         Console.WriteLine("enter ID:");
                         int ID2 = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine(DalProduct.GetProduct(ID2););
+                        Console.WriteLine(_dalProduct.GetProduct(ID2););
                         break;
                     case "3":
-                        DalProduct.GetAll();
+                        _dalProduct.GetAll();
                         break;
                     case "4":
                         Console.WriteLine("enter ID of exist product:");
@@ -84,16 +94,18 @@ internal class program
                         Console.WriteLine("enter inStock:");
                         int inStock4 = Convert.ToInt32(Console.ReadLine());
                         Product p4 = new Product(ID4, name4, price4, c4, inStock4);
-                        DalProduct.RunOverProduct(existID4, p4);
+                        _dalProduct.RunOverProduct(existID4, p4);
                         break;
                     case "5":
                         Console.WriteLine("enter ID:");
                         int ID5 = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine(DalProduct.DeleteProduct(ID5););
+                        _dalProduct.DeleteProduct(ID5);
+                        Console.WriteLine(ID5);
+                        
                         break;
                 }
                 break;
-            case "order":
+             case "order":
                 switch (choice2)
                 {
                     case "1":
@@ -112,15 +124,15 @@ internal class program
                         Console.WriteLine("enter DeliveryDate:");
                         DateTime DeliveryDate = Convert.ToDateTime(Console.ReadLine());
                         Order o1 = new Order(ID1, name, email, adress, OrderDate, ShipDate, DeliveryDate);
-                        DalOrder.CreateOrder(o1);
+                        _dalOrder.CreateOrder(o1);
                         break;
                     case "2":
                         Console.WriteLine("enter ID:");
                         int ID2 = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine(DalOrder.GetOrder(ID2););
+                        Console.WriteLine(_dalOrder.GetOrder(ID2););
                         break;
                     case "3":
-                        DalOrder.GetAll();
+                        _dalOrder.GetAll();
                         break;
                     case "4":
                         Console.WriteLine("enter ID of exist product:");
@@ -140,13 +152,13 @@ internal class program
                         Console.WriteLine("enter DeliveryDate:");
                         DateTime DeliveryDate4 = Convert.ToDateTime(Console.ReadLine());
                         Order o4 = new Order(ID4, name4, email4, adress4, OrderDate4, ShipDate4, DeliveryDate4);
-                        DalOrder.RunOverOrder(existID4, o4);
+                        _dalOrder.RunOverOrder(existID4, o4);
                         break;
                     case "5":
                         Console.WriteLine("enter ID:");
                         int ID5 = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine(DalOrder.DeleteOrder(ID5););
-                        break;
+                        _dalOrder.DeleteOrder(ID5);
+                        Console.WriteLine(ID5);
                         break;
         }
             case "orderitem":
@@ -162,15 +174,18 @@ internal class program
                         Console.WriteLine("enter amount:");
                         int amount = Convert.ToInt32(Console.ReadLine());
                         OrderItem oi1 = new OrderItem(ID1, ID11, price, amount);
-                        DalOrderItem.CreateOrderItem(oi1);
+                        _dalOrderItem.CreateOrderItem(oi1);
                         break;
                     case "2":
                         Console.WriteLine("enter ID:");
                         int ID2 = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine(DalOrderItem.GetOrderItem(ID2););
+                        int ID3 = Convert.ToInt32(Console.ReadLine());
+
+                        _dalOrderItem.GetOrderItem(ID2,ID3);
+                        Console.WriteLine(ID2);
                         break;
                     case "3":
-                        DalOrderItem.GetAll();
+                        _dalOrderItem.GetAll();
                         break;
                     case "4":
                         Console.WriteLine("enter ID of exist product:");
@@ -184,12 +199,15 @@ internal class program
                         Console.WriteLine("enter amount:");
                         int amount4 = Convert.ToInt32(Console.ReadLine());
                         OrderItem oi4 = new OrderItem(ID4, ID44, price4, amount4);
-                        DalOrderItem.RunOverOrderItem(existID4, oi4);
+                        _dalOrderItem.RunOverOrderItem(existID4, ID44, oi4);
                         break;
                     case "5":
                         Console.WriteLine("enter ID:");
                         int ID5 = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine(DalOrderItem.DeleteOrderItem(ID5););
+                        int ID6 = Convert.ToInt32(Console.ReadLine());
+
+                        _dalOrderItem.DeleteOrderItem(ID5, ID6);
+                        Console.WriteLine(ID5);
                         break;
                 }
 
