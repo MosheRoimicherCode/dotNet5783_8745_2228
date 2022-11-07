@@ -5,10 +5,11 @@ internal class Program
 {
     public static void Main()
     {
-        Order qqq = new Order(0, "sss", "ddd", "fff", DateTime.Now, DateTime.Now, DateTime.Now);
-        DalOrder rrr = new DalOrder(qqq);
+        Console.WriteLine("oi");
+        //Order qqq = new Order(0, "sss", "ddd", "fff", DateTime.Now, DateTime.Now, DateTime.Now);
+        //DalOrder rrr = new DalOrder(qqq);
         //int I, string CN, string CE, string CA, DateTime OD, DateTime SD, DateTime DD
-        Console.WriteLine(qqq.ToString());
+        //Console.WriteLine(qqq.ToString());
 
         //Console.WriteLine("enter name of Item:");
         //string choice1 = Console.ReadLine();

@@ -30,18 +30,14 @@ internal static class DataSource
         _productArr[index] = p;
         Config._productArrIndex++;
     }
-    static internal void AddOrder(Order p)
-    {
-        Order[] _orderArr = new Order[100];
-        _orderArr[Config._orderArrIndex].ID = p.ID;
-        _orderArr[Config._orderArrIndex].CustomerName = p.CustomerName;
-        _orderArr[Config._orderArrIndex].CustomerEmail = p.CustomerEmail;
-        _orderArr[Config._orderArrIndex].CustomeAdress = p.CustomeAdress;
-        //_orderArr[Config._orderArrIndex].OrderDate = p.OrderDate;
-        //_orderArr[Config._orderArrIndex].ShipDate = p.ShipDate;
-        //_orderArr[Config._orderArrIndex].DeliveryDate = p.DeliveryDate;
+    static internal void AddOrder(Order o) 
+    { 
 
-        //Config._orderArrIndex++;
+        Order[] _orderArr = new Order[100];
+
+        int index2 = Config._orderArrIndex;
+        _orderArr[index2] = o;
+        Config._orderArrIndex++;
     }
     static internal void AddOrderItem(OrderItem p)
     {
@@ -53,11 +49,11 @@ internal static class DataSource
         Config._orderItemArrIndex++;
     }
 
-    private static void s_Initialize()
+    static private void s_Initialize()
     {
 
-        Product p = new Product(647238, "shirt", 80, (Category)2, 30);
-        AddProduct(p);
+        //Product p = new Product(647238, "shirt", 80, (Category)2, 30);
+        //AddProduct(p);
         //p = new Product(839422, "shoes", 200, (Category)2, 12);
         //AddProduct(p);
         //p = new Product(930494, "pens", 120, (Category)2, 29);
@@ -79,27 +75,30 @@ internal static class DataSource
 
 
         ///create a random element that create a new random number each call
-        Random randomNum = new Random();
-        ///
-        TimeSpan t1 = TimeSpan.FromDays(randomNum.Next(0, -10));
-        TimeSpan t2 = TimeSpan.FromDays(randomNum.Next(-10, -20));
-        TimeSpan t3 = TimeSpan.FromDays(randomNum.Next(-20, -30));
+        //Random randomNum = new Random();
+        /////
+        //TimeSpan t1 = TimeSpan.FromDays(randomNum.Next(0, -10));
+        //TimeSpan t2 = TimeSpan.FromDays(randomNum.Next(-10, -20));
+        //TimeSpan t3 = TimeSpan.FromDays(randomNum.Next(-20, -30));
 
-        for (int i = 0; i < 10; i++)
-        {
-            Order ord = new Order(Config.Get_idNumberItemOrder(), "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
-            AddOrder(ord);
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            Order ord = new Order(Config.Get_idNumberItemOrder(), "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
-            AddOrder(ord);
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            Order ord = new Order(Config.Get_idNumberItemOrder(), "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
-            AddOrder(ord);
-        }
+        int a = 0;
+        Order order = new Order(Config.Get_idNumberItemOrder(),"sss","ddd","aaa", DateTime.Now,DateTime.Now,DateTime.Now);
+        AddOrder(order);
+        //for (int i = 0; i < 10; i++)
+        //{
+        //    Order ord = new Order(Config.Get_idNumberItemOrder(), "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
+        //    AddOrder(ord);
+        //}
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    Order ord = new Order(Config.Get_idNumberItemOrder(), "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
+        //    AddOrder(ord);
+        //}
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    Order ord = new Order(Config.Get_idNumberItemOrder(), "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
+        //    AddOrder(ord);
+        //}
 
         for (int j = 0; j < 2; j++)
         {
