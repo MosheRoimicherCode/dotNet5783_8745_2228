@@ -9,6 +9,10 @@ namespace Dal;
 ///data source class
 internal static class DataSource
 {
+    static DataSource()
+    {
+        s_Initialize();
+    }
     /// <summary>
     /// define arrays for classes;
     /// </summary>
@@ -34,7 +38,7 @@ internal static class DataSource
         Config._orderItemArrIndex++;
     }
 
-    static void s_Initialize()
+    static private void s_Initialize()
     {
 
         ///Random _randomNum = new Random();

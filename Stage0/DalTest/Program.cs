@@ -3,9 +3,10 @@ namespace Dal;
 
 internal class Program
 {
-    static DalOrder _dalOrder = new DalOrder(); 
-    static Product _productArr = new Product();
-    static OrderItem _orderItemArr = new OrderItem();
+    static DalOrder _dalOrderArr = new DalOrder(); 
+    static DalProduct _dalproductArr = new DalProduct();
+    static DalOrderItem _dalorderItemArr = new DalOrderItem();
+    
 
     public static void Main()
     {
@@ -13,7 +14,7 @@ internal class Program
         string choice1 = Console.ReadLine();
         Console.WriteLine("enter function number:");
         string choice2 = Console.ReadLine();
-
+       
         switch (choice1)
         {
             case "product":
