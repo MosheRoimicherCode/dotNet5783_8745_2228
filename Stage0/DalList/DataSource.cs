@@ -1,6 +1,7 @@
 ﻿using DO;
 using System.Collections;
 using System.Data;
+using System.Diagnostics;
 using System.Security.Cryptography;
 using static DO.Enums;
 
@@ -16,58 +17,65 @@ internal static class DataSource
     
     /// define arrays for classes;
     static internal readonly RandomNumberGenerator _randomNum = RandomNumberGenerator.Create();
-    static internal Product[] _productArr = null;
-    static internal Order[] _orderArr = null;
-    static internal OrderItem[] _orderItemArr = null;
+    static internal Product[] _productArr;
+    static internal Order[] _orderArr;
+    static internal OrderItem[] _orderItemArr;
 
     /// add objects to arrays functions
     static internal void AddProduct(Product p)
     {
-        Product p1 = p;
-        _productArr[Config._productArrIndex] = p;
+        Product[] _productArr = new Product[50];
+
+        int index = Config._productArrIndex;
+        _productArr[index] = p;
         Config._productArrIndex++;
     }
     static internal void AddOrder(Order p)
     {
+        Order[] _orderArr = new Order[100];
+        _orderArr[Config._orderArrIndex].ID = p.ID;
+        _orderArr[Config._orderArrIndex].CustomerName = p.CustomerName;
+        _orderArr[Config._orderArrIndex].CustomerEmail = p.CustomerEmail;
+        _orderArr[Config._orderArrIndex].CustomeAdress = p.CustomeAdress;
+        //_orderArr[Config._orderArrIndex].OrderDate = p.OrderDate;
+        //_orderArr[Config._orderArrIndex].ShipDate = p.ShipDate;
+        //_orderArr[Config._orderArrIndex].DeliveryDate = p.DeliveryDate;
 
-        _orderArr[Config._orderArrIndex] = p;
-        Config._orderArrIndex++;
+        //Config._orderArrIndex++;
     }
     static internal void AddOrderItem(OrderItem p)
     {
-        _orderItemArr[Config._orderItemArrIndex] = p;
+        OrderItem[] _orderItemArr = new OrderItem[200];
+        _orderItemArr[Config._orderItemArrIndex].OrderID = p.OrderID;
+        _orderItemArr[Config._orderItemArrIndex].ProductID = p.ProductID;
+        _orderItemArr[Config._orderItemArrIndex].Amount = p.Amount;
+        _orderItemArr[Config._orderItemArrIndex].Price = p.Price;
         Config._orderItemArrIndex++;
     }
 
     private static void s_Initialize()
     {
-        int[] arr = new int[3];
-        arr[0] = 1;
-        Console.WriteLine(arr[0]);
-        Product[] _productArr = new Product[50];
-        Order[] _orderArr = new Order[100];
-        OrderItem[] _orderItemArr = new OrderItem[200];
 
         Product p = new Product(647238, "shirt", 80, (Category)2, 30);
         AddProduct(p);
-        p = new Product(839422, "shoes", 200, (Category)2, 12);
-        AddProduct(p);
-        p = new Product(930494, "pens", 120, (Category)2, 29);
-        AddProduct(p);
-        p = new Product(647248, "hat", 500, (Category)2, 35);
-        AddProduct(p);
-        p = new Product(897238, "socks", 30, (Category)2, 80);
-        AddProduct(p);
-        p = new Product(197238, "suit", 1000, (Category)2, 90);
-        AddProduct(p);
-        p = new Product(372892, "tie", 150, (Category)2, 55);
-        AddProduct(p);
-        p = new Product(382984, "belt", 50, (Category)2, 45);
-        AddProduct(p);
-        p = new Product(647238, "tshirt", 35, (Category)2, 85);
-        AddProduct(p);
-        p = new Product(283944, "crocks", 200, (Category)2, 0);
-        AddProduct(p);
+        //p = new Product(839422, "shoes", 200, (Category)2, 12);
+        //AddProduct(p);
+        //p = new Product(930494, "pens", 120, (Category)2, 29);
+        //AddProduct(p);
+        //p = new Product(647248, "hat", 500, (Category)2, 35);
+        //AddProduct(p);
+        //p = new Product(897238, "socks", 30, (Category)2, 80);
+        //AddProduct(p);
+        //p = new Product(197238, "suit", 1000, (Category)2, 90);
+        //AddProduct(p);
+        //p = new Product(372892, "tie", 150, (Category)2, 55);
+        //AddProduct(p);
+        //p = new Product(382984, "belt", 50, (Category)2, 45);
+        //AddProduct(p);
+        //p = new Product(647238, "tshirt", 35, (Category)2, 85);
+        //AddProduct(p);
+        //p = new Product(283944, "crocks", 200, (Category)2, 0);
+        //AddProduct(p);
 
 
         ///create a random element that create a new random number each call

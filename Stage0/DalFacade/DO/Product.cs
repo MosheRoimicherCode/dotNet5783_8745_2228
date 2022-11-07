@@ -17,7 +17,7 @@ public struct Product
     }
 
     ///data
-    public int ID;
+    public int ID { get; set; }
     public string Name;
     public double Price;
     public Category Category;
