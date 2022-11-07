@@ -1,11 +1,12 @@
 ﻿using DO;
+using System.Linq.Expressions;
 using System.Xml.Linq;
 namespace Dal;
 
-internal class program
+public class Program
 {
 
-    public void Program()
+    static public void Main()
     {
         Product product = new Product();
         DalProduct _dalProduct = new DalProduct();
@@ -26,6 +27,8 @@ internal class program
         string choice1 = Console.ReadLine();
         Console.WriteLine("enter function number:");
         string choice2 = Console.ReadLine();
+
+        
         if (choice1 == "p")
         {
             switch (choice2)
@@ -38,7 +41,7 @@ internal class program
                     Console.WriteLine("enter price:");
                     double price = Convert.ToDouble(Console.ReadLine());
                     Console.WriteLine("enter category:");
-                    int category = Convert.ToInt32(Console.ReadLine());
+                    var category = Convert.ToInt32(Console.ReadLine());
                     Enums.Category c = new Enums.Category();
                     switch (category)
                     {
@@ -60,7 +63,7 @@ internal class program
                 case "2":
                     Console.WriteLine("enter ID:");
                     int ID2 = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine(_dalProduct.GetProduct(ID2););
+                    Console.WriteLine(_dalProduct.GetProduct(ID2));
                     break;
                 case "3":
                     _dalProduct.GetAll();
@@ -128,7 +131,7 @@ internal class program
                 case "2":
                     Console.WriteLine("enter ID:");
                     int ID2 = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine(_dalOrder.GetOrder(ID2););
+                    Console.WriteLine(_dalOrder.GetOrder(ID2));
                     break;
                 case "3":
                     _dalOrder.GetAll();
@@ -213,4 +216,9 @@ internal class program
             }
         }
     }
+    catch ()
+    {
+    Console.WriteLine(e);
+    }
+
 }

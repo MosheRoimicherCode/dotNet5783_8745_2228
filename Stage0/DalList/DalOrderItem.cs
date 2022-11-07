@@ -28,7 +28,7 @@ public class DalOrderItem {
             }
         }
         ///in case of Id not found, throw exeption
-        throw new Exception("Not found a orderItem with this Id");
+        throw new ExceptionProduct("Not found a orderItem with this Id", p);
     }
 
     public Product GetAll()
@@ -38,7 +38,7 @@ public class DalOrderItem {
             GetOrderItem(orderItem.ProductID, orderItem.OrderID);
         }
         ///in case of Id not found, throw exeption
-        throw new Exception("Not found a product with this Id");
+        throw new ExceptionProduct("Not found a product with this Id", p);
     }
 
     ///return a new copy of orderItem array
