@@ -15,11 +15,11 @@ public struct Product
     }
 
     ///data
-    public int ID { get; set; }
-    public string Name { get; set; }
-    public double Price { get; set; }
-    public Category Category { get; set; }
-    public int InStock { get; set; }
+    public int ID;
+    public string Name;
+    public double Price;
+    public Category Category;
+    public int InStock;
 
     ///funcs
     public override string ToString() => $@"
