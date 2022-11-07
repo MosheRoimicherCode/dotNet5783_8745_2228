@@ -9,13 +9,16 @@ namespace Dal;
 ///data source class
 internal static class DataSource
 {
-    /// <summary>
+    static DataSource()
+    {
+        s_Initialize();
+    }
+    
     /// define arrays for classes;
-    /// </summary>
     static internal readonly RandomNumberGenerator _randomNum = RandomNumberGenerator.Create();
-    static internal Product[] _productArr = new Product[50];
-    static internal Order[] _orderArr = new Order[100];
-    static internal OrderItem[] _orderItemArr = new OrderItem[200];
+    static internal Product[] _productArr = null;
+    static internal Order[] _orderArr = null;
+    static internal OrderItem[] _orderItemArr = null;
 
     /// add objects to arrays functions
     static internal void AddProduct(Product p)
@@ -25,6 +28,7 @@ internal static class DataSource
     }
     static internal void AddOrder(Order p)
     {
+
         _orderArr[Config._orderArrIndex] = p;
         Config._orderArrIndex++;
     }
@@ -34,12 +38,11 @@ internal static class DataSource
         Config._orderItemArrIndex++;
     }
 
-    static void s_Initialize()
+    private static void s_Initialize()
     {
-
-        ///Random _randomNum = new Random();
-        ///int num = _randomNum.Next();
-        ///
+        Product[] _productArr = new Product[50];
+        Order[] _orderArr = new Order[100];
+        OrderItem[] _orderItemArr = new OrderItem[200];
 
         Product p = new Product(647238, "shirt", 80, (Category)2, 30);
         AddProduct(p);
@@ -74,19 +77,16 @@ internal static class DataSource
         {
             Order ord = new Order(Config.Get_idNumberItemOrder(), "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
             AddOrder(ord);
-            ///Config._idNumberOrder++;
         }
         for (int i = 0; i < 5; i++)
         {
             Order ord = new Order(Config.Get_idNumberItemOrder(), "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
             AddOrder(ord);
-            ///Config._idNumberOrder++;
         }
         for (int i = 0; i < 5; i++)
         {
             Order ord = new Order(Config.Get_idNumberItemOrder(), "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
             AddOrder(ord);
-            /// Config._idNumberOrder++;
         }
 
         for (int j = 0; j < 2; j++)
