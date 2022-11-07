@@ -8,17 +8,17 @@ public struct OrderItem
     ///contructor
     public OrderItem(int PI, int OI, double P, int A) 
     { 
-        int ProductID = PI;
-        int OrderID = OI;
-        double Price = P;
-        int Amount = A; 
+        ProductID = PI;
+        OrderID = OI;
+        Price = P;
+        Amount = A; 
     }
     ///data
-    public int ProductID { get; set; }
-    public int OrderID { get; set; }
-    public double Price { get; set; }
-    public int Amount { get; set; }
-    
+    public int ProductID;
+    public int OrderID;
+    public double Price;
+    public int Amount;
+
     ///funcs
     public override string ToString() => $@"
         Product ID: {ProductID}, 

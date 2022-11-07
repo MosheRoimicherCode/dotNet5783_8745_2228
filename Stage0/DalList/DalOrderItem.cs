@@ -31,14 +31,15 @@ public class DalOrderItem {
         throw new Exception("Not found a orderItem with this Id");
     }
 
-    public Product GetAll()
+    public void GetAll()
     {
         foreach (OrderItem orderItem in _orderItemArr)
         {
-            GetOrderItem(orderItem.ProductID, orderItem.OrderID);
+            if (orderItem.OrderID != 0)
+            {
+                Console.WriteLine(orderItem.ToString());
+            }
         }
-        ///in case of Id not found, throw exeption
-        throw new Exception("Not found a product with this Id");
     }
 
     ///return a new copy of orderItem array
@@ -71,6 +72,7 @@ public class DalOrderItem {
                 OrderItem nullOrderItem = new OrderItem();
                 _orderItemArr[Config._orderItemArrIndex] = nullOrderItem;
                 Config._orderItemArrIndex--;
+                return;
             }
         }
         ///if not found return a message
@@ -88,6 +90,7 @@ public class DalOrderItem {
             {
                 ///if finned, replace the product with a new one
                 _orderItemArr[i] = newOrderItem;
+                return;
             }
         }
         ///if not found return a message

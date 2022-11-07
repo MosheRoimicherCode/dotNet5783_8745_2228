@@ -1,4 +1,5 @@
 ﻿using DO;
+using System;
 using System.Collections;
 using System.Data;
 using System.Diagnostics;
@@ -10,107 +11,110 @@ namespace Dal;
 ///data source class
 internal static class DataSource
 {
+    internal static Product[] _productArr = new Product[50];
+    internal static Order[] _orderArr = new Order[100];
+    internal static OrderItem[] _orderItemArr = new OrderItem[200];
     static DataSource() => s_Initialize();
 
     /// define arrays for classes;
     static internal readonly RandomNumberGenerator _randomNum = RandomNumberGenerator.Create();
-    static internal Product[] _productArr;
-    static internal Order[] _orderArr;
-    static internal OrderItem[] _orderItemArr;
+
 
     /// add objects to arrays functions
     static internal void AddProduct(Product p)
     {
-        Product[] _productArr = new Product[50];
-
-        int index = Config._productArrIndex;
-        _productArr[index] = p;
+        _productArr[Config._productArrIndex] = p;
         Config._productArrIndex++;
     }
     static internal void AddOrder(Order o) 
     { 
-
-        Order[] _orderArr = new Order[100];
-
-        int index2 = Config._orderArrIndex;
-        _orderArr[index2] = o;
+        _orderArr[Config._orderArrIndex] = o;
         Config._orderArrIndex++;
     }
     static internal void AddOrderItem(OrderItem p)
     {
-        OrderItem[] _orderItemArr = new OrderItem[200];
-        _orderItemArr[Config._orderItemArrIndex].OrderID = p.OrderID;
-        _orderItemArr[Config._orderItemArrIndex].ProductID = p.ProductID;
-        _orderItemArr[Config._orderItemArrIndex].Amount = p.Amount;
-        _orderItemArr[Config._orderItemArrIndex].Price = p.Price;
+        _orderItemArr[Config._orderItemArrIndex] = p;
         Config._orderItemArrIndex++;
     }
-
+ 
     static private void s_Initialize()
     {
+        Product p = new Product(123456, "shirt", 80, (Category)2, 30);
+        AddProduct(p);
+        p = new Product(839422, "shoes", 200, (Category)2, 12);
+        AddProduct(p);
+        p = new Product(930494, "pens", 120, (Category)2, 29);
+        AddProduct(p);
+        p = new Product(647248, "hat", 500, (Category)2, 35);
+        AddProduct(p);
+        p = new Product(897238, "socks", 30, (Category)2, 80);
+        AddProduct(p);
+        p = new Product(197238, "suit", 1000, (Category)2, 90);
+        AddProduct(p);
+        p = new Product(372892, "tie", 150, (Category)2, 55);
+        AddProduct(p);
+        p = new Product(382984, "belt", 50, (Category)2, 45);
+        AddProduct(p);
+        p = new Product(647238, "tshirt", 35, (Category)2, 85);
+        AddProduct(p);
+        p = new Product(283944, "crocks", 200, (Category)2, 0);
+        AddProduct(p);
 
-        //Product p = new Product(647238, "shirt", 80, (Category)2, 30);
-        //AddProduct(p);
-        //p = new Product(839422, "shoes", 200, (Category)2, 12);
-        //AddProduct(p);
-        //p = new Product(930494, "pens", 120, (Category)2, 29);
-        //AddProduct(p);
-        //p = new Product(647248, "hat", 500, (Category)2, 35);
-        //AddProduct(p);
-        //p = new Product(897238, "socks", 30, (Category)2, 80);
-        //AddProduct(p);
-        //p = new Product(197238, "suit", 1000, (Category)2, 90);
-        //AddProduct(p);
-        //p = new Product(372892, "tie", 150, (Category)2, 55);
-        //AddProduct(p);
-        //p = new Product(382984, "belt", 50, (Category)2, 45);
-        //AddProduct(p);
-        //p = new Product(647238, "tshirt", 35, (Category)2, 85);
-        //AddProduct(p);
-        //p = new Product(283944, "crocks", 200, (Category)2, 0);
-        //AddProduct(p);
+        //create a random element that create a new random number each call
+        Random randomNum = new Random();
+        ///
+        TimeSpan t1 = TimeSpan.FromDays(randomNum.Next(20, 30));
+        TimeSpan t2 = TimeSpan.FromDays(randomNum.Next(10, 20));
+        TimeSpan t3 = TimeSpan.FromDays(randomNum.Next(0, 10));
 
+        static DateTime randate()
+        {
+            Random rnd = new Random();
+            DateTime datetoday = DateTime.Now;
 
-        ///create a random element that create a new random number each call
-        //Random randomNum = new Random();
-        /////
-        //TimeSpan t1 = TimeSpan.FromDays(randomNum.Next(0, -10));
-        //TimeSpan t2 = TimeSpan.FromDays(randomNum.Next(-10, -20));
-        //TimeSpan t3 = TimeSpan.FromDays(randomNum.Next(-20, -30));
+            int rndYear = rnd.Next(1995, datetoday.Year);
+            int rndMonth = rnd.Next(1, 12);
+            int rndDay = rnd.Next(1, 31);
 
-        //int a = 0;
-        //Order order = new Order(Config.Get_idNumberItemOrder(),"sss","ddd","aaa", DateTime.Now,DateTime.Now,DateTime.Now);
-        //AddOrder(order);
-        //for (int i = 0; i < 10; i++)
-        //{
-        //    Order ord = new Order(Config.Get_idNumberItemOrder(), "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
-        //    AddOrder(ord);
-        //}
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    Order ord = new Order(Config.Get_idNumberItemOrder(), "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
-        //    AddOrder(ord);
-        //}
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    Order ord = new Order(Config.Get_idNumberItemOrder(), "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", DateTime.Now.Add(t3), DateTime.Now.Add(t2), DateTime.Now.Add(t1));
-        //    AddOrder(ord);
-        //}
+            DateTime generateDate = new DateTime(rndYear, rndMonth, rndDay);
+            return generateDate;
+        }
 
-        //for (int j = 0; j < 2; j++)
-        //{
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        OrderItem ordI = new OrderItem(_productArr[i].ID, _orderArr[i].ID, _productArr[i].Price, randomNum.Next(0, 50));
-        //        AddOrderItem(ordI);
-        //    }
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        OrderItem ordI = new OrderItem(_productArr[i].ID, _orderArr[i + 10].ID, _productArr[i].Price, randomNum.Next(0, 50));
-        //        AddOrderItem(ordI);
-        //    }
-        //}
+        int a = 0;
+        for (int i = 0; i < 10; i++)
+        {
+            DateTime d = randate();
+            Order ord = new Order(Config.Get_idNumberItemOrder(), "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", d, d.AddDays(randomNum.Next(0, 10)), d.AddDays(randomNum.Next(10, 20)));
+            AddOrder(ord);
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            DateTime d = randate();
+            Order ord = new Order(Config.Get_idNumberItemOrder(), "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", d, d.AddDays(randomNum.Next(0, 10)), d.AddDays(randomNum.Next(10, 20)));
+            AddOrder(ord);
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            DateTime d = randate();
+            Order ord = new Order(Config.Get_idNumberItemOrder(), "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", d, d.AddDays(randomNum.Next(0, 10)), d.AddDays(randomNum.Next(10, 20)));
+            AddOrder(ord);
+        }
+
+        for (int j = 0; j < 2; j++)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                OrderItem ordI = new OrderItem(_productArr[i].ID, _orderArr[i].ID, _productArr[i].Price, randomNum.Next(0, 50));
+                AddOrderItem(ordI);
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                OrderItem ordI = new OrderItem(_productArr[i].ID, _orderArr[i + 10].ID, _productArr[i].Price, randomNum.Next(0, 50));
+                AddOrderItem(ordI);
+            }
+        }
     }
+    
 
     static internal class Config
     {

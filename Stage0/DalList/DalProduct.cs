@@ -33,14 +33,16 @@ public class DalProduct {
             throw new Exception("Not found a product with this Id");
         }
 
-        public Product GetAll()
+        public void GetAll()
         {
+     
             foreach (Product product in _productArr)
             {
-                GetProduct(product.ID);
+                if (product.ID != 0)
+                {
+                    Console.WriteLine(product.ToString());
+                }   
             }
-            ///in case of Id not found, throw exeption
-            throw new Exception("Not found a product with this Id");
         }
 
         ///return a new copy of product array
@@ -73,6 +75,7 @@ public class DalProduct {
                     Product nullProduct = new Product();
                     _productArr[Config._productArrIndex] = nullProduct;
                     Config._productArrIndex--;
+                    return;
                 }
             }
             ///if not found return a message
@@ -90,6 +93,7 @@ public class DalProduct {
                 {
                     ///if finned, replace the product with a new one
                     _productArr[i] = newProduct;
+                    return;
                 }
             }
             ///if not found return a message

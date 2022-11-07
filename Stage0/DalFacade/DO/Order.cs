@@ -7,13 +7,13 @@ public struct Order
     ///constractor
     public Order(int I, string CN, string CE, string CA, DateTime OD, DateTime SD, DateTime DD)
     {
-        int ID = I; 
-        string CustomerName = CN; 
-        string CustomerEmail = CE;
-        string CustomeAdress = CA;
-        DateTime OrderDate = OD;
-        DateTime ShipDate = SD;
-        DateTime DeliveryDate = DD;
+        ID = I; 
+        CustomerName = CN; 
+        CustomerEmail = CE;
+        CustomeAdress = CA;
+        OrderDate = OD;
+        ShipDate = SD;
+        DeliveryDate = DD;
     }
 
     ///data
