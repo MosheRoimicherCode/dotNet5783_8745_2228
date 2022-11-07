@@ -8,10 +8,10 @@ public struct OrderItem
     ///contructor
     public OrderItem(int PI, int OI, double P, int A) 
     { 
-        int ProductID = PI;
-        int OrderID = OI;
-        double Price = P;
-        int Amount = A; 
+        ProductID = PI;
+        OrderID = OI;
+        Price = P;
+        Amount = A; 
     }
     ///data
     public int ProductID;

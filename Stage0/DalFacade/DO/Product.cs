@@ -5,22 +5,14 @@ namespace DO;
 public struct Product
 {
     ///constractor
-    public Product()
-    {
-        int ID = 9999;
-        string Name = "test";
-        double Price = 9.99;
-        Category Category = Category.business;
-        int InStock = 999;
-    }
 
     public Product(int I, string N, double P, Category c, int In)
     { 
-        int ID = I;
-        string Name = N;
-        double Price = P;
-        Category Category = c;
-        int InStock = In; 
+        ID = I;
+        Name = N;
+        Price = P;
+        Category = c;
+        InStock = In; 
     }
 
     ///data

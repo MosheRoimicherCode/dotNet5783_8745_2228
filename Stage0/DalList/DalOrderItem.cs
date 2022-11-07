@@ -28,17 +28,18 @@ public class DalOrderItem {
             }
         }
         ///in case of Id not found, throw exeption
-        throw new ExceptionProduct("Not found a orderItem with this Id", p);
+        throw new Exception("Not found a orderItem with this Id");
     }
 
-    public Product GetAll()
+    public void GetAll()
     {
         foreach (OrderItem orderItem in _orderItemArr)
         {
-            GetOrderItem(orderItem.ProductID, orderItem.OrderID);
+            if (orderItem.OrderID != 0)
+            {
+                Console.WriteLine(orderItem.ToString());
+            }
         }
-        ///in case of Id not found, throw exeption
-        throw new ExceptionProduct("Not found a product with this Id", p);
     }
 
     ///return a new copy of orderItem array

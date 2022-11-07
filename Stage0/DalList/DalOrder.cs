@@ -35,14 +35,15 @@ public class DalOrder
         throw new Exception("Not found a order with this Id");
     }
 
-    public Product GetAll()
+    public void GetAll()
     {
         foreach (Order order in _orderArr)
         {
-            GetOrder(order.ID);
+            if (order.ID != 0)
+            {
+                Console.WriteLine(order.ToString());
+            }
         }
-        ///in case of Id not found, throw exeption
-        throw new Exception("Not found a product with this Id");
     }
 
     ///return copy of order array
