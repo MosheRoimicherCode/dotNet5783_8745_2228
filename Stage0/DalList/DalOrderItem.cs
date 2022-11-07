@@ -3,8 +3,13 @@ using static Dal.DataSource;
 namespace Dal;
 
 ///A class for connect with ORderItem struck
-public class DalOrderItem
-{
+public class DalOrderItem { 
+    ///const
+    public DalOrderItem(OrderItem o)
+    {
+        DataSource.AddOrderItem(o);
+    }
+
     /// Add order item item to Data Base
     public void CreateOrderItem(OrderItem orderItem)
     {

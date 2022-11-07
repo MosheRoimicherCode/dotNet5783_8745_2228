@@ -5,6 +5,12 @@ namespace Dal;
 ///A class for connect with Product struck
 public class DalProduct
 {
+    ///const
+    public DalProduct(Product p)
+    {
+        DataSource.AddProduct(p);
+    }
+
     /// Add Product to Data Base
     public void CreateProduct(Product product)
     {

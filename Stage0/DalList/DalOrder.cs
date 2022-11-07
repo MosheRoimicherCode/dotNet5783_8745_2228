@@ -6,8 +6,13 @@ namespace Dal;
 ///A class for connect with Order struck
 public class DalOrder
 {
-    
-    /// Add order to Data Base/ חסד לבדוק שהמספר המזהה עוד לא קיים
+    ///const
+    public DalOrder(Order o)
+    {
+        DataSource.AddOrder(o);
+    }
+
+    /// Add order to Data Base
     public int CreateOrder(Order order)
     {
         order.ID = Config.Get_idNumberOrder();     ///insert automatic ID (delete input ID)
@@ -82,5 +87,7 @@ public class DalOrder
         ///if not found return a message
         throw new Exception("Not found a order with this Id");
     }
+
+  
 
 }
