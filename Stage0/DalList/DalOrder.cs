@@ -23,7 +23,7 @@ public class DalOrder
     ///search for order by Id and return the spefic order
     public Order GetOrder(int OrderID)
     {
-        foreach (Order order in _orderArr)
+        foreach (Order order in _orderList)
         {
 
             if (order.ID.Equals(OrderID))
@@ -37,7 +37,7 @@ public class DalOrder
 
     public void GetAll()
     {
-        foreach (Order order in _orderArr)
+        foreach (Order order in _orderList)
         {
             if (order.ID != 0)
             {
@@ -51,7 +51,7 @@ public class DalOrder
     {
         int tempIndex = 0;
         Order[] newArray = new Order[100];
-        foreach (Order order in _orderArr)
+        foreach (Order order in _orderList)
         {
             newArray[tempIndex++] = order;
         }

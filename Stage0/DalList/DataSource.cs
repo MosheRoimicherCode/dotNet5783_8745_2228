@@ -11,9 +11,9 @@ namespace Dal;
 ///data source class
 internal static class DataSource
 {
-    internal static Product[] _productArr = new Product[50];
-    internal static Order[] _orderArr = new Order[100];
-    internal static OrderItem[] _orderItemArr = new OrderItem[200];
+    internal static List<Product> _productList;
+    internal static List<Order> _orderList;
+    internal static List<OrderItem> _orderItemList;
     static DataSource() => s_Initialize();
 
     /// define arrays for classes;
@@ -23,18 +23,15 @@ internal static class DataSource
     /// add objects to arrays functions
     static internal void AddProduct(Product p)
     {
-        _productArr[Config._productArrIndex] = p;
-        Config._productArrIndex++;
+        _productList.Add(p);
     }
     static internal void AddOrder(Order o) 
-    { 
-        _orderArr[Config._orderArrIndex] = o;
-        Config._orderArrIndex++;
+    {
+        _orderList.Add(o);
     }
     static internal void AddOrderItem(OrderItem p)
     {
-        _orderItemArr[Config._orderItemArrIndex] = p;
-        Config._orderItemArrIndex++;
+        _orderItemList.Add(p);
     }
  
     static private void s_Initialize()
@@ -104,12 +101,12 @@ internal static class DataSource
         {
             for (int i = 0; i < 10; i++)
             {
-                OrderItem ordI = new OrderItem(_productArr[i].ID, _orderArr[i].ID, _productArr[i].Price, randomNum.Next(0, 50));
+                OrderItem ordI = new OrderItem(_productList[i].ID, _orderList[i].ID, _productList[i].Price, randomNum.Next(0, 50));
                 AddOrderItem(ordI);
             }
             for (int i = 0; i < 10; i++)
             {
-                OrderItem ordI = new OrderItem(_productArr[i].ID, _orderArr[i + 10].ID, _productArr[i].Price, randomNum.Next(0, 50));
+                OrderItem ordI = new OrderItem(_productList[i].ID, _orderList[i + 10].ID, _productList[i].Price, randomNum.Next(0, 50));
                 AddOrderItem(ordI);
             }
         }
@@ -119,9 +116,6 @@ internal static class DataSource
     static internal class Config
     {
         /// set arrays index
-        static internal int _productArrIndex = 0;
-        static internal int _orderArrIndex = 0;
-        static internal int _orderItemArrIndex = 0;
         static internal int _idNumberOrder = 1;
         static internal int _idNumberItemOrder = 1;
 

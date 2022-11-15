@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -10,11 +9,19 @@
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 	<UseCommonOutputDirectory>true</UseCommonOutputDirectory>
+	<RootNamespace />
 
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BL\BL.csproj" />
+    <ProjectReference Include="..\DalFacade\DalFacade.csproj" />
+    <ProjectReference Include="..\DalList\DalList.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="BO\" />
+    <Folder Include="BlApi\" />
+    <Folder Include="BlImplementation\" />
   </ItemGroup>
 
 </Project>
