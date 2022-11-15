@@ -4,7 +4,7 @@ namespace DO;
 ///A class to restore customer details
 public struct Order
 {
-    ///constractor
+    ///constructor
     public Order(int I, string CN, string CE, string CA, DateTime OD, DateTime SD, DateTime DD)
     {
         ID = I; 
