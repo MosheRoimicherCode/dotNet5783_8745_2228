@@ -9,7 +9,6 @@ namespace Dal;
 ///A class for connect with Order struck
 public class DalOrder
 {
-    IdException IdError;
 
     ///----------------- Constructors -------------------
     public DalOrder(Order o) => DataSource.AddOrder(o);
@@ -32,7 +31,7 @@ public class DalOrder
             }
         }
         ///in case of Id not found, throw exception
-        throw IdError;
+        throw new IdException();
     }///search for order by Id and return the specific order
 
     public void Delete(int OrderID)  
@@ -47,7 +46,7 @@ public class DalOrder
         }
 
         ///if not found return a message
-        throw IdError;
+        throw new IdException(); ;
     }///delete order from data base by Id
 
     public void Update(int OrderID, Order newOrder)
@@ -62,7 +61,7 @@ public class DalOrder
             }
         }
         ///if not found return a message
-        throw IdError;
+        throw new IdException();
     }///replace order by another inside array
 
 

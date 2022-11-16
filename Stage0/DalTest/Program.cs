@@ -13,7 +13,7 @@ public class Program
         try
         {
             Product product = new Product();
-            DalProduct _dalProduct = new DalProduct();
+            DalProduct _dalProduct = new DalProduct(product);
 
             Order order = new Order();
             DalOrder _dalOrder = new DalOrder(order);
@@ -27,15 +27,15 @@ public class Program
                 string choice1 = Console.ReadLine();
                 if (choice1 == "0")
                 {
-                    throw new Exception("exit");
+                    throw new ProgramExit();
                 }
+
                 Console.WriteLine("enter function number:");
                 string choice2 = Console.ReadLine();
                 if (choice2 == "0")
                 {
-                    throw new Exception("exit");
+                    throw new ProgramExit();
                 }
-
 
                 if (choice1 == "p")
                 {
@@ -66,12 +66,12 @@ public class Program
                             Console.WriteLine("enter inStock:");
                             int inStock = Convert.ToInt32(Console.ReadLine());
                             Product p1 = new Product(ID1, name, price, c, inStock);
-                            _dalProduct.CreateProduct(p1);
+                            _dalProduct.Add(p1);
                             break;
                         case "2":
                             Console.WriteLine("enter ID:");
                             int ID2 = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine(_dalProduct.GetProduct(ID2));
+                            Console.WriteLine(_dalProduct.Get(ID2));
                             break;
                         case "3":
                             _dalProduct.GetAll();
@@ -103,14 +103,13 @@ public class Program
                             Console.WriteLine("enter inStock:");
                             int inStock4 = Convert.ToInt32(Console.ReadLine());
                             Product p4 = new Product(ID4, name4, price4, c4, inStock4);
-                            _dalProduct.RunOverProduct(existID4, p4);
+                            _dalProduct.Update(existID4, p4);
                             break;
                         case "5":
                             Console.WriteLine("enter ID:");
                             int ID5 = Convert.ToInt32(Console.ReadLine());
-                            _dalProduct.DeleteProduct(ID5);
+                            _dalProduct.Delete(ID5);
                             Console.WriteLine(ID5);
-
                             break;
                     }
                 }
@@ -134,12 +133,12 @@ public class Program
                             Console.WriteLine("enter DeliveryDate:");
                             DateTime DeliveryDate = Convert.ToDateTime(Console.ReadLine());
                             Order o1 = new Order(ID1, name, email, adress, OrderDate, ShipDate, DeliveryDate);
-                            _dalOrder.CreateOrder(o1);
+                            _dalOrder.Add(o1);
                             break;
                         case "2":
                             Console.WriteLine("enter ID:");
                             int ID2 = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine(_dalOrder.GetOrder(ID2));
+                            Console.WriteLine(_dalOrder.Get(ID2));
                             break;
                         case "3":
                             _dalOrder.GetAll();
@@ -162,12 +161,12 @@ public class Program
                             Console.WriteLine("enter DeliveryDate:");
                             DateTime DeliveryDate4 = Convert.ToDateTime(Console.ReadLine());
                             Order o4 = new Order(ID4, name4, email4, adress4, OrderDate4, ShipDate4, DeliveryDate4);
-                            _dalOrder.RunOverOrder(existID4, o4);
+                            _dalOrder.Update(existID4, o4);
                             break;
                         case "5":
                             Console.WriteLine("enter ID:");
                             int ID5 = Convert.ToInt32(Console.ReadLine());
-                            _dalOrder.DeleteOrder(ID5);
+                            _dalOrder.Delete(ID5);
                             Console.WriteLine(ID5);
                             break;
                     }
@@ -186,14 +185,14 @@ public class Program
                             Console.WriteLine("enter amount:");
                             int amount = Convert.ToInt32(Console.ReadLine());
                             OrderItem oi1 = new OrderItem(ID1, ID11, price, amount);
-                            _dalOrderItem.CreateOrderItem(oi1);
+                            _dalOrderItem.Add(oi1);
                             break;
                         case "2":
                             Console.WriteLine("enter ID:");
                             int ID2 = Convert.ToInt32(Console.ReadLine());
                             int ID3 = Convert.ToInt32(Console.ReadLine());
 
-                            _dalOrderItem.GetOrderItem(ID2, ID3);
+                            _dalOrderItem.Get(ID2, ID3);
                             Console.WriteLine(ID2);
                             break;
                         case "3":
@@ -211,21 +210,21 @@ public class Program
                             Console.WriteLine("enter amount:");
                             int amount4 = Convert.ToInt32(Console.ReadLine());
                             OrderItem oi4 = new OrderItem(ID4, ID44, price4, amount4);
-                            _dalOrderItem.RunOverOrderItem(existID4, ID44, oi4);
+                            _dalOrderItem.Update(existID4, ID44, oi4);
                             break;
                         case "5":
                             Console.WriteLine("enter ID:");
                             int ID5 = Convert.ToInt32(Console.ReadLine());
                             int ID6 = Convert.ToInt32(Console.ReadLine());
 
-                            _dalOrderItem.DeleteOrderItem(ID5, ID6);
+                            _dalOrderItem.Delete(ID5, ID6);
                             Console.WriteLine(ID5);
                             break;
                     }
                 }
             }
         }
-        catch (IdExeption e)
+        catch (Exception e)
         {
             Console.WriteLine(e);
         }

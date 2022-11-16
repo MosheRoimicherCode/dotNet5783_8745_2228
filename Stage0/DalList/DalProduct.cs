@@ -6,7 +6,6 @@ namespace Dal;
 ///A class for connect with Product struck
 public class DalProduct 
 {
-    IdException IdError;
 
     ///----------------- Constructors -------------------
     public DalProduct(Product p) => DataSource.AddProduct(p);
@@ -27,8 +26,8 @@ public class DalProduct
                     return product;
                 }
             }
-            ///in case of Id not found, throw exception
-            throw IdError;
+        ///in case of Id not found, throw exception
+        throw new IdException(); ;
         }///search for product by Id and return the specific product
 
     public void Delete(int ProductID)
@@ -41,8 +40,8 @@ public class DalProduct
                 }
             }
 
-            ///if not found return a message
-            throw IdError;
+        ///if not found return a message
+        throw new IdException();
     }///delete product from data base by Id
 
      ///replace product by another inside array
@@ -52,13 +51,13 @@ public class DalProduct
             {
                 if (product.ID.Equals(ProductID))
                 {
-                    int index = _productList.BinarySearch(product);
+                    int index = _productList.IndexOf(product);
                     _productList.RemoveAt(index);
                     _productList.Insert(index, newProduct);
                 }
             }
-            ///if not found return a message
-            throw IdError;
+        ///if not found return a message
+        throw new IdException();
     }///replace order by another inside array
 
 

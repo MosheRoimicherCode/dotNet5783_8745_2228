@@ -6,7 +6,6 @@ namespace Dal;
 ///A class for connect with ORderItem struck
 public class DalOrderItem
 {
-    IdException IdError;
 
     ///----------------- Constructors ------------------- 
     public DalOrderItem(OrderItem o) => DataSource.AddOrderItem(o);
@@ -31,9 +30,9 @@ public class DalOrderItem
             }
         }
         ///in case of Id not found, throw exception
-        throw IdError;
+        throw new IdException();
     }///search for order item by Id's and return the specific order item
-  
+
     public void Delete(int ProductID, int OrderID)
     {
         foreach (OrderItem orderItem in _orderItemList)
@@ -45,7 +44,7 @@ public class DalOrderItem
         }
 
         ///if not found return a message
-        throw IdError;
+        throw new IdException();
     }///delete order item from data base by Id's
 
     public void Update(int ProductID, int OrderID, OrderItem newOrderItem)
@@ -61,7 +60,7 @@ public class DalOrderItem
             }
         }
         ///if not found return a message
-        throw IdError;
+        throw new IdException();
     }///replace order item by another inside array
 
 

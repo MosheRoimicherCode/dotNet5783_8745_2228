@@ -4,8 +4,7 @@ namespace DO;
 ///A class to restore product details
 public struct Product
 {
-    ///constractor
-
+    ///constructor
     public Product(int I, string N, double P, Category c, int In)
     { 
         ID = I;

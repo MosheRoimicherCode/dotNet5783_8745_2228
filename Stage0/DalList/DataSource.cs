@@ -11,9 +11,9 @@ namespace Dal;
 ///data source class
 internal static class DataSource
 {
-    internal static List<Product> _productList;
-    internal static List<Order> _orderList;
-    internal static List<OrderItem> _orderItemList;
+    internal static List<Product> _productList = new List<Product>();
+    internal static List<Order> _orderList = new List<Order>();
+    internal static List<OrderItem> _orderItemList = new List<OrderItem>();
     static DataSource() => s_Initialize();
 
     /// define arrays for classes;
@@ -24,6 +24,7 @@ internal static class DataSource
     static internal void AddProduct(Product p)
     {
         _productList.Add(p);
+
     }
     static internal void AddOrder(Order o) 
     {
@@ -52,7 +53,7 @@ internal static class DataSource
         AddProduct(p);
         p = new Product(382984, "belt", 50, (Category)2, 45);
         AddProduct(p);
-        p = new Product(647238, "tshirt", 35, (Category)2, 85);
+        p = new Product(647238, "t shirt", 35, (Category)2, 85);
         AddProduct(p);
         p = new Product(283944, "crocks", 200, (Category)2, 0);
         AddProduct(p);
@@ -77,7 +78,6 @@ internal static class DataSource
             return generateDate;
         }
 
-        int a = 0;
         for (int i = 0; i < 10; i++)
         {
             DateTime d = randate();
