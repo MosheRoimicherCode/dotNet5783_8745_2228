@@ -115,7 +115,6 @@ internal static class DataSource
 
     static internal class Config
     {
-        /// set arrays index
         static internal int _idNumberOrder = 1;
         static internal int _idNumberItemOrder = 1;
 
@@ -133,7 +132,6 @@ internal static class DataSource
             _idNumberItemOrder++;
             return temp;
         }
-
     }
 
 }

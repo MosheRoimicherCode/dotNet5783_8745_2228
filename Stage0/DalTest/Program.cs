@@ -1,4 +1,5 @@
-﻿using DO;
+﻿using DalApi;
+using DO;
 using System.Data;
 using System.Diagnostics;
 using System.Linq.Expressions;
@@ -224,7 +225,7 @@ public class Program
                 }
             }
         }
-        catch (Exception e)
+        catch (IdExeption e)
         {
             Console.WriteLine(e);
         }

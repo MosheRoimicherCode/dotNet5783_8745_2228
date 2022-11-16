@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace DalApi
 
-namespace DalApi
 {
-    internal class Exeptions
+    public class IdException : Exception
     {
+        static public string IdError;
+        public IdException() { IdError = "Id not found"; }
     }
+    
 }
