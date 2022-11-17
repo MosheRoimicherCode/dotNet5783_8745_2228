@@ -74,7 +74,10 @@ public class DalProduct
     { 
         foreach (Product product in _productList)
         {
-            Console.WriteLine(product.ToString());
+            if (product.ID != 0)
+            {
+                Console.WriteLine(product.ToString());
+            }
         }
     }///ToString call for all list
 

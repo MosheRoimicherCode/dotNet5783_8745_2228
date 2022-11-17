@@ -86,7 +86,10 @@ public class DalOrderItem
     {
         foreach (OrderItem orderItem in _orderItemList)
         {
-            Console.WriteLine(orderItem.ToString());
+            if (orderItem.OrderID != 0)
+            {
+                Console.WriteLine(orderItem.ToString());
+            }
         }
     }///ToString call for all list
 
