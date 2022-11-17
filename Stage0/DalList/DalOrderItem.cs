@@ -4,11 +4,10 @@ using static Dal.DataSource;
 namespace Dal;
 
 ///A class for connect with ORderItem struck
-public class DalOrderItem
+internal class DalOrderItem : IOrderItem
 {
 
     ///----------------- Constructors ------------------- 
-    public DalOrderItem(OrderItem o) => DataSource.AddOrderItem(o);
 
 
     ///----------------------------------------------------
@@ -19,12 +18,12 @@ public class DalOrderItem
         DataSource.AddOrderItem(orderItem);
     }/// Add order item item to Data Base
 
-    public OrderItem Get(int ProductID, int OrderID)
+    public OrderItem Get(int ID)
     {
         foreach (OrderItem orderItem in _orderItemList)
         {
 
-            if (orderItem.ProductID.Equals(ProductID) && orderItem.OrderID.Equals(OrderID))
+            if (orderItem.ProductID.Equals(ID) && orderItem.OrderID.Equals(ID))
             {
                 return orderItem;
             }
@@ -33,11 +32,11 @@ public class DalOrderItem
         throw new IdException();
     }///search for order item by Id's and return the specific order item
 
-    public void Delete(int ProductID, int OrderID)
+    public void Delete(int ID)
     {
         foreach (OrderItem orderItem in _orderItemList)
         {
-            if (orderItem.ProductID.Equals(ProductID) && orderItem.OrderID.Equals(OrderID))
+            if (orderItem.ProductID.Equals(ID) && orderItem.OrderID.Equals(ID))
             {
                 _orderItemList.Remove(orderItem);
             }
@@ -47,13 +46,13 @@ public class DalOrderItem
         throw new IdException();
     }///delete order item from data base by Id's
 
-    public void Update(int ProductID, int OrderID, OrderItem newOrderItem)
+    public void Update(int ID, OrderItem newOrderItem)
     {
 
         for (int i = 0; i < _orderItemList.Count; i++)
         {
             var orderItem = _orderItemList[i];
-            if (orderItem.ProductID.Equals(ProductID) && orderItem.OrderID.Equals(OrderID))
+            if (orderItem.ProductID.Equals(ID) && orderItem.OrderID.Equals(ID))
             {
                 int index = _orderItemList.IndexOf(orderItem);
                 _orderItemList.RemoveAt(index);

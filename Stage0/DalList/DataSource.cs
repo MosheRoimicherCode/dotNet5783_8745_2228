@@ -101,12 +101,12 @@ internal static class DataSource
         {
             for (int i = 0; i < 10; i++)
             {
-                OrderItem ordI = new OrderItem(_productList[i].ID, _orderList[i].ID, _productList[i].Price, randomNum.Next(0, 50));
+                OrderItem ordI = new OrderItem(Config.Get_idNumberItemOrder(), _productList[i].ID, _orderList[i].ID, _productList[i].Price, randomNum.Next(0, 50));
                 AddOrderItem(ordI);
             }
             for (int i = 0; i < 10; i++)
             {
-                OrderItem ordI = new OrderItem(_productList[i].ID, _orderList[i + 10].ID, _productList[i].Price, randomNum.Next(0, 50));
+                OrderItem ordI = new OrderItem(Config.Get_idNumberItemOrder(), _productList[i].ID, _orderList[i + 10].ID, _productList[i].Price, randomNum.Next(0, 50));
                 AddOrderItem(ordI);
             }
         }

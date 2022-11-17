@@ -4,11 +4,11 @@ using static Dal.DataSource;
 namespace Dal;
 
 ///A class for connect with Product struck
-public class DalProduct 
+internal class DalProduct : IProduct
 {
 
     ///----------------- Constructors -------------------
-    public DalProduct(Product p) => DataSource.AddProduct(p);
+ 
 
 
     ///----------------------------------------------------

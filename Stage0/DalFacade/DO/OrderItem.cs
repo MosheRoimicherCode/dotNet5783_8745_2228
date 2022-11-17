@@ -6,14 +6,16 @@ namespace DO;
 public struct OrderItem
 {
     ///contructor
-    public OrderItem(int PI, int OI, double P, int A) 
-    { 
+    public OrderItem(int I, int PI, int OI, double P, int A) 
+    {
+        ID = I;
         ProductID = PI;
         OrderID = OI;
         Price = P;
         Amount = A; 
     }
     ///data
+    public int ID { get; set; }
     public int ProductID { get; set; }
     public int OrderID { get; set; }
     public double Price { get; set; }

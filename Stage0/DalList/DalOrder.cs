@@ -7,12 +7,11 @@ namespace Dal;
 
 
 ///A class for connect with Order struck
-public class DalOrder
+internal class DalOrder : IOrder
 {
 
     ///----------------- Constructors -------------------
-    public DalOrder(Order o) => DataSource.AddOrder(o);
-
+   
 
     ///----------------------------------------------------
     ///----------------- CRUD functions -------------------

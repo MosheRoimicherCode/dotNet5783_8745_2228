@@ -1,8 +1,9 @@
 ﻿public interface ICrud<T>
 {
     void Add(T t);
-    void Delete(T t);
-    void Update();
-    T Get();  
+    void Delete(int n);
+    void Update(int n, T t);
+    T Get(int n);
+    void GetAll();
 }
 
