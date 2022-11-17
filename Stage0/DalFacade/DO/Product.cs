@@ -4,8 +4,7 @@ namespace DO;
 ///A class to restore product details
 public struct Product
 {
-    ///constractor
-
+    ///constructor
     public Product(int I, string N, double P, Category c, int In)
     { 
         ID = I;
@@ -16,11 +15,11 @@ public struct Product
     }
 
     ///data
-    public int ID;
-    public string Name;
-    public double Price;
-    public Category Category;
-    public int InStock;
+    public int ID { get; set; }
+    public string Name { get; set; }
+    public double Price { get; set; }
+    public Category Category { get; set; }
+    public int InStock { get; set; }
 
     ///funcs
     public override string ToString() => $@"

@@ -1,27 +1,24 @@
-﻿using DO;
+﻿using DalApi;
+using DO;
 using static Dal.DataSource;
 namespace Dal;
 
 ///A class for connect with Product struck
-public class DalProduct { 
+public class DalProduct 
+{
 
-        ///const
-        public DalProduct()
-        {
-        Product product = new Product();
-        DataSource.AddProduct(product);
-        }
+    ///----------------- Constructors -------------------
+    public DalProduct(Product p) => DataSource.AddProduct(p);
 
-        /// Add Product to Data Base
-        public void CreateProduct(Product product)
-        {
-            DataSource.AddProduct(product);            ///insert to Data Base  
-        }
 
-        ///search for product by Id and return the spessific product
-        public Product GetProduct(int ProductID)
+    ///----------------------------------------------------
+    ///----------------- CRUD functions -------------------
+
+    public void Add(Product product) => DataSource.AddProduct(product);/// Add Product to Data Base
+
+    public Product Get(int ProductID)
         {
-            foreach (Product product in _productArr)
+            foreach (Product product in _productList)
             {
 
                 if (product.ID.Equals(ProductID))
@@ -29,75 +26,68 @@ public class DalProduct {
                     return product;
                 }
             }
-            ///in case of Id not found, throw exeption
-            throw new Exception("Not found a product with this Id");
-        }
+        ///in case of Id not found, throw exception
+        throw new IdException(); ;
+        }///search for product by Id and return the specific product
 
-        public void GetAll()
+    public void Delete(int ProductID)
         {
-     
-            foreach (Product product in _productArr)
+            foreach (Product product in _productList)
             {
-                if (product.ID != 0)
+                if (product.ID.Equals(ProductID))
                 {
-                    Console.WriteLine(product.ToString());
-                }   
-            }
-        }
-
-        ///return a new copy of product array
-        public Product[] CopyProductArray()
-        {
-            int tempIndex = 0;
-            Product[] newProductArray = new Product[50];
-            foreach (Product product in _productArr)
-            {
-                newProductArray[tempIndex++] = product;
-            }
-            return newProductArray;
-        }
-
-        ///delete product from data base by Id
-        public void DeleteProduct(int ProductID)
-        {
-            ///run over product array
-            for (int i = 0; i <= Config._productArrIndex; i++)
-            {
-                ///find specific order
-                if (_productArr[i].ID == ProductID)
-                {
-                    ///if finned, run over the arr to delete specific order
-                    for (int j = i + 1; j < Config._productArrIndex; j++)
-                    {
-                        _productArr[i] = _productArr[j];
-                    }
-                    ///delete last object and resize index
-                    Product nullProduct = new Product();
-                    _productArr[Config._productArrIndex] = nullProduct;
-                    Config._productArrIndex--;
-                    return;
+                _productList.Remove(product);
                 }
             }
-            ///if not found return a message
-            throw new Exception("Not found a product with this Id");
-        }
 
-        ///replace product by another inside array
-        public void RunOverProduct(int ProductID, Product newProduct)
+        ///if not found return a message
+        throw new IdException();
+    }///delete product from data base by Id
+
+     ///replace product by another inside array
+    public void Update(int ProductID, Product newProduct)
         {
-            ///run over products array
-            for (int i = 0; i <= Config._productArrIndex; i++)
+            for (int i = 0; i < _productList.Count; i++)
             {
-                ///find specific product
-                if (_productArr[i].ID == ProductID)
+                var product = _productList[i];
+                if (product.ID.Equals(ProductID))
                 {
-                    ///if finned, replace the product with a new one
-                    _productArr[i] = newProduct;
-                    return;
+                    int index = _productList.IndexOf(product);
+                    _productList.RemoveAt(index);
+                    _productList.Insert(index, newProduct);
                 }
+            return;
             }
-            ///if not found return a message
-            throw new Exception("Not found a product with this Id");
-        }
+        ///if not found return a message
+        throw new IdException();
+    }///replace order by another inside array
 
+
+    ///----------------------------------------------------
+    ///----------------------------------------------------
+
+
+
+    ///----------------------------------------------------
+    ///----------------- Methods -------------------------- 
+    public void GetAll()
+    { 
+        foreach (Product product in _productList)
+        {
+            if (product.ID != 0)
+            {
+                Console.WriteLine(product.ToString());
+            }
+        }
+    }///ToString call for all list
+
+    public List<Product> CopyProductList()
+    {
+        List<Product> productlist = new List<Product>();
+        productlist = _productList;
+        return productlist;
+    }///return a new copy of product array
+
+
+    ///----------------------------------------------------
 }

@@ -1,25 +1,27 @@
-﻿using DO;
+﻿using DalApi;
+using DO;
 using static Dal.DataSource;
 namespace Dal;
 
 ///A class for connect with ORderItem struck
-public class DalOrderItem { 
-    ///const
-    public DalOrderItem(OrderItem o)
-    {
-        DataSource.AddOrderItem(o);
-    }
+public class DalOrderItem
+{
 
-    /// Add order item item to Data Base
-    public void CreateOrderItem(OrderItem orderItem)
-    {
-        DataSource.AddOrderItem(orderItem);            ///insert to Data Base  
-    }
+    ///----------------- Constructors ------------------- 
+    public DalOrderItem(OrderItem o) => DataSource.AddOrderItem(o);
 
-    ///search for order item by Id's and return the spessific order item
-    public OrderItem GetOrderItem(int ProductID, int OrderID)
+
+    ///----------------------------------------------------
+    ///----------------- CRUD functions -------------------
+
+    public void Add(OrderItem orderItem)
     {
-        foreach (OrderItem orderItem in _orderItemArr)
+        DataSource.AddOrderItem(orderItem);
+    }/// Add order item item to Data Base
+
+    public OrderItem Get(int ProductID, int OrderID)
+    {
+        foreach (OrderItem orderItem in _orderItemList)
         {
 
             if (orderItem.ProductID.Equals(ProductID) && orderItem.OrderID.Equals(OrderID))
@@ -27,73 +29,69 @@ public class DalOrderItem {
                 return orderItem;
             }
         }
-        ///in case of Id not found, throw exeption
-        throw new Exception("Not found a orderItem with this Id");
-    }
+        ///in case of Id not found, throw exception
+        throw new IdException();
+    }///search for order item by Id's and return the specific order item
 
+    public void Delete(int ProductID, int OrderID)
+    {
+        foreach (OrderItem orderItem in _orderItemList)
+        {
+            if (orderItem.ProductID.Equals(ProductID) && orderItem.OrderID.Equals(OrderID))
+            {
+                _orderItemList.Remove(orderItem);
+            }
+        }
+
+        ///if not found return a message
+        throw new IdException();
+    }///delete order item from data base by Id's
+
+    public void Update(int ProductID, int OrderID, OrderItem newOrderItem)
+    {
+
+        for (int i = 0; i < _orderItemList.Count; i++)
+        {
+            var orderItem = _orderItemList[i];
+            if (orderItem.ProductID.Equals(ProductID) && orderItem.OrderID.Equals(OrderID))
+            {
+                int index = _orderItemList.IndexOf(orderItem);
+                _orderItemList.RemoveAt(index);
+                _orderItemList.Insert(index, newOrderItem);
+            }
+            return;
+        }
+       
+        ///if not found return a message
+        throw new IdException();
+    }///replace order item by another inside array
+
+
+    ///----------------------------------------------------
+    ///----------------------------------------------------
+
+
+
+    ///----------------------------------------------------
+    ///----------------- Methods --------------------------
+
+
+    public List<OrderItem> CopyOrderItemArray()
+    {
+        List<OrderItem> orderItemlist = new List<OrderItem>();
+        orderItemlist = _orderItemList;
+        return orderItemlist;
+    }///return copy of orderItem list
     public void GetAll()
     {
-        foreach (OrderItem orderItem in _orderItemArr)
+        foreach (OrderItem orderItem in _orderItemList)
         {
             if (orderItem.OrderID != 0)
             {
                 Console.WriteLine(orderItem.ToString());
             }
         }
-    }
+    }///ToString call for all list
 
-    ///return a new copy of orderItem array
-    public OrderItem[] CopyOrderItemArray()
-    {
-        int tempIndex = 0;
-        OrderItem[] newOrderItemArray = new OrderItem[200];
-        foreach (OrderItem product in _orderItemArr)
-        {
-            newOrderItemArray[tempIndex++] = product;
-        }
-        return newOrderItemArray;
-    }
-
-    ///delete order item from data base by Id's
-    public void DeleteOrderItem(int ProductID, int OrderID)
-    {
-        ///run over product array
-        for (int i = 0; i <= Config._orderItemArrIndex; i++)
-        {
-            ///find specific order
-            if (_orderItemArr[i].ProductID == ProductID && _orderItemArr[i].OrderID == OrderID)
-            {
-                ///if finded, run over the arr to delete specific order item
-                for (int j = i + 1; j < Config._productArrIndex; j++)
-                {
-                    _orderItemArr[i] = _orderItemArr[j];
-                }
-                ///delete last object and resize index
-                OrderItem nullOrderItem = new OrderItem();
-                _orderItemArr[Config._orderItemArrIndex] = nullOrderItem;
-                Config._orderItemArrIndex--;
-                return;
-            }
-        }
-        ///if not found return a message
-        throw new Exception("Not found a order item with this Id's");
-    }
-
-    ///replace order item by another inside array
-    public void RunOverOrderItem(int ProductID, int OrderID, OrderItem newOrderItem)
-    {
-        ///run over order item array
-        for (int i = 0; i <= Config._orderItemArrIndex; i++)
-        {
-            ///find specific product
-            if (_orderItemArr[i].ProductID == ProductID && _orderItemArr[i].OrderID == OrderID)
-            {
-                ///if finned, replace the product with a new one
-                _orderItemArr[i] = newOrderItem;
-                return;
-            }
-        }
-        ///if not found return a message
-        throw new Exception("Not found a order item with this Id's");
-    }
+    ///----------------------------------------------------
 }
