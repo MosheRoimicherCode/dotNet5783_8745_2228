@@ -47,14 +47,16 @@ public class DalProduct
      ///replace product by another inside array
     public void Update(int ProductID, Product newProduct)
         {
-            foreach (Product product in _productList)
+            for (int i = 0; i < _productList.Count; i++)
             {
+                var product = _productList[i];
                 if (product.ID.Equals(ProductID))
                 {
                     int index = _productList.IndexOf(product);
                     _productList.RemoveAt(index);
                     _productList.Insert(index, newProduct);
                 }
+            return;
             }
         ///if not found return a message
         throw new IdException();

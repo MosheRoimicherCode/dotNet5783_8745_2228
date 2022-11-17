@@ -50,15 +50,18 @@ public class DalOrderItem
     public void Update(int ProductID, int OrderID, OrderItem newOrderItem)
     {
 
-        foreach (OrderItem orderItem in _orderItemList)
+        for (int i = 0; i < _orderItemList.Count; i++)
         {
+            var orderItem = _orderItemList[i];
             if (orderItem.ProductID.Equals(ProductID) && orderItem.OrderID.Equals(OrderID))
             {
-                int index = _orderItemList.BinarySearch(orderItem);
+                int index = _orderItemList.IndexOf(orderItem);
                 _orderItemList.RemoveAt(index);
                 _orderItemList.Insert(index, newOrderItem);
             }
+            return;
         }
+       
         ///if not found return a message
         throw new IdException();
     }///replace order item by another inside array

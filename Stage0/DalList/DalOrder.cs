@@ -51,15 +51,18 @@ public class DalOrder
 
     public void Update(int OrderID, Order newOrder)
     {
-        foreach (Order order in _orderList)
+        for (int i = 0; i < _orderList.Count; i++)
         {
+            var order = _orderList[i];
             if (order.ID.Equals(OrderID))
             {
-                int index = _orderList.BinarySearch(order);
+                int index = _orderList.IndexOf(order);
                 _orderList.RemoveAt(index);
-                _orderList.Insert(index, newOrder);
+                 _orderList.Insert(index, newOrder);
             }
+            return;
         }
+        
         ///if not found return a message
         throw new IdException();
     }///replace order by another inside array
