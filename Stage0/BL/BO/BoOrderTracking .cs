@@ -9,20 +9,20 @@ public class BoOrderTracking
     {
         OrderID = OI;
         Category = C;
-        list = L;
+        TupleList = L;
 
     }
 
     ///data
     int OrderID { get; set; }
     Category Category { get; set; }
-    List<Tuple<DateTime, Status>> list { get; set; }
+    List<Tuple<DateTime, Status>> TupleList { get; set; }
 
     /// funcs
     public override string ToString() => $@"
         OrderID: {OrderID}
         Category: {Category}
-        list: {list}
+        list: {TupleList}
     ";
 
 }

@@ -9,24 +9,24 @@ public class BoCart
         CustomerName = CN;
         CustomerEmail = CE;
         CustomeAdress = CA;
-        details = DE;
-        totalPrice = TP;
+        Details = DE;
+        TotalPrice = TP;
     }
 
     ///data
     public string CustomerName { get; set; }
     public string CustomerEmail { get; set; }
     public string CustomeAdress { get; set; }
-    public OrderItem details { get; set; }
-    public double totalPrice { get; set; }
+    public OrderItem Details { get; set; }
+    public double TotalPrice { get; set; }
 
     /// funcs
     public override string ToString() => $@"
         CustomerName: {CustomerName}
     	CustomerEmail: {CustomerEmail}
     	CustomeAdress: {CustomeAdress}
-        details {details}
-        totalPrice {totalPrice}
+        details {Details}
+        totalPrice {TotalPrice}
     ";
 
 }

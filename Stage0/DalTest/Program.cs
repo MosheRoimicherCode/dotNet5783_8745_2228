@@ -180,7 +180,7 @@ internal class Program
                             Console.WriteLine("enter amount:");
                             int amount = Convert.ToInt32(Console.ReadLine());
                             OrderItem oi1 = new OrderItem(ID0, ID1, ID11, price, amount);
-                             dal.OrderItem.Add(oi1);
+                            dal.OrderItem.Add(oi1);
                             break;
                         case "2":
                             Console.WriteLine("enter ID:");

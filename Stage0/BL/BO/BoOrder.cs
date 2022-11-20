@@ -14,8 +14,8 @@ public class BoOrder
         OrderDate = OD;
         ShipDate = SD;
         DeliveryDate = DD;
-        details = DE;
-        totalPrice = TP;
+        Details = DE;
+        TotalPrice = TP;
     }
 
     ///data
@@ -27,8 +27,8 @@ public class BoOrder
     public DateTime OrderDate { get; set; }
     public DateTime ShipDate { get; set; }
     public DateTime DeliveryDate { get; set; }
-    public OrderItem details { get; set; }
-    public double totalPrice { get; set; }
+    public OrderItem Details { get; set; }
+    public double TotalPrice { get; set; }
 
     /// funcs
     public override string ToString() => $@"
@@ -39,8 +39,8 @@ public class BoOrder
         OrderDate: {OrderDate}
         ShipDate: {ShipDate}
         DeliveryDate: {DeliveryDate}
-        details: {details}
-        totalPrice {totalPrice}
+        details: {Details}
+        totalPrice {TotalPrice}
     ";
 
 }

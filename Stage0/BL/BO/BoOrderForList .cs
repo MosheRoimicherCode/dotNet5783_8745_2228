@@ -10,7 +10,7 @@ public class BoOrderForList
         CustomerName = CN;
         OrderStatus = OA;
         Amount = A;
-        totalPrice = TP;
+        TotalPrice = TP;
     }
 
     ///data
@@ -18,7 +18,7 @@ public class BoOrderForList
     public string CustomerName { get; set; }
     public Status OrderStatus { get; set; }
     public int Amount { get; set; }  
-    public double totalPrice { get; set; }
+    public double TotalPrice { get; set; }
 
     /// funcs
     public override string ToString() => $@"
@@ -26,7 +26,7 @@ public class BoOrderForList
         CustomerName: {CustomerName}
     	OrderStatus: {OrderStatus}
         Amount: {Amount}
-        totalPrice {totalPrice}
+        totalPrice {TotalPrice}
     ";
 
 }
