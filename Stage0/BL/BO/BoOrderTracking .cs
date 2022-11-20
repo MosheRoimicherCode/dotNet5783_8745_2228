@@ -4,14 +4,6 @@ using System.Collections.Generic;
 using static BO.Enums;
 public class BoOrderTracking
 {
-    ///constructor
-    public BoOrderTracking(int OI, Category C, List<Tuple<DateTime, Status>> L)
-    {
-        OrderID = OI;
-        Category = C;
-        TupleList = L;
-
-    }
 
     ///data
     int OrderID { get; set; }

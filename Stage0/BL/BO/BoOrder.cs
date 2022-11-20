@@ -3,21 +3,6 @@ using DO;
 using static BO.Enums;
 public class BoOrder
 {
-    ///constructor
-    public BoOrder(int I, string CN, string CE, string CA, Status OA, DateTime OD, DateTime SD, DateTime DD,OrderItem DE, double TP)
-    {
-        ID = I;
-        CustomerName = CN;
-        CustomerEmail = CE;
-        CustomeAdress = CA;
-        OrderStatus = OA;
-        OrderDate = OD;
-        ShipDate = SD;
-        DeliveryDate = DD;
-        Details = DE;
-        TotalPrice = TP;
-    }
-
     ///data
     public int ID { get; set; }
     public string CustomerName { get; set; }

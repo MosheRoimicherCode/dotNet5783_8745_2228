@@ -2,15 +2,6 @@
 using static BO.Enums;
 public class Product
 {
-    ///constructor
-    public Product(int I, string N, double P, Category c, int In)
-    {
-        ID = I;
-        Name = N;
-        Price = P;
-        Category = c;
-        InStock = In;
-    }
 
     ///data
     public int ID { get; set; }

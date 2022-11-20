@@ -1,16 +1,6 @@
 ﻿namespace BO;
 public class BoOrderItem
 {
-    ///contructor
-    public BoOrderItem(int PI, int OI, string PN, double PP, int A, double TP)
-    {
-        ProductID = PI;
-        OrderID = OI;
-        ProductName = PN;
-        ProductPrice = PP; 
-        Amount = A;
-        TotalPrice = TP;
-    }
     ///data
     public int ProductID { get; set; }
     public int OrderID { get; set; }

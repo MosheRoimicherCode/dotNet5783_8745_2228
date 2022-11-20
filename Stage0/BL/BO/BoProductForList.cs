@@ -2,14 +2,6 @@
 using static BO.Enums;
 public struct BoProductForList
 {
-    ///constructor
-    public BoProductForList(int I, string N, double P, Category c)
-    {
-        ID = I;
-        Name = N;
-        Price = P;
-        Category = c;
-    }
 
     ///data
     public int ID { get; set; }
