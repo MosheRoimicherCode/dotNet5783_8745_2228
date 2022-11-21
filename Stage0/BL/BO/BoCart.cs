@@ -8,7 +8,7 @@ public class BoCart
     public string CustomerName { get; set; }
     public string CustomerEmail { get; set; }
     public string CustomeAdress { get; set; }
-    public OrderItem Details { get; set; }
+    public List<OrderItem> Details { get; set; }
     public double TotalPrice { get; set; }
 
     /// funcs

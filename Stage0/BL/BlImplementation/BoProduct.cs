@@ -20,7 +20,7 @@ namespace BlImplementation
             if (item.InStock > 0) throw new InStockException(" Product out of stock");
 
             return true;
-        } ///check previews criterios for a new item
+        } ///check previews criterion for a new item
 
         public BO.BoProduct ConvertProductToBoProduct( Product product)
         {
@@ -45,7 +45,6 @@ namespace BlImplementation
 
             return product;
         }
-
         
         public void Add(BO.BoProduct item)
         {
@@ -54,14 +53,14 @@ namespace BlImplementation
 
         public BO.BoProduct Get(int Id)
         {
-            if (Id < 0) throw new IdBOException("Negative Id!");
+            if (Id <= 0) throw new IdBOException("Not positive Id!");
             return ConvertProductToBoProduct(Dal.Product.Get(Id));
         }
 
-        public BO.BoProductItem Get(int Id, BO.BoCart cart)
+        public BO.BoProductItem Get(int Id, BO.BoCart cart) //////////////////////////////////////////////////
         {
 
-            if (Id < 0) throw new IdBOException("Negative Id!");
+            if (Id <= 0) throw new IdBOException("Not positive Id!");
             try
             {
                 BO.BoProductItem item = new BO.BoProductItem();
@@ -80,7 +79,6 @@ namespace BlImplementation
             }
             catch (IdException) { throw new IdBOException("Product with given Id didn't found"); }
         }
-
 
         public void Remove(int Id)
         {
@@ -107,9 +105,9 @@ namespace BlImplementation
             catch (IdException) { throw new UpdateProductException("Product exist in a Order. Impossible to update."); }
         } /// if received item have right properties and exist, update it. else throw a message.
 
-
         public BO.BoProductForList GetList()
         {
+            List<BoProduc>
             BO.BoProductForList boProduct = new BO.BoProductForList();
             return boProduct;
         }
