@@ -1,10 +1,7 @@
 ﻿using BlApi;
-using BO;
 using Dal;
 using DalApi;
-using DO;
-using System.Linq.Expressions;
-using System.Security.Cryptography;
+
 
 namespace BlImplementation
 {
@@ -14,15 +11,15 @@ namespace BlImplementation
 
         public bool CheckNewItem(BO.BoProduct item)
         {
-            if (item.ID <= 0) throw new IdBOException("Negative Id!");
-            if (item.Name != null) throw new ProductNameException("Name can't be null");
-            if (item.Price > 0) throw new PriceException("Negative price!");
-            if (item.InStock > 0) throw new InStockException(" Product out of stock");
+            if (item.ID <= 0) throw new BO.IdBOException("Negative Id!");
+            if (item.Name != null) throw new BO.ProductNameException("Name can't be null");
+            if (item.Price > 0) throw new BO.PriceException("Negative price!");
+            if (item.InStock > 0) throw new BO.InStockException(" Product out of stock");
 
             return true;
         } ///check previews criterion for a new item
 
-        public BO.BoProduct ConvertProductToBoProduct( Product product)
+        public BO.BoProduct ConvertProductToBoProduct( DO.Product product)
         {
             BO.BoProduct boProduct = new BO.BoProduct();
             boProduct.ID = product.ID;
@@ -34,9 +31,9 @@ namespace BlImplementation
             return boProduct;
         }
 
-        public Product ConvertBoProductToProduct(BO.BoProduct boProduct)
+        public DO.Product ConvertBoProductToProduct(BO.BoProduct boProduct)
         {
-            Product product = new Product();
+            DO.Product product = new DO.Product();
             product.ID = boProduct.ID;
             product.Name = boProduct.Name;
             product.Price = boProduct.Price;
@@ -53,20 +50,20 @@ namespace BlImplementation
 
         public BO.BoProduct Get(int Id)
         {
-            if (Id <= 0) throw new IdBOException("Not positive Id!");
+            if (Id <= 0) throw new BO.IdBOException("Not positive Id!");
             return ConvertProductToBoProduct(Dal.Product.Get(Id));
         }
 
         public BO.BoProductItem Get(int Id, BO.BoCart cart) 
         {
 
-            if (Id <= 0) throw new IdBOException("Not positive Id!");
+            if (Id <= 0) throw new BO.IdBOException("Not positive Id!");
             try
             {
                 BO.BoProductItem item = new BO.BoProductItem();
-                OrderItem orderItem = new OrderItem();
+                DO.OrderItem orderItem = new DO.OrderItem();
                 
-                foreach (OrderItem itemCart in cart.Details)
+                foreach (DO.OrderItem itemCart in cart.Details)
                 {
                     if (itemCart.ID == Id) orderItem = itemCart;
                 }
@@ -84,21 +81,21 @@ namespace BlImplementation
 
                 return item;
             }
-            catch (IdException) { throw new IdBOException("Product with given Id didn't found"); }
+            catch (IdException) { throw new BO.IdBOException("Product with given Id didn't found"); }
         }
 
         public void Remove(int Id)
         {
 
             ///check if received id exist
-            Product? product = new Product();
+            DO.Product? product = new DO.Product();
             product = Dal.Product.Get(Id);
-            if (product == null) throw new DeleteProductException("Cant delete product. Id not found.");
+            if (product == null) throw new BO.DeleteProductException("Cant delete product. Id not found.");
 
             ///check if product is not inside an existing order
-            Order? order = new Order();
+            DO.Order? order = new DO.Order();
             order = Dal.Order.Get(Id);
-            if (order != null) throw new DeleteProductException("Product exist in a Order. Impossible to delete.");
+            if (order != null) throw new BO.DeleteProductException("Product exist in a Order. Impossible to delete.");
 
             ///if id exist and its not inside order then, delete him
             Dal.Product.Delete(Id);
@@ -109,14 +106,14 @@ namespace BlImplementation
         {
             try { if (CheckNewItem(item) == true) Dal.Product.Update(item.ID, ConvertBoProductToProduct(item)); }
 
-            catch (IdException) { throw new UpdateProductException("Product exist in a Order. Impossible to update."); }
+            catch (IdException) { throw new BO.UpdateProductException("Product exist in a Order. Impossible to update."); }
         } /// if received item have right properties and exist, update it. else throw a message.
 
         public List<BO.BoProductForList> GetList()
         {
             List<BO.BoProductForList> listBoProduct = new List<BO.BoProductForList>();
-            BoProductForList boProductForList = new BoProductForList();
-            List<Product> products = new List<Product>();
+            BO.BoProductForList boProductForList = new BO.BoProductForList();
+            List<DO.Product> products = new List<DO.Product>();
             products = Dal.Product.CopyList();
 
             
