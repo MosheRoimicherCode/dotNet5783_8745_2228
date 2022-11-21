@@ -3,46 +3,46 @@
 namespace BO
 {
     [Serializable]
-    internal class IdError : Exception
+    internal class IdBOException : Exception
     {
-        public IdError() : base() { }
-        public IdError(string message) : base(message) { }
-        public IdError(string message, Exception innerException) : base(message, innerException) { }
-        protected IdError(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        public IdBOException() : base() { }
+        public IdBOException(string message) : base(message) { }
+        public IdBOException(string message, Exception innerException) : base(message, innerException) { }
+        protected IdBOException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
         public override string ToString() => base.ToString();
     }
 
 
     [Serializable]
-    internal class ProductNameError : Exception
+    internal class ProductNameException : Exception
     {
-        public ProductNameError() : base() { }
-        public ProductNameError(string message) : base(message) { }
-        public ProductNameError(string message, Exception innerException) : base(message, innerException) { }
-        protected ProductNameError(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        public ProductNameException() : base() { }
+        public ProductNameException(string message) : base(message) { }
+        public ProductNameException(string message, Exception innerException) : base(message, innerException) { }
+        protected ProductNameException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
         public override string ToString() => base.ToString();
     }
 
     [Serializable]
-    internal class PriceError : Exception
+    internal class PriceException : Exception
     {
-        public PriceError() : base() { }
-        public PriceError(string message) : base(message) { }
-        public PriceError(string message, Exception innerException) : base(message, innerException) { }
-        protected PriceError(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        public PriceException() : base() { }
+        public PriceException(string message) : base(message) { }
+        public PriceException(string message, Exception innerException) : base(message, innerException) { }
+        protected PriceException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
         public override string ToString() => base.ToString();
     }
 
     [Serializable]
-    internal class InStockError : Exception
+    internal class InStockException : Exception
     {
-        public InStockError() : base() { }
-        public InStockError(string message) : base(message) { }
-        public InStockError(string message, Exception innerException) : base(message, innerException) { }
-        protected InStockError(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        public InStockException() : base() { }
+        public InStockException(string message) : base(message) { }
+        public InStockException(string message, Exception innerException) : base(message, innerException) { }
+        protected InStockException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
         public override string ToString() => base.ToString();
     }
