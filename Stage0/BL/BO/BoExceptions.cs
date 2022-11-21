@@ -47,4 +47,26 @@ namespace BO
         public override string ToString() => base.ToString();
     }
 
+    [Serializable]
+    internal class DeleteProductException : Exception
+    {
+        public DeleteProductException() : base() { }
+        public DeleteProductException(string message) : base(message) { }
+        public DeleteProductException(string message, Exception innerException) : base(message, innerException) { }
+        protected DeleteProductException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+
+        public override string ToString() => base.ToString();
+    }
+
+    [Serializable]
+    internal class UpdateProductException : Exception
+    {
+        public UpdateProductException() : base() { }
+        public UpdateProductException(string message) : base(message) { }
+        public UpdateProductException(string message, Exception innerException) : base(message, innerException) { }
+        protected UpdateProductException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+
+        public override string ToString() => base.ToString();
+    }
+
 }
