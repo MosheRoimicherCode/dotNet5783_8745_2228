@@ -23,7 +23,7 @@ internal class DalOrderItem : IOrderItem
         foreach (OrderItem orderItem in _orderItemList)
         {
 
-            if (orderItem.ProductID.Equals(ID) && orderItem.OrderID.Equals(ID))
+            if (orderItem.ID.Equals(ID))
             {
                 return orderItem;
             }
@@ -81,6 +81,7 @@ internal class DalOrderItem : IOrderItem
         orderItemlist = _orderItemList;
         return orderItemlist;
     }///return copy of orderItem list
+
     public void GetAll()
     {
         foreach (OrderItem orderItem in _orderItemList)
@@ -91,6 +92,5 @@ internal class DalOrderItem : IOrderItem
             }
         }
     }///ToString call for all list
-
     ///----------------------------------------------------
 }

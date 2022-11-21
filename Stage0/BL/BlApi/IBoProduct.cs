@@ -14,7 +14,7 @@ namespace BlApi
         /// <returns> BoProductItem </returns>
         public BoProductItem Get(int Id, BoCart cart);
 
-        ///remove product from data base - for manager yser
+        ///remove product from data base - for manager user
         public void Remove(int Id);
 
         ///update data for product in data base

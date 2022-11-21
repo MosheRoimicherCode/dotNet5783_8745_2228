@@ -15,7 +15,7 @@ namespace BlImplementation
         /// check item content and if all criterion it OK, add product to list; 
         public void Add(BO.BoProduct item)
         {
-            if (item.ID < 0) throw new IdBOException("Negative Id!");
+            if (item.ID <= 0) throw new IdBOException("Negative Id!");
             if (item.Name != null) throw new ProductNameException("Name can't be null");
             if (item.Price > 0) throw new PriceException("Negative price!");
             if (item.InStock > 0) throw new InStockException(" Product out of stock");
@@ -34,7 +34,7 @@ namespace BlImplementation
 
         public BO.BoProduct Get(int Id)
         {
-            if (Id < 0) throw new IdBOException("Negative Id!");
+            if (Id <= 0) throw new IdBOException("Negative Id!");
             try { 
                 Product p = Dal.Product.Get(Id);
                 BO.BoProduct item = new BO.BoProduct();

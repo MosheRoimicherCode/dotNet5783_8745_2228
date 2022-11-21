@@ -12,7 +12,7 @@ public class BoOrder
     public DateTime OrderDate { get; set; }
     public DateTime ShipDate { get; set; }
     public DateTime DeliveryDate { get; set; }
-    public OrderItem Details { get; set; }
+    public List<OrderItem> Details { get; set; }
     public double TotalPrice { get; set; }
 
     /// funcs
