@@ -14,7 +14,7 @@ namespace BlImplementation
 
         public bool CheckNewItem(BO.BoProduct item)
         {
-            if (item.ID < 0) throw new IdBOException("Negative Id!");
+            if (item.ID <= 0) throw new IdBOException("Negative Id!");
             if (item.Name != null) throw new ProductNameException("Name can't be null");
             if (item.Price > 0) throw new PriceException("Negative price!");
             if (item.InStock > 0) throw new InStockException(" Product out of stock");
