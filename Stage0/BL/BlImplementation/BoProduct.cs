@@ -57,23 +57,30 @@ namespace BlImplementation
             return ConvertProductToBoProduct(Dal.Product.Get(Id));
         }
 
-        public BO.BoProductItem Get(int Id, BO.BoCart cart) //////////////////////////////////////////////////
+        public BO.BoProductItem Get(int Id, BO.BoCart cart) 
         {
 
             if (Id <= 0) throw new IdBOException("Not positive Id!");
             try
             {
                 BO.BoProductItem item = new BO.BoProductItem();
-                item.ID = cart.Details.ID;
-                item.AmontInCart = cart.Details.Amount;
+                OrderItem orderItem = new OrderItem();
+                
+                foreach (OrderItem itemCart in cart.Details)
+                {
+                    if (itemCart.ID == Id) orderItem = itemCart;
+                }
 
-                if ((Dal.Product.Get(cart.Details.ProductID)).InStock  > 0) item.IsInStock = true;
+                item.ID = orderItem.ID;
+                item.AmontInCart = orderItem.Amount;
+
+                if ((Dal.Product.Get(orderItem.ProductID)).InStock  > 0) item.IsInStock = true;
                 else { item.IsInStock = false; }
 
                 item.Name = cart.CustomerName;
-                item.Price = cart.Details.Price;
+                item.Price = orderItem.Price;
 
-                item.Category = (BO.Enums.Category)Dal.Product.Get(cart.Details.ProductID).Category;
+                item.Category = (BO.Enums.Category)Dal.Product.Get(orderItem.ProductID).Category;
 
                 return item;
             }
@@ -105,11 +112,24 @@ namespace BlImplementation
             catch (IdException) { throw new UpdateProductException("Product exist in a Order. Impossible to update."); }
         } /// if received item have right properties and exist, update it. else throw a message.
 
-        public BO.BoProductForList GetList()
+        public List<BO.BoProductForList> GetList()
         {
-            List<BoProduc>
-            BO.BoProductForList boProduct = new BO.BoProductForList();
-            return boProduct;
+            List<BO.BoProductForList> listBoProduct = new List<BO.BoProductForList>();
+            BoProductForList boProductForList = new BoProductForList();
+            List<Product> products = new List<Product>();
+            products = Dal.Product.CopyList();
+
+            
+            for (int i = 0; i < products.Count(); i++)
+            {
+                boProductForList.ID = products[i].ID;
+                boProductForList.Name = products[i].Name;
+                boProductForList.Price = products[i].Price;
+                boProductForList.Category = (BO.Enums.Category)products[i].Category;
+
+                listBoProduct.Add(boProductForList);
+            }
+            return listBoProduct;
         }
     }
 }
