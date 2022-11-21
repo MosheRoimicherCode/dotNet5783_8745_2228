@@ -1,7 +1,7 @@
 ﻿using BO;
 namespace BlApi
 {
-    public interface IBoProduct
+    public interface IBoProduct 
     {
         ///add product to data base - for manager user
         public void Add(BoProduct item);

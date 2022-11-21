@@ -1,7 +1,9 @@
 ﻿using BlApi;
+using BO;
 using Dal;
 using DalApi;
 using DO;
+using System.Security.Cryptography;
 
 namespace BlImplementation
 {
@@ -11,7 +13,22 @@ namespace BlImplementation
 
         public void Add(BO.BoProduct item)
         {
-            throw new NotImplementedException();
+            if (item.ID < 0) throw new IdError("Negative Id!");
+            if (item.Name != null) throw new ProductNameError("Name can't be null");
+            if (item.Price > 0) throw new PriceError("Negative price!");
+            if (item.InStock > 0) throw new InStockError(" Product out of stock");
+            else
+            {
+                Product product = new Product ();
+                product.ID = item.ID;
+                product.InStock = item.InStock;
+                product.Name = item.Name;
+                product.Price = item.Price;
+                product.Category = (DO.Enums.Category)item.Category;
+
+                Dal.Product.Add(product);
+            }
+            
         }
 
         public BO.BoProduct Get(int Id)
@@ -36,7 +53,7 @@ namespace BlImplementation
 
         public BO.BoProductForList GetLists()
         {
-            BO.BoProductForList product = new BO.BoProductForList;
+            BO.BoProductForList product = new BO.BoProductForList();
             return product;
         }
     }
