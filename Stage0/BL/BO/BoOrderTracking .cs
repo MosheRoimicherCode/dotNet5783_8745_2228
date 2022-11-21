@@ -6,14 +6,14 @@ public class BoOrderTracking
 {
 
     ///data
-    int OrderID { get; set; }
-    Category Category { get; set; }
-    List<Tuple<DateTime, Status>> TupleList { get; set; }
+    public int OrderID { get; set; }
+    public Status Status { get; set; }
+    public List<Tuple<DateTime, string>> TupleList { get; set; }
 
     /// funcs
     public override string ToString() => $@"
         OrderID: {OrderID}
-        Category: {Category}
+        Category: {Status}
         list: {TupleList}
     ";
 
