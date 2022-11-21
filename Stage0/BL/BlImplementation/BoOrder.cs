@@ -13,9 +13,26 @@ namespace BlImplementation
     {
         IDal Dal = new DalList();
 
+        public BO.Enums.Status CheckStatus(Order o)
+        {
+            if (o.ShipDate > DateTime.Now)
+            {
+                return BO.Enums.Status.approved;
+            }
+            else if (o.DeliveryDate > DateTime.Now)
+            {
+                return BO.Enums.Status.shiped;
+            }
+            else
+            {
+                return BO.Enums.Status.provided;
+            }
+
+        }
+
         public List<BoOrderForList> GetLists()
         {
-            List<Order> dalOlist = Dal.Order.CopyOrderList();
+            List<Order> dalOlist = Dal.Order.CopyList();
             List<BoOrderForList> boOlist = new List<BoOrderForList>();
             foreach (Order order in dalOlist)
             {
@@ -24,7 +41,7 @@ namespace BlImplementation
                 boOrderForList.CustomerName = order.CustomerName;
                 int count = 0;
                 Double price = 0;
-                List<OrderItem> l = Dal.OrderItem.CopyOrderItemArray();
+                List<OrderItem> l = Dal.OrderItem.CopyList();
                 foreach (OrderItem item in l)
                 {
                     if (item.OrderID == boOrderForList.ID)
@@ -35,6 +52,8 @@ namespace BlImplementation
                 }
                 boOrderForList.Amount = count;
                 boOrderForList.TotalPrice = price;
+                boOrderForList.OrderStatus = CheckStatus(order);
+
                 boOlist.Add(boOrderForList);
             }
             return boOlist;
@@ -54,7 +73,47 @@ namespace BlImplementation
                 boOrder.OrderDate = dalOrder.OrderDate;
                 boOrder.ShipDate = dalOrder.ShipDate;
                 boOrder.DeliveryDate = dalOrder.DeliveryDate;
-                List<OrderItem> dalOlist = Dal.OrderItem.CopyOrderItemArray();
+                List<OrderItem> dalOlist = Dal.OrderItem.CopyList();
+                List<OrderItem> boOlist = new List<OrderItem>();
+                foreach (OrderItem item in dalOlist)
+                {
+                    if (item.OrderID == Id)
+                    {
+                        boOlist.Add(item);
+                    }
+                }
+                boOrder.Details = boOlist;
+                double price = 0;
+                foreach (OrderItem item in boOlist)
+                {
+                    price += item.Price;
+                }
+                boOrder.TotalPrice = price;
+                boOrder.OrderStatus = CheckStatus(dalOrder);
+
+                return boOrder;
+            }
+            catch (IdException) { throw new IdBOException("order with given Id didn't found"); }
+        }
+
+        public BO.BoOrder UpdateShipping(int Id)
+        {
+            if (Id <= 0) throw new IdBOException("Negative Id!");
+            try
+            {
+                
+                
+                
+                Order dalOrder = Dal.Order.Get(Id);
+                BO.BoOrder boOrder = new BO.BoOrder();
+                boOrder.ID = dalOrder.ID;
+                boOrder.CustomerName = dalOrder.CustomerName;
+                boOrder.CustomerEmail = dalOrder.CustomerEmail;
+                boOrder.CustomeAdress = dalOrder.CustomeAdress;
+                boOrder.OrderDate = dalOrder.OrderDate;
+                boOrder.ShipDate = dalOrder.ShipDate;
+                boOrder.DeliveryDate = dalOrder.DeliveryDate;
+                List<OrderItem> dalOlist = Dal.OrderItem.CopyList();
                 List<OrderItem> boOlist = new List<OrderItem>();
                 foreach (OrderItem item in dalOlist)
                 {
@@ -73,7 +132,9 @@ namespace BlImplementation
                 return boOrder;
             }
             catch (IdException) { throw new IdBOException("order with given Id didn't found"); }
+
         }
+
 
 
         public BO.BoProductItem Get(int Id, BO.BoCart cart)

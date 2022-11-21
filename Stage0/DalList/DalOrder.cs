@@ -72,7 +72,7 @@ internal class DalOrder : IOrder
     ///----------------------------------------------------
     ///----------------- Methods --------------------------
 
-    public List<Order> CopyOrderList()
+    public List<Order> CopyList()
     {
         List<Order> orderlist = new List<Order>();
         orderlist = _orderList;

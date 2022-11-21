@@ -81,7 +81,7 @@ internal class DalProduct : IProduct
         }
     }///ToString call for all list
 
-    public List<Product> CopyProductList()
+    public List<Product> CopyList()
     {
         List<Product> productlist = new List<Product>();
         productlist = _productList;

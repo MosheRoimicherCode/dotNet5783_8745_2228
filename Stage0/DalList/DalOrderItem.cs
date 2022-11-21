@@ -75,7 +75,7 @@ internal class DalOrderItem : IOrderItem
     ///----------------- Methods --------------------------
 
 
-    public List<OrderItem> CopyOrderItemArray()
+    public List<OrderItem> CopyList()
     {
         List<OrderItem> orderItemlist = new List<OrderItem>();
         orderItemlist = _orderItemList;
