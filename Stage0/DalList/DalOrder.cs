@@ -14,7 +14,7 @@ internal class DalOrder : IOrder
     ///----------------- CRUD functions -------------------
 
 
-    public void Add(Order order) => DataSource.AddOrder(order);/// Add order to Data Base
+    public int Add(Order order) => DataSource.AddOrder(order);/// Add order to Data Base
 
     public Order Get(int OrderID)
     {

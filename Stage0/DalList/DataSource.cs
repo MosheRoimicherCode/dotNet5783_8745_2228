@@ -21,18 +21,22 @@ internal static class DataSource
 
 
     /// add objects to arrays functions
-    static internal void AddProduct(Product p)
+    static internal int AddProduct(Product p)
     {
         _productList.Add(p);
-
+        return p.ID;
     }
-    static internal void AddOrder(Order o) 
+    static internal int AddOrder(Order o) 
     {
         _orderList.Add(o);
+        o.ID = Config._idNumberOrder; 
+        return Config._idNumberOrder;
     }
-    static internal void AddOrderItem(OrderItem p)
+    static internal int AddOrderItem(OrderItem p)
     {
         _orderItemList.Add(p);
+        p.ID = Config._idNumberItemOrder;
+        return Config._idNumberItemOrder;
     }
  
     static private void s_Initialize()

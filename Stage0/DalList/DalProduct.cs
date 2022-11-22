@@ -14,7 +14,7 @@ internal class DalProduct : IProduct
     ///----------------------------------------------------
     ///----------------- CRUD functions -------------------
 
-    public void Add(Product product) => DataSource.AddProduct(product);/// Add Product to Data Base
+    public int Add(Product product) => DataSource.AddProduct(product);/// Add Product to Data Base
 
     public Product Get(int ProductID)
         {

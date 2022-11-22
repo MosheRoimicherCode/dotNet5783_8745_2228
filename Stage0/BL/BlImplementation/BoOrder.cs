@@ -1,8 +1,6 @@
 ﻿using BlApi;
-using BO;
 using Dal;
 using DalApi;
-using DO;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Security.Cryptography;
@@ -13,7 +11,8 @@ namespace BlImplementation
     {
         IDal Dal = new DalList();
 
-        public BO.Enums.Status CheckStatus(Order o)
+        ///checking the status of the order, returns Enum-status type
+        public BO.Enums.Status CheckStatus(DO.Order o)
         {
             if (o.ShipDate > DateTime.Now)
             {
@@ -29,9 +28,11 @@ namespace BlImplementation
             }
 
         }
+
+        ///Convert from Order To BoOrder
         public BO.BoOrder ConvertOrderToBoOrder(int Id)
         {
-            Order dalOrder = Dal.Order.Get(Id);
+            DO.Order dalOrder = Dal.Order.Get(Id);
             BO.BoOrder boOrder = new BO.BoOrder();
             boOrder.ID = dalOrder.ID;
             boOrder.CustomerName = dalOrder.CustomerName;
@@ -40,9 +41,9 @@ namespace BlImplementation
             boOrder.OrderDate = dalOrder.OrderDate;
             boOrder.ShipDate = dalOrder.ShipDate;
             boOrder.DeliveryDate = dalOrder.DeliveryDate;
-            List<OrderItem> dalOlist = Dal.OrderItem.CopyList();
-            List<OrderItem> boOlist = new List<OrderItem>();
-            foreach (OrderItem item in dalOlist)
+            List <DO.OrderItem> dalOlist = Dal.OrderItem.CopyList();
+            List<DO.OrderItem> boOlist = new List<DO.OrderItem>();
+            foreach (DO.OrderItem item in dalOlist)
             {
                 if (item.OrderID == Id)
                 {
@@ -51,7 +52,7 @@ namespace BlImplementation
             }
             boOrder.Details = boOlist;
             double price = 0;
-            foreach (OrderItem item in boOlist)
+            foreach (DO.OrderItem item in boOlist)
             {
                 price += item.Price;
             }
@@ -61,19 +62,22 @@ namespace BlImplementation
             return boOrder;
         }
 
-        public List<BoOrderForList> GetLists()
+
+        /// return a list with all orders
+        /// <returns> order list </returns>
+        public List<BO.BoOrderForList> GetLists()
         {
-            List<Order> dalOlist = Dal.Order.CopyList();
-            List<BoOrderForList> boOlist = new List<BoOrderForList>();
-            foreach (Order order in dalOlist)
+            List<DO.Order> dalOlist = Dal.Order.CopyList();
+            List<BO.BoOrderForList> boOlist = new List<BO.BoOrderForList>();
+            foreach (DO.Order order in dalOlist)
             {
-                BoOrderForList boOrderForList = new BoOrderForList();
+                BO.BoOrderForList boOrderForList = new BO.BoOrderForList();
                 boOrderForList.ID = order.ID;
                 boOrderForList.CustomerName = order.CustomerName;
                 int count = 0;
                 Double price = 0;
-                List<OrderItem> l = Dal.OrderItem.CopyList();
-                foreach (OrderItem item in l)
+                List<DO.OrderItem> l = Dal.OrderItem.CopyList();
+                foreach (DO.OrderItem item in l)
                 {
                     if (item.OrderID == boOrderForList.ID)
                     {
@@ -90,85 +94,93 @@ namespace BlImplementation
             return boOlist;
         }
 
+        ///search for a order with specific Id 
+        /// <returns> IBoOrder item </returns>
         public BO.BoOrder Get(int Id)
         {
-            if (Id <= 0) throw new IdBOException("Negative Id!");
+            if (Id <= 0) throw new BO.IdBOException("Negative Id!");
             try
             {
                 return ConvertOrderToBoOrder(Id);
             }
-            catch (IdException) { throw new IdBOException("order with given Id didn't found"); }
+            catch (IdException) { throw new BO.IdBOException("order with given Id didn't found"); }
         }
 
+        ///search for a order that has not shipped yet with specific Id 
+        ///update shipping date, and returns updated order
         public BO.BoOrder UpdateShipping(int Id)
         {
-            if (Id <= 0) throw new IdBOException("Negative Id!");
+            if (Id <= 0) throw new BO.IdBOException("Negative Id!");
 
-            List<Order> dalOrder = Dal.Order.CopyList();
-            foreach (Order item in dalOrder)
+            List<DO.Order> dalOrder = Dal.Order.CopyList();
+            foreach (DO.Order item in dalOrder)
             {
                 if (item.ID == Id)
                 {
                     if (item.ShipDate < DateTime.Now)
                     {
-                        throw new IdBOException("order has already shipped");
+                        throw new BO.IdBOException("order has already shipped");
                     }
                     else if (item.ShipDate > DateTime.Now)
                     {
-                        Order o = new Order(item.ID, item.CustomerName, item.CustomerEmail, item.CustomeAdress, item.OrderDate, DateTime.Now, item.DeliveryDate);
+                        DO.Order o = new DO.Order(item.ID, item.CustomerName, item.CustomerEmail, item.CustomeAdress, item.OrderDate, DateTime.Now, item.DeliveryDate);
                         try
                         {
                             Dal.Order.Update(o.ID, o);
                             return ConvertOrderToBoOrder(Id);
 
                         }
-                        catch (IdException) { throw new IdBOException("Order exist. Impossible to update."); }
+                        catch (IdException) { throw new BO.IdBOException("Order exist. Impossible to update."); }
                     }
                 }
             }
-            throw new IdBOException("order with given Id didn't found");
+            throw new BO.IdBOException("order with given Id didn't found");
         }
 
+        ///search for a order that has shipped but has not provided yet with specific Id 
+        ///update providing date, and returns updated order
         public BO.BoOrder UpdateProviding(int Id)
         {
-            if (Id <= 0) throw new IdBOException("Negative Id!");
+            if (Id <= 0) throw new BO.IdBOException("Negative Id!");
 
-            List<Order> dalOrder = Dal.Order.CopyList();
-            foreach (Order item in dalOrder)
+            List<DO.Order> dalOrder = Dal.Order.CopyList();
+            foreach (DO.Order item in dalOrder)
             {
                 if (item.ID == Id)
                 {
                     if (item.DeliveryDate < DateTime.Now)
                     {
-                        throw new IdBOException("order has already provided");
+                        throw new BO.IdBOException("order has already provided");
                     }
                     else if (item.ShipDate > DateTime.Now)
                     {
-                        throw new IdBOException("order has not shipped yet");
+                        throw new BO.IdBOException("order has not shipped yet");
                     }
                     else if (item.DeliveryDate > DateTime.Now && item.ShipDate < DateTime.Now)
                     {
-                        Order o = new Order(item.ID, item.CustomerName, item.CustomerEmail, item.CustomeAdress, item.OrderDate, item.ShipDate, DateTime.Now);
+                        DO.Order o = new DO.Order(item.ID, item.CustomerName, item.CustomerEmail, item.CustomeAdress, item.OrderDate, item.ShipDate, DateTime.Now);
                         try
                         {
                             Dal.Order.Update(o.ID, o);
                             return ConvertOrderToBoOrder(Id);
                         }
-                        catch (IdException) { throw new IdBOException("Order exist. Impossible to update."); }
+                        catch (IdException) { throw new BO.IdBOException("Order exist. Impossible to update."); }
                     }
                 }
             }
-            throw new IdBOException("order with given Id didn't found");
+            throw new BO.IdBOException("order with given Id didn't found");
         }
 
+        ///search for a order with specific Id 
+        ///returns OrderTracking of this order
         public BO.BoOrderTracking OrderTracking(int Id)
         {
-            if (Id <= 0) throw new IdBOException("Negative Id!");
+            if (Id <= 0) throw new BO.IdBOException("Negative Id!");
             try
             {
-                List<Order> dalOrder = Dal.Order.CopyList();
-                Order dal = Dal.Order.Get(Id);
-                BoOrderTracking bo = new BoOrderTracking();
+                List<DO.Order> dalOrder = Dal.Order.CopyList();
+                DO.Order dal = Dal.Order.Get(Id);
+                BO.BoOrderTracking bo = new BO.BoOrderTracking();
                 bo.OrderID = dal.ID;
                 bo.Status = CheckStatus(dal);
                 Tuple<DateTime, String> t1 = new Tuple<DateTime, String>(dal.OrderDate, "Order approved");
@@ -185,7 +197,7 @@ namespace BlImplementation
                 }
                 return bo;
             }
-            catch (IdException) { throw new IdBOException("Order exist. Impossible to update."); }
+            catch (IdException) { throw new BO.IdBOException("Order exist. Impossible to update."); }
         }
     }
 }

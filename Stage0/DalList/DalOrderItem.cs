@@ -13,10 +13,8 @@ internal class DalOrderItem : IOrderItem
     ///----------------------------------------------------
     ///----------------- CRUD functions -------------------
 
-    public void Add(OrderItem orderItem)
-    {
-        DataSource.AddOrderItem(orderItem);
-    }/// Add order item item to Data Base
+    public int Add(OrderItem orderItem) => DataSource.AddOrderItem(orderItem);
+
 
     public OrderItem Get(int ID)
     {

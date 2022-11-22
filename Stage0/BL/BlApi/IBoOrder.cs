@@ -24,6 +24,6 @@ namespace BlApi
         public BoOrderTracking OrderTracking(int Id);
 
         ///update order by the manager
-        public void UpdateOrder(BoOrder item);
+        //public void UpdateOrder(BoOrder item);
     }
 } /// interface of order items for manager and client
