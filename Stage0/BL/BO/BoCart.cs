@@ -13,11 +13,11 @@ public class BoCart
 
     /// funcs
     public override string ToString() => $@"
-        CustomerName: {CustomerName}
+        CustomerName:  {CustomerName}
     	CustomerEmail: {CustomerEmail}
     	CustomeAdress: {CustomeAdress}
-        details {Details}
-        totalPrice {TotalPrice}
+        details        {Details}
+        totalPrice     {TotalPrice}
     ";
 
 }

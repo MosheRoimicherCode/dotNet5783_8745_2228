@@ -1,15 +1,123 @@
 ﻿using BlApi;
+using BlImplementation;
+using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Xml.Linq;
+using BO;
+using System;
+using System.Security.Cryptography.X509Certificates;
+using DO;
+using DalApi;
 
 internal class Program
 {
+    public static object Success { get; private set; }
+
+    public struct CheckInput
+    {
+        public string strInput;
+        public int intInput;
+        public double doubleInput;
+        public bool boolInput;
+        public BO.Enums.Category c;
+    }
+    static public CheckInput checkInput(string check)
+    {
+        Reenter:
+        CheckInput result = new CheckInput();
+        result.strInput = Console.ReadLine();
+
+        if (check == "int") {
+            result.boolInput = Int32.TryParse(Console.ReadLine(), out result.intInput);
+            if (result.boolInput == false)
+            {
+                Console.WriteLine("Can't convert input to int. Enter an integer format...");
+                goto Reenter;
+            }
+        }
+
+        if (check == "double")
+        {
+            result.boolInput = Double.TryParse(Console.ReadLine(), out result.doubleInput);
+            if (result.boolInput == false)
+            {
+                Console.WriteLine("Can't convert input to double. Enter an double format...");
+                goto Reenter;
+            }
+        }
+
+        if (check == "category")
+        {
+            result.boolInput = Int32.TryParse(Console.ReadLine(), out result.intInput);
+            if (result.boolInput == true)
+            {
+
+                switch (result.intInput)
+                {
+                    case 1:
+                        result.c = BO.Enums.Category.footwear;
+                        break;
+                    case 2:
+                        result.c = BO.Enums.Category.outerwear;
+                        break;
+                    case 3:
+                        result.c = BO.Enums.Category.business;
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Can't convert input to Category type. Enter an int (1-3) format...");
+                goto Reenter;
+            }
+        }
+        return result;
+    }
+    static public BoProduct createBoProduct()
+    {
+        BoProduct boProduct = new BoProduct();
+        CheckInput verification1 = new CheckInput(); //for inputs checks
+
+        //ID input
+        Console.WriteLine("Please enter the ID of product.");
+        verification1 = checkInput("int");
+        if (verification1.boolInput == true) boProduct.ID = verification1.intInput;
+
+        //Name input
+        Console.WriteLine("Please enter the name of product.");
+        boProduct.Name = Console.ReadLine();
+
+        //Price input
+        Console.WriteLine("Please enter the price of product.");
+        verification1 = checkInput("double");
+        if (verification1.boolInput == true) boProduct.Price = verification1.doubleInput;
+
+        //Category input
+        Console.WriteLine("Please enter a category for this product (1 - footwewar /2 - outwear /3 - business).");
+        verification1 = checkInput("int");
+        if (verification1.boolInput == true) boProduct.Category = verification1.c;
+
+        //Instock input
+        Console.WriteLine("Please inform how many items of this product have in stock");
+        verification1 = checkInput("int");
+        if (verification1.boolInput == true) boProduct.InStock = verification1.intInput;
+
+        return boProduct;
+
+    }
+
+
+
     static public void Main()
     {
-        IBl bl;
-    MainMenu:
+        Bl? p = null;
+
+        CheckInput verification = new CheckInput(); //for inputs checks
+
+MainMenu:
+        
         Console.WriteLine("enter name of Item:\n  " +
             "p for product\n  " +
             "o for order\n  " +
@@ -49,23 +157,43 @@ internal class Program
         switch (ProductOperationsChoice)
         {
             case "a":
-                ProductAdd();
+                p.BoProduct.Add(createBoProduct());
                 break;
+        
             case "g1":
-                ProductGet1();
+
+                //Check ID input
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
+                if (verification.boolInput == true) p.BoProduct.Get(verification.intInput);
                 break;
+
             case "g2":
-                ProductGet2();
+
+                //Check ID input
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
+
+                BoCart cart = new BoCart();  ///empty cart
+                p.BoProduct.Get(verification.intInput, cart);
                 break;
+
             case "r":
-                ProductRemove();
+
+                //Check ID input
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
+                p.BoProduct.Remove(verification.intInput);
                 break;
+
             case "u":
-                ProductUpdate();
+                p.BoProduct.Update(createBoProduct());
                 break;
+
             case "l":
-                ProductGetList();
+                p.BoProduct.GetList();
                 break;
+
             case "e":
                 goto end;
             default:
