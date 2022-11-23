@@ -5,7 +5,7 @@ using DalApi;
 
 namespace BlImplementation
 {
-    internal class IBoCart
+    internal class BoCart : IBoCart
     {
         IDal Dal = new DalList();
 
@@ -60,7 +60,7 @@ namespace BlImplementation
         ///updated the amount in the cart
         public BO.BoCart UpdateAmount(BO.BoCart boCart, int Id, int NewAmount)
         {
-            BO.BoCart newBoCart = new BoCart();
+            BO.BoCart newBoCart = new BO.BoCart();
             foreach (var item in boCart.Details)
             {
                 if (item.ProductID == Id)

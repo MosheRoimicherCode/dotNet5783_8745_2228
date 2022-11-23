@@ -20,7 +20,7 @@ namespace BlApi
         ///update data for product in data base
         public void Update(BoProduct item);
 
-        /// return a lost with all product in client order
+        /// return a list with all product in client order
         /// <returns> Product list </returns>
         public List<BO.BoProductForList> GetList();
     }
