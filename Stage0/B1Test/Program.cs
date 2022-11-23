@@ -28,7 +28,7 @@ internal class Program
     }  //element for support input checks 
     static public CheckInput checkInput(string check)
     {
-        Reenter:
+    Reenter:
         CheckInput result = new CheckInput();
         result.strInput = Console.ReadLine();
 
@@ -77,7 +77,7 @@ internal class Program
                 goto Reenter;
             }
         }
-        
+
         if (check == "email")
         {
             result.strInput = Console.ReadLine();
@@ -131,8 +131,8 @@ internal class Program
         Bl? p = null;
         CheckInput verification = new CheckInput(); //for inputs checks
 
-MainMenu:
-        
+    MainMenu:
+
         Console.WriteLine("enter name of Item:\n  " +
             "p for product\n  " +
             "o for order\n  " +
@@ -158,7 +158,7 @@ MainMenu:
         }
 
     ProductOperations:
-    void ProductOperations()
+        void ProductOperations()
         {
             Console.WriteLine
                (
@@ -173,54 +173,54 @@ MainMenu:
         }
         string? ProductOperationsChoice = Console.ReadLine();
         switch (ProductOperationsChoice)
-            {
-                case "a":
-                    p.BoProduct.Add(createBoProduct());
-                    break;
+        {
+            case "a":
+                p.BoProduct.Add(createBoProduct());
+                break;
 
-                case "g1":
+            case "g1":
 
-                    //Check ID input
-                    Console.WriteLine("Please enter the ID of product.");
-                    verification = checkInput("int");
-                    if (verification.boolInput == true) p.BoProduct.Get(verification.intInput);
-                    break;
+                //Check ID input
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
+                if (verification.boolInput == true) p.BoProduct.Get(verification.intInput);
+                break;
 
-                case "g2":
+            case "g2":
 
-                    //Check ID input
-                    Console.WriteLine("Please enter the ID of product.");
-                    verification = checkInput("int");
+                //Check ID input
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
 
-                    BoCart cart = new BoCart();  ///empty cart
-                    p.BoProduct.Get(verification.intInput, cart);
-                    break;
+                BoCart cart = new BoCart();  ///empty cart
+                p.BoProduct.Get(verification.intInput, cart);
+                break;
 
-                case "r":
+            case "r":
 
-                    //Check ID input
-                    Console.WriteLine("Please enter the ID of product.");
-                    verification = checkInput("int");
-                    p.BoProduct.Remove(verification.intInput);
-                    break;
+                //Check ID input
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
+                p.BoProduct.Remove(verification.intInput);
+                break;
 
-                case "u":
-                    p.BoProduct.Update(createBoProduct());
-                    break;
+            case "u":
+                p.BoProduct.Update(createBoProduct());
+                break;
 
-                case "l":
-                    p.BoProduct.GetList();
-                    break;
+            case "l":
+                p.BoProduct.GetList();
+                break;
 
-                case "e":
-                    goto end;
-                default:
-                    Console.WriteLine("ERROR choice!");
-                    goto ProductOperations;
-            }
-        
+            case "e":
+                goto end;
+            default:
+                Console.WriteLine("ERROR choice!");
+                goto ProductOperations;
+        }
+
     OrderOperations:
-    void OrderOperations()
+        void OrderOperations()
         {
             Console.WriteLine
                 (
@@ -234,42 +234,42 @@ MainMenu:
         }
         string? OrderOperationsChoice = Console.ReadLine();
         switch (OrderOperationsChoice)
-            {
-                case "g":
-                    Console.WriteLine("Please enter the ID of product.");
-                    verification = checkInput("int");
-                    p.BoOrder.Get(verification.intInput);
-                    break;
+        {
+            case "g":
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
+                p.BoOrder.Get(verification.intInput);
+                break;
 
-                case "l":
-                    p.BoOrder.GetLists();
-                    break;
+            case "l":
+                p.BoOrder.GetLists();
+                break;
 
-                case "u1":
-                    Console.WriteLine("Please enter the ID of product.");
-                    verification = checkInput("int");
-                    p.BoOrder.UpdateShipping(verification.intInput);
-                    break;
+            case "u1":
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
+                p.BoOrder.UpdateShipping(verification.intInput);
+                break;
 
-                case "u2":
-                    Console.WriteLine("Please enter the ID of product.");
-                    verification = checkInput("int");
-                    p.BoOrder.UpdateProviding(verification.intInput);
-                    break;
+            case "u2":
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
+                p.BoOrder.UpdateProviding(verification.intInput);
+                break;
 
-                case "t":
-                    Console.WriteLine("Please enter the ID of product.");
-                    verification = checkInput("int");
-                    p.BoOrder.OrderTracking(verification.intInput);
-                    break;
+            case "t":
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
+                p.BoOrder.OrderTracking(verification.intInput);
+                break;
 
-                case "e":
-                    goto end;
-                default:
-                    Console.WriteLine("ERROR choice!");
-                    goto OrderOperations;
-            }
-        
+            case "e":
+                goto end;
+            default:
+                Console.WriteLine("ERROR choice!");
+                goto OrderOperations;
+        }
+
     CartOperations:
         void CartOperations()
         {
@@ -283,45 +283,45 @@ MainMenu:
         }
         string? CartOperationsChoice = Console.ReadLine();
         switch (CartOperationsChoice)
-            {
-                case "a":
-                    Console.WriteLine("Please enter the ID of product.");
-                    verification = checkInput("int");
-                    BoCart cart = new BoCart();
-                    p.BoCart.Add(cart, verification.intInput);
-                    break;
+        {
+            case "a":
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
+                BoCart cart = new BoCart();
+                p.BoCart.Add(cart, verification.intInput);
+                break;
 
-                case "u":
-                    Console.WriteLine("Please enter the ID of product.");
-                    verification = checkInput("int");
-                    BoCart cart2 = new BoCart();
-                    int temp = verification.intInput;
-                    Console.WriteLine("Please enter a new amount.");
-                    verification = checkInput("int");
-                    p.BoCart.UpdateAmount(cart2, temp, verification.intInput);
-                    break;
+            case "u":
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
+                BoCart cart2 = new BoCart();
+                int temp = verification.intInput;
+                Console.WriteLine("Please enter a new amount.");
+                verification = checkInput("int");
+                p.BoCart.UpdateAmount(cart2, temp, verification.intInput);
+                break;
 
-                case "c":
-                    BoCart cart3 = new BoCart();
+            case "c":
+                BoCart cart3 = new BoCart();
 
-                    Console.WriteLine("Please enter the name of client.");
-                    string? nameClient = Console.ReadLine();
-                    Console.WriteLine("Please enter the address of client.");
-                    string? nameAdress = Console.ReadLine();
-                    verification = checkInput("email");
+                Console.WriteLine("Please enter the name of client.");
+                string? nameClient = Console.ReadLine();
+                Console.WriteLine("Please enter the address of client.");
+                string? nameAdress = Console.ReadLine();
+                verification = checkInput("email");
 
-                    p.BoCart.ConfirmCart(cart3, nameClient, verification.strInput, nameAdress);
-                    break;
+                p.BoCart.ConfirmCart(cart3, nameClient, verification.strInput, nameAdress);
+                break;
 
-                case "e":
-                    goto end;
+            case "e":
+                goto end;
 
-                default:
-                    Console.WriteLine("ERROR choice!");
-                    goto CartOperations;
-            }
+            default: 
+                Console.WriteLine("ERROR choice!");
+                goto CartOperations;
+        }
 
     end:
-    Console.WriteLine("end");
+        Console.WriteLine("end");
     }
 }
