@@ -9,6 +9,8 @@ using BO;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using DalApi;
+using System.ComponentModel.DataAnnotations;
+
 
 internal class Program
 {
@@ -21,6 +23,7 @@ internal class Program
         public double doubleInput;
         public bool boolInput;
         public BO.Enums.Category c;
+        public string email;
     }
     static public CheckInput checkInput(string check)
     {
@@ -72,6 +75,18 @@ internal class Program
                 goto Reenter;
             }
         }
+        
+        if (check == "email")
+        {
+            result.email = Console.ReadLine();
+            result.boolInput = new EmailAddressAttribute().IsValid(result.email);
+            if (result.boolInput == false)
+            {
+                Console.WriteLine("invalid Email! Please chouse a valid Email");
+                goto Reenter;
+            }
+        }
+
         return result;
     }
     static public BoProduct createBoProduct()
@@ -253,27 +268,50 @@ MainMenu:
         }
 
     CartOperations:
-        void CartOperations()
-        {
-            Console.WriteLine("enter name of operation:\n  " +
-              "a for adding a product to cart  \n  " +
-              "u for update amount in cart  \n  " +
-              "c for Confirm cart");
-        }
+
+       Console.WriteLine
+            (
+                "enter name of operation:\n  " +
+                "a for adding a product to cart  \n  " +
+                "u for update amount in cart  \n  " +
+                "c for Confirm cart \n "
+             );
+        
         string? CartOperationsChoice = Console.ReadLine();
         switch (ProductOperationsChoice)
         {
             case "a":
-                CartAdding();
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
+                BoCart cart = new BoCart();
+                p.BoCart.Add(cart, verification.intInput);
                 break;
+
             case "u":
-                CartUpdate();
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
+                BoCart cart2 = new BoCart();
+                int temp = verification.intInput;
+                Console.WriteLine("Please enter a new amount.");
+                verification = checkInput("int");
+                p.BoCart.UpdateAmount(cart2, temp, verification.intInput);
                 break;
+
             case "c":
-                CartConfirm();
+                BoCart cart3 = new BoCart();
+
+                Console.WriteLine("Please enter the name of client.");
+                string? nameClient = Console.ReadLine();
+                Console.WriteLine("Please enter the address of client.");
+                string? nameAdress = Console.ReadLine();
+                verification = checkInput("email");
+
+                p.BoCart.ConfirmCart(cart3, nameClient, verification.email, nameAdress);
                 break;
+
             case "e":
                 goto end;
+
             default:
                 Console.WriteLine("ERROR choice!");
                 goto CartOperations;
