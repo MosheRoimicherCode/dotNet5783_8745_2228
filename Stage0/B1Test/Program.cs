@@ -30,7 +30,7 @@ internal class Program
     {
     Reenter:
         CheckInput result = new CheckInput();
-        result.strInput = Console.ReadLine();
+        //result.strInput = Console.ReadLine();
 
         if (check == "int")
         {
@@ -209,7 +209,11 @@ internal class Program
                 break;
 
             case "l":
-                p.BoProduct.GetList();
+                List<BO.BoProductForList> listBoProduct = p.BoProduct.GetList();
+                foreach(BO.BoProductForList item in listBoProduct)
+                {
+                    Console.WriteLine(item.ToString());
+                }
                 break;
 
             case "e":
