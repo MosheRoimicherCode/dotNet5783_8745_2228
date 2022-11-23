@@ -129,7 +129,6 @@ internal class Program
     static public void Main()
     {
         Bl? p = null;
-
         CheckInput verification = new CheckInput(); //for inputs checks
 
 MainMenu:
