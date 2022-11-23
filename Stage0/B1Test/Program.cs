@@ -8,7 +8,6 @@ using System.Xml.Linq;
 using BO;
 using System;
 using System.Security.Cryptography.X509Certificates;
-using DO;
 using DalApi;
 
 internal class Program
@@ -143,16 +142,18 @@ MainMenu:
         }
 
     ProductOperations:
-        void ProductOperations()
-        {
-            Console.WriteLine("enter name of operation:\n  " +
-                "a for adding a product  \n  " +
-                "g1 for getting a product  \n  " +
-                "g2 for getting a product-Item  \n  " +
-                "r for remove a product  \n  " +
-                "u for update data for product \n  " +
-                "l for getting a list with all the products");
-        }
+
+         Console.WriteLine
+            (
+                "chose operation:\n  " +
+                "a  - for adding a product  \n  " +
+                "g1 - for getting a product  \n  " +
+                "g2 - for getting a product-Item  \n  " +
+                "r  - for remove a product  \n  " +
+                "u  - for update data for product \n  " +
+                "l  - for getting a list with all the products \n"
+            );
+        
         string? ProductOperationsChoice = Console.ReadLine();
         switch (ProductOperationsChoice)
         {
@@ -202,33 +203,48 @@ MainMenu:
         }
 
     OrderOperations:
-        void OrderOperations()
-        {
-            Console.WriteLine("enter name of operation:\n  " +
-               "g for getting an order  \n  " +
-               "l for getting a lists of orders  \n  " +
-               "u1 for Update Shipping \n  " +
-               "u2 for update Providing \n  " +
-               "t for Order Tracking");
-        }
+
+        Console.WriteLine
+            (
+                "enter name of operation:\n  " +
+                "g for getting an order  \n  " +
+                "l for getting a lists of orders  \n  " +
+                "u1 for Update Shipping \n  " +
+                "u2 for update Providing \n  " +
+                "t for Order Tracking \n"
+            );
+        
         string? OrderOperationsChoice = Console.ReadLine();
         switch (ProductOperationsChoice)
         {
             case "g":
-                OrderGet();
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
+                p.BoOrder.Get(verification.intInput);
                 break;
+
             case "l":
-                OrderGetList();
+                p.BoOrder.GetLists();
                 break;
+
             case "u1":
-                OrderUpdateShipping();
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
+                p.BoOrder.UpdateShipping(verification.intInput);
                 break;
+
             case "u2":
-                OrderUpdateProviding();
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
+                p.BoOrder.UpdateProviding(verification.intInput);
                 break;
+
             case "t":
-                OrderTracking();
+                Console.WriteLine("Please enter the ID of product.");
+                verification = checkInput("int");
+                p.BoOrder.OrderTracking(verification.intInput);
                 break;
+
             case "e":
                 goto end;
             default:
