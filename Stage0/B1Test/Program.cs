@@ -273,7 +273,7 @@ internal class Program
 
     CartOperations:
         void CartOperations()
-        {
+        { 
             Console.WriteLine
                  (
                      "enter name of operation:\n  " +
