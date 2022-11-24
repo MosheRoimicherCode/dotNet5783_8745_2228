@@ -128,7 +128,7 @@ internal class Program
 
     static public void Main()
     {
-        Bl? p = null;
+        Bl? p = new Bl();
         CheckInput verification = new CheckInput(); //for inputs checks
 
     MainMenu:
@@ -209,7 +209,8 @@ internal class Program
                 break;
 
             case "l":
-                p.BoProduct.GetList();
+                List<BoProductForList> l = p.BoProduct.GetList();
+                foreach (BoProductForList item in l) Console.WriteLine(item);
                 break;
 
             case "e":
