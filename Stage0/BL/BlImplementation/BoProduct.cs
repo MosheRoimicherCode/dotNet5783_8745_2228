@@ -12,9 +12,9 @@ namespace BlImplementation
         public bool CheckNewItem(BO.BoProduct item)
         {
             if (item.ID <= 0) throw new BO.IdBOException("Negative Id!");
-            if (item.Name != null) throw new BO.ProductNameException("Name can't be null");
-            if (item.Price > 0) throw new BO.PriceException("Negative price!");
-            if (item.InStock > 0) throw new BO.InStockException(" Product out of stock");
+            if (item.Name == null) throw new BO.ProductNameException("Name can't be null");
+            if (item.Price < 0) throw new BO.PriceException("Negative price!");
+            if (item.InStock <= 0) throw new BO.InStockException(" Product out of stock");
 
             return true;
         } ///check previews criterion for a new item

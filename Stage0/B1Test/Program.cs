@@ -176,7 +176,8 @@ internal class Program
         {
             case "a":
                 p.BoProduct.Add(createBoProduct());
-                break;
+                Console.WriteLine("added successfully");
+                goto MainMenu;
 
             case "g1":
 
@@ -214,7 +215,7 @@ internal class Program
                 {
                     Console.WriteLine(item.ToString());
                 }
-                break;
+                goto MainMenu;
 
             case "e":
                 goto end;
