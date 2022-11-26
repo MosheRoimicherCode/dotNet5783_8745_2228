@@ -1,6 +1,8 @@
 ﻿using DalApi;
 using DO;
 using static Dal.DataSource;
+using System.Linq;
+
 namespace Dal;
 
 ///A class for connect with Product struck
@@ -18,14 +20,13 @@ internal class DalProduct : IProduct
 
     public Product Get(int ProductID)
         {
-            foreach (Product product in _productList)
-            {
+        foreach (var product in from Product product in _productList
+                                where product.ID == ProductID
+                                select product)
+        {
+            return product;
+        }
 
-                if (product.ID.Equals(ProductID))
-                {
-                    return product;
-                }
-            }
         ///in case of Id not found, throw exception
         throw new IdException(" Not found ID. (DalOrderProduct.Get Exception)"); ;
         }///search for product by Id and return the specific product

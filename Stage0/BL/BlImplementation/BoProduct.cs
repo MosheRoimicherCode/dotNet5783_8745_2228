@@ -1,7 +1,7 @@
 ﻿using BlApi;
 using Dal;
 using DalApi;
-
+using System.Linq.Expressions;
 
 namespace BlImplementation
 {
@@ -9,7 +9,6 @@ namespace BlImplementation
 
     internal class BoProduct : IBoProduct
     {
-
 
         IDal Dal = new DalList ();
 
@@ -94,19 +93,23 @@ namespace BlImplementation
 
         public void Remove(int Id)
         {
+            try
+            {
+                ///check if received id exist
+                DO.Product? product = new DO.Product();
+                product = Dal.Product.Get(Id);
+                if (product == null) throw new BO.DeleteProductException("Cant delete product. Id not found.");
 
-            ///check if received id exist
-            DO.Product? product = new DO.Product();
-            product = Dal.Product.Get(Id);
-            if (product == null) throw new BO.DeleteProductException("Cant delete product. Id not found.");
+                ///check if product is not inside an existing order
+                DO.Order? order = new DO.Order();
+                order = Dal.Order.Get(Id);
+                ///if id exist and its not inside order then, delete him
+                
+            }
 
-            ///check if product is not inside an existing order
-            DO.Order? order = new DO.Order();
-            order = Dal.Order.Get(Id);
-            if (order != null) throw new BO.DeleteProductException("Product exist in a Order. Impossible to delete.");
-
-            ///if id exist and its not inside order then, delete him
-            Dal.Product.Delete(Id);
+            catch (Exception) { Dal.Product.Delete(Id); };
+            
+            Console.WriteLine("Product exist in a Order. Impossible to delete.");
 
         }
 

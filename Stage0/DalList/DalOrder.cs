@@ -28,8 +28,7 @@ internal class DalOrder : IOrder
             }
         }
         ///in case of Id not found, throw exception
-        Order? order = null ;
-        return order;
+        throw new IdException("Not found Id. (DalOrder.Get)");
     }///search for order by Id and return the specific order
 
     public void Delete(int OrderID)  
