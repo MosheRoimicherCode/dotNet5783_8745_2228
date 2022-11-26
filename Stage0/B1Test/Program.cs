@@ -129,45 +129,7 @@ internal class Program
 
     //-----------------------------------------------------------------------------------------------checks user input methods
 
-    static void ProductOperations()
-    {
-        Console.WriteLine
-           (
-               "chose operation:\n  " +
-               "a  - for adding a product  \n  " +
-               "g1 - for getting a product  \n  " +
-               "g2 - for getting a product-Item  \n  " +
-               "r  - for remove a product  \n  " +
-               "u  - for update data for product \n  " +
-               "l  - for getting a list with all the products \n"
-           );
-    }
-
-    static void OrderOperations()
-    {
-        Console.WriteLine
-            (
-                "enter name of operation:\n  " +
-                "g for getting an order  \n  " +
-                "l for getting a lists of orders  \n  " +
-                "u1 for Update Shipping \n  " +
-                "u2 for update Providing \n  " +
-                "t for Order Tracking \n"
-            );
-    }
-
-    static void CartOperations()
-    {
-        Console.WriteLine
-             (
-                 "enter name of operation:\n  " +
-                 "a for adding a product to cart  \n  " +
-                 "u for update amount in cart  \n  " +
-                 "c for Confirm cart \n "
-              );
-    }
-
-
+  
     static public void Main()
     {
         Bl? p = new Bl();
@@ -217,7 +179,6 @@ internal class Program
                     goto ProductOperations;
                 case "o":
                     goto OrderOperations;
-
                 case "c":
                     goto CartOperations;
                 case "e":
@@ -227,7 +188,16 @@ internal class Program
                     goto MainMenu;
             }
         ProductOperations:
-            ProductOperations();
+            Console.WriteLine
+            (
+               "chose operation:\n  " +
+               "a  - for adding a product  \n  " +
+               "g1 - for getting a product  \n  " +
+               "g2 - for getting a product-Item  \n  " +
+               "r  - for remove a product  \n  " +
+               "u  - for update data for product \n  " +
+               "l  - for getting a list with all the products \n"
+            );
             string? ProductOperationsChoice = Console.ReadLine();
 
 
@@ -235,16 +205,17 @@ internal class Program
             {
                 case "a":
                     p.BoProduct.Add(createBoProduct());
-                    goto ProductOperations;
-                    ;
+                    goto MainMenu;
 
                 case "g1":
 
                     //Check ID input
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    if (verification.boolInput == true) p.BoProduct.Get(verification.intInput);
-                    goto ProductOperations;
+                    BO.BoProduct boProduct = new BoProduct();
+                    if (verification.boolInput == true) boProduct = p.BoProduct.Get(verification.intInput);
+                    Console.WriteLine(boProduct);
+                    goto MainMenu;
 
                 case "g2":
 
@@ -253,27 +224,26 @@ internal class Program
                     verification = checkInput("int");
 
                     p.BoProduct.Get(verification.intInput, cart);
-                    goto ProductOperations;
+                    goto MainMenu;
 
                 case "r":
-
                     //Check ID input
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
                     p.BoProduct.Remove(verification.intInput);
-                    goto ProductOperations;
+                    goto MainMenu;
 
                 case "u":
                     p.BoProduct.Update(createBoProduct());
-                    goto ProductOperations;
+                    goto MainMenu;
 
                 case "l":
                     List<BO.BoProductForList> listBoProduct = p.BoProduct.GetList();
                     foreach (BO.BoProductForList item in listBoProduct)
                     {
-                        Console.WriteLine(item.ToString());
+                        Console.WriteLine(item);
                     }
-                    goto ProductOperations;
+                    goto MainMenu;
 
                 case "e":
                     goto end;
@@ -284,19 +254,33 @@ internal class Program
 
 
         OrderOperations:
-            OrderOperations();
+            Console.WriteLine
+            (
+                "enter name of operation:\n  " +
+                "g for getting an order  \n  " +
+                "l for getting a lists of orders  \n  " +
+                "u1 for Update Shipping \n  " +
+                "u2 for update Providing \n  " +
+                "t for Order Tracking \n"
+            );
             string? OrderOperationsChoice = Console.ReadLine();
             switch (OrderOperationsChoice)
             {
                 case "g":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    p.BoOrder.Get(verification.intInput);
-                    break;
+                    BO.BoOrder boOrder = new BoOrder();
+                    if (verification.boolInput == true) boOrder = p.BoOrder.Get(verification.intInput);
+                    Console.WriteLine(boOrder);
+                    goto MainMenu;
 
                 case "l":
-                    p.BoOrder.GetLists();
-                    break;
+                    List<BO.BoOrderForList> listBoOrder = p.BoOrder.GetList();
+                    foreach (BO.BoOrderForList item in listBoOrder)
+                    {
+                        Console.WriteLine(item);
+                    }
+                    goto MainMenu;
 
                 case "u1":
                     Console.WriteLine("Please enter the ID of product.");
@@ -324,7 +308,13 @@ internal class Program
             }
 
         CartOperations:
-            CartOperations();
+            Console.WriteLine
+            (
+                 "enter name of operation:\n  " +
+                 "a for adding a product to cart  \n  " +
+                 "u for update amount in cart  \n  " +
+                 "c for Confirm cart \n "
+            );
             string? CartOperationsChoice = Console.ReadLine();
             switch (CartOperationsChoice)
             {
