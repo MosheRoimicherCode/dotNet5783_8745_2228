@@ -43,7 +43,7 @@ internal static class DataSource
     {
         Product p = new Product(123456, "shirt", 80, (Category)2, 30);
         AddProduct(p);
-        p = new Product(839422, "shoes", 200, (Category)2, 12);
+        p = new Product(111111, "shoes", 200, (Category)2, 12);
         AddProduct(p);
         p = new Product(930494, "pens", 120, (Category)2, 29);
         AddProduct(p);

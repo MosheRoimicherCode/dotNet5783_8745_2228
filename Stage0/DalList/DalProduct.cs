@@ -27,7 +27,7 @@ internal class DalProduct : IProduct
                 }
             }
         ///in case of Id not found, throw exception
-        throw new IdException(); ;
+        throw new IdException(" Not found ID. (DalOrderProduct.Get Exception)"); ;
         }///search for product by Id and return the specific product
 
     public void Delete(int ProductID)
@@ -41,7 +41,7 @@ internal class DalProduct : IProduct
             }
 
         ///if not found return a message
-        throw new IdException();
+        throw new IdException(" Not found ID. (DalOrderProduct.Delete Exception)");
     }///delete product from data base by Id
 
      ///replace product by another inside array
@@ -59,7 +59,7 @@ internal class DalProduct : IProduct
             return;
             }
         ///if not found return a message
-        throw new IdException();
+        throw new IdException(" Not found ID. (DalOrderProduct.Update Exception)");
     }///replace order by another inside array
 
 

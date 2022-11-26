@@ -4,7 +4,7 @@
     public class IdException : Exception
     {
         static public string IdError = "not found id";
-        public IdException() {}
+        public IdException(string str) { IdError = str; }
     }
 
     public class ProgramExit : Exception

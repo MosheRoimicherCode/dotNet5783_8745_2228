@@ -1,5 +1,6 @@
 ﻿using DalApi;
 using DO;
+using System;
 using static Dal.DataSource;
 namespace Dal;
 
@@ -18,16 +19,17 @@ internal class DalOrder : IOrder
 
     public Order Get(int OrderID)
     {
-        foreach (Order order in _orderList)
+        foreach (Order order2 in _orderList)
         {
 
-            if (order.ID.Equals(OrderID))
+            if (order2.ID.Equals(OrderID))
             {
-                return order;
+                return order2;
             }
         }
         ///in case of Id not found, throw exception
-        throw new IdException();
+        Order? order = null ;
+        return order;
     }///search for order by Id and return the specific order
 
     public void Delete(int OrderID)  
@@ -42,7 +44,7 @@ internal class DalOrder : IOrder
         }
 
         ///if not found return a message
-        throw new IdException(); ;
+        throw new IdException("Not found ID. (DalOrderExeptiot.Delete)"); ;
     }///delete order from data base by Id
 
     public void Update(int OrderID, Order newOrder)
@@ -60,7 +62,7 @@ internal class DalOrder : IOrder
         }
         
         ///if not found return a message
-        throw new IdException();
+        throw new IdException("Not found ID. (DalOrderExeption.Update)");
     }///replace order by another inside array
 
 

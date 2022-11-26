@@ -5,8 +5,12 @@ using DalApi;
 
 namespace BlImplementation
 {
+
+
     internal class BoProduct : IBoProduct
     {
+
+
         IDal Dal = new DalList ();
 
         public bool CheckNewItem(BO.BoProduct item)
@@ -14,7 +18,7 @@ namespace BlImplementation
             if (item.ID <= 0) throw new BO.IdBOException("Negative Id!");
             if (item.Name == null) throw new BO.ProductNameException("Name can't be null");
             if (item.Price < 0) throw new BO.PriceException("Negative price!");
-            if (item.InStock <= 0) throw new BO.InStockException(" Product out of stock");
+            if (item.InStock < 0) throw new BO.InStockException(" Product out of stock");
 
             return true;
         } ///check previews criterion for a new item
@@ -43,6 +47,9 @@ namespace BlImplementation
             return product;
         }
         
+
+
+
         public void Add(BO.BoProduct item)
         {
             if (CheckNewItem(item) == true) Dal.Product.Add(ConvertBoProductToProduct(item)); 
@@ -62,10 +69,11 @@ namespace BlImplementation
             {
                 BO.BoProductItem item = new BO.BoProductItem();
                 DO.OrderItem orderItem = new DO.OrderItem();
-                
+
                 foreach (DO.OrderItem itemCart in cart.Details)
                 {
-                    if (itemCart.ID == Id) orderItem = itemCart;
+                    if (itemCart.ProductID == Id)
+                    { orderItem = itemCart; };
                 }
 
                 item.ID = orderItem.ID;
