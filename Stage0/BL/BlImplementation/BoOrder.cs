@@ -65,7 +65,7 @@ namespace BlImplementation
 
         /// return a list with all orders
         /// <returns> order list </returns>
-        public List<BO.BoOrderForList> GetLists()
+        public List<BO.BoOrderForList> GetList()
         {
             List<DO.Order> dalOlist = Dal.Order.CopyList();
             List<BO.BoOrderForList> boOlist = new List<BO.BoOrderForList>();
