@@ -18,16 +18,22 @@ internal class DalOrderItem : IOrderItem
 
     public OrderItem Get(int ID)
     {
+        bool flag = false;
         foreach (OrderItem orderItem in _orderItemList)
         {
 
             if (orderItem.ID.Equals(ID))
             {
+                flag = true;
                 return orderItem;
             }
         }
         ///in case of Id not found, throw exception
-        throw new IdException(" Not found ID. (DalOrderItem.Get Exception)");
+        OrderItem o = new OrderItem();
+        if (flag == false) o.ProductID = -999;
+        return o;
+
+
     }///search for order item by Id's and return the specific order item
 
     public void Delete(int ID)

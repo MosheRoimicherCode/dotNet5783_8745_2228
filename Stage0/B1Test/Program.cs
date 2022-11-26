@@ -176,14 +176,14 @@ internal class Program
 
         ////for checks use---------------------------------e---------------------------------e---------------------------------
         DO.OrderItem order = new DO.OrderItem();
-        order.ID = 789;                                      //e---------------------------------e---------------------------------
-        order.OrderID = 1;                               //e---------------------------------e---------------------------------
+        order.ID = 789;                                     
+        order.OrderID = 1;                               
         order.Price = 80;
         order.ProductID = 123456;
         order.Amount = 50;
 
         DO.OrderItem order2 = new DO.OrderItem();
-        order.ID = 987;                                      //e---------------------------------e---------------------------------
+        order.ID = 987;                                      
         order.OrderID = 2;
         order.Price = 200;
         order.ProductID = 111111;
@@ -199,9 +199,8 @@ internal class Program
         cart.CustomerEmail = "mroimicher@gmail.com";
         cart.CustomerName = "Moshe";
         cart.Details = list;
-
-        cart.TotalPrice = 2500;                           //e---------------------------------e--------------------------------   
-                                                          ////for checks use---------------------------------e---------------------------------e---------------------------------
+        cart.TotalPrice = 2500;                           
+        ////for checks use---------------------------------e---------------------------------e---------------------------------
 
     MainMenu:
         try {
@@ -295,7 +294,7 @@ internal class Program
                     goto OrderOperations;
 
                 case "l":
-                    p.BoOrder.GetLists();
+                    p.BoOrder.GetList();
                     goto OrderOperations;
 
                 case "u1":
