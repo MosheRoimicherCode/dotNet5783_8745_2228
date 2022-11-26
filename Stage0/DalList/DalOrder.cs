@@ -2,6 +2,8 @@
 using DO;
 using System;
 using static Dal.DataSource;
+using System.Linq;
+
 namespace Dal;
 
 
@@ -19,16 +21,15 @@ internal class DalOrder : IOrder
 
     public Order Get(int OrderID)
     {
-        foreach (Order order2 in _orderList)
+        foreach (var order in from Order order in _orderList
+                               where order.ID.Equals(OrderID)
+                               select order)
         {
-
-            if (order2.ID.Equals(OrderID))
-            {
-                return order2;
-            }
+            return order;
         }
-        ///in case of Id not found, throw exception
-        throw new IdException("Not found Id. (DalOrder.Get)");
+        Order order2 = new Order();
+        order2.ID = -999;
+        return order2;
     }///search for order by Id and return the specific order
 
     public void Delete(int OrderID)  

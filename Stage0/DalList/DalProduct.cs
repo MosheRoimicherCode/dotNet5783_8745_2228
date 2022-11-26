@@ -33,13 +33,12 @@ internal class DalProduct : IProduct
 
     public void Delete(int ProductID)
         {
-            foreach (Product product in _productList)
-            {
-                if (product.ID.Equals(ProductID))
-                {
-                _productList.Remove(product);
-                }
-            }
+        for (int i = 0; i < _productList.Count; i++)
+        {
+            if (_productList[i].ID == ProductID) _productList.Remove(_productList[i]);
+
+        }
+
 
         ///if not found return a message
         throw new IdException(" Not found ID. (DalOrderProduct.Delete Exception)");
