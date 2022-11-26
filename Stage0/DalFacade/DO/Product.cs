@@ -12,6 +12,7 @@ public struct Product
         Price = P;
         Category = c;
         InStock = In; 
+
     }
 
     ///data
