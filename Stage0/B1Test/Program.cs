@@ -292,29 +292,29 @@ internal class Program
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
                     p.BoOrder.Get(verification.intInput);
-                    break;
+                    goto OrderOperations;
 
                 case "l":
                     p.BoOrder.GetLists();
-                    break;
+                    goto OrderOperations;
 
                 case "u1":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
                     p.BoOrder.UpdateShipping(verification.intInput);
-                    break;
+                    goto OrderOperations;
 
                 case "u2":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
                     p.BoOrder.UpdateProviding(verification.intInput);
-                    break;
+                    goto OrderOperations;
 
                 case "t":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
                     p.BoOrder.OrderTracking(verification.intInput);
-                    break;
+                    goto OrderOperations;
 
                 case "e":
                     goto end;
@@ -332,7 +332,7 @@ internal class Program
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
                     p.BoCart.Add(cart, verification.intInput);
-                    break;
+                    goto OrderOperations;
 
                 case "u":
                     Console.WriteLine("Please enter the ID of product.");
@@ -341,7 +341,7 @@ internal class Program
                     Console.WriteLine("Please enter a new amount.");
                     verification = checkInput("int");
                     p.BoCart.UpdateAmount(cart, temp, verification.intInput);
-                    break;
+                    goto OrderOperations;
 
                 case "c":
 
@@ -352,7 +352,7 @@ internal class Program
                     verification = checkInput("email");
 
                     p.BoCart.ConfirmCart(cart, nameClient, verification.strInput, nameAdress);
-                    break;
+                    goto OrderOperations;
 
                 case "e":
                     goto end;

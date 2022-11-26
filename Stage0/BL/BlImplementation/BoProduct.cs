@@ -1,6 +1,7 @@
 ﻿using BlApi;
 using Dal;
 using DalApi;
+using DO;
 using System.Linq.Expressions;
 
 namespace BlImplementation
@@ -71,6 +72,9 @@ namespace BlImplementation
 
                 foreach (DO.OrderItem itemCart in cart.Details)
                 {
+                    //Console.WriteLine("ID: ");
+                    //Console.WriteLine(itemCart.ID);
+                    //Console.WriteLine("\n");
                     if (itemCart.ProductID == Id)
                     { orderItem = itemCart; };
                 }
@@ -93,8 +97,7 @@ namespace BlImplementation
 
         public void Remove(int Id)
         {
-            try
-            {
+
                 ///check if received id exist
                 DO.Product? product = new DO.Product();
                 product = Dal.Product.Get(Id);
@@ -102,15 +105,13 @@ namespace BlImplementation
 
                 ///check if product is not inside an existing order
                 DO.Order? order = new DO.Order();
-                order = Dal.Order.Get(Id);
                 ///if id exist and its not inside order then, delete him
+                if (Dal.Order.Get(Id).ID == -999) Dal.Product.Delete(Id);
                 
-            }
-
-            catch (Exception) { Dal.Product.Delete(Id); };
-            
-            Console.WriteLine("Product exist in a Order. Impossible to delete.");
-
+                else
+                {
+                    Console.WriteLine("Product exist in a Order. Impossible to delete.");
+                }
         }
 
         public void Update(BO.BoProduct item)
