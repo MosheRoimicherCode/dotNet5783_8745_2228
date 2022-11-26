@@ -27,7 +27,7 @@ internal class DalOrderItem : IOrderItem
             }
         }
         ///in case of Id not found, throw exception
-        throw new IdException();
+        throw new IdException(" Not found ID. (DalOrderItem.Get Exception)");
     }///search for order item by Id's and return the specific order item
 
     public void Delete(int ID)
@@ -41,7 +41,7 @@ internal class DalOrderItem : IOrderItem
         }
 
         ///if not found return a message
-        throw new IdException();
+        throw new IdException(" Not found ID. (DalOrderItem.Delete Exception)");
     }///delete order item from data base by Id's
 
     public void Update(int ID, OrderItem newOrderItem)
@@ -60,7 +60,7 @@ internal class DalOrderItem : IOrderItem
         }
        
         ///if not found return a message
-        throw new IdException();
+        throw new IdException(" Not found ID. (DalOrderItem.Update Exception)");
     }///replace order item by another inside array
 
 

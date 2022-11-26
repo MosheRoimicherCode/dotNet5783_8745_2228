@@ -17,7 +17,7 @@ namespace BlImplementation
             List<DO.Order> OrderList = Dal.Order.CopyList();
             BO.BoCart newBoCart = new BO.BoCart();
 
-            foreach (var item in boCart.Details)
+            foreach (var item in  boCart.Details)
             {
                 if (item.ProductID == Id)
                 {
