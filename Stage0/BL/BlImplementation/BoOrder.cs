@@ -186,16 +186,16 @@ namespace BlImplementation
                 var t1 = new Tuple<DateTime, String>(dal.OrderDate,"Order approved");
                 //Tuple<DateTime, String> t1 = new Tuple<DateTime, String>; //(dal.OrderDate, "Order approved");
                 //(DateTime, String) t1 = (dal.OrderDate, "Order approved");
-                bo.TupleList.Add(t1);
+                bo.TupleList = t1;
                 if (CheckStatus(dal) == BO.Enums.Status.shiped)
                 {
                     Tuple<DateTime, String> t2 = new Tuple<DateTime, String>(dal.OrderDate, "Order shipped");
-                    bo.TupleList.Add(t2);
+                    bo.TupleList = t2;
                 }
                 if (CheckStatus(dal) == BO.Enums.Status.provided)
                 {
                     Tuple<DateTime, String> t3 = new Tuple<DateTime, String>(dal.OrderDate, "Order provided");
-                    bo.TupleList.Add(t3);
+                    bo.TupleList = t3;
                 }
                 return bo;
             }

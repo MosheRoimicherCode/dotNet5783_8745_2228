@@ -16,6 +16,11 @@ namespace BlImplementation
             List<DO.OrderItem> OrderItemList = Dal.OrderItem.CopyList();
             List<DO.Order> OrderList = Dal.Order.CopyList();
             BO.BoCart newBoCart = new BO.BoCart();
+            newBoCart.CustomerName = boCart.CustomerName;
+            newBoCart.CustomerEmail = boCart.CustomerEmail;
+            newBoCart.CustomeAdress = boCart.CustomeAdress;
+            newBoCart.Details = boCart.Details;
+            newBoCart.TotalPrice = boCart.TotalPrice;
 
             foreach (var item in  boCart.Details)
             {
@@ -27,18 +32,20 @@ namespace BlImplementation
                         {
                             DO.OrderItem newOrderItem = item;
                             newOrderItem.Amount = item.Amount + 1;
-                            boCart.Details.Remove(item);
-                            boCart.Details.Add(newOrderItem);
-                            boCart.TotalPrice += item.Price;
+                            newBoCart.Details.Remove(item);
+                            newBoCart.Details.Add(newOrderItem);
+                            newBoCart.TotalPrice += item.Price;
+                            return newBoCart;
                         }
-                        else throw new BO.IdBOException("product is not available");
                     }
                 }
-            }         
+            }
+            bool flag = false;
             foreach (var p in productList)
             {
                 if (p.ID == Id && p.InStock > 0)
                 {
+                    flag = true;
                     int ordId = 0;
                     foreach (var o in OrderList)
                     {
@@ -52,11 +59,10 @@ namespace BlImplementation
                     newBoCart.TotalPrice += newOrderItem.Price;
                 }
             }
-            if (true)
+            if (flag == false)
             {
-
-            }
-            else throw new BO.IdBOException("product is not available");
+                throw new BO.IdBOException("product is not available");
+            } 
             return newBoCart;
         }
 
@@ -64,6 +70,12 @@ namespace BlImplementation
         public BO.BoCart UpdateAmount(BO.BoCart boCart, int Id, int NewAmount)
         {
             BO.BoCart newBoCart = new BO.BoCart();
+            newBoCart.CustomerName = boCart.CustomerName;
+            newBoCart.CustomerEmail = boCart.CustomerEmail;
+            newBoCart.CustomeAdress = boCart.CustomeAdress;
+            newBoCart.Details = boCart.Details;
+            newBoCart.TotalPrice = boCart.TotalPrice;
+
             foreach (var item in boCart.Details)
             {
                 if (item.ProductID == Id)
@@ -76,6 +88,7 @@ namespace BlImplementation
                     {
                         newBoCart.TotalPrice -= item.Price * item.Amount;
                         newBoCart.Details.Remove(item);
+                        return newBoCart;
                     }
                     else if (NewAmount > item.Amount)
                     {
@@ -84,6 +97,7 @@ namespace BlImplementation
                         newOrderItem.Amount = NewAmount;
                         newBoCart.Details.Remove(item);
                         newBoCart.Details.Add(newOrderItem);
+                        return newBoCart;
                     }
                     else if (NewAmount < item.Amount)
                     {
@@ -92,10 +106,11 @@ namespace BlImplementation
                         newOrderItem.Amount = NewAmount;
                         newBoCart.Details.Remove(item);
                         newBoCart.Details.Add(newOrderItem);
+                        return newBoCart;
                     }
                 }
             }
-            return boCart;
+            throw new BO.IdBOException("Item not found");
         }
 
         bool IdExistInProductList(int Id)
@@ -124,7 +139,7 @@ namespace BlImplementation
                 {
                     throw new BO.IdBOException("negative Amount");
                 }
-                if (item.Amount < Dal.Product.Get(item.ProductID).InStock) 
+                if (item.Amount > Dal.Product.Get(item.ProductID).InStock) 
                 {
                     throw new BO.IdBOException("not enough in stock");
                 }
@@ -147,6 +162,7 @@ namespace BlImplementation
             newOrder.CustomeAdress = Addres;
             newOrder.CustomerEmail = Email;
             newOrder.OrderDate = DateTime.Now;
+    
             newOrder.ID = Dal.Order.Add(newOrder);
 
             foreach (var item in boCart.Details)
