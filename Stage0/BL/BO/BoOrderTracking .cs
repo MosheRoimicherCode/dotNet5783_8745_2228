@@ -8,13 +8,13 @@ public class BoOrderTracking
     ///data
     public int OrderID { get; set; }
     public Status Status { get; set; }
-    public List<Tuple<DateTime, string>> TupleList { get; set; }
+    public List<Tuple<DateTime, string>> TupleList = new List<Tuple<DateTime, string>>();
 
     /// funcs
     public override string ToString() => $@"
         OrderID: {OrderID}
         Category: {Status}
-        list: {TupleList}
+        list: {TupleList.ToString()}
     ";
 
 }
