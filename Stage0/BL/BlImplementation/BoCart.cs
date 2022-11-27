@@ -169,7 +169,8 @@ namespace BlImplementation
             {
                 DO.OrderItem newOrderItem = item;
                 Dal.OrderItem.Add(newOrderItem);
-            }          
+            }
+            
         }
     }
 } /// interface of product items for manager and client
