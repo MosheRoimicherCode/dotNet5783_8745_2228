@@ -85,19 +85,29 @@ internal static class DataSource
         for (int i = 0; i < 10; i++)
         {
             DateTime d = randate();
-            Order ord = new Order(Config.Get_idNumberItemOrder(), "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", d, d.AddDays(randomNum.Next(0, 10)), d.AddDays(randomNum.Next(10, 20)));
+            Order ord = new Order(Config.Get_idNumberOrder(), "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", d, d.AddDays(randomNum.Next(0, 10)), d.AddDays(randomNum.Next(10, 20)));
             AddOrder(ord);
         }
         for (int i = 0; i < 5; i++)
         {
             DateTime d = randate();
-            Order ord = new Order(Config.Get_idNumberItemOrder(), "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", d, d.AddDays(randomNum.Next(0, 10)), d.AddDays(randomNum.Next(10, 20)));
+            Order ord = new Order(Config.Get_idNumberOrder(), "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", d, d.AddDays(randomNum.Next(0, 10)), d.AddDays(randomNum.Next(10, 20)));
             AddOrder(ord);
         }
         for (int i = 0; i < 5; i++)
         {
             DateTime d = randate();
-            Order ord = new Order(Config.Get_idNumberItemOrder(), "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", d, d.AddDays(randomNum.Next(0, 10)), d.AddDays(randomNum.Next(10, 20)));
+            Order ord = new Order(Config.Get_idNumberOrder(), "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", d, d.AddDays(randomNum.Next(0, 10)), d.AddDays(randomNum.Next(10, 20)));
+            AddOrder(ord);
+        }
+
+
+        DateTime dt1 = new DateTime(2022, 12, 31);
+        DateTime dt2 = new DateTime(2029, 12, 31);
+        for (int i = 0; i < 2; i++)
+        {
+            DateTime d = randate();
+            Order ord = new Order(Config.Get_idNumberOrder(), "momo momo", "mroimicher@gmail.com", "Israel", d, dt1, dt2);
             AddOrder(ord);
         }
 
@@ -114,6 +124,8 @@ internal static class DataSource
                 AddOrderItem(ordI);
             }
         }
+
+
     }
     
 
