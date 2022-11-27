@@ -56,7 +56,7 @@ internal class DalOrder : IOrder
             {
                 int index = _orderList.IndexOf(order);
                 _orderList.RemoveAt(index);
-                 _orderList.Insert(index, newOrder);
+                _orderList.Insert(index, newOrder);
             }
             return;
         }

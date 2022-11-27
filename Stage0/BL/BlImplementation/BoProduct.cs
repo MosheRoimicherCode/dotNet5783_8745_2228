@@ -101,8 +101,6 @@ namespace BlImplementation
                 product = Dal.Product.Get(Id);
                 if (product == null) throw new BO.DeleteProductException("Cant delete product. Id not found.");
 
-                ///check if product is not inside an existing order
-                DO.Order? order = new DO.Order();
                 ///if id exist and its not inside order then, delete him
                 OrderItem item = new OrderItem();
                 item = Dal.OrderItem.Get(Id);

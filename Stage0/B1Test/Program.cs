@@ -14,8 +14,6 @@ using System.ComponentModel.DataAnnotations;
 
 internal class Program
 {
-    public static object Success { get; private set; }
-
 
     //checks user input methods---------------------------------------------------------------------------------------------
     public struct CheckInput
@@ -204,10 +202,12 @@ internal class Program
             switch (ProductOperationsChoice)
             {
                 case "a":
+                    Console.WriteLine("-----------------------------------------------ADDpRODUCT--------------------------------------------------------");
                     p.BoProduct.Add(createBoProduct());
                     goto MainMenu;
 
                 case "g1":
+                    Console.WriteLine("-----------------------------------------------G1--------------------------------------------------------");
 
                     //Check ID input
                     Console.WriteLine("Please enter the ID of product.");
@@ -218,6 +218,7 @@ internal class Program
                     goto MainMenu;
 
                 case "g2":
+                    Console.WriteLine("-----------------------------------------------g2--------------------------------------------------------");
 
                     //Check ID input
                     Console.WriteLine("Please enter the ID of product.");
@@ -228,6 +229,8 @@ internal class Program
                     goto MainMenu;
 
                 case "r":
+                    Console.WriteLine("-----------------------------------------------REMOVE--------------------------------------------------------");
+
                     //Check ID input
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
@@ -235,10 +238,14 @@ internal class Program
                     goto MainMenu;
 
                 case "u":
+                    Console.WriteLine("-----------------------------------------------UPDATE--------------------------------------------------------");
+
                     p.BoProduct.Update(createBoProduct());
                     goto MainMenu;
 
                 case "l":
+                    Console.WriteLine("-----------------------------------------------LIST--------------------------------------------------------");
+
                     List<BO.BoProductForList> listBoProduct = p.BoProduct.GetList();
                     foreach (BO.BoProductForList item in listBoProduct)
                     {
@@ -247,6 +254,8 @@ internal class Program
                     goto MainMenu;
 
                 case "e":
+                    Console.WriteLine("-----------------------------------------------END--------------------------------------------------------");
+
                     goto end;
                 default:
                     Console.WriteLine("ERROR choice!");

@@ -5,7 +5,7 @@ namespace DalApi
 {
 
     [Serializable]
-    internal class IdException : Exception
+    public class IdException : Exception
     {
         public IdException() : base() { }
         public IdException(string message) : base(message) { }
@@ -17,7 +17,7 @@ namespace DalApi
 
 
     [Serializable]
-    internal class ProgramExit : Exception
+    public class ProgramExit : Exception
     {
         public ProgramExit() : base() { }
         public ProgramExit(string message) : base(message) { }

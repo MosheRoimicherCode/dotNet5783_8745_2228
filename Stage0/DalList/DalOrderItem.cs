@@ -6,10 +6,6 @@ namespace Dal;
 ///A class for connect with ORderItem struck
 internal class DalOrderItem : IOrderItem
 {
-
-    ///----------------- Constructors ------------------- 
-
-
     ///----------------------------------------------------
     ///----------------- CRUD functions -------------------
 
