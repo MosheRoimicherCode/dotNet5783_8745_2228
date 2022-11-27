@@ -59,9 +59,10 @@ internal class DalProduct : IProduct
                     int index = _productList.IndexOf(product);
                     _productList.RemoveAt(index);
                     _productList.Insert(index, newProduct);
-                }
-            return;
+                return;
             }
+
+        }
         ///if not found return a message
         throw new IdException(" Not found ID. (DalOrderProduct.Update Exception)");
     }///replace order by another inside array

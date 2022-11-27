@@ -141,15 +141,15 @@ internal class Program
         order.ID = 789;                                     
         order.OrderID = 1;                               
         order.Price = 80;
-        order.ProductID = 123456;
+        order.ProductID = 999999;
         order.Amount = 50;
 
         DO.OrderItem order2 = new DO.OrderItem();
-        order.ID = 987;                                      
-        order.OrderID = 2;
-        order.Price = 200;
-        order.ProductID = 111111;
-        order.Amount = 100;
+        order2.ID = 987;                                      
+        order2.OrderID = 2;
+        order2.Price = 200;
+        order2.ProductID = 111111;
+        order2.Amount = 100;
 
 
         List<DO.OrderItem> list = new List<DO.OrderItem>();
@@ -223,6 +223,7 @@ internal class Program
                     verification = checkInput("int");
 
                     p.BoProduct.Get(verification.intInput, cart);
+
                     goto MainMenu;
 
                 case "r":
@@ -248,7 +249,7 @@ internal class Program
                     goto end;
                 default:
                     Console.WriteLine("ERROR choice!");
-                    goto ProductOperations;
+                    goto MainMenu;
             }
 
 

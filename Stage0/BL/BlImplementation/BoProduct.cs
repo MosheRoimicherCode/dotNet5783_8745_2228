@@ -72,9 +72,7 @@ namespace BlImplementation
 
                 foreach (DO.OrderItem itemCart in cart.Details)
                 {
-                    //Console.WriteLine("ID: ");
-                    //Console.WriteLine(itemCart.ID);
-                    //Console.WriteLine("\n");
+                    //Console.WriteLine(itemCart.ToString());
                     if (itemCart.ProductID == Id)
                     { orderItem = itemCart; };
                 }
