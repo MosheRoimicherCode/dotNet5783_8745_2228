@@ -16,11 +16,11 @@ namespace BlImplementation
         {
             if (o.ShipDate > DateTime.Now)
             {
-                return BO.Enums.Status.shiped;
+                return BO.Enums.Status.approved;
             }
             else if (o.DeliveryDate > DateTime.Now)
             {
-                return BO.Enums.Status.approved;
+                return BO.Enums.Status.shiped;
             }
             else if (DateTime.Now > o.DeliveryDate)
             {
@@ -34,6 +34,18 @@ namespace BlImplementation
         }
 
         ///Convert from Order To BoOrder
+        public BO.BoOrder ConvertOrderToBoOrder(DO.Order o)
+        {
+            BO.BoOrder bo = new BO.BoOrder();
+            bo.ShipDate = o.ShipDate;
+            bo.DeliveryDate = o.DeliveryDate;
+            bo.OrderDate = o.OrderDate;
+            bo.CustomerName = o.CustomerName;
+            bo.CustomeAdress = o.CustomeAdress;
+            bo.CustomerEmail = o.CustomerEmail;
+            bo.OrderStatus = CheckStatus(o);
+            return bo;
+        }
         public BO.BoOrder ConvertOrderToBoOrder(int Id)
         {
             DO.Order dalOrder = Dal.Order.Get(Id);
@@ -166,10 +178,11 @@ namespace BlImplementation
                     else if (item.DeliveryDate > DateTime.Now && item.ShipDate < DateTime.Now)
                     {
                         DO.Order o = new DO.Order(item.ID, item.CustomerName, item.CustomerEmail, item.CustomeAdress, item.OrderDate, item.ShipDate, DateTime.Now);
+                        
                         try
                         {
                             Dal.Order.Update(o.ID, o);
-                            return ConvertOrderToBoOrder(Id);
+                            return ConvertOrderToBoOrder(o);
                         }
                         catch (IdException) { throw new BO.IdBOException("Order exist. Impossible to update."); }
                     }

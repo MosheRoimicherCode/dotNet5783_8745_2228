@@ -286,13 +286,15 @@ internal class Program
                 case "u1":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    p.BoOrder.UpdateShipping(verification.intInput);
+                    BO.BoOrder b = p.BoOrder.UpdateShipping(verification.intInput);
+                    Console.WriteLine(b);
                     goto MainMenu;
 
                 case "u2":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    p.BoOrder.UpdateProviding(verification.intInput);
+                    BO.BoOrder b1 = p.BoOrder.UpdateProviding(verification.intInput);
+                    Console.WriteLine(b1);
                     goto MainMenu;
 
                 case "t":
