@@ -23,6 +23,7 @@ public struct OrderItem
 
     ///funcs
     public override string ToString() => $@"
+        ID: {ID}, 
         Product ID: {ProductID}, 
         OrderID: {OrderID}
     	Price: {Price}
