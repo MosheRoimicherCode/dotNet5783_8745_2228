@@ -141,15 +141,15 @@ internal class Program
         order.ID = 789;                                     
         order.OrderID = 1;                               
         order.Price = 80;
-        order.ProductID = 999999;
-        order.Amount = 50;
+        order.ProductID = 123456;
+        order.Amount = 5;
 
         DO.OrderItem order2 = new DO.OrderItem();
         order2.ID = 987;                                      
         order2.OrderID = 2;
         order2.Price = 200;
         order2.ProductID = 111111;
-        order2.Amount = 100;
+        order2.Amount = 5;
 
 
         List<DO.OrderItem> list = new List<DO.OrderItem>();
@@ -161,7 +161,7 @@ internal class Program
         cart.CustomerEmail = "mroimicher@gmail.com";
         cart.CustomerName = "Moshe";
         cart.Details = list;
-        cart.TotalPrice = 2500;                           
+        cart.TotalPrice = 2800;                           
         ////for checks use---------------------------------e---------------------------------e---------------------------------
 
     MainMenu:
@@ -333,18 +333,19 @@ internal class Program
                     int temp = verification.intInput;
                     Console.WriteLine("Please enter a new amount.");
                     verification = checkInput("int");
-                    p.BoCart.UpdateAmount(cart, temp, verification.intInput);
+                    BO.BoCart boCart1 = p.BoCart.UpdateAmount(cart, temp, verification.intInput);
+                    Console.WriteLine(boCart1);
                     goto MainMenu;
 
                 case "c":
 
-                    Console.WriteLine("Please enter the name of client.");
-                    string? nameClient = Console.ReadLine();
-                    Console.WriteLine("Please enter the address of client.");
-                    string? nameAdress = Console.ReadLine();
-                    verification = checkInput("email");
+                    //Console.WriteLine("Please enter the name of client.");
+                    //string? nameClient = Console.ReadLine();
+                    //Console.WriteLine("Please enter the address of client.");
+                    //string? nameAdress = Console.ReadLine();
+                    //verification = checkInput("email");
 
-                    p.BoCart.ConfirmCart(cart, nameClient, verification.strInput, nameAdress);
+                    p.BoCart.ConfirmCart(cart, cart.CustomerName, cart.CustomerEmail, cart.CustomeAdress);
                     goto MainMenu;
 
                 case "e":

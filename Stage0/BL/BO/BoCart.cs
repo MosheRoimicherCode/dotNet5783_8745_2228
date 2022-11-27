@@ -16,7 +16,7 @@ public class BoCart
         CustomerName:  {CustomerName}
     	CustomerEmail: {CustomerEmail}
     	CustomeAdress: {CustomeAdress}
-        details        {Details}
+        details        {Details.ToString}
         totalPrice     {TotalPrice}
     ";
 

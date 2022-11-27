@@ -10,28 +10,14 @@ public class BoOrderTracking
     ///data
     public int OrderID { get; set; }
     public Status Status { get; set; }
-    public List<Tuple<DateTime, string>> TupleList = new List<Tuple<DateTime, string>>();
+    public Tuple<DateTime, string> TupleList { get; set; }
 
-    ///// funcs
-    //public override string ToString() => $@"
-    //    OrderID: {OrderID}
-    //    Category: {Status}
-    //    list: {}
-
-    //";
-
-    public override string ToString()
-    {
-        
-        Console.WriteLine("OrderID: ");
-        Console.WriteLine(OrderID);
-        Console.WriteLine("Category: ");
-        Console.WriteLine(Status);
-        Console.WriteLine("list: ");
-        foreach (var score in TupleList)
-        { Console.WriteLine(score.ToString()); }
-    }
-
+    /// funcs
+    public override string ToString() => $@"
+        OrderID: {OrderID}
+        Category: {Status}
+        list: {TupleList}
+    ";
 
 }
 
