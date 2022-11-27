@@ -34,8 +34,7 @@ namespace BlImplementation
                         else throw new BO.IdBOException("product is not available");
                     }
                 }
-            }
-            
+            }         
             foreach (var p in productList)
             {
                 if (p.ID == Id && p.InStock > 0)
@@ -52,8 +51,12 @@ namespace BlImplementation
                     newBoCart.Details.Add(newOrderItem);
                     newBoCart.TotalPrice += newOrderItem.Price;
                 }
-                else throw new BO.IdBOException("product is not available");
             }
+            if (true)
+            {
+
+            }
+            else throw new BO.IdBOException("product is not available");
             return newBoCart;
         }
 

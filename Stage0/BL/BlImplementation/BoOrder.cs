@@ -183,7 +183,9 @@ namespace BlImplementation
                 BO.BoOrderTracking bo = new BO.BoOrderTracking();
                 bo.OrderID = dal.ID;
                 bo.Status = CheckStatus(dal);
-                Tuple<DateTime, String> t1 = new Tuple<DateTime, String>(dal.OrderDate, "Order approved");
+                var t1 = new Tuple<DateTime, String>(dal.OrderDate,"Order approved");
+                //Tuple<DateTime, String> t1 = new Tuple<DateTime, String>; //(dal.OrderDate, "Order approved");
+                //(DateTime, String) t1 = (dal.OrderDate, "Order approved");
                 bo.TupleList.Add(t1);
                 if (CheckStatus(dal) == BO.Enums.Status.shiped)
                 {

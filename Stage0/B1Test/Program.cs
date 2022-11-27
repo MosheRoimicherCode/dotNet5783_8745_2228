@@ -269,30 +269,38 @@ internal class Program
                 case "g":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    p.BoOrder.Get(verification.intInput);
-                    goto OrderOperations;
+                    BO.BoOrder boOrder = new BoOrder();
+                    if (verification.boolInput == true) boOrder = p.BoOrder.Get(verification.intInput);
+                    Console.WriteLine(boOrder);
+                    goto MainMenu;
 
                 case "l":
-                    p.BoOrder.GetLists();
-                    goto OrderOperations;
+                    List<BO.BoOrderForList> boOrderForList = p.BoOrder.GetList();
+                    foreach (BO.BoOrderForList item in boOrderForList)
+                    {
+                        Console.WriteLine(item);
+                    }
+                    goto MainMenu;
 
                 case "u1":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
                     p.BoOrder.UpdateShipping(verification.intInput);
-                    goto OrderOperations;
+                    goto MainMenu;
 
                 case "u2":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
                     p.BoOrder.UpdateProviding(verification.intInput);
-                    goto OrderOperations;
+                    goto MainMenu;
 
                 case "t":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    p.BoOrder.OrderTracking(verification.intInput);
-                    goto OrderOperations;
+                    BO.BoOrderTracking boOrderTracking = new BoOrderTracking();
+                    if (verification.boolInput == true) boOrderTracking = p.BoOrder.OrderTracking(verification.intInput);
+                    Console.WriteLine(boOrderTracking);
+                    goto MainMenu;
 
                 case "e":
                     goto end;
@@ -315,8 +323,9 @@ internal class Program
                 case "a":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    p.BoCart.Add(cart, verification.intInput);
-                    goto OrderOperations;
+                    BO.BoCart boCart =  p.BoCart.Add(cart, verification.intInput);
+                    Console.WriteLine(boCart);
+                    goto MainMenu;
 
                 case "u":
                     Console.WriteLine("Please enter the ID of product.");
@@ -325,7 +334,7 @@ internal class Program
                     Console.WriteLine("Please enter a new amount.");
                     verification = checkInput("int");
                     p.BoCart.UpdateAmount(cart, temp, verification.intInput);
-                    goto OrderOperations;
+                    goto MainMenu;
 
                 case "c":
 
@@ -336,7 +345,7 @@ internal class Program
                     verification = checkInput("email");
 
                     p.BoCart.ConfirmCart(cart, nameClient, verification.strInput, nameAdress);
-                    goto OrderOperations;
+                    goto MainMenu;
 
                 case "e":
                     goto end;
