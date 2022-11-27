@@ -129,7 +129,7 @@ internal class Program
 
     //-----------------------------------------------------------------------------------------------checks user input methods
 
-  
+
     static public void Main()
     {
         Bl? p = new Bl();
@@ -138,14 +138,14 @@ internal class Program
 
         ////for checks use---------------------------------e---------------------------------e---------------------------------
         DO.OrderItem order = new DO.OrderItem();
-        order.ID = 789;                                     
-        order.OrderID = 1;                               
+        order.ID = 789;
+        order.OrderID = 1;
         order.Price = 80;
         order.ProductID = 123456;
         order.Amount = 5;
 
         DO.OrderItem order2 = new DO.OrderItem();
-        order2.ID = 987;                                      
+        order2.ID = 987;
         order2.OrderID = 2;
         order2.Price = 200;
         order2.ProductID = 111111;
@@ -161,11 +161,12 @@ internal class Program
         cart.CustomerEmail = "mroimicher@gmail.com";
         cart.CustomerName = "Moshe";
         cart.Details = list;
-        cart.TotalPrice = 2800;                           
-        ////for checks use---------------------------------e---------------------------------e---------------------------------
+        cart.TotalPrice = 2800;
+    ////for checks use---------------------------------e---------------------------------e---------------------------------
 
     MainMenu:
-        try {
+        try
+        {
             Console.WriteLine("enter name of Item:\n  " +
                 "p for product\n  " +
                 "o for order\n  " +
@@ -323,8 +324,8 @@ internal class Program
                 case "a":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    BO.BoCart boCart =  p.BoCart.Add(cart, verification.intInput);
-                    Console.WriteLine(boCart);
+                    BO.BoCart boCart = p.BoCart.Add(cart, verification.intInput);
+                    Console.WriteLine(boCart.ToString());
                     goto MainMenu;
 
                 case "u":
@@ -334,7 +335,7 @@ internal class Program
                     Console.WriteLine("Please enter a new amount.");
                     verification = checkInput("int");
                     BO.BoCart boCart1 = p.BoCart.UpdateAmount(cart, temp, verification.intInput);
-                    Console.WriteLine(boCart1);
+                    Console.WriteLine(boCart1.ToString());
                     goto MainMenu;
 
                 case "c":
@@ -363,5 +364,5 @@ internal class Program
         {
             Console.WriteLine(ex.Message);
         }
-        }
+    }
 }
