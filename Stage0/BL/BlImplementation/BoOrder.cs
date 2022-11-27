@@ -16,15 +16,19 @@ namespace BlImplementation
         {
             if (o.ShipDate > DateTime.Now)
             {
-                return BO.Enums.Status.approved;
+                return BO.Enums.Status.shiped;
             }
             else if (o.DeliveryDate > DateTime.Now)
             {
-                return BO.Enums.Status.shiped;
+                return BO.Enums.Status.approved;
+            }
+            else if (DateTime.Now > o.DeliveryDate)
+            {
+                return BO.Enums.Status.provided;
             }
             else
             {
-                return BO.Enums.Status.provided;
+                return BO.Enums.Status.error;
             }
 
         }
@@ -113,16 +117,19 @@ namespace BlImplementation
             if (Id <= 0) throw new BO.IdBOException("Negative Id!");
 
             List<DO.Order> dalOrder = Dal.Order.CopyList();
-            foreach (DO.Order item in dalOrder)
+            DO.Order item = new DO.Order();
+            for (int i = 0; i < dalOrder.Count; i++)
             {
+                item = dalOrder[i];
                 if (item.ID == Id)
                 {
                     if (item.ShipDate < DateTime.Now)
                     {
-                        throw new BO.IdBOException("order has already shipped");
+                        Console.WriteLine("order has already shipped");
                     }
                     else if (item.ShipDate > DateTime.Now)
                     {
+                        item.ShipDate = DateTime.Now;   
                         DO.Order o = new DO.Order(item.ID, item.CustomerName, item.CustomerEmail, item.CustomeAdress, item.OrderDate, DateTime.Now, item.DeliveryDate);
                         try
                         {
