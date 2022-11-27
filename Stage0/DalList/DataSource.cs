@@ -30,13 +30,13 @@ internal static class DataSource
     {
         _orderList.Add(o);
         o.ID = Config._idNumberOrder; 
-        return Config._idNumberOrder;
+        return o.ID;
     }
     static internal int AddOrderItem(OrderItem p)
     {
         _orderItemList.Add(p);
         p.ID = Config._idNumberItemOrder;
-        return Config._idNumberItemOrder;
+        return p.ID;
     }
  
     static private void s_Initialize()

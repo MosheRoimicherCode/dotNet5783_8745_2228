@@ -162,7 +162,7 @@ namespace BlImplementation
             newOrder.CustomeAdress = Addres;
             newOrder.CustomerEmail = Email;
             newOrder.OrderDate = DateTime.Now;
-    
+            
             newOrder.ID = Dal.Order.Add(newOrder);
 
             foreach (var item in boCart.Details)

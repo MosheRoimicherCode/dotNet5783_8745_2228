@@ -222,9 +222,9 @@ internal class Program
                     //Check ID input
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-
-                    p.BoProduct.Get(verification.intInput, cart);
-
+                    BO.BoProductItem boProduct1 = new BoProductItem();
+                    boProduct1 = p.BoProduct.Get(verification.intInput, cart);
+                    Console.WriteLine(boProduct1);
                     goto MainMenu;
 
                 case "r":
