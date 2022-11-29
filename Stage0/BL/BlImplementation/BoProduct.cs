@@ -102,10 +102,9 @@ namespace BlImplementation
             if (product == null) throw new BO.DeleteProductException("Cant delete product. Id not found.");
 
             //check if product exist inside order - if yes, so throw a message
-            bool check = SearchProductInsideExistOrders(Id);
-            if (check == true) throw new BO.IdBOException("Product inside an exist order. cant delete."); ;
-            if (check == false) Dal.Product.Delete(Id);
-            
+            if (SearchProductInsideExistOrders(Id).Count() == 0) Dal.Product.Delete(Id);
+            else throw new BO.IdBOException("Product inside an exist order. cant delete."); ;
+
         }
 
         public void Update(BO.BoProduct item)
@@ -136,18 +135,19 @@ namespace BlImplementation
         }
 
         //check if a product are inside any order
-        //return bool
-        public bool SearchProductInsideExistOrders(int ProductId)
+        //return a list or Id order that contain the product
+        public List<int?>? SearchProductInsideExistOrders(int ProductId)
         {
             List<DO.OrderItem> dalOlist = Dal.OrderItem.CopyList();
-            List<int?> orderItemsWithProduct = new List<int?>();
+            List<int?>? orderItemsWithProduct = new List<int?>();
             foreach (DO.OrderItem item in dalOlist)
             {
-                if (item.ProductID == ProductId) return true;
+                if (item.ProductID == ProductId) orderItemsWithProduct.Add(item.ID);
             }
-            return false;
-
-            //need changes
+            return orderItemsWithProduct;
         }
+
+        //need changes
     }
+    
 }
