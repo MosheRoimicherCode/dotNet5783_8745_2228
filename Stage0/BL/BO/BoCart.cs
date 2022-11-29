@@ -5,14 +5,15 @@ using static BO.Enums;
 public class BoCart
 {
 
-    ///data
-    public string CustomerName { get; set; }
-    public string CustomerEmail { get; set; }
-    public string CustomeAdress { get; set; }
-    public List<OrderItem> Details = new List<OrderItem>();
+    // data
+    public string? CustomerName { get; set; }
+    public string? CustomerEmail { get; set; }
+    public string? CustomeAdress { get; set; }
+
+    public List<OrderItem?> Details = new List<OrderItem?>();
     public double TotalPrice { get; set; }
 
-
+    // methods
     public override string ToString()
     {
         string s;

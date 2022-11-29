@@ -3,15 +3,15 @@ using static BO.Enums;
 public class BoProductItem
 {
 
-    ///data
+    // data
     public int ID { get; set; }
-    public string Name { get; set; }
+    public string? Name { get; set; }
     public double Price { get; set; }
-    public Category Category { get; set; }
+    public Category? Category { get; set; }
     public bool IsInStock { get; set; }
     public int AmontInCart { get; set; }
 
-    ///funcs
+    // methods
     public override string ToString() => $@"
         Product ID={ID}: {Name}, 
         category - {Category}

@@ -1,8 +1,8 @@
 ﻿using BlApi;
 using Dal;
 using DalApi;
-using DO;
-using System.Linq.Expressions;
+using BO;
+
 
 namespace BlImplementation
 {
@@ -96,20 +96,16 @@ namespace BlImplementation
         public void Remove(int Id)
         {
 
-                ///check if received id exist
-                DO.Product? product = new DO.Product();
-                product = Dal.Product.Get(Id);
-                if (product == null) throw new BO.DeleteProductException("Cant delete product. Id not found.");
+            ///check if received Id exist
+            DO.Product? product = new DO.Product();
+            product = Dal.Product.Get(Id);
+            if (product == null) throw new BO.DeleteProductException("Cant delete product. Id not found.");
 
-                ///if id exist and its not inside order then, delete him
-                OrderItem item = new OrderItem();
-                item = Dal.OrderItem.Get(Id);
-                if (item.ProductID == -999) Dal.Product.Delete(Id);
-                
-                else
-                {
-                Console.WriteLine("Product exist in a Order. Impossible to delete.");
-                }
+            //check if product exist inside order - if yes, so throw a message
+            bool check = SearchProductInsideExistOrders(Id);
+            if (check == true) throw new BO.IdBOException("Product inside an exist order. cant delete."); ;
+            if (check == false) Dal.Product.Delete(Id);
+            
         }
 
         public void Update(BO.BoProduct item)
@@ -137,6 +133,21 @@ namespace BlImplementation
                 listBoProduct.Add(boProductForList);
             }
             return listBoProduct;
+        }
+
+        //check if a product are inside any order
+        //return bool
+        public bool SearchProductInsideExistOrders(int ProductId)
+        {
+            List<DO.OrderItem> dalOlist = Dal.OrderItem.CopyList();
+            List<int?> orderItemsWithProduct = new List<int?>();
+            foreach (DO.OrderItem item in dalOlist)
+            {
+                if (item.ProductID == ProductId) return true;
+            }
+            return false;
+
+            //need changes
         }
     }
 }

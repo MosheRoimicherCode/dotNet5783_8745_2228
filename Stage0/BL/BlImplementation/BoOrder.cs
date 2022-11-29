@@ -50,6 +50,7 @@ namespace BlImplementation
         {
             DO.Order dalOrder = Dal.Order.Get(Id);
             BO.BoOrder boOrder = new BO.BoOrder();
+
             boOrder.ID = dalOrder.ID;
             boOrder.CustomerName = dalOrder.CustomerName;
             boOrder.CustomerEmail = dalOrder.CustomerEmail;
@@ -58,7 +59,7 @@ namespace BlImplementation
             boOrder.ShipDate = dalOrder.ShipDate;
             boOrder.DeliveryDate = dalOrder.DeliveryDate;
             List <DO.OrderItem> dalOlist = Dal.OrderItem.CopyList();
-            List<DO.OrderItem> boOlist = new List<DO.OrderItem>();
+            List<DO.OrderItem?> boOlist = new List<DO.OrderItem?>();
             foreach (DO.OrderItem item in dalOlist)
             {
                 if (item.OrderID == Id)
@@ -203,22 +204,23 @@ namespace BlImplementation
                 BO.BoOrderTracking bo = new BO.BoOrderTracking();
                 bo.OrderID = order.ID;
                 bo.Status = CheckStatus(order);
-                var t1 = new Tuple<DateTime, String>(order.OrderDate,"Order approved");
+                Tuple<DateTime?, String?>? t1 = new Tuple<DateTime?, String?>(order.OrderDate,"Order approved");
                 //Tuple<DateTime, String> t1 = new Tuple<DateTime, String>; //(dal.OrderDate, "Order approved");
                 //(DateTime, String) t1 = (dal.OrderDate, "Order approved");
                 bo.TupleList = t1;
                 if (CheckStatus(order) == BO.Enums.Status.shiped)
                 {
-                    Tuple<DateTime, String> t2 = new Tuple<DateTime, String>(order.OrderDate, "Order shipped");
+                    Tuple<DateTime?, String?>? t2 = new Tuple<DateTime?, String?>(order.OrderDate, "Order shipped");
                     bo.TupleList = t2;
                 }
                 if (CheckStatus(order) == BO.Enums.Status.provided)
                 {
-                    bo.TupleList = new Tuple<DateTime, String>(order.OrderDate, "Order provided");
+                    bo.TupleList = new Tuple<DateTime?, String?>(order.OrderDate, "Order provided");
                 }
                 return bo;
             }
             catch (IdException) { throw new BO.IdBOException("Order exist. Impossible to update."); }
         }
+    
     }
 }

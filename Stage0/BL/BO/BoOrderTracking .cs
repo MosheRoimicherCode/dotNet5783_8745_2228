@@ -7,12 +7,12 @@ using static System.Formats.Asn1.AsnWriter;
 public class BoOrderTracking
 {
 
-    ///data
+    // data
     public int OrderID { get; set; }
-    public Status Status { get; set; }
-    public Tuple<DateTime, string> TupleList { get; set; }
+    public Status? Status { get; set; }
+    public Tuple<DateTime?, string?>? TupleList { get; set; }
 
-    /// funcs
+    // methods
     public override string ToString() => $@"
         OrderID: {OrderID}
         Category: {Status}

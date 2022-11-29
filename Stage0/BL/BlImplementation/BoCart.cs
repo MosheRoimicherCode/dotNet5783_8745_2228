@@ -1,7 +1,7 @@
 ﻿using BlApi;
-using BO;
 using Dal;
 using DalApi;
+using DO;
 
 namespace BlImplementation
 {
@@ -15,14 +15,16 @@ namespace BlImplementation
             List<DO.Product> productList = Dal.Product.CopyList();
             List<DO.OrderItem> OrderItemList = Dal.OrderItem.CopyList();
             List<DO.Order> OrderList = Dal.Order.CopyList();
+
             BO.BoCart newBoCart = new BO.BoCart();
+
             newBoCart.CustomerName = boCart.CustomerName;
             newBoCart.CustomerEmail = boCart.CustomerEmail;
             newBoCart.CustomeAdress = boCart.CustomeAdress;
             newBoCart.Details = boCart.Details;
             newBoCart.TotalPrice = boCart.TotalPrice;
 
-            foreach (var item in  boCart.Details)
+            foreach (OrderItem item in  boCart.Details)
             {
                 if (item.ProductID == Id)
                 {
@@ -76,7 +78,7 @@ namespace BlImplementation
             newBoCart.Details = boCart.Details;
             newBoCart.TotalPrice = boCart.TotalPrice;
 
-            foreach (var item in boCart.Details)
+            foreach (OrderItem item in boCart.Details)
             {
                 if (item.ProductID == Id)
                 {
@@ -129,7 +131,7 @@ namespace BlImplementation
         ///Confirm the Cart and build objects of order
         public void ConfirmCart(BO.BoCart boCart, string Name, string Email, string Addres)
         {
-            foreach (var item in boCart.Details)
+            foreach (OrderItem item in boCart.Details)
             {
                 if (!IdExistInProductList(item.ProductID))
                 {
@@ -165,7 +167,7 @@ namespace BlImplementation
             
             newOrder.ID = Dal.Order.Add(newOrder);
 
-            foreach (var item in boCart.Details)
+            foreach (OrderItem item in boCart.Details)
             {
                 DO.OrderItem newOrderItem = item;
                 Dal.OrderItem.Add(newOrderItem);

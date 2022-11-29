@@ -150,7 +150,7 @@ internal class Program
         order2.Amount = 5;
 
 
-        List<DO.OrderItem> list = new List<DO.OrderItem>();
+        List<DO.OrderItem?> list = new List<DO.OrderItem?>();
         list.Add(order);
         list.Add(order2);
 
@@ -234,7 +234,8 @@ internal class Program
                     //Check ID input
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    p.BoProduct.Remove(verification.intInput);
+                    int Id = verification.intInput;
+                    p.BoProduct.Remove(Id);
                     goto MainMenu;
 
                 case "u":
