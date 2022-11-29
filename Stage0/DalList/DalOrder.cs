@@ -32,6 +32,22 @@ internal class DalOrder : IOrder
         return order2;
     }///search for order by Id and return the specific order
 
+    public Order Get(int OrderID, Func<Order, bool> f)
+    {
+        foreach (var order in from Order order in _orderList
+                              where order.ID.Equals(OrderID)
+                              select order)
+        {
+            if (f(order) == true)
+            {
+                return order;
+            }   
+        }
+        Order order2 = new Order();
+        order2.ID = -999;
+        return order2;
+    }
+
     public void Delete(int OrderID)  
 
     {
@@ -81,16 +97,31 @@ internal class DalOrder : IOrder
         return orderlist;
     }///return copy of order list
 
-    public void GetAll()
+    public void GetAll(Func<Order, bool>? f)
     {
-        foreach (Order order in _orderList)
+        if (f == null)
         {
-            if (order.ID != 0)
+            foreach (Order order in _orderList)
             {
-                Console.WriteLine(order.ToString());
+                if (order.ID != 0)
+                {
+                    Console.WriteLine(order.ToString());
+                }
             }
         }
-    }///ToString call for all list
+        else
+        {
+            foreach (Order order in _orderList)
+            {
+                if (order.ID != 0 && f(order) == true)
+                {
+                    Console.WriteLine(order.ToString());
+                }
+            }
+        }
+    }
+
+    ///ToString call for all list
 
 
     ///----------------------------------------------------

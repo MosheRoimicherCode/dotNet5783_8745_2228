@@ -19,7 +19,7 @@ internal class DalProduct : IProduct
     public int Add(Product product) => DataSource.AddProduct(product);/// Add Product to Data Base
 
     public Product Get(int ProductID)
-        {
+    {
         foreach (var product in from Product product in _productList
                                 where product.ID == ProductID
                                 select product)
@@ -28,8 +28,25 @@ internal class DalProduct : IProduct
         }
 
         ///in case of Id not found, throw exception
-        throw new IdException(" Not found ID. (DalOrderProduct.Get Exception)"); ;
-        }///search for product by Id and return the specific product
+        throw new IdException(" Not found ID. (DalOrderProduct.Get Exception)"); 
+    }///search for product by Id and return the specific product
+    public Product Get(int ProductID, Func<Product, bool> f)
+    {
+        foreach (var product in from Product product in _productList
+                                where product.ID == ProductID
+                                select product)
+        {
+            {
+                if (f(product) == true)
+                {
+                    return product;
+                }
+            }        
+        }
+
+        ///in case of Id not found, throw exception
+        throw new IdException(" Not found ID. (DalOrderProduct.Get Exception)");
+    }
 
     public void Delete(int ProductID)
     {
@@ -75,23 +92,40 @@ internal class DalProduct : IProduct
 
     ///----------------------------------------------------
     ///----------------- Methods -------------------------- 
-    public void GetAll()
-    { 
-        foreach (Product product in _productList)
-        {
-            if (product.ID != 0)
-            {
-                Console.WriteLine(product.ToString());
-            }
-        }
-    }///ToString call for all list
-
+    
     public List<Product> CopyList()
     {
         List<Product> productlist = new List<Product>();
         productlist = _productList;
         return productlist;
-    }///return a new copy of product array
+    }
+
+    public void GetAll(Func<Product, bool>? f)
+    {
+        if (f == null)
+        {
+            foreach (Product product in _productList)
+            {
+                if (product.ID != 0)
+                {
+                    Console.WriteLine(product.ToString());
+                }
+            }
+        }
+        else
+        {
+            foreach (Product product in _productList)
+            {
+                if (product.ID != 0 && f(product) == true)
+                {
+                    Console.WriteLine(product.ToString());
+                }
+            }
+        }
+    }
+
+    
+    ///return a new copy of product array
 
 
     ///----------------------------------------------------

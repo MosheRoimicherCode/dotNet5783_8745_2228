@@ -143,7 +143,7 @@ namespace BlImplementation
                     else if (item.ShipDate > DateTime.Now)
                     {
                         item.ShipDate = DateTime.Now;   
-                        DO.Order o = new DO.Order(item.ID, item.CustomerName, item.CustomerEmail, item.CustomeAdress, item.OrderDate, DateTime.Now, item.DeliveryDate);
+                        DO.Order o = new DO.Order(item.ID, item.CustomerName, item.CustomerEmail, item.CustomeAdress, item.OrderDate?? DateTime.MinValue, DateTime.Now, item.DeliveryDate?? DateTime.MinValue);
                         try
                         {
                             Dal.Order.Update(o.ID, o);
@@ -178,7 +178,7 @@ namespace BlImplementation
                     }
                     else if (item.DeliveryDate > DateTime.Now && item.ShipDate < DateTime.Now)
                     {
-                        DO.Order o = new DO.Order(item.ID, item.CustomerName, item.CustomerEmail, item.CustomeAdress, item.OrderDate, item.ShipDate, DateTime.Now);
+                        DO.Order o = new DO.Order(item.ID, item.CustomerName, item.CustomerEmail, item.CustomeAdress, item.OrderDate ?? DateTime.MinValue, item.ShipDate?? DateTime.MinValue, DateTime.Now);
                         
                         try
                         {

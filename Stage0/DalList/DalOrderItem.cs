@@ -28,9 +28,25 @@ internal class DalOrderItem : IOrderItem
         OrderItem o = new OrderItem();
         if (flag == false) o.ProductID = -999;
         return o;
-
-
     }///search for order item by Id's and return the specific order item
+
+    public OrderItem Get(int ID, Func<OrderItem, bool> f)
+    {
+        bool flag = false;
+        foreach (OrderItem orderItem in _orderItemList)
+        {
+
+            if (orderItem.ID.Equals(ID) && f(orderItem) == true)
+            {
+                flag = true;
+                return orderItem;
+            }
+        }
+        ///in case of Id not found, throw exception
+        OrderItem o = new OrderItem();
+        if (flag == false) o.ProductID = -999;
+        return o;
+    }
 
     public void Delete(int ID)
     {
@@ -82,15 +98,31 @@ internal class DalOrderItem : IOrderItem
         return orderItemlist;
     }///return copy of orderItem list
 
-    public void GetAll()
+    public void GetAll(Func<OrderItem, bool>? f)
     {
-        foreach (OrderItem orderItem in _orderItemList)
+        if (f == null)
         {
-            if (orderItem.OrderID != 0)
+            foreach (OrderItem orderItem in _orderItemList)
             {
-                Console.WriteLine(orderItem.ToString());
+                if (orderItem.OrderID != 0)
+                {
+                    Console.WriteLine(orderItem.ToString());
+                }
             }
         }
-    }///ToString call for all list
+        else
+        {
+            foreach (OrderItem orderItem in _orderItemList)
+            {
+                if (orderItem.OrderID != 0 && f(orderItem) == true)
+                {
+                    Console.WriteLine(orderItem.ToString());
+                }
+            }
+        }
+    }
+
+   
+    ///ToString call for all list
     ///----------------------------------------------------
 }

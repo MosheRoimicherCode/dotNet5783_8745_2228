@@ -6,7 +6,8 @@ public interface ICrud<T>
     void Delete(int n);
     void Update(int n, T t);
     T Get(int n);
-    void GetAll();
+    T Get(int n, Func<T?, bool> f);
+    void GetAll(Func<T?, bool>? f);
     List<T> CopyList();
 }
 
