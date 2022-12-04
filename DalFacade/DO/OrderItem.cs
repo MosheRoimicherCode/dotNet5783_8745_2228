@@ -5,15 +5,6 @@ namespace DO;
 ///A class to restore the witch products each client request
 public struct OrderItem
 {
-    ///constructor
-    public OrderItem(int I, int PI, int OI, double P, int A) 
-    {
-        ID = I;
-        ProductID = PI;
-        OrderID = OI;
-        Price = P;
-        Amount = A; 
-    }
     ///data
     public int ID { get; set; }
     public int ProductID { get; set; }

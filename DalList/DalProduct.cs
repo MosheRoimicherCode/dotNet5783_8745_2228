@@ -95,33 +95,28 @@ internal class DalProduct : IProduct
     
     public List<Product> CopyList()
     {
-        List<Product> productlist = new List<Product>();
         productlist = _productList;
         return productlist;
     }
 
-    public void GetAll(Func<Product, bool>? f)
+    public IEnumerable<Product?> GetAll(Func<Product?, bool>? f)
     {
+        List<Product> productlist = new List<Product>();
         if (f == null)
         {
-            foreach (Product product in _productList)
-            {
-                if (product.ID != 0)
-                {
-                    Console.WriteLine(product.ToString());
-                }
-            }
+            return new List<Product?>(_productList);
         }
         else
         {
             foreach (Product product in _productList)
             {
-                if (product.ID != 0 && f(product) == true)
+                if (f(product))
                 {
-                    Console.WriteLine(product.ToString());
+                    Console.WriteLine(product.ToString()); // prohibited!!!
                 }
             }
         }
+        return null;
     }
 
     

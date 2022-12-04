@@ -53,7 +53,7 @@ internal class Program
                                     c = Enums.Category.outerwear;
                                     break;
                                 case 3:
-                                    c = Enums.Category.business;
+                                    c = Enums.Category.Business;
                                     break;
                             }
                             Console.WriteLine("enter inStock:");
@@ -90,7 +90,7 @@ internal class Program
                                     c4 = Enums.Category.outerwear;
                                     break;
                                 case 3:
-                                    c4 = Enums.Category.business;
+                                    c4 = Enums.Category.Business;
                                     break;
                             }
                             Console.WriteLine("enter inStock:");
