@@ -26,10 +26,11 @@ namespace PL
         Bl? p = new Bl();
         public MainWindow()
         {
-            InitializeComponent(); 
+            InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) => new ProductForListWindow().Show();
 
+        
     }
 }
