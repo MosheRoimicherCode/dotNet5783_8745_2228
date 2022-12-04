@@ -22,7 +22,7 @@ namespace BlApi
 
         /// return a list with all product in client order
         /// <returns> Product list </returns>
-        public List<BO.BoProductForList> GetList(Func<Enums.Category?, bool>? f);
+        public List<BO.BoProductForList> GetList();
 
     }
 } /// interface of product items for manager and client

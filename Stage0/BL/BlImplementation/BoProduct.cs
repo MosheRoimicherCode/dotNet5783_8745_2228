@@ -116,7 +116,7 @@ namespace BlImplementation
             catch (IdException) { throw new BO.UpdateProductException("Product exist in a Order. Impossible to update."); }
         } /// if received item have right properties and exist, update it. else throw a message.
 
-        public List<BO.BoProductForList> GetList(Func<Enums.Category?, bool>? f)
+        public List<BO.BoProductForList> GetList()
         {
             
             List<BO.BoProductForList> listBoProduct = new List<BO.BoProductForList>();
