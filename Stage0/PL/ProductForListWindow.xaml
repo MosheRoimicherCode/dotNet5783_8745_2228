@@ -21,7 +21,7 @@
             <ComboBox Name ="CategorySelector"  Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <Label Name ="CategorySelectorLabel" Content="category:" Grid.Column="0" FontSize="25"/> 
         </Grid>
-        <ListView Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListView Name ="ProductListview" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlImplementation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,13 @@ namespace PL
     /// </summary>
     public partial class ProductForListWindow : Window
     {
+        Bl p = new Bl();
         public ProductForListWindow()
         {
             InitializeComponent();
+            ProductListview.ItemsSource = p.BoProduct.GetList();
         }
+
+        
     }
 }
