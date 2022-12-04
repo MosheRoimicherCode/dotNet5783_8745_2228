@@ -2,7 +2,7 @@
 using Dal;
 using DalApi;
 using BO;
-
+using System.ComponentModel;
 
 namespace BlImplementation
 {
@@ -12,6 +12,8 @@ namespace BlImplementation
     {
 
         IDal Dal = new DalList ();
+
+
 
         public bool CheckNewItem(BO.BoProduct item)
         {
@@ -114,8 +116,9 @@ namespace BlImplementation
             catch (IdException) { throw new BO.UpdateProductException("Product exist in a Order. Impossible to update."); }
         } /// if received item have right properties and exist, update it. else throw a message.
 
-        public List<BO.BoProductForList> GetList()
+        public List<BO.BoProductForList> GetList(Func<Enums.Category?, bool>? f)
         {
+            
             List<BO.BoProductForList> listBoProduct = new List<BO.BoProductForList>();
             BO.BoProductForList boProductForList = new BO.BoProductForList();
             List<DO.Product> products = new List<DO.Product>();
