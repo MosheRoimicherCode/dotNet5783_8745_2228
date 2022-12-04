@@ -4,18 +4,6 @@ namespace DO;
 ///A class to restore customer details
 public struct Order
 {
-    ///constructor
-    public Order(int I, string CN, string CE, string CA, DateTime OD, DateTime SD, DateTime DD)
-    {
-        ID = I; 
-        CustomerName = CN; 
-        CustomerEmail = CE;
-        CustomeAdress = CA;
-        OrderDate = OD;
-        ShipDate = SD;
-        DeliveryDate = DD;
-    }
-
     ///data
     public int ID { get; set; }
     public string? CustomerName { get; set; }
