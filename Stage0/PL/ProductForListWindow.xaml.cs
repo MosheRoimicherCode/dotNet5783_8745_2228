@@ -21,19 +21,21 @@ namespace PL
     public partial class ProductForListWindow : Window
     { 
         Bl p = new Bl();
-        Func<BO.Enums.Category, bool> CheckCategory = (p) => p.Category == DO.Enums.Category.footwear;
+        //Func<BO.Enums.Category, bool> CheckCategory = (p) => p.Category == DO.Enums.Category.footwear;
+        
         public ProductForListWindow()
         {
             InitializeComponent();
             
+            
+            ProductListview.ItemsSource = p.BoProduct.GetList();
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
-
             //ProductListview.ItemsSource = p.BoProduct.GetList(CategorySelector.ItemsSource, true);
-            //CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.BoEnums));
+            //CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums));
 
 
         }
 
-        
+
     }
 }
