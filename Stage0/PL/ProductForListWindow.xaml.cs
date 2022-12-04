@@ -28,8 +28,8 @@ namespace PL
             
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
 
-            ProductListview.ItemsSource = p.BoProduct.GetList(CategorySelector.ItemsSource, true);
-            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.BoEnums));
+            //ProductListview.ItemsSource = p.BoProduct.GetList(CategorySelector.ItemsSource, true);
+            //CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.BoEnums));
 
 
         }
