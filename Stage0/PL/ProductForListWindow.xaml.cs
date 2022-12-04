@@ -21,7 +21,7 @@ namespace PL
     public partial class ProductForListWindow : Window
     { 
         Bl p = new Bl();
-        Func<DO.Product, bool>? CheckCategory = (p) => p.Category == DO.Enums.Category.footwear;
+        Func<, bool>? CheckCategory = (p) => p.Category == .footwear;
         public ProductForListWindow()
         {
             InitializeComponent();
