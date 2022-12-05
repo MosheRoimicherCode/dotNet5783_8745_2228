@@ -48,7 +48,7 @@ internal class DalProduct : IProduct
         {
             Product? product = new();
             product = _productList[i];
-            if (product?.ID.Equals(ProductID) ?? throw new IdException(" Not found ID. (DalProduct.Update Exception)"))
+            if (product?.ID.Equals(ProductID) ?? throw new IdException("null object. (DalProduct.Update Exception)"))
             {
                 int index = _productList.IndexOf(product);
                 _productList.RemoveAt(index);
@@ -56,6 +56,7 @@ internal class DalProduct : IProduct
                 return;
             }
         }
+        throw new IdException("not found id. (DalProduct.Update Exception)"))
     }///replace order by another inside array
 
     public IEnumerable<Product?> GetAll(Func<Product?, bool>? filter) =>

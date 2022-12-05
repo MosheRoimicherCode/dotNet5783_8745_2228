@@ -50,14 +50,13 @@ internal class DalOrder : IOrder
         ///delete product from data base by Id
     }
 
-   
     public void Update(int OrderID, Order newOrder)
     {
         for (int i = 0; i < _orderList.Count; i++)
         {
             Order? order = new();
             order = _orderList[i];
-            if (order?.ID.Equals(OrderID) ?? throw new IdException(" Not found ID. (DalOrder.Update Exception)"))
+            if (order?.ID.Equals(OrderID) ?? throw new IdException(" null object. (DalOrder.Update Exception)"))
             {
                 int index = _orderList.IndexOf(order);
                 _orderList.RemoveAt(index);
@@ -65,6 +64,7 @@ internal class DalOrder : IOrder
                 return;
             }
         }
+        throw new IdException("not found id. (DalOrder.Update Exception)"))
     }///replace order by another inside array
 
     public IEnumerable<Order?> GetAll(Func<Order?, bool>? filter) =>

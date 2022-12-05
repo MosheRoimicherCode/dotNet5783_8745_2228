@@ -6,123 +6,61 @@ namespace Dal;
 ///A class for connect with ORderItem struck
 internal class DalOrderItem : IOrderItem
 {
-    ///----------------------------------------------------
-    ///----------------- CRUD functions -------------------
+    public int Add(OrderItem orderItem) =>
+        DataSource._orderItemList.Exists(orderItemInList => orderItemInList?.ID == orderItem.ID)
+            ? throw new IdException("OrderItem ID already exists")
+            : DataSource.AddOrderItem(orderItem); /// Add OrderItem to Data Base
 
-    public int Add(OrderItem orderItem) => DataSource.AddOrderItem(orderItem);
+    public OrderItem Get(int OrderItemID)
+    {
+        foreach (var orderItem in from OrderItem orderItem in _orderItemList
+                              where orderItem.ID.Equals(OrderItemID)
+                              select orderItem)
+        {
+            return orderItem;
+        }
+        throw new IdException("Not found ID. (DalorderItem.Get Exception)");
+    }///search for orderItem by Id and return the specific order
 
+    public OrderItem? Get(Func<OrderItem?, bool> filter) =>
+                                                    (from orderItem in _orderItemList
+                                                     where filter(orderItem)
+                                                     select orderItem).FirstOrDefault();
 
-    public OrderItem Get(int ID)
+    public void Delete(int OrderItemId)
     {
         bool flag = false;
-        foreach (OrderItem orderItem in _orderItemList)
-        {
-
-            if (orderItem.ID.Equals(ID))
-            {
-                flag = true;
-                return orderItem;
-            }
-        }
-        ///in case of Id not found, throw exception
-        OrderItem o = new OrderItem();
-        if (flag == false) o.ProductID = -999;
-        return o;
-    }///search for order item by Id's and return the specific order item
-
-    public OrderItem Get(int ID, Func<OrderItem, bool> f)
-    {
-        bool flag = false;
-        foreach (OrderItem orderItem in _orderItemList)
-        {
-
-            if (orderItem.ID.Equals(ID) && f(orderItem) == true)
-            {
-                flag = true;
-                return orderItem;
-            }
-        }
-        ///in case of Id not found, throw exception
-        OrderItem o = new OrderItem();
-        if (flag == false) o.ProductID = -999;
-        return o;
-    }
-
-    public void Delete(int ID)
-    {
-        foreach (OrderItem orderItem in _orderItemList)
-        {
-            if (orderItem.ProductID.Equals(ID) && orderItem.OrderID.Equals(ID))
-            {
-                _orderItemList.Remove(orderItem);
-            }
-        }
-
-        ///if not found return a message
-        throw new IdException(" Not found ID. (DalOrderItem.Delete Exception)");
-    }///delete order item from data base by Id's
-
-    public void Update(int ID, OrderItem newOrderItem)
-    {
-
         for (int i = 0; i < _orderItemList.Count; i++)
         {
-            var orderItem = _orderItemList[i];
-            if (orderItem.ProductID.Equals(ID) && orderItem.OrderID.Equals(ID))
+            if (_orderItemList[i]?.ID == OrderItemId)
+            {
+                _orderItemList.Remove(_orderItemList[i]);
+                flag = true;
+            }
+        }
+        //if Id not found send a MESSAGE
+        if (flag == false) Console.WriteLine(" Not found ID. (DalorderItem.Delete Exception)");
+        ///delete OrsderItem from data base by Id
+    }
+
+    public void Update(int OrderItemID, OrderItem newOrderItem)
+    {
+        for (int i = 0; i < _orderItemList.Count; i++)
+        {
+            OrderItem? orderItem = new();
+            orderItem = _orderItemList[i];
+            if (orderItem?.ID.Equals(OrderItemID) ?? throw new IdException(" null object. (DalOrderItem.Update Exception)"))
             {
                 int index = _orderItemList.IndexOf(orderItem);
                 _orderItemList.RemoveAt(index);
                 _orderItemList.Insert(index, newOrderItem);
+                return;
             }
-            return;
         }
-       
-        ///if not found return a message
         throw new IdException(" Not found ID. (DalOrderItem.Update Exception)");
-    }///replace order item by another inside array
+    }///replace orderItem by another inside array
 
-
-    ///----------------------------------------------------
-    ///----------------------------------------------------
-
-
-
-    ///----------------------------------------------------
-    ///----------------- Methods --------------------------
-
-
-    public List<OrderItem> CopyList()
-    {
-        List<OrderItem> orderItemlist = new List<OrderItem>();
-        orderItemlist = _orderItemList;
-        return orderItemlist;
-    }///return copy of orderItem list
-
-    public void GetAll(Func<OrderItem, bool>? f)
-    {
-        if (f == null)
-        {
-            foreach (OrderItem orderItem in _orderItemList)
-            {
-                if (orderItem.OrderID != 0)
-                {
-                    Console.WriteLine(orderItem.ToString());
-                }
-            }
-        }
-        else
-        {
-            foreach (OrderItem orderItem in _orderItemList)
-            {
-                if (orderItem.OrderID != 0 && f(orderItem) == true)
-                {
-                    Console.WriteLine(orderItem.ToString());
-                }
-            }
-        }
-    }
-
-   
-    ///ToString call for all list
-    ///----------------------------------------------------
+    public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool>? filter) =>
+      filter == null ? _orderItemList.Select(orderItemInList => orderItemInList)
+                : _orderItemList.Where(filter);
 }
