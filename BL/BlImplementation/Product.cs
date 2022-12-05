@@ -1,21 +1,21 @@
-﻿using BlApi;
+﻿namespace BlImplementation;
+    
+using BlApi;
 using Dal;
-using DalApi;
-using BO;
-using System.ComponentModel;
 
-namespace BlImplementation
+
+
 {
 
 
-    internal class BoProduct : IBoProduct
+    internal class Product : IProduct
     {
 
         IDal Dal = new DalList ();
 
 
 
-        public bool CheckNewItem(BO.BoProduct item)
+        public bool CheckNewItem(BO.Product item)
         {
             if (item.ID <= 0) throw new BO.IdBOException("Negative Id!");
             if (item.Name == null) throw new BO.ProductNameException("Name can't be null");
@@ -25,9 +25,9 @@ namespace BlImplementation
             return true;
         } ///check previews criterion for a new item
 
-        public BO.BoProduct ConvertProductToBoProduct( DO.Product product)
+        public BO.Product ConvertProductToBoProduct( DO.Product product)
         {
-            BO.BoProduct boProduct = new BO.BoProduct();
+            BO.Product boProduct = new BO.Product();
             boProduct.ID = product.ID;
             boProduct.Name = product.Name;
             boProduct.Price = product.Price;
@@ -37,7 +37,7 @@ namespace BlImplementation
             return boProduct;
         }
 
-        public DO.Product ConvertBoProductToProduct(BO.BoProduct boProduct)
+        public DO.Product ConvertBoProductToProduct(BO.Product boProduct)
         {
             DO.Product product = new DO.Product();
             product.ID = boProduct.ID;
@@ -52,24 +52,24 @@ namespace BlImplementation
 
 
 
-        public void Add(BO.BoProduct item)
+        public void Add(BO.Product item)
         {
             if (CheckNewItem(item) == true) Dal.Product.Add(ConvertBoProductToProduct(item)); 
         }
 
-        public BO.BoProduct Get(int Id)
+        public BO.Product Get(int Id)
         {
             if (Id <= 0) throw new BO.IdBOException("Not positive Id!");
             return ConvertProductToBoProduct(Dal.Product.Get(Id));
         }
 
-        public BO.BoProductItem Get(int Id, BO.BoCart cart) 
+        public BO.ProductItem Get(int Id, BO.Cart cart) 
         {
 
             if (Id <= 0) throw new BO.IdBOException("Not positive Id!");
             try
             {
-                BO.BoProductItem item = new BO.BoProductItem();
+                BO.ProductItem item = new BO.ProductItem();
                 DO.OrderItem orderItem = new DO.OrderItem();
 
                 foreach (DO.OrderItem itemCart in cart.Details)
@@ -109,18 +109,18 @@ namespace BlImplementation
 
         }
 
-        public void Update(BO.BoProduct item)
+        public void Update(BO.Product item)
         {
             try { if (CheckNewItem(item) == true) Dal.Product.Update(item.ID, ConvertBoProductToProduct(item)); }
 
             catch (IdException) { throw new BO.UpdateProductException("Product exist in a Order. Impossible to update."); }
         } /// if received item have right properties and exist, update it. else throw a message.
 
-        public List<BO.BoProductForList> GetList()
+        public List<BO.ProductForList> GetList()
         {//Func<Enums.Category?, bool>? f 
 
-            List<BO.BoProductForList> listBoProduct = new List<BO.BoProductForList>();
-            BO.BoProductForList boProductForList = new BO.BoProductForList();
+            List<BO.ProductForList> listBoProduct = new List<BO.ProductForList>();
+            BO.ProductForList boProductForList = new BO.ProductForList();
             List<DO.Product> products = new List<DO.Product>();
             products = Dal.Product.CopyList();
 

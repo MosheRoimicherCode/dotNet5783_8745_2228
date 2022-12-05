@@ -1,7 +1,7 @@
 ﻿namespace BO;
 using DO;
 using static BO.Enums;
-public class BoOrderForList
+public class OrderForList
 {
     // data
     public int ID { get; set; }

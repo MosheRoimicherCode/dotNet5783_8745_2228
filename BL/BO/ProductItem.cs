@@ -1,6 +1,6 @@
 ﻿namespace BO;
 using static BO.Enums;
-public struct BoProductForList
+public class ProductItem
 {
 
     // data
@@ -8,12 +8,19 @@ public struct BoProductForList
     public string? Name { get; set; }
     public double Price { get; set; }
     public Category? Category { get; set; }
+    public bool IsInStock { get; set; }
+    public int AmontInCart { get; set; }
 
     // methods
     public override string ToString() => $@"
         Product ID={ID}: {Name}, 
         category - {Category}
     	Price: {Price}
+    	is in stock: {IsInStock}
+        AmontInCart {AmontInCart}
     ";
 }
+
+
+
 

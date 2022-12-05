@@ -1,13 +1,10 @@
-﻿using BlApi;
+﻿namespace BlImplementation
+    
 using Dal;
 using DalApi;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Security.Cryptography;
 
-namespace BlImplementation
 {
-    internal class BoOrder : IBoOrder
+    internal class Order : IOrder
     {
         IDal Dal = new DalList();
 
@@ -34,9 +31,9 @@ namespace BlImplementation
         }
 
         ///Convert from Order To BoOrder
-        public BO.BoOrder ConvertOrderToBoOrder(DO.Order o)
+        public BO.Order ConvertOrderToBoOrder(DO.Order o)
         {
-            BO.BoOrder bo = new BO.BoOrder();
+            BO.Order bo = new BO.Order();
             bo.ShipDate = o.ShipDate;
             bo.DeliveryDate = o.DeliveryDate;
             bo.OrderDate = o.OrderDate;
@@ -46,10 +43,10 @@ namespace BlImplementation
             bo.OrderStatus = CheckStatus(o);
             return bo;
         }
-        public BO.BoOrder ConvertOrderToBoOrder(int Id)
+        public BO.Order ConvertOrderToBoOrder(int Id)
         {
             DO.Order dalOrder = Dal.Order.Get(Id);
-            BO.BoOrder boOrder = new BO.BoOrder();
+            BO.Order boOrder = new BO.Order();
 
             boOrder.ID = dalOrder.ID;
             boOrder.CustomerName = dalOrder.CustomerName;
@@ -82,13 +79,13 @@ namespace BlImplementation
 
         /// return a list with all orders
         /// <returns> order list </returns>
-        public List<BO.BoOrderForList> GetList()
+        public List<BO.OrderForList> GetList()
         {
             List<DO.Order> dalOlist = Dal.Order.CopyList();
-            List<BO.BoOrderForList> boOlist = new List<BO.BoOrderForList>();
+            List<BO.OrderForList> boOlist = new List<BO.OrderForList>();
             foreach (DO.Order order in dalOlist)
             {
-                BO.BoOrderForList boOrderForList = new BO.BoOrderForList();
+                BO.OrderForList boOrderForList = new BO.OrderForList();
                 boOrderForList.ID = order.ID;
                 boOrderForList.CustomerName = order.CustomerName;
                 int count = 0;
@@ -113,7 +110,7 @@ namespace BlImplementation
 
         ///search for a order with specific Id 
         /// <returns> IBoOrder item </returns>
-        public BO.BoOrder Get(int Id)
+        public BO.Order Get(int Id)
         {
             if (Id <= 0) throw new BO.IdBOException("Negative Id!");
             try
@@ -125,7 +122,7 @@ namespace BlImplementation
 
         ///search for a order that has not shipped yet with specific Id 
         ///update shipping date, and returns updated order
-        public BO.BoOrder UpdateShipping(int Id)
+        public BO.Order UpdateShipping(int Id)
         {
             if (Id <= 0) throw new BO.IdBOException("Negative Id!");
 
@@ -159,7 +156,7 @@ namespace BlImplementation
 
         ///search for a order that has shipped but has not provided yet with specific Id 
         ///update providing date, and returns updated order
-        public BO.BoOrder UpdateProviding(int Id)
+        public BO.Order UpdateProviding(int Id)
         {
             if (Id <= 0) throw new BO.IdBOException("Negative Id!");
 
@@ -194,14 +191,14 @@ namespace BlImplementation
 
         ///search for a order with specific Id 
         ///returns OrderTracking of this order
-        public BO.BoOrderTracking OrderTracking(int Id)
+        public BO.OrderTracking OrderTracking(int Id)
         {
             if (Id <= 0) throw new BO.IdBOException("Negative Id!");
             try
             {
                 List<DO.Order> dalOrder = Dal.Order.CopyList();
                 DO.Order order = Dal.Order.Get(Id);
-                BO.BoOrderTracking bo = new BO.BoOrderTracking();
+                BO.OrderTracking bo = new BO.OrderTracking();
                 bo.OrderID = order.ID;
                 bo.Status = CheckStatus(order);
                 Tuple<DateTime?, String?>? t1 = new Tuple<DateTime?, String?>(order.OrderDate,"Order approved");

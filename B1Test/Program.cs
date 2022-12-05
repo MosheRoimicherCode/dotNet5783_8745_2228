@@ -223,7 +223,7 @@ internal class Program
                     //Check ID input
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    BO.BoProductItem boProduct1 = new BoProductItem();
+                    BO.ProductItem boProduct1 = new ProductItem();
                     boProduct1 = p.BoProduct.Get(verification.intInput, cart);
                     Console.WriteLine(boProduct1);
                     goto MainMenu;
@@ -280,7 +280,7 @@ internal class Program
                 case "g":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    BO.BoOrder boOrder = new BoOrder();
+                    BO.Order boOrder = new Order();
                     if (verification.boolInput == true) boOrder = p.BoOrder.Get(verification.intInput);
                     Console.WriteLine(boOrder);
                     goto MainMenu;
@@ -296,14 +296,14 @@ internal class Program
                 case "u1":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    BO.BoOrder b = p.BoOrder.UpdateShipping(verification.intInput);
+                    BO.Order b = p.BoOrder.UpdateShipping(verification.intInput);
                     Console.WriteLine(b);
                     goto MainMenu;
 
                 case "u2":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    BO.BoOrder b1 = p.BoOrder.UpdateProviding(verification.intInput);
+                    BO.Order b1 = p.BoOrder.UpdateProviding(verification.intInput);
                     Console.WriteLine(b1);
                     goto MainMenu;
 

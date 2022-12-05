@@ -1,5 +1,5 @@
 ﻿namespace BO;
-public class BoOrderItem
+public class OrderItem
 {
     // data
     public int ProductID { get; set; }

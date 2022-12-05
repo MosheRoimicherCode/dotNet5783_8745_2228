@@ -1,6 +1,6 @@
 ﻿namespace BO;
 using static BO.Enums;
-public class BoOrder
+public class Order
 {
     // data
     public int ID { get; set; }

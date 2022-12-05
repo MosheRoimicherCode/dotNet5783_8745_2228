@@ -1,6 +1,6 @@
 ﻿namespace BO;
 using static BO.Enums;
-public class BoProduct
+public class Product
 {
 
     // data

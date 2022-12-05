@@ -2,7 +2,7 @@
 using DO;
 using System.Collections.Generic;
 using static BO.Enums;
-public class BoCart
+public class Cart
 {
 
     // data

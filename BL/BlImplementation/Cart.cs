@@ -6,12 +6,12 @@ using DO;
 
 namespace BlImplementation
 {
-    internal class BoCart : IBoCart
+    internal class Cart : ICart
     {
         IDal Dal = new DalList();
 
         ///add product to Cart, returns updated cart
-        public BO.BoCart Add(BO.BoCart boCart, int Id)
+        public BO.Cart Add(BO.Cart boCart, int Id)
         {
             List<DO.Product> productList = new();
             foreach (DO.Product? product in Dal.Product.GetAll())
@@ -25,7 +25,7 @@ namespace BlImplementation
             foreach (DO.Order? order in Dal.Order.GetAll())
                 OrderList.Add(order ?? throw new nullObjectBOException("null object.BoCart.Add"));
 
-            BO.BoCart newBoCart = new BO.BoCart();
+            BO.Cart newBoCart = new BO.Cart();
 
             newBoCart.CustomerName = boCart.CustomerName;
             newBoCart.CustomerEmail = boCart.CustomerEmail;
@@ -33,7 +33,7 @@ namespace BlImplementation
             newBoCart.Details = boCart.Details;
             newBoCart.TotalPrice = boCart.TotalPrice;
 
-            foreach (OrderItem item in  boCart.Details)
+            foreach (DO.OrderItem item in  boCart.Details)
             {
                 if (item.ProductID == Id)
                 {

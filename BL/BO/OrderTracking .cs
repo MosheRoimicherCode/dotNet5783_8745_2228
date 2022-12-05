@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using static BO.Enums;
 using static System.Formats.Asn1.AsnWriter;
 
-public class BoOrderTracking
+public class OrderTracking
 {
 
     // data
