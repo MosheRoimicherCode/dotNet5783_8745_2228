@@ -10,7 +10,7 @@ public class Cart
     public string? CustomerEmail { get; set; }
     public string? CustomeAdress { get; set; }
 
-    public List<OrderItem?> Details = new List<OrderItem?>();
+    public List<DO.OrderItem?> Details = new List<DO.OrderItem?>();
     public double TotalPrice { get; set; }
 
     // methods

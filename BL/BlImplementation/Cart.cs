@@ -3,6 +3,8 @@ using BO;
 using Dal;
 using DalApi;
 using DO;
+using System.ComponentModel;
+using System.Linq;
 
 namespace BlImplementation
 {
@@ -11,38 +13,39 @@ namespace BlImplementation
         IDal Dal = new DalList();
 
         ///add product to Cart, returns updated cart
-        public BO.Cart Add(BO.Cart boCart, int Id)
+        public BO.Cart Add(BO.Cart boCart, int productId)
         {
-            List<DO.Product> productList = new();
+            List<DO.Product?> productList = new();
             foreach (DO.Product? product in Dal.Product.GetAll())
                 productList.Add(product?? throw new nullObjectBOException("null object.BoCart.Add"));
      
-            List<DO.OrderItem> OrderItemList = new();
+            List<DO.OrderItem?> OrderItemList = new();
             foreach (DO.OrderItem? orderItem in Dal.OrderItem.GetAll())
                 OrderItemList.Add(orderItem ?? throw new nullObjectBOException("null object.BoCart.Add"));
             
-            List<DO.Order> OrderList = new();
+            List<DO.Order?> OrderList = new();
             foreach (DO.Order? order in Dal.Order.GetAll())
                 OrderList.Add(order ?? throw new nullObjectBOException("null object.BoCart.Add"));
 
-            BO.Cart newBoCart = new BO.Cart();
-
+            BO.Cart newBoCart = new();
             newBoCart.CustomerName = boCart.CustomerName;
             newBoCart.CustomerEmail = boCart.CustomerEmail;
             newBoCart.CustomeAdress = boCart.CustomeAdress;
-            newBoCart.Details = boCart.Details;
+            foreach (DO.OrderItem? item in boCart.Details)
+                newBoCart.Details.Add(item);
             newBoCart.TotalPrice = boCart.TotalPrice;
 
-            foreach (DO.OrderItem item in  boCart.Details)
+            //search for product if exist inside cart
+            foreach (DO.OrderItem? item in boCart.Details)
             {
-                if (item.ProductID == Id)
+                if (item?.ProductID == productId)
                 {
-                    foreach (var p in productList)
+                    foreach (DO.Product? p in productList)
                     {
-                        if (p.ID == Id && p.InStock > 0)
+                        if (p?.ID == productId && p?.InStock > 0)
                         {
-                            DO.OrderItem newOrderItem = item;
-                            newOrderItem.Amount = item.Amount + 1;
+                            DO.OrderItem? newOrderItem = item;
+                            newOrderItem?.Amount = (item?.Amount + 1);
                             newBoCart.Details.Remove(item);
                             newBoCart.Details.Add(newOrderItem);
                             newBoCart.TotalPrice += item.Price;
@@ -52,9 +55,9 @@ namespace BlImplementation
                 }
             }
             bool flag = false;
-            foreach (var p in productList)
+            foreach (var productId in productList)
             {
-                if (p.ID == Id && p.InStock > 0)
+                if (productId.ID == Id && productId.InStock > 0)
                 {
                     flag = true;
                     int ordId = 0;
@@ -68,9 +71,9 @@ namespace BlImplementation
                     DO.OrderItem newOrderItem = new()
                     {
                         ID = OrderItemList[OrderItemList.Count - 1].ID + 1,
-                        ProductID = p.ID,
+                        ProductID = productId.ID,
                         OrderID = ordId,
-                        Price = p.Price,
+                        Price = productId.Price,
                         Amount = 1
                     };
                     newBoCart.Details.Add(newOrderItem);
@@ -133,19 +136,15 @@ namespace BlImplementation
 
         bool IdExistInProductList(int Id)
         {
-            foreach (DO.Product? product in Dal.Product.GetAll())
-            {        
-                if (product?.ID.Equals(Id) ?? throw new BO.nullObjectBOException("null object"))
-                {
-                    return true;
-                }
+            foreach (DO.Product? product in Dal.Product.GetAll()) 
+                if (product?.ID == Id) return true;
             return false;
         }
 
         ///Confirm the Cart and build objects of order
-        public void ConfirmCart(BO.BoCart boCart, string Name, string Email, string Addres)
+        public void ConfirmCart(BO.Cart boCart, string Name, string Email, string Addres)
         {
-            foreach (OrderItem item in boCart.Details)
+            foreach (DO.OrderItem item in boCart.Details)
             {
                 if (!IdExistInProductList(item.ProductID))
                 {
