@@ -58,7 +58,13 @@ internal class Program
                             }
                             Console.WriteLine("enter inStock:");
                             int inStock = Convert.ToInt32(Console.ReadLine());
-                            Product p1 = new Product(ID1, name, price, c, inStock);
+                            Product p1 = new()
+                            {
+                                ID = ID1,
+                                Name = name,
+                                Price = price,
+                                Category = c,
+                            };
                             dal.Product.Add(p1);
                             break;
                         case "2":

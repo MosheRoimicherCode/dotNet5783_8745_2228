@@ -118,9 +118,7 @@ namespace BlImplementation
         public List<BO.ProductForList> GetList()
         {//Func<Enums.Category?, bool>? f 
 
-
-
-            List<BO.ProductForList?> listBoProduct = new();
+            List<BO.ProductForList> listBoProduct = new();
 
             foreach (DO.Product product in Dal.Product.GetAll())
             {
@@ -128,28 +126,10 @@ namespace BlImplementation
                 {
 
                     ID = product.ID,
-                    Name = product.Name ?? null,
+                    Name = product.Name,
                     Price = product.Price,
-                    Category = (BO.Enums.Category)product.Category
+                    Category = (Enums.Category)product.Category
                 };
-                listBoProduct.Add(boProductForList);
-            }
-
-
-
-
-
-                List<DO.Product> products = new List<DO.Product>();
-            products = Dal.Product.CopyList();
-
-            
-            for (int i = 0; i < products.Count(); i++)
-            {
-                boProductForList.ID = products[i].ID;
-                boProductForList.Name = products[i].Name;
-                boProductForList.Price = products[i].Price;
-                boProductForList.Category = (BO.Enums.Category)products[i].Category;
-
                 listBoProduct.Add(boProductForList);
             }
             return listBoProduct;
@@ -157,18 +137,19 @@ namespace BlImplementation
 
         //check if a product are inside any order
         //return a list or Id order that contain the product
-        public List<int?>? SearchProductInsideExistOrders(int ProductId)
+        public List<int?> SearchProductInsideExistOrders(int ProductId)
         {
-            List<DO.OrderItem> dalOlist = Dal.OrderItem.CopyList();
+            List<DO.OrderItem?> dalOlist = new();
+            foreach (DO.OrderItem? orderItem in Dal.OrderItem.GetAll())
+                dalOlist.Add(orderItem ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
+
             List<int?>? orderItemsWithProduct = new List<int?>();
-            foreach (DO.OrderItem item in dalOlist)
+            foreach (DO.OrderItem? item in dalOlist)
             {
-                if (item.ProductID == ProductId) orderItemsWithProduct.Add(item.ID);
+                if (item?.ProductID == ProductId) orderItemsWithProduct.Add(item?.ID);
             }
             return orderItemsWithProduct;
         }
-
-        //need changes
     }
     
 }

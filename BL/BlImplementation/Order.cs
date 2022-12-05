@@ -55,7 +55,12 @@ namespace BlImplementation
             boOrder.OrderDate = dalOrder.OrderDate;
             boOrder.ShipDate = dalOrder.ShipDate;
             boOrder.DeliveryDate = dalOrder.DeliveryDate;
-            List <DO.OrderItem> dalOlist = Dal.OrderItem.CopyList();
+
+
+            List<DO.OrderItem?> dalOlist = new();
+            foreach (DO.OrderItem? orderItem in Dal.OrderItem.GetAll())
+                dalOlist.Add(orderItem ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
+            
             List<DO.OrderItem?> boOlist = new List<DO.OrderItem?>();
             foreach (DO.OrderItem item in dalOlist)
             {
@@ -81,8 +86,12 @@ namespace BlImplementation
         /// <returns> order list </returns>
         public List<BO.OrderForList> GetList()
         {
-            List<DO.Order> dalOlist = Dal.Order.CopyList();
-            List<BO.OrderForList> boOlist = new List<BO.OrderForList>();
+
+            List<DO.Order?> dalOlist = new();
+            foreach (DO.Order? order in Dal.Order.GetAll())
+                dalOlist.Add(order ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
+
+            List<BO.OrderForList?> boOlist = new ();
             foreach (DO.Order order in dalOlist)
             {
                 BO.OrderForList boOrderForList = new BO.OrderForList();
@@ -90,8 +99,13 @@ namespace BlImplementation
                 boOrderForList.CustomerName = order.CustomerName;
                 int count = 0;
                 Double price = 0;
-                List<DO.OrderItem> l = Dal.OrderItem.CopyList();
-                foreach (DO.OrderItem item in l)
+
+                List<DO.OrderItem?> OrderItemList = new();
+                foreach (DO.OrderItem? orderItem in Dal.OrderItem.GetAll())
+                    OrderItemList.Add(orderItem ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
+
+
+                foreach (DO.OrderItem item in OrderItemList)
                 {
                     if (item.OrderID == boOrderForList.ID)
                     {
