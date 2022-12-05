@@ -5,7 +5,7 @@ using DO;
 using static Dal.DataSource;
 
 ///A class for connect with Product struck
-internal class DalProduct : IProduct
+internal class DalProduct :  
 {
     public int Add(Product product) =>
         DataSource._productList.Exists(productInList => productInList?.ID == product.ID)
