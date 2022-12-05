@@ -12,12 +12,11 @@ namespace Dal;
 ///A class for connect with Order struck
 internal class DalOrder : IOrder
 {
+    public int Add(Order order) => 
+        DataSource._orderList.Exists(orderInList => orderInList?.ID == order.ID)
+            ? throw new IdException("Order ID already exists")
+            : DataSource.AddOrder(order); /// Add Order to Data Base
 
-    ///----------------------------------------------------
-    ///----------------- CRUD functions -------------------
-
-
-    public int Add(Order order) => DataSource.AddOrder(order);/// Add order to Data Base
 
     public Order Get(int OrderID)
     {
@@ -27,104 +26,48 @@ internal class DalOrder : IOrder
         {
             return order;
         }
-        Order order2 = new Order();
-        order2.ID = -999;
-        return order2;
+        throw new IdException("Not found ID. (Dalorder.Get Exception)");
     }///search for order by Id and return the specific order
 
-    public Order Get(int OrderID, Func<Order, bool> f)
-    {
-        foreach (var order in from Order order in _orderList
-                              where order.ID.Equals(OrderID)
-                              select order)
-        {
-            if (f(order) == true)
-            {
-                return order;
-            }   
-        }
-        Order order2 = new Order();
-        order2.ID = -999;
-        return order2;
-    }
+    public Order? Get(Func<Order?, bool> filter) =>
+                                                    (from order in _orderList
+                                                     where filter(order)
+                                                     select order).FirstOrDefault();
 
-    public void Delete(int OrderID)  
-
+    public void Delete(int OrderId)
     {
-        foreach(Order order in _orderList)
+        bool flag = false;
+        for (int i = 0; i < _orderList.Count; i++)
         {
-            if (order.ID.Equals(OrderID))
+            if (_orderList[i]?.ID == OrderId)
             {
-                _orderList.Remove(order);
+                _orderList.Remove(_orderList[i]);
+                flag = true;
             }
         }
+        //if Id not found send a MESSAGE
+        if (flag == false) Console.WriteLine(" Not found ID. (Dalorder.Delete Exception)");
+        ///delete product from data base by Id
+    }
 
-        ///if not found return a message
-        throw new IdException("Not found ID. (DalOrderExeptiot.Delete)"); ;
-    }///delete order from data base by Id
-
+   
     public void Update(int OrderID, Order newOrder)
     {
         for (int i = 0; i < _orderList.Count; i++)
         {
-            var order = _orderList[i];
-            if (order.ID.Equals(OrderID))
+            Order? order = new();
+            order = _orderList[i];
+            if (order?.ID.Equals(OrderID) ?? throw new IdException(" Not found ID. (DalOrder.Update Exception)"))
             {
                 int index = _orderList.IndexOf(order);
                 _orderList.RemoveAt(index);
                 _orderList.Insert(index, newOrder);
+                return;
             }
-            return;
         }
-        
-        ///if not found return a message
-        throw new IdException("Not found ID. (DalOrderExeption.Update)");
     }///replace order by another inside array
 
-
-    ///----------------------------------------------------
-    ///----------------------------------------------------
-
-
-
-    ///----------------------------------------------------
-    ///----------------- Methods --------------------------
-
-    public List<Order> CopyList()
-    {
-        List<Order> orderlist = new List<Order>();
-        orderlist = _orderList;
-        return orderlist;
-    }///return copy of order list
-
-    public void GetAll(Func<Order, bool>? f)
-    {
-        if (f == null)
-        {
-            foreach (Order order in _orderList)
-            {
-                if (order.ID != 0)
-                {
-                    Console.WriteLine(order.ToString());
-                }
-            }
-        }
-        else
-        {
-            foreach (Order order in _orderList)
-            {
-                if (order.ID != 0 && f(order) == true)
-                {
-                    Console.WriteLine(order.ToString());
-                }
-            }
-        }
-    }
-
-    ///ToString call for all list
-
-
-    ///----------------------------------------------------
-
-
+    public IEnumerable<Order?> GetAll(Func<Order?, bool>? filter) =>
+       filter == null ? _orderList.Select(orderInList => orderInList)
+                 : _orderList.Where(filter);
 }

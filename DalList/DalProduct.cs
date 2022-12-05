@@ -5,7 +5,7 @@ using DO;
 using static Dal.DataSource;
 
 ///A class for connect with Product struck
-internal class DalProduct :  
+internal class DalProduct : IProduct
 {
     public int Add(Product product) =>
         DataSource._productList.Exists(productInList => productInList?.ID == product.ID)
@@ -48,7 +48,7 @@ internal class DalProduct :
         {
             Product? product = new();
             product = _productList[i];
-            if (product?.ID.Equals(ProductID) ?? throw new IdException(" Not found ID. (DalOrderProduct.Update Exception)"))
+            if (product?.ID.Equals(ProductID) ?? throw new IdException(" Not found ID. (DalProduct.Update Exception)"))
             {
                 int index = _productList.IndexOf(product);
                 _productList.RemoveAt(index);
