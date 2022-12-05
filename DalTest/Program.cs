@@ -101,7 +101,14 @@ internal class Program
                             }
                             Console.WriteLine("enter inStock:");
                             int inStock4 = Convert.ToInt32(Console.ReadLine());
-                            Product p4 = new Product(ID4, name4, price4, c4, inStock4);
+                            Product p4 = new()
+                            {
+                                ID = ID4,
+                                Name = name4,
+                                Price = price4,
+                                Category = c4,
+                                InStock = inStock4
+                            };
                             dal.Product.Update(existID4, p4);
                             break;
                         case "5":
@@ -131,8 +138,17 @@ internal class Program
                             DateTime ShipDate = Convert.ToDateTime(Console.ReadLine());
                             Console.WriteLine("enter DeliveryDate:");
                             DateTime DeliveryDate = Convert.ToDateTime(Console.ReadLine());
-                            Order o1 = new Order(ID1, name, email, adress, OrderDate, ShipDate, DeliveryDate);
-                            dal.Order.Add(o1);
+                            Order o1 = new()
+                            {
+                                ID = ID1,
+                                CustomerName = name,
+                                CustomerEmail = email,
+                                CustomeAdress = adress,
+                                OrderDate = OrderDate,
+                                ShipDate = ShipDate,
+                                DeliveryDate = DeliveryDate
+                            };
+                           dal.Order.Add(o1);
                             break;
                         case "2":
                             Console.WriteLine("enter ID:");
@@ -159,7 +175,16 @@ internal class Program
                             DateTime ShipDate4 = Convert.ToDateTime(Console.ReadLine());
                             Console.WriteLine("enter DeliveryDate:");
                             DateTime DeliveryDate4 = Convert.ToDateTime(Console.ReadLine());
-                            Order o4 = new Order(ID4, name4, email4, adress4, OrderDate4, ShipDate4, DeliveryDate4);
+                            Order o4 = new()
+                            {
+                                ID = ID4,
+                                CustomerName = name4,
+                                CustomerEmail = email4,
+                                CustomeAdress = adress4,
+                                OrderDate = OrderDate4,
+                                ShipDate = ShipDate4,
+                                DeliveryDate = DeliveryDate4
+                            };
                             dal.Order.Update(existID4, o4);
                             break;
                         case "5":
@@ -185,7 +210,14 @@ internal class Program
                             Double price = Convert.ToDouble(Console.ReadLine());
                             Console.WriteLine("enter amount:");
                             int amount = Convert.ToInt32(Console.ReadLine());
-                            OrderItem oi1 = new OrderItem(ID0, ID1, ID11, price, amount);
+                            OrderItem oi1 = new()
+                            {
+                                ID = ID0,
+                                ProductID = ID1,
+                                OrderID = ID11,
+                                Price = price,
+                                Amount = amount
+                            };
                             dal.OrderItem.Add(oi1);
                             break;
                         case "2":
@@ -211,7 +243,14 @@ internal class Program
                             Double price4 = Convert.ToDouble(Console.ReadLine());
                             Console.WriteLine("enter amount:");
                             int amount4 = Convert.ToInt32(Console.ReadLine());
-                            OrderItem oi4 = new OrderItem(newID, ID4, ID44, price4, amount4);
+                            OrderItem oi4 = new()
+                            {
+                                ID = newID,
+                                ProductID = ID4,
+                                OrderID = ID44,
+                                Price = price4,
+                                Amount = amount4
+                            };
                             dal.OrderItem.Update(newID, oi4);
                             break;
                         case "5":
