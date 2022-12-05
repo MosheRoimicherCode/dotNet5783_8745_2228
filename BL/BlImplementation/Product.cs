@@ -1,14 +1,13 @@
-﻿namespace BlImplementation;
-    
-using BlApi;
+﻿using BlApi;
+using BO;
 using Dal;
+using DalApi;
 
-
+namespace BlImplementation
 
 {
 
-
-    internal class Product : IProduct
+    internal class Product : BlApi.IProduct
     {
 
         IDal Dal = new DalList ();
@@ -119,9 +118,28 @@ using Dal;
         public List<BO.ProductForList> GetList()
         {//Func<Enums.Category?, bool>? f 
 
-            List<BO.ProductForList> listBoProduct = new List<BO.ProductForList>();
-            BO.ProductForList boProductForList = new BO.ProductForList();
-            List<DO.Product> products = new List<DO.Product>();
+
+
+            List<BO.ProductForList?> listBoProduct = new();
+
+            foreach (DO.Product product in Dal.Product.GetAll())
+            {
+                BO.ProductForList boProductForList = new()
+                {
+
+                    ID = product.ID,
+                    Name = product.Name ?? null,
+                    Price = product.Price,
+                    Category = (BO.Enums.Category)product.Category
+                };
+                listBoProduct.Add(boProductForList);
+            }
+
+
+
+
+
+                List<DO.Product> products = new List<DO.Product>();
             products = Dal.Product.CopyList();
 
             

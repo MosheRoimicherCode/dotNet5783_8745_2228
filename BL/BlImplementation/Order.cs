@@ -1,10 +1,10 @@
-﻿namespace BlImplementation
-    
+﻿using BlApi;
 using Dal;
 using DalApi;
 
+namespace BlImplementation
 {
-    internal class Order : IOrder
+    internal class Order : BlApi.IOrder
     {
         IDal Dal = new DalList();
 
@@ -124,35 +124,50 @@ using DalApi;
         ///update shipping date, and returns updated order
         public BO.Order UpdateShipping(int Id)
         {
-            if (Id <= 0) throw new BO.IdBOException("Negative Id!");
+            if (Id <= 0) throw new BO.IdBOException("Negative Id! .(BO.Order.UpdateShipping)");
 
-            List<DO.Order> dalOrder = Dal.Order.CopyList();
-            DO.Order item = new DO.Order();
-            for (int i = 0; i < dalOrder.Count; i++)
+            List<DO.Order?> OrderList = new();
+            foreach (DO.Order? order in Dal.Order.GetAll())
+                OrderList.Add(order ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
+
+            foreach (DO.Order item in OrderList)
             {
-                item = dalOrder[i];
+
                 if (item.ID == Id)
-                {
+                    {
                     if (item.ShipDate < DateTime.Now)
                     {
-                        Console.WriteLine("order has already shipped");
+                        throw new BO.IdBOException("order has already shipped");
                     }
-                    else if (item.ShipDate > DateTime.Now)
+                    else if (item.OrderDate > DateTime.Now)
                     {
-                        item.ShipDate = DateTime.Now;   
-                        DO.Order o = new DO.Order(item.ID, item.CustomerName, item.CustomerEmail, item.CustomeAdress, item.OrderDate?? DateTime.MinValue, DateTime.Now, item.DeliveryDate?? DateTime.MinValue);
-                        try
-                        {
-                            Dal.Order.Update(o.ID, o);
-                            return ConvertOrderToBoOrder(Id);
-
-                        }
-                        catch (IdException) { throw new BO.IdBOException("Order exist. Impossible to update."); }
+                        throw new BO.IdBOException("order has not ordered yet");
                     }
+                    else if (item.ShipDate > DateTime.Now && item.OrderDate < DateTime.Now)
+                    {
+                        DO.Order order = new()
+                        {
+                            ID = item.ID,
+                            CustomerName = item.CustomerName,
+                            CustomerEmail = item.CustomerEmail,
+                            CustomeAdress = item.CustomeAdress,
+                            OrderDate = item.OrderDate ?? null,
+                            ShipDate = DateTime.Now,
+                            DeliveryDate = item.DeliveryDate ?? null
+
+                        };
+
+                    try
+                    {
+                        Dal.Order.Update(order.ID, order);
+                        return ConvertOrderToBoOrder(order);
+                    }
+                    catch (IdException) { throw new BO.IdBOException("Order exist. Impossible to update."); }
                 }
             }
-            throw new BO.IdBOException("order with given Id didn't found");
         }
+        throw new BO.IdBOException("order with given Id didn't found");
+    }
 
         ///search for a order that has shipped but has not provided yet with specific Id 
         ///update providing date, and returns updated order
@@ -160,8 +175,11 @@ using DalApi;
         {
             if (Id <= 0) throw new BO.IdBOException("Negative Id!");
 
-            List<DO.Order> dalOrder = Dal.Order.CopyList();
-            foreach (DO.Order item in dalOrder)
+            List<DO.Order?> OrderList = new();
+            foreach (DO.Order? order in Dal.Order.GetAll())
+                OrderList.Add(order ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
+
+            foreach (DO.Order item in OrderList)
             {
                 if (item.ID == Id)
                 {
@@ -175,12 +193,22 @@ using DalApi;
                     }
                     else if (item.DeliveryDate > DateTime.Now && item.ShipDate < DateTime.Now)
                     {
-                        DO.Order o = new DO.Order(item.ID, item.CustomerName, item.CustomerEmail, item.CustomeAdress, item.OrderDate ?? DateTime.MinValue, item.ShipDate?? DateTime.MinValue, DateTime.Now);
-                        
+                        DO.Order order = new()
+                        {
+                            ID = item.ID,
+                            CustomerName = item.CustomerName,
+                            CustomerEmail = item.CustomerEmail,
+                            CustomeAdress = item.CustomeAdress,
+                            OrderDate = item.OrderDate ?? null,
+                            ShipDate = item.ShipDate ?? null,
+                            DeliveryDate = DateTime.Now
+
+                        };
+
                         try
                         {
-                            Dal.Order.Update(o.ID, o);
-                            return ConvertOrderToBoOrder(o);
+                            Dal.Order.Update(order.ID, order);
+                            return ConvertOrderToBoOrder(order);
                         }
                         catch (IdException) { throw new BO.IdBOException("Order exist. Impossible to update."); }
                     }
@@ -196,27 +224,31 @@ using DalApi;
             if (Id <= 0) throw new BO.IdBOException("Negative Id!");
             try
             {
-                List<DO.Order> dalOrder = Dal.Order.CopyList();
-                DO.Order order = Dal.Order.Get(Id);
-                BO.OrderTracking bo = new BO.OrderTracking();
-                bo.OrderID = order.ID;
-                bo.Status = CheckStatus(order);
-                Tuple<DateTime?, String?>? t1 = new Tuple<DateTime?, String?>(order.OrderDate,"Order approved");
-                //Tuple<DateTime, String> t1 = new Tuple<DateTime, String>; //(dal.OrderDate, "Order approved");
-                //(DateTime, String) t1 = (dal.OrderDate, "Order approved");
-                bo.TupleList = t1;
-                if (CheckStatus(order) == BO.Enums.Status.shiped)
-                {
-                    Tuple<DateTime?, String?>? t2 = new Tuple<DateTime?, String?>(order.OrderDate, "Order shipped");
-                    bo.TupleList = t2;
-                }
-                if (CheckStatus(order) == BO.Enums.Status.provided)
-                {
-                    bo.TupleList = new Tuple<DateTime?, String?>(order.OrderDate, "Order provided");
-                }
-                return bo;
+
+            List<DO.Order?> OrderList = new();
+            foreach (DO.Order? dalOrder in Dal.Order.GetAll())
+                OrderList.Add(dalOrder ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
+
+            DO.Order order = Dal.Order.Get(Id);
+            BO.OrderTracking bo = new BO.OrderTracking();
+            bo.OrderID = order.ID;
+            bo.Status = CheckStatus(order);
+            Tuple<DateTime?, String?>? t1 = new Tuple<DateTime?, String?>(order.OrderDate, "Order approved");
+            //Tuple<DateTime, String> t1 = new Tuple<DateTime, String>; //(dal.OrderDate, "Order approved");
+            //(DateTime, String) t1 = (dal.OrderDate, "Order approved");
+            bo.TupleList = t1;
+            if (CheckStatus(order) == BO.Enums.Status.shiped)
+            {
+                Tuple<DateTime?, String?>? t2 = new Tuple<DateTime?, String?>(order.OrderDate, "Order shipped");
+                bo.TupleList = t2;
             }
-            catch (IdException) { throw new BO.IdBOException("Order exist. Impossible to update."); }
+            if (CheckStatus(order) == BO.Enums.Status.provided)
+            {
+                bo.TupleList = new Tuple<DateTime?, String?>(order.OrderDate, "Order provided");
+            }
+            return bo;
+        }
+        catch (IdException) { throw new BO.IdBOException("Order exist. Impossible to update."); }
         }
     
     }
