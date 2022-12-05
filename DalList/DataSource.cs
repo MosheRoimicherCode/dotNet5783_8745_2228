@@ -1,14 +1,17 @@
 ﻿namespace Dal;
 
 using DO;
+using System;
+using System.Diagnostics;
+using System.Xml.Linq;
 using static DO.Enums;
 
 ///data source class
 internal static class DataSource
 {
     internal static List<Product?> _productList = new List<Product?>();
-    internal static List<Order> _orderList = new List<Order>();
-    internal static List<OrderItem> _orderItemList = new List<OrderItem>();
+    internal static List<Order?> _orderList = new List<Order?>();
+    internal static List<OrderItem?> _orderItemList = new List<OrderItem?>();
     static DataSource() => s_Initialize();
 
     /// define arrays for classes;
@@ -24,15 +27,13 @@ internal static class DataSource
     static internal int AddOrder(Order o)
     {
         _orderList.Add(o);
-        o.ID = Config._idNumberOrder;
-        return o.ID;
+        return Config._idNumberOrder;
     }
 
     static internal int AddOrderItem(OrderItem p)
     {
         _orderItemList.Add(p);
-        p.ID = Config._idNumberItemOrder;
-        return p.ID;
+        return Config._idNumberItemOrder;
     }
 
     static private void s_Initialize()
@@ -42,27 +43,90 @@ internal static class DataSource
             ID = 123456,
             Name = "shirt",
             Price = 80,
-            Category = Category.Business,
+            Category = Category.outerwear,
             InStock = 30
         };
         AddProduct(p);
-        p = new Product(111111, "shoes", 200, (Category)2, 12);
+        p = new()
+        {
+            ID = 111111,
+            Name = "shoes",
+            Price = 200,
+            Category = Category.footwear,
+            InStock = 12
+        };
         AddProduct(p);
-        p = new Product(930494, "pens", 120, (Category)2, 29);
+        p = new()
+        {
+            ID = 930494,
+            Name = "pens",
+            Price = 120,
+            Category = Category.outerwear,
+            InStock = 29
+        };
         AddProduct(p);
-        p = new Product(647248, "hat", 500, (Category)2, 35);
+        p = new()
+        {
+            ID = 647248,
+            Name = "hat",
+            Price = 500,
+            Category = Category.Business,
+            InStock = 35
+        };
         AddProduct(p);
-        p = new Product(897238, "socks", 30, (Category)2, 80);
+        p = new()
+        {
+            ID = 897238,
+            Name = "socks",
+            Price = 30,
+            Category = Category.footwear,
+            InStock = 80
+        };
         AddProduct(p);
-        p = new Product(197238, "suit", 1000, (Category)2, 90);
+        p = new()
+        {
+            ID = 197238,
+            Name = "suit",
+            Price = 1000,
+            Category = Category.Business,
+            InStock = 90
+        };
         AddProduct(p);
-        p = new Product(372892, "tie", 150, (Category)2, 55);
+        p = new()
+        {
+            ID = 372892,
+            Name = "tie",
+            Price = 150,
+            Category = Category.Business,
+            InStock = 55
+        };
         AddProduct(p);
-        p = new Product(382984, "belt", 50, (Category)2, 45);
+        p = new()
+        {
+            ID = 382984,
+            Name = "belt",
+            Price = 50,
+            Category = Category.Business,
+            InStock = 45
+        };
         AddProduct(p);
-        p = new Product(647238, "t shirt", 35, (Category)2, 85);
+        p = new()
+        {
+            ID = 647238,
+            Name = "t shirt",
+            Price = 35,
+            Category = Category.outerwear,
+            InStock = 85
+        };
         AddProduct(p);
-        p = new Product(283944, "crocks", 200, (Category)2, 0);
+        p = new()
+        {
+            ID = 283944,
+            Name = "crocks",
+            Price = 200,
+            Category = Category.Business,
+            InStock = 0
+        };
         AddProduct(p);
 
         //create a random element that create a new random number each call
@@ -82,52 +146,100 @@ internal static class DataSource
             return generateDate;
         }
 
+        ///creation of orders
+        Order order = new();
         for (int i = 0; i < 10; i++)
         {
-            DateTime d = randate();
-            Order ord = new Order(Config.GetIdNumberOrder(), "mendi welner", "meniwell@gmail.com", "rambam 5 rishon lezion israel", d, d.AddDays(randomNum.Next(0, 10)), d.AddDays(randomNum.Next(10, 20)));
-            AddOrder(ord);
+            DateTime dateTimeRandom = randate();
+            order = new()
+            {
+                ID = Config.GetIdNumberOrder(),
+                CustomerName = "mendi welner",
+                CustomerEmail = "meniwell@gmail.com",
+                CustomeAdress = "rambam 5 rishon lezion israel",
+                OrderDate = dateTimeRandom,
+                ShipDate = dateTimeRandom.AddDays(_randomNum.Next(0, 10)),
+                DeliveryDate = dateTimeRandom.AddDays(_randomNum.Next(10, 20))
+            };
+            AddOrder(order);
         }
         for (int i = 0; i < 5; i++)
         {
-            DateTime d = randate();
-            Order ord = new Order(Config.GetIdNumberOrder(), "yosef cohen", "yosefc@gmail.com", "ezra 31 rehovot israel", d, d.AddDays(randomNum.Next(0, 10)), d.AddDays(randomNum.Next(10, 20)));
-            AddOrder(ord);
+            DateTime dateTimeRandom = randate();
+            order = new()
+            {
+                ID = Config.GetIdNumberOrder(),
+                CustomerName = "yosef cohen",
+                CustomerEmail = "yosefc@gmail.com",
+                CustomeAdress = "ezra 31 rehovot israel",
+                OrderDate = dateTimeRandom,
+                ShipDate = dateTimeRandom.AddDays(_randomNum.Next(0, 10)),
+                DeliveryDate = dateTimeRandom.AddDays(_randomNum.Next(10, 20))
+            };
+            AddOrder(order);
         }
         for (int i = 0; i < 5; i++)
         {
-            DateTime d = randate();
-            Order ord = new Order(Config.GetIdNumberOrder(), "shimon levi", "shimonl@gmail.com", "770 eastern pky brooklyn NY", d, d.AddDays(randomNum.Next(0, 10)), d.AddDays(randomNum.Next(10, 20)));
-            AddOrder(ord);
+            DateTime dateTimeRandom = randate();
+            order = new()
+            {
+                ID = Config.GetIdNumberOrder(),
+                CustomerName = "shimon levi",
+                CustomerEmail = "shimonl@gmail.com",
+                CustomeAdress = "770 eastern pky brooklyn NY",
+                OrderDate = dateTimeRandom,
+                ShipDate = dateTimeRandom.AddDays(_randomNum.Next(0, 10)),
+                DeliveryDate = dateTimeRandom.AddDays(_randomNum.Next(10, 20))
+            };
+            AddOrder(order);
         }
 
-        DateTime dt1 = new DateTime(2020, 12, 31);
-        DateTime dt2 = new DateTime(2029, 12, 31);
+        DateTime dateTime1 = new DateTime(2020, 12, 31);
+        DateTime dateTime2 = new DateTime(2029, 12, 31);
+
         for (int i = 0; i < 2; i++)
         {
-            DateTime d = randate();
-            Order ord = new Order(Config.GetIdNumberOrder(), "momo momo", "mroimicher@gmail.com", "Israel", d, dt1, dt2);
-            AddOrder(ord);
+            DateTime dateTimeRandom = randate();
+            order = new()
+            {
+                ID = Config.GetIdNumberOrder(),
+                CustomerName = "momo momo",
+                CustomerEmail = "mroimicher@gmail.com",
+                CustomeAdress = "Israel",
+                OrderDate = dateTimeRandom,
+                ShipDate = dateTime1,
+                DeliveryDate = dateTime2
+            };
+            AddOrder(order);
         }
+        ///end of order creation
 
+        OrderItem ordItem = new OrderItem();
         for (int j = 0; j < 2; j++)
         {
             for (int i = 0; i < 10; i++)
             {
-                OrderItem ordI = new OrderItem()
+                ordItem = new()
                 {
                     ID = Config.GetIdNumberItemOrder(),
-                    ProductID = _productList[i]?.ID ?? throw new DalApi.IdException("Internal error"),
-                    OrderID = _orderList[i].ID,
+                    ProductID = _productList[i]?.ID ?? throw new DalApi.IdException("Internal error.DataSource.CreateOrderItem"),
+                    OrderID = _orderList[i]?.ID ?? throw new DalApi.IdException("Internal error.DataSource.CreateOrderItem"),
                     Price = _productList[i]?.Price ?? 0,
-                    Amount = randomNum.Next(0, 50),
+                    Amount = _randomNum.Next(0, 50),
                 };
-                AddOrderItem(ordI);
+                AddOrderItem(ordItem);
             }
             for (int i = 0; i < 10; i++)
             {
-                OrderItem ordI = new OrderItem(Config.GetIdNumberItemOrder(), _productList[i]?.ID, _orderList[i + 10].ID, _productList[i]?.Price, _randomNum.Next(0, 50));
-                AddOrderItem(ordI);
+                ordItem = new()
+                {
+                    ID = Config.GetIdNumberItemOrder(),
+                    ProductID = _productList[i]?.ID ?? throw new DalApi.IdException("Internal error.DataSource.CreateOrderItem"),
+                    OrderID = _orderList[i + 10]?.ID ?? throw new DalApi.IdException("Internal error.DataSource.CreateOrderItem"),
+                    Price = _productList[i]?.Price ?? 0,
+                    Amount = _randomNum.Next(0, 50),
+                };
+                AddOrderItem(ordItem);
             }
         }
     }
@@ -137,7 +249,7 @@ internal static class DataSource
         static internal int _idNumberOrder = 1;
         static internal int _idNumberItemOrder = 1;
 
-        /// get ID parameters funcs
+        /// get ID parameters functions
         static public int GetIdNumberOrder() => _idNumberOrder++;
         static public int GetIdNumberItemOrder() => _idNumberItemOrder++;
     }
