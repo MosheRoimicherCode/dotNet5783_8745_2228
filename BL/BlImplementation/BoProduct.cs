@@ -117,7 +117,7 @@ namespace BlImplementation
         } /// if received item have right properties and exist, update it. else throw a message.
 
         public List<BO.BoProductForList> GetList()
-        {//Func<Enums.Category?, bool>? f
+        {//Func<Enums.Category?, bool>? f 
 
             List<BO.BoProductForList> listBoProduct = new List<BO.BoProductForList>();
             BO.BoProductForList boProductForList = new BO.BoProductForList();
