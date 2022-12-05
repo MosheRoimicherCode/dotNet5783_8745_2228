@@ -89,9 +89,9 @@ internal class Program
 
         return result;
     }//a function to check user inputs
-    static public BoProduct createBoProduct()
+    static public Product createBoProduct()
     {
-        BoProduct boProduct = new BoProduct();
+        Product boProduct = new();
         CheckInput verification1 = new CheckInput(); //for inputs checks
 
         //ID input
@@ -154,7 +154,7 @@ internal class Program
         list.Add(order);
         list.Add(order2);
 
-        BoCart cart = new BoCart();
+        Cart cart = new();
         cart.CustomeAdress = "BneiBrak";
         cart.CustomerEmail = "mroimicher@gmail.com";
         cart.CustomerName = "Moshe";
@@ -203,7 +203,7 @@ internal class Program
             {
                 case "a":
                     Console.WriteLine("-----------------------------------------------ADDpRODUCT--------------------------------------------------------");
-                    p.BoProduct.Add(createBoProduct());
+                    p.Product.Add(createBoProduct());
                     goto MainMenu;
 
                 case "g1":
@@ -212,8 +212,8 @@ internal class Program
                     //Check ID input
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    BO.BoProduct boProduct = new BoProduct();
-                    if (verification.boolInput == true) boProduct = p.BoProduct.Get(verification.intInput);
+                    BO.Product boProduct = new();
+                    if (verification.boolInput == true) boProduct = p.Product.Get(verification.intInput);
                     Console.WriteLine(boProduct);
                     goto MainMenu;
 
@@ -224,7 +224,7 @@ internal class Program
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
                     BO.ProductItem boProduct1 = new ProductItem();
-                    boProduct1 = p.BoProduct.Get(verification.intInput, cart);
+                    boProduct1 = p.Product.Get(verification.intInput, cart);
                     Console.WriteLine(boProduct1);
                     goto MainMenu;
 
@@ -235,20 +235,20 @@ internal class Program
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
                     int Id = verification.intInput;
-                    p.BoProduct.Remove(Id);
+                    p.Product.Remove(Id);
                     goto MainMenu;
 
                 case "u":
                     Console.WriteLine("-----------------------------------------------UPDATE--------------------------------------------------------");
 
-                    p.BoProduct.Update(createBoProduct());
+                    p.Product.Update(createBoProduct());
                     goto MainMenu;
 
                 case "l":
                     Console.WriteLine("-----------------------------------------------LIST--------------------------------------------------------");
 
-                    List<BO.BoProductForList> listBoProduct = p.BoProduct.GetList();
-                    foreach (BO.BoProductForList item in listBoProduct)
+                    List<BO.ProductForList> listBoProduct = p.Product.GetList();
+                    foreach (BO.ProductForList item in listBoProduct)
                     {
                         Console.WriteLine(item);
                     }
@@ -281,13 +281,13 @@ internal class Program
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
                     BO.Order boOrder = new Order();
-                    if (verification.boolInput == true) boOrder = p.BoOrder.Get(verification.intInput);
+                    if (verification.boolInput == true) boOrder = p.Order.Get(verification.intInput);
                     Console.WriteLine(boOrder);
                     goto MainMenu;
 
                 case "l":
-                    List<BO.BoOrderForList> boOrderForList = p.BoOrder.GetList();
-                    foreach (BO.BoOrderForList item in boOrderForList)
+                    List<BO.OrderForList> boOrderForList = p.Order.GetList();
+                    foreach (BO.OrderForList item in boOrderForList)
                     {
                         Console.WriteLine(item);
                     }
@@ -296,22 +296,22 @@ internal class Program
                 case "u1":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    BO.Order b = p.BoOrder.UpdateShipping(verification.intInput);
+                    BO.Order b = p.Order.UpdateShipping(verification.intInput);
                     Console.WriteLine(b);
                     goto MainMenu;
 
                 case "u2":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    BO.Order b1 = p.BoOrder.UpdateProviding(verification.intInput);
+                    BO.Order b1 = p.Order.UpdateProviding(verification.intInput);
                     Console.WriteLine(b1);
                     goto MainMenu;
 
                 case "t":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    BO.BoOrderTracking boOrderTracking = new BoOrderTracking();
-                    if (verification.boolInput == true) boOrderTracking = p.BoOrder.OrderTracking(verification.intInput);
+                    BO.OrderTracking boOrderTracking = new OrderTracking();
+                    if (verification.boolInput == true) boOrderTracking = p.Order.OrderTracking(verification.intInput);
                     Console.WriteLine(boOrderTracking);
                     goto MainMenu;
 
@@ -336,7 +336,7 @@ internal class Program
                 case "a":
                     Console.WriteLine("Please enter the ID of product.");
                     verification = checkInput("int");
-                    BO.BoCart boCart = p.BoCart.Add(cart, verification.intInput);
+                    BO.Cart boCart = p.Cart.Add(cart, verification.intInput);
                     Console.WriteLine(boCart.ToString());
                     goto MainMenu;
 
@@ -346,7 +346,7 @@ internal class Program
                     int temp = verification.intInput;
                     Console.WriteLine("Please enter a new amount.");
                     verification = checkInput("int");
-                    BO.BoCart boCart1 = p.BoCart.UpdateAmount(cart, temp, verification.intInput);
+                    BO.Cart boCart1 = p.Cart.UpdateAmount(cart, temp, verification.intInput);
                     Console.WriteLine(boCart1.ToString());
                     goto MainMenu;
 
@@ -358,7 +358,7 @@ internal class Program
                     //string? nameAdress = Console.ReadLine();
                     //verification = checkInput("email");
 
-                    p.BoCart.ConfirmCart(cart, cart.CustomerName, cart.CustomerEmail, cart.CustomeAdress);
+                    p.Cart.ConfirmCart(cart, cart.CustomerName, cart.CustomerEmail, cart.CustomeAdress);
                     goto MainMenu;
 
                 case "e":
