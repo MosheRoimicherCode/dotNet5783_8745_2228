@@ -13,6 +13,17 @@ namespace BO
         public override string ToString() => base.ToString();
     }
 
+    [Serializable]
+    internal class nullObjectBOException : Exception
+    {
+        public nullObjectBOException() : base() { }
+        public nullObjectBOException(string message) : base(message) { }
+        public nullObjectBOException(string message, Exception innerException) : base(message, innerException) { }
+        protected nullObjectBOException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+
+        public override string ToString() => base.ToString();
+    }
+
 
     [Serializable]
     internal class ProductNameException : Exception

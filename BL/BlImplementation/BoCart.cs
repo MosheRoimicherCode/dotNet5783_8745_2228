@@ -1,4 +1,5 @@
 ﻿using BlApi;
+using BO;
 using Dal;
 using DalApi;
 using DO;
@@ -12,9 +13,17 @@ namespace BlImplementation
         ///add product to Cart, returns updated cart
         public BO.BoCart Add(BO.BoCart boCart, int Id)
         {
-            List<DO.Product> productList = Dal.Product.CopyList();
-            List<DO.OrderItem> OrderItemList = Dal.OrderItem.CopyList();
-            List<DO.Order> OrderList = Dal.Order.CopyList();
+            List<DO.Product> productList = new();
+            foreach (DO.Product? product in Dal.Product.GetAll())
+                productList.Add(product?? throw new nullObjectBOException("null object.BoCart.Add"));
+     
+            List<DO.OrderItem> OrderItemList = new();
+            foreach (DO.OrderItem? orderItem in Dal.OrderItem.GetAll())
+                OrderItemList.Add(orderItem ?? throw new nullObjectBOException("null object.BoCart.Add"));
+            
+            List<DO.Order> OrderList = new();
+            foreach (DO.Order? order in Dal.Order.GetAll())
+                OrderList.Add(order ?? throw new nullObjectBOException("null object.BoCart.Add"));
 
             BO.BoCart newBoCart = new BO.BoCart();
 
@@ -56,7 +65,14 @@ namespace BlImplementation
                             ordId = o.ID;
                         }
                     }
-                    DO.OrderItem newOrderItem = new DO.OrderItem(OrderItemList[OrderItemList.Count-1].ID + 1, p.ID, ordId, p.Price, 1);
+                    DO.OrderItem newOrderItem = new()
+                    {
+                        ID = OrderItemList[OrderItemList.Count - 1].ID + 1,
+                        ProductID = p.ID,
+                        OrderID = ordId,
+                        Price = p.Price,
+                        Amount = 1
+                    };
                     newBoCart.Details.Add(newOrderItem);
                     newBoCart.TotalPrice += newOrderItem.Price;
                 }
@@ -117,14 +133,12 @@ namespace BlImplementation
 
         bool IdExistInProductList(int Id)
         {
-            List<DO.Product> productList = Dal.Product.CopyList();
-            foreach (DO.Product product in productList)
-            {
-                if (product.ID == Id)
+            foreach (DO.Product? product in Dal.Product.GetAll())
+            {        
+                if (product?.ID.Equals(Id) ?? throw new BO.nullObjectBOException("null object"))
                 {
                     return true;
                 }
-            }
             return false;
         }
 

@@ -64,7 +64,7 @@ internal class DalOrder : IOrder
                 return;
             }
         }
-        throw new IdException("not found id. (DalOrder.Update Exception)"))
+        throw new IdException("not found id. (DalOrder.Update Exception)");
     }///replace order by another inside array
 
     public IEnumerable<Order?> GetAll(Func<Order?, bool>? filter) =>
