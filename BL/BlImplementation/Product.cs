@@ -2,6 +2,7 @@
 using BO;
 using Dal;
 using DalApi;
+using DO;
 
 namespace BlImplementation
 
@@ -48,9 +49,6 @@ namespace BlImplementation
             return product;
         }
         
-
-
-
         public void Add(BO.Product item)
         {
             if (CheckNewItem(item) == true) Dal.Product.Add(ConvertBoProductToProduct(item)); 
@@ -114,20 +112,18 @@ namespace BlImplementation
             catch (IdException) { throw new BO.UpdateProductException("Product exist in a Order. Impossible to update."); }
         } /// if received item have right properties and exist, update it. else throw a message.
 
-        public List<BO.ProductForList> GetList()
+        public List<BO.ProductForList> GetList(Func<DO.Product?, bool>? filter = null)
         {//Func<Enums.Category?, bool>? f 
 
             List<BO.ProductForList> listBoProduct = new();
-
-            foreach (DO.Product? product in Dal.Product.GetAll())
+            foreach (DO.Product? product in Dal.Product.GetAll(filter))
             {
                 BO.ProductForList boProductForList = new()
                 {
-
-                    ID = product?.ID?? throw new BO.nullObjectBOException("null ID"),
+                    ID = product?.ID ?? throw new BO.nullObjectBOException("null ID"),
                     Name = product?.Name,
-                    Price = product?.Price?? throw new BO.nullObjectBOException("null ID"),
-                    Category = (Enums.Category?)product?.Category
+                    Price = product?.Price ?? throw new BO.nullObjectBOException("null ID"),
+                    Category = (BO.Enums.Category?)product?.Category
                 };
                 listBoProduct.Add(boProductForList);
             }

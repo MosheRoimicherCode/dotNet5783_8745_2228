@@ -7,6 +7,6 @@ public interface ICrud<T> where T : struct
     void Update(int n, T t);
     T Get(int n);
     T? Get(Func<T?, bool> f);
-    IEnumerable<T?> GetAll(Func<T?, bool>? f = null);
+    IEnumerable<T?> GetAll(Func<T?, bool>? filter = null);
 }
 
