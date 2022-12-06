@@ -119,15 +119,17 @@ namespace BlImplementation
 
             foreach (DO.Product? product in Dal.Product.GetAll())
             {
-                BO.ProductForList boProductForList = new()
+                if (filter == null || filter(ConvertProductToBoProduct(product?? throw new BO.nullObjectBOException("null"))))
                 {
-
-                    ID = product?.ID?? throw new BO.nullObjectBOException("null ID"),
-                    Name = product?.Name,
-                    Price = product?.Price?? throw new BO.nullObjectBOException("null ID"),
-                    Category = (BO.Enums.Category?)product?.Category
-                };
-                listBoProduct.Add(boProductForList);
+                    BO.ProductForList boProductForList = new()
+                    {
+                        ID = product?.ID ?? throw new BO.nullObjectBOException("null ID"),
+                        Name = product?.Name,
+                        Price = product?.Price ?? throw new BO.nullObjectBOException("null ID"),
+                        Category = (BO.Enums.Category?)product?.Category
+                    };
+                    listBoProduct.Add(boProductForList);
+                }      
             }
             return listBoProduct;
         }
