@@ -2,12 +2,13 @@
 using BO;
 using Dal;
 using DalApi;
+using DO;
 
 namespace BlImplementation
 
 {
 
-    internal class Product : BlApi.IProduct
+    internal class Product : BlApi.IProduct<T>
     {
 
         IDal Dal = new DalList ();
@@ -114,25 +115,27 @@ namespace BlImplementation
             catch (IdException) { throw new BO.UpdateProductException("Product exist in a Order. Impossible to update."); }
         } /// if received item have right properties and exist, update it. else throw a message.
 
-        public List<BO.ProductForList> GetList()
-        {//Func<Enums.Category?, bool>? f 
-
+        public List<BO.ProductForList> GetList(Func<DO.Product?, bool>? filter = null)
+        {
             List<BO.ProductForList> listBoProduct = new();
 
-            foreach (DO.Product? product in Dal.Product.GetAll())
-            {
-                BO.ProductForList boProductForList = new()
+            foreach (DO.Product? product in Dal.Product.GetAll(filter))
                 {
+                    BO.ProductForList boProductForList = new()
+                    {
 
-                    ID = product?.ID?? throw new BO.nullObjectBOException("null ID"),
-                    Name = product?.Name,
-                    Price = product?.Price?? throw new BO.nullObjectBOException("null ID"),
-                    Category = (Enums.Category?)product?.Category
-                };
-                listBoProduct.Add(boProductForList);
-            }
+                        ID = product?.ID ?? throw new BO.nullObjectBOException("null ID"),
+                        Name = product?.Name,
+                        Price = product?.Price ?? throw new BO.nullObjectBOException("null ID"),
+                        Category = (BO.Enums.Category?)product?.Category
+                    };
+
+                    listBoProduct.Add(boProductForList);
+                }
             return listBoProduct;
         }
+            
+    }
 
         //check if a product are inside any order
         //return a list or Id order that contain the product
@@ -149,6 +152,8 @@ namespace BlImplementation
             }
             return orderItemsWithProduct;
         }
+
+
     }
     
 }

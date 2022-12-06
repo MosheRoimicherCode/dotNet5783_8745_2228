@@ -1,7 +1,7 @@
 ﻿using BO;
 namespace BlApi
 {
-    public interface IProduct 
+    public interface IProduct
     {
         ///add product to data base - for manager user
         public void Add(Product item);
@@ -22,7 +22,7 @@ namespace BlApi
 
         /// return a list with all product in client order
         /// <returns> Product list </returns>
-        public List<BO.ProductForList> GetList();
-        //Func<Enums.Category?, bool>? f
+        //public List<BO.ProductForList> GetList();
+        public List<BO.ProductForList> GetList(Func<BO.Product?, bool>? filter = null);
     }
 } /// interface of product items for manager and client
