@@ -49,9 +49,6 @@ namespace BlImplementation
             return product;
         }
         
-
-
-
         public void Add(BO.Product item)
         {
             if (CheckNewItem(item) == true) Dal.Product.Add(ConvertBoProductToProduct(item)); 
@@ -116,22 +113,22 @@ namespace BlImplementation
         } /// if received item have right properties and exist, update it. else throw a message.
 
         public List<BO.ProductForList> GetList(Func<DO.Product?, bool>? filter = null)
-        {
+        {//Func<Enums.Category?, bool>? f 
+
             List<BO.ProductForList> listBoProduct = new();
 
-            foreach (DO.Product? product in Dal.Product.GetAll(filter))
+            foreach (DO.Product? product in Dal.Product.GetAll())
+            {
+                BO.ProductForList boProductForList = new()
                 {
-                    BO.ProductForList boProductForList = new()
-                    {
 
-                        ID = product?.ID ?? throw new BO.nullObjectBOException("null ID"),
-                        Name = product?.Name,
-                        Price = product?.Price ?? throw new BO.nullObjectBOException("null ID"),
-                        Category = (BO.Enums.Category?)product?.Category
-                    };
-
-                    listBoProduct.Add(boProductForList);
-                }
+                    ID = product?.ID?? throw new BO.nullObjectBOException("null ID"),
+                    Name = product?.Name,
+                    Price = product?.Price?? throw new BO.nullObjectBOException("null ID"),
+                    Category = (Enums.Category?)product?.Category
+                };
+                listBoProduct.Add(boProductForList);
+            }
             return listBoProduct;
         }
             
