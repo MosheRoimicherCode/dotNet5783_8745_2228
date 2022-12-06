@@ -116,19 +116,23 @@ namespace BlImplementation
         {//Func<Enums.Category?, bool>? f 
 
             List<BO.ProductForList> listBoProduct = new();
-            foreach (DO.Product? product in Dal.Product.GetAll(filter))
+
+            foreach (DO.Product? product in Dal.Product.GetAll())
             {
                 BO.ProductForList boProductForList = new()
                 {
-                    ID = product?.ID ?? throw new BO.nullObjectBOException("null ID"),
+
+                    ID = product?.ID?? throw new BO.nullObjectBOException("null ID"),
                     Name = product?.Name,
-                    Price = product?.Price ?? throw new BO.nullObjectBOException("null ID"),
+                    Price = product?.Price?? throw new BO.nullObjectBOException("null ID"),
                     Category = (BO.Enums.Category?)product?.Category
                 };
                 listBoProduct.Add(boProductForList);
             }
             return listBoProduct;
         }
+            
+    
 
         //check if a product are inside any order
         //return a list or Id order that contain the product
@@ -145,6 +149,8 @@ namespace BlImplementation
             }
             return orderItemsWithProduct;
         }
+
+
     }
     
 }
