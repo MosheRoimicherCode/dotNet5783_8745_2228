@@ -112,22 +112,24 @@ namespace BlImplementation
             catch (IdException) { throw new BO.UpdateProductException("Product exist in a Order. Impossible to update."); }
         } /// if received item have right properties and exist, update it. else throw a message.
 
-        public List<BO.ProductForList> GetList(Func<DO.Product?, bool>? filter = null)
+        public List<BO.ProductForList> GetList(Func<BO.Product?, bool>? filter = null)
         {//Func<Enums.Category?, bool>? f 
 
             List<BO.ProductForList> listBoProduct = new();
 
             foreach (DO.Product? product in Dal.Product.GetAll())
             {
-                BO.ProductForList boProductForList = new()
+                if (filter == null || filter(ConvertProductToBoProduct(product?? throw new BO.nullObjectBOException("null"))))
                 {
-
-                    ID = product?.ID?? throw new BO.nullObjectBOException("null ID"),
-                    Name = product?.Name,
-                    Price = product?.Price?? throw new BO.nullObjectBOException("null ID"),
-                    Category = (BO.Enums.Category?)product?.Category
-                };
-                listBoProduct.Add(boProductForList);
+                    BO.ProductForList boProductForList = new()
+                    {
+                        ID = product?.ID ?? throw new BO.nullObjectBOException("null ID"),
+                        Name = product?.Name,
+                        Price = product?.Price ?? throw new BO.nullObjectBOException("null ID"),
+                        Category = (BO.Enums.Category?)product?.Category
+                    };
+                    listBoProduct.Add(boProductForList);
+                }      
             }
             return listBoProduct;
         }
