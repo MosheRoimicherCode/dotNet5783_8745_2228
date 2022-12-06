@@ -8,7 +8,7 @@ namespace BlImplementation
 
 {
 
-    internal class Product : BlApi.IProduct<T>
+    internal class Product : BlApi.IProduct
     {
 
         IDal Dal = new DalList ();
@@ -125,14 +125,14 @@ namespace BlImplementation
                     ID = product?.ID?? throw new BO.nullObjectBOException("null ID"),
                     Name = product?.Name,
                     Price = product?.Price?? throw new BO.nullObjectBOException("null ID"),
-                    Category = (Enums.Category?)product?.Category
+                    Category = (BO.Enums.Category?)product?.Category
                 };
                 listBoProduct.Add(boProductForList);
             }
             return listBoProduct;
         }
             
-    }
+    
 
         //check if a product are inside any order
         //return a list or Id order that contain the product
