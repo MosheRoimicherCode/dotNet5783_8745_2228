@@ -193,28 +193,28 @@ namespace BlImplementation
             foreach (DO.Order? order in Dal.Order.GetAll())
                 OrderList.Add(order ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
 
-            foreach (DO.Order item in OrderList)
+            foreach (DO.Order? item in OrderList)
             {
-                if (item.ID == Id)
+                if (item?.ID == Id)
                 {
-                    if (item.DeliveryDate < DateTime.Now)
+                    if (item?.DeliveryDate < DateTime.Now)
                     {
                         throw new BO.IdBOException("order has already provided");
                     }
-                    else if (item.ShipDate > DateTime.Now)
+                    else if (item?.ShipDate > DateTime.Now)
                     {
                         throw new BO.IdBOException("order has not shipped yet");
                     }
-                    else if (item.DeliveryDate > DateTime.Now && item.ShipDate < DateTime.Now)
+                    else if (item?.DeliveryDate > DateTime.Now && item?.ShipDate < DateTime.Now)
                     {
                         DO.Order order = new()
                         {
-                            ID = item.ID,
-                            CustomerName = item.CustomerName,
-                            CustomerEmail = item.CustomerEmail,
-                            CustomeAdress = item.CustomeAdress,
-                            OrderDate = item.OrderDate ?? null,
-                            ShipDate = item.ShipDate ?? null,
+                            ID = item?.ID?? 0,
+                            CustomerName = item?.CustomerName,
+                            CustomerEmail = item?.CustomerEmail,
+                            CustomeAdress = item?.CustomeAdress,
+                            OrderDate = item?.OrderDate,
+                            ShipDate = item?.ShipDate,
                             DeliveryDate = DateTime.Now
 
                         };

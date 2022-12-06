@@ -31,7 +31,7 @@ namespace BlImplementation
             boProduct.Name = product.Name;
             boProduct.Price = product.Price;
             boProduct.InStock = product.InStock;
-            boProduct.Category = (BO.Enums.Category)product.Category;
+            boProduct.Category = (BO.Enums.Category?)product.Category;
 
             return boProduct;
         }
@@ -43,7 +43,7 @@ namespace BlImplementation
             product.Name = boProduct.Name;
             product.Price = boProduct.Price;
             product.InStock = boProduct.InStock;
-            product.Category = (DO.Enums.Category)boProduct.Category;
+            product.Category = (DO.Enums.Category?)boProduct.Category;
 
             return product;
         }
@@ -71,11 +71,10 @@ namespace BlImplementation
                 BO.ProductItem item = new BO.ProductItem();
                 DO.OrderItem orderItem = new DO.OrderItem();
 
-                foreach (DO.OrderItem itemCart in cart.Details)
+                foreach (DO.OrderItem? itemCart in cart.Details)
                 {
                     //Console.WriteLine(itemCart.ToString());
-                    if (itemCart.ProductID == Id)
-                    { orderItem = itemCart; };
+                    if (itemCart?.ProductID == Id) orderItem = itemCart?? throw new BO.IdBOException("Product with given Id didn't found");
                 }
 
                 item.ID = orderItem.ID;
@@ -87,7 +86,7 @@ namespace BlImplementation
                 item.Name = cart.CustomerName;
                 item.Price = orderItem.Price;
 
-                item.Category = (BO.Enums.Category)Dal.Product.Get(orderItem.ProductID).Category;
+                item.Category = (BO.Enums.Category?)Dal.Product.Get(orderItem.ProductID).Category;
 
                 return item;
             }
@@ -120,15 +119,15 @@ namespace BlImplementation
 
             List<BO.ProductForList> listBoProduct = new();
 
-            foreach (DO.Product product in Dal.Product.GetAll())
+            foreach (DO.Product? product in Dal.Product.GetAll())
             {
                 BO.ProductForList boProductForList = new()
                 {
 
-                    ID = product.ID,
-                    Name = product.Name,
-                    Price = product.Price,
-                    Category = (Enums.Category)product.Category
+                    ID = product?.ID?? throw new BO.nullObjectBOException("null ID"),
+                    Name = product?.Name,
+                    Price = product?.Price?? throw new BO.nullObjectBOException("null ID"),
+                    Category = (Enums.Category?)product?.Category
                 };
                 listBoProduct.Add(boProductForList);
             }

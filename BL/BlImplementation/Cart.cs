@@ -144,17 +144,17 @@ namespace BlImplementation
         ///Confirm the Cart and build objects of order
         public void ConfirmCart(BO.Cart boCart, string Name, string Email, string Addres)
     {
-        foreach (DO.OrderItem item in boCart.Details)
+        foreach (DO.OrderItem? item in boCart.Details)
         {
-            if (!IdExistInProductList(item.ProductID))
+            if (!IdExistInProductList(item?.ProductID?? 0))
             {
                 throw new BO.IdBOException("not all the products in the cart are exist");
             }
-            if (item.Amount <= 0)
+            if (item?.Amount <= 0)
             {
                 throw new BO.IdBOException("negative Amount");
             }
-            if (item.Amount > Dal.Product.Get(item.ProductID).InStock)
+            if (item?.Amount > Dal.Product.Get(item?.ProductID??0).InStock)
             {
                 throw new BO.IdBOException("not enough in stock");
             }
@@ -180,10 +180,10 @@ namespace BlImplementation
 
         newOrder.ID = Dal.Order.Add(newOrder);
 
-        foreach (DO.OrderItem item in boCart.Details)
+        foreach (DO.OrderItem? item in boCart.Details)
         {
-            DO.OrderItem newOrderItem = item;
-            Dal.OrderItem.Add(newOrderItem);
+            DO.OrderItem? newOrderItem = item;
+            Dal.OrderItem.Add(newOrderItem?? throw new BO.nullObjectBOException("null"));
         }
 
     }
