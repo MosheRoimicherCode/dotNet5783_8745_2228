@@ -21,12 +21,15 @@ namespace PL
             ProductListview.ItemsSource = p.Product.GetList();
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.Category));
 
-            //ProductListview.ItemsSource = p.BoProduct.GetList(CategorySelector.ItemsSource, true);
-            //CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.BoEnums));
+            
 
 
         }
 
+        public void CategorySelector_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            ProductListview.ItemsSource = p.Product.GetList(item => item.Category == (BO.Enums.Category)CategorySelector.SelectedValue);
+        }
 
     }
 }
