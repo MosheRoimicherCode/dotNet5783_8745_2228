@@ -17,7 +17,7 @@
 
         <TextBox x:Name="ProductInStock" HorizontalAlignment="Left" Margin="296,353,0,0" TextWrapping="Wrap" Text="Entities in stock" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775"/>
         <ComboBox HorizontalAlignment="Left" Margin="296,322,0,0" VerticalAlignment="Top" Width="224" Height="20" Name="Category2"/>
-        
+
 
     </Grid>
 </Window>

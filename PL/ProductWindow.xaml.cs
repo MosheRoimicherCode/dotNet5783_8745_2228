@@ -43,7 +43,7 @@ namespace PL
             string productID = ProducId.Text;
             string productName = ProductName.Text;
             string productPrice = ProductPrice.Text;
-            string productCategory = Category2.SelectedItem?.ToString() ?? "null"; 
+            string productCategory = Category2.SelectedItem?.ToString() ?? "null";
             string productInStock = ProductInStock.Text;
 
             BO.Product newProduct = new()
@@ -67,6 +67,6 @@ namespace PL
             this.Close();
         }
 
-        
+
     }
 }
