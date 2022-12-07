@@ -18,21 +18,21 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name ="CategorySelector"  Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged">
-               
+            
+             <ComboBox 
+                Name ="CategorySelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged"  >
             </ComboBox>
-            <Label Name ="CategorySelectorLabel" Content="category:" Grid.Column="0" FontSize="25"/>
-            <Button Content="Add new Product" Grid.Row="2" HorizontalAlignment="Right" Margin="5" Padding="5"/>
-
+            <Label Name ="CategorySelectorLabel" Content="category:" Grid.Column="0" FontSize="25"/> 
         </Grid>
-        
-        <ListView Name ="ProductListview" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
+
+        <ListView Name ="ProductListview" Grid.Row="1">
             <ListView.View>
-        
+
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
+            
         </ListView>
 
 

@@ -1,6 +1,6 @@
 ﻿using BlImplementation;
 using System.Windows;
-
+using System.Windows.Controls;
 
 namespace PL
 {
@@ -9,14 +9,14 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        Bl? p = new Bl();
+        Bl p = new Bl();
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) => new ProductForListWindow().Show();
-
+        private void Button_Click(object sender, RoutedEventArgs e) { new ProductForListWindow().Show(); this.Close(); }
+        
         
     }
 }
