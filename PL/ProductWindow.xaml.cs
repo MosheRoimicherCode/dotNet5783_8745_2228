@@ -88,7 +88,7 @@ namespace PL
                 if (productCategory == item.ToString())
                     newProduct.Category = (BO.Enums.Category)Category2.SelectedItem;
             }
-            if (btn.Name == "buttonProductWindows")
+            if (btn.Name == "buttonProductWindows") //else just go out - cancel button
             {
                 if (situation == "add") p.Product.Add(newProduct);
                 else if (situation == "update") p.Product.Update(newProduct);
