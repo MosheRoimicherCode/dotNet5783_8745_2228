@@ -36,7 +36,7 @@ namespace PL
 
                 buttonProductWindows.Content = str;
                 ProducId.Text = (productGeted.ID).ToString();
-                ProducId.  
+                ProducId.IsReadOnly = true;  
                 ProductName.Text = productGeted.Name;
                 ProductPrice.Text = productGeted.Price.ToString();
                 ProductInStock.Text = productGeted.InStock.ToString();
