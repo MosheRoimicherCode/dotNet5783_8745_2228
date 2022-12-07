@@ -66,6 +66,8 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            var btn = e.OriginalSource as Button;
+            
             string productID = ProducId.Text;
             string productName = ProductName.Text;
             string productPrice = ProductPrice.Text;
@@ -86,10 +88,11 @@ namespace PL
                 if (productCategory == item.ToString())
                     newProduct.Category = (BO.Enums.Category)Category2.SelectedItem;
             }
-
-            if (situation == "add") p.Product.Add(newProduct);
-            else if (situation == "update") p.Product.Update(newProduct);
-
+            if (btn.Name == "buttonProductWindows")
+            {
+                if (situation == "add") p.Product.Add(newProduct);
+                else if (situation == "update") p.Product.Update(newProduct);
+            }
             new ProductForListWindow().Show();
             this.Close();
         }
