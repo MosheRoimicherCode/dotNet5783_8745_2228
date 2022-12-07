@@ -39,6 +39,8 @@ namespace PL
 
             ProductListview.ItemsSource = p.Product.GetList();
 
+            
+
             CategorySelector.ItemsSource = ListOfCategories;
             CategorySelector.SelectedIndex = 3;
 
@@ -66,9 +68,16 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new ProductWindow().Show();
+            
+            new ProductWindow("add").Show();
             this.Close();
         }
 
+        private void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            BO.ProductForList n = new();
+            int id = ((BO.ProductForList)ProductListview.SelectedItem).ID;
+            new ProductWindow("update", id).Show();
+        }
     }
 }

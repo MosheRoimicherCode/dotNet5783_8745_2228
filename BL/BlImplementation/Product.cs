@@ -109,7 +109,7 @@ namespace BlImplementation
         {
             try { if (CheckNewItem(item) == true) Dal.Product.Update(item.ID, ConvertBoProductToProduct(item)); }
 
-            catch (IdException) { throw new BO.UpdateProductException("Product exist in a Order. Impossible to update."); }
+            catch (IdException) { throw new BO.UpdateProductException("Id not found. Impossible to update."); }
         } /// if received item have right properties and exist, update it. else throw a message.
 
         public List<BO.ProductForList> GetList(Func<BO.Product?, bool>? filter = null)

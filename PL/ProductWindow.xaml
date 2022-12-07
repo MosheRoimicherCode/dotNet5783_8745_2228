@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ProductWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="ADD" HorizontalAlignment="Center" Margin="0,376,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" Height="20" Width="800"
+        <Button Name ="buttonProductWindows" Content="Add" HorizontalAlignment="Center" Margin="0,376,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" Height="20" Width="800"
                 Click="Button_Click"
                 />
         <TextBox x:Name="ProducId" HorizontalAlignment="Left" Margin="296,229,0,0" TextWrapping="Wrap" Text="ProductID" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775"/>
