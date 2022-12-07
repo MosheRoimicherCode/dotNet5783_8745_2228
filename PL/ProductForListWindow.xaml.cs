@@ -22,7 +22,7 @@ namespace PL
         private List<BO.Enums.Category> ListOfCategories = new();
         //private List<string> ListOfCategoriesString = new();
         BO.Enums.Category all = new();
-        
+
         public ProductForListWindow()
         {
             InitializeComponent();
@@ -41,7 +41,7 @@ namespace PL
 
             CategorySelector.ItemsSource = ListOfCategories;
             CategorySelector.SelectedIndex = 3;
-            
+
         }
 
         public void CategorySelector_SelectionChanged(object sender, RoutedEventArgs e)
@@ -55,7 +55,7 @@ namespace PL
 
                 for (int i = 0; i < ListOfCategories.Count; i++)
                     if (ListOfCategories[i].Equals(categorySelected)) ListOfCategories.Remove(ListOfCategories[i]);
-                
+
 
                 this.CategorySelector.ItemsSource = new ObservableCollection<BO.Enums.Category>(ListOfCategories);
                 ListOfCategories.Clear();

@@ -18,8 +18,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            
-             <ComboBox 
+
+            <ComboBox 
                 Name ="CategorySelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged"  >
             </ComboBox>
             <Label Name ="CategorySelectorLabel" Content="Category:" Grid.Column="0" FontSize="25"/>
@@ -32,7 +32,7 @@
                     Padding="5"
                     Click="Button_Click"
                     />
-            
+
         </Grid>
 
         <ListView Name ="ProductListview" Grid.Row="1">
@@ -42,7 +42,7 @@
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
-            
+
         </ListView>
 
 
