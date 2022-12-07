@@ -7,6 +7,17 @@
         mc:Ignorable="d"
         Title="ProductWindow" Height="450" Width="800">
     <Grid>
+        <Button Content="ADD" HorizontalAlignment="Center" Margin="0,376,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" Height="20" Width="800"
+                Click="Button_Click"
+                />
+        <TextBox x:Name="ProducId" HorizontalAlignment="Left" Margin="296,229,0,0" TextWrapping="Wrap" Text="ProductID" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775"/>
+        <TextBox x:Name="ProductName" HorizontalAlignment="Left" Margin="296,260,0,0" TextWrapping="Wrap" Text="ProductName" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775"/>
+        <TextBox x:Name="ProductPrice" HorizontalAlignment="Left" Margin="296,291,0,0" TextWrapping="Wrap" Text="Product Price" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775"/>
+
+
+        <TextBox x:Name="ProductInStock" HorizontalAlignment="Left" Margin="296,353,0,0" TextWrapping="Wrap" Text="Entities in stock" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775"/>
+        <ComboBox HorizontalAlignment="Left" Margin="296,322,0,0" VerticalAlignment="Top" Width="224" Height="20" Name="Category2"/>
         
+
     </Grid>
 </Window>
