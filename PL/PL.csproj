@@ -14,7 +14,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="250px-770_Eastern_Parkway.jpg" />
+    <None Remove="yeshiva camp pkudei hashem 2014 099.JPG" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="250px-770_Eastern_Parkway.jpg" />
+    <Resource Include="yeshiva camp pkudei hashem 2014 099.JPG" />
   </ItemGroup>
 
 </Project>
