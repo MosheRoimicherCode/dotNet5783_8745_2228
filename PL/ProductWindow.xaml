@@ -23,13 +23,13 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <TextBox x:Name="ProducId" HorizontalAlignment="Center" Margin="0,37,0,0" TextWrapping="Wrap" Text="ProductID" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775" Background="#FFA2CACF" ToolTip="Enter Id Product"/>
-        <TextBox x:Name="ProductName" HorizontalAlignment="Center" Margin="0,68,0,0" TextWrapping="Wrap" Text="ProductName" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775" Background="#FFA2CACF" ToolTip="Enter the product name."/>
-        <TextBox x:Name="ProductPrice" HorizontalAlignment="Center" Margin="0,99,0,0" TextWrapping="Wrap" Text="Product Price" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775" Background="#FFA2CACF" ToolTip="Enter the product price."/>
+        <TextBox x:Name="ProducId" HorizontalAlignment="Left" Margin="108,36,0,0" TextWrapping="Wrap" Text="ProductID" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775" Background="#FFA2CACF" ToolTip="Enter Id Product"/>
+        <TextBox x:Name="ProductName" HorizontalAlignment="Left" Margin="108,66,0,0" TextWrapping="Wrap" Text="ProductName" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775" Background="#FFA2CACF" ToolTip="Enter the product name."/>
+        <TextBox x:Name="ProductPrice" HorizontalAlignment="Left" Margin="105,99,0,0" TextWrapping="Wrap" Text="Product Price" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775" Background="#FFA2CACF" ToolTip="Enter the product price."/>
 
 
-        <TextBox x:Name="ProductInStock" HorizontalAlignment="Center" Margin="0,161,0,0" TextWrapping="Wrap" Text="Entities in stock" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775" Background="#FFA2CACF" ToolTip="Enter how many entities of product have in stock."/>
-        <ComboBox HorizontalAlignment="Center" Margin="0,130,0,0" VerticalAlignment="Top" Width="224" Height="20" x:Name="Category2" ToolTip="Chose a category.">
+        <TextBox x:Name="ProductInStock" HorizontalAlignment="Left" Margin="108,163,0,0" TextWrapping="Wrap" Text="Entities in stock" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775" Background="#FFA2CACF" ToolTip="Enter how many entities of product have in stock."/>
+        <ComboBox HorizontalAlignment="Left" Margin="108,130,0,0" VerticalAlignment="Top" Width="224" Height="20" x:Name="Category2" ToolTip="Chose a category.">
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1">
                     <GradientStop Color="#FFA2CACF"/>
@@ -42,12 +42,12 @@
                 <DropShadowEffect/>
             </Label.Effect>
         </Label>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="23,199,0,0" VerticalAlignment="Top" Background="#FFB10D0D" Height="20" Width="128" Click="Button_Click" Tag="2"/>
-        <Label x:Name="Product_properties__Copy" Content="Product ID:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="19" Width="48" FontSize="8" FontStyle="Italic" Cursor="" Margin="40,36,0,0"/>
-        <Label x:Name="Product_properties__Copy1" Content="Product Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="19" Width="65" FontSize="8" FontStyle="Italic" Cursor="" Margin="23,67,0,0"/>
-        <Label x:Name="Product_properties__Copy2" Content="Product Price:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="19" Width="57" FontSize="8" FontStyle="Italic" Cursor="" Margin="31,98,0,0"/>
-        <Label x:Name="Product_properties__Copy3" Content="Category:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="43" FontSize="8" FontStyle="Italic" Cursor="" Margin="45,130,0,0"/>
-        <Label x:Name="Product_properties__Copy4" Content="In stock:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="38" FontSize="8" FontStyle="Italic" Cursor="" Margin="49,161,0,0"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="63,199,0,0" VerticalAlignment="Top" Background="#FFB10D0D" Height="20" Width="128" Click="Cancel_Button_Click" Tag="2"/>
+        <Label x:Name="Product_properties__Copy" Content="Product ID:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31" Width="65" FontStyle="Italic" Cursor="" Margin="38,33,0,0" FontWeight="Bold" FontSize="10" RenderTransformOrigin="0.928,0.7"/>
+        <Label x:Name="Product_properties__Copy1" Content="Product Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="88" FontSize="10" FontStyle="Italic" Cursor="" Margin="24,63,0,0" FontWeight="Bold"/>
+        <Label x:Name="Product_properties__Copy2" Content="Product Price:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="74" FontSize="10" FontStyle="Italic" Cursor="" Margin="26,93,0,0" FontWeight="Bold"/>
+        <Label x:Name="Product_properties__Copy3" Content="Category:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31" Width="58" FontSize="10" FontStyle="Italic" Cursor="" Margin="45,126,0,0" FontWeight="Bold"/>
+        <Label x:Name="Product_properties__Copy4" Content="In stock:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="38" Width="62" FontSize="10" FontStyle="Italic" Cursor="" Margin="50,159,0,0" FontWeight="Bold"/>
 
 
     </Grid>

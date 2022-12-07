@@ -6,11 +6,23 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
     <Grid>
-        <Button Name ="ProductListButton"
-                Content="Click here to see &#x0a; Product list"
-                HorizontalAlignment="Left"
-                Margin="25,30,0,313" Width="168"
-                Click="Button_Click"/>
+        <Button 
+            Content="click here to see&#xD;&#xA;   Product list"
+            Name ="ProductListButton"
+            HorizontalAlignment="Center"
+            Margin="0,217,0,30" Width="464"
+            Click="Button_Click" FontSize="36">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF4C93B3"/>
+                    <GradientStop Color="#FF8A63B6" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Label Content="!ברוכים הבאים לחנות של משה ומענדי" HorizontalAlignment="Center" Margin="0,91,0,0" VerticalAlignment="Top" Height="79" Width="700" HorizontalContentAlignment="Center" FontSize="36" FontFamily="Yu Gothic UI Semibold" VerticalContentAlignment="Center"/>
+
     </Grid>
 </Window>
+

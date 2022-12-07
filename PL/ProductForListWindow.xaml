@@ -38,11 +38,18 @@
         <ListView Name ="ProductListview" Grid.Row="1" MouseDoubleClick="MouseDoubleClick">
             <ListView.View>
 
-                <GridView>
-                    <GridViewColumn/>
+                <GridView x:Name="GridView1">
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=Name}" 
+                                Header="Product ID" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=ID}" 
+                                Header="Product name" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=Price}" 
+                                Header="Price" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=Category}" 
+                                Header="Category" Width="100"/>
                 </GridView>
             </ListView.View>
-
+            
         </ListView>
 
 

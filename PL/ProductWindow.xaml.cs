@@ -96,5 +96,10 @@ namespace PL
             new ProductForListWindow().Show();
             this.Close();
         }
+        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
+        {
+            new ProductForListWindow().Show();
+            this.Close();
+        }
     }
 }
