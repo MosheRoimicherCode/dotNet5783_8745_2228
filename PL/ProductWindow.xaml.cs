@@ -24,13 +24,25 @@ namespace PL
         string situation;
         private List<BO.Enums.Category> ListOfCategories = new();
 
-        public ProductWindow(string str)
+        public ProductWindow(string str, int id)
         {
             InitializeComponent();
 
-            BO.Product? ppp = new();
-            
+            BO.Product? productGeted = new();
 
+            if (str == "update")
+            {
+                productGeted = p.Product.Get(id);
+
+                buttonProductWindows.Content = str;
+                ProducId.Text = (productGeted.ID).ToString();
+                ProducId.  
+                ProductName.Text = productGeted.Name;
+                ProductPrice.Text = productGeted.Price.ToString();
+                ProductInStock.Text = productGeted.InStock.ToString();
+                Category2.Text = productGeted.Category.ToString();
+            }
+            
             situation = str;
             foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
             {
@@ -41,39 +53,13 @@ namespace PL
             ListOfCategories.Remove(BO.Enums.Category.all);
             Category2.SelectedIndex = -1;
 
-        }
-
-        public ProductWindow(string str, int id)
-        {
-            InitializeComponent();
-
-            BO.Product? productGeted = new();
-            productGeted = p.Product.Get(id);
-
-            buttonProductWindows.Content = str; 
-            ProducId.Text = (productGeted.ID).ToString();
-            ProductName.Text = productGeted.Name;
-            ProductPrice.Text = productGeted.Price.ToString();
-            ProductInStock.Text = productGeted.InStock.ToString();
-            Category2.Text = productGeted.Category.ToString();
-
-            ///comboBox
-            foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
+            if (str == "update")
             {
-                ListOfCategories.Add(item);
-                //ListOfCategoriesString.Add(item.ToString());
+                //define defaul comboBox stand
+                if (productGeted.Category.ToString() == "footwear") Category2.SelectedIndex = 0;
+                if (productGeted.Category.ToString() == "outerwear") Category2.SelectedIndex = 1;
+                if (productGeted.Category.ToString() == "business") Category2.SelectedIndex = 2;
             }
-            Category2.ItemsSource = ListOfCategories;
-            ListOfCategories.Remove(BO.Enums.Category.all);
-
-            //define defaul comboBox stand
-            if (productGeted.Category.ToString() == "footwear") Category2.SelectedIndex = 0;
-            if (productGeted.Category.ToString() == "outerwear") Category2.SelectedIndex = 1;
-            if (productGeted.Category.ToString() == "business") Category2.SelectedIndex = 2;
-            ///endComboBox
-            ///
-
-
 
         }
 
@@ -106,7 +92,5 @@ namespace PL
             new ProductForListWindow().Show();
             this.Close();
         }
-
-
     }
 }

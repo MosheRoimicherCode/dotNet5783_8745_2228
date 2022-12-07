@@ -69,7 +69,7 @@ namespace PL
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             
-            new ProductWindow("add").Show();
+            new ProductWindow("add",0).Show();
             this.Close();
         }
 
@@ -78,6 +78,7 @@ namespace PL
             BO.ProductForList n = new();
             int id = ((BO.ProductForList)ProductListview.SelectedItem).ID;
             new ProductWindow("update", id).Show();
+            this.Close();   
         }
     }
 }
