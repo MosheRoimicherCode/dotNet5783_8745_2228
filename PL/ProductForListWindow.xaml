@@ -5,15 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ProductForListWindow" Height="640" Width="800">
+        Title="ProductForListWindow" Height="450" Width="800">
     <Grid Name ="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height = "40*"/>
+            <RowDefinition Height = "70*"/>
             <RowDefinition Height = "500*"/>
             <RowDefinition Height = "Auto"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-        VerticalAlignment="Stretch" Width="auto">
+        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -35,21 +38,21 @@
 
         </Grid>
 
-        <ListView Name ="ProductListview" Grid.Row="1" MouseDoubleClick="MouseDoubleClick">
+        <ListView Name ="ProductListview" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2">
             <ListView.View>
 
                 <GridView x:Name="GridView1">
                     <GridViewColumn DisplayMemberBinding= "{Binding Path=Name}" 
-                                Header="Product ID" Width="100"/>
+                                Header="Product ID" Width="150"/>
                     <GridViewColumn DisplayMemberBinding= "{Binding Path=ID}" 
-                                Header="Product name" Width="100"/>
+                                Header="Product name" Width="150"/>
                     <GridViewColumn DisplayMemberBinding= "{Binding Path=Price}" 
-                                Header="Price" Width="100"/>
+                                Header="Price" Width="150"/>
                     <GridViewColumn DisplayMemberBinding= "{Binding Path=Category}" 
-                                Header="Category" Width="100"/>
+                                Header="Category" Width="150"/>
                 </GridView>
             </ListView.View>
-            
+
         </ListView>
 
 

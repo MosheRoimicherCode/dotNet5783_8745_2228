@@ -15,7 +15,14 @@
 
   <ItemGroup>
     <None Remove="250px-770_Eastern_Parkway.jpg" />
+    <None Remove="c.jpg" />
+    <None Remove="c2.jpg" />
+    <None Remove="c3.jpg" />
+    <None Remove="clothes.jpg" />
+    <None Remove="images.jpg" />
+    <None Remove="pexels-kai-pilger-996329.jpg" />
     <None Remove="yeshiva camp pkudei hashem 2014 099.JPG" />
+    <None Remove="הורדה.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,7 +31,16 @@
 
   <ItemGroup>
     <Resource Include="250px-770_Eastern_Parkway.jpg" />
+    <Resource Include="c2.jpg" />
+    <Resource Include="c3.jpg" />
+    <Resource Include="images.jpg" />
+    <Resource Include="pexels-kai-pilger-996329.jpg" />
     <Resource Include="yeshiva camp pkudei hashem 2014 099.JPG" />
+    <Resource Include="הורדה.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="images\" />
   </ItemGroup>
 
 </Project>

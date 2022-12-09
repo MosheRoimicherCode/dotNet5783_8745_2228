@@ -74,27 +74,38 @@ namespace PL
             string productCategory = Category2.SelectedItem?.ToString() ?? "null";
             string productInStock = ProductInStock.Text;
 
-            BO.Product newProduct = new()
+            try
             {
-                ID = int.Parse(productID),
-                Name = productName,
-                Price = double.Parse(productPrice),
-                Category = null,
-                InStock = int.Parse(productInStock),
-            };
-            //insert value to category
-            foreach (var item in ListOfCategories)
-            {
-                if (productCategory == item.ToString())
-                    newProduct.Category = (BO.Enums.Category)Category2.SelectedItem;
+                BO.Product newProduct = new()
+                {
+                    ID = int.Parse(productID),
+                    Name = productName ?? null,
+                    Price = double.Parse(productPrice),
+                    Category = null,
+                    InStock = int.Parse(productInStock),
+                };
+
+                    //insert value to category
+                foreach (var item in ListOfCategories)
+                {
+                    if (productCategory == item.ToString())
+                        newProduct.Category = (BO.Enums.Category)Category2.SelectedItem;
+                }
+                if (btn.Name == "buttonProductWindows") //else just go out - cancel button
+                {
+                    if (situation == "add") p.Product.Add(newProduct);
+                    else if (situation == "update") p.Product.Update(newProduct);
+                }
+                new ProductForListWindow().Show();
+                this.Close();
             }
-            if (btn.Name == "buttonProductWindows") //else just go out - cancel button
+            
+            catch(Exception s)
             {
-                if (situation == "add") p.Product.Add(newProduct);
-                else if (situation == "update") p.Product.Update(newProduct);
+                new ERRORWindow(this).Show();
             }
-            new ProductForListWindow().Show();
-            this.Close();
+            
+            
         }
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
