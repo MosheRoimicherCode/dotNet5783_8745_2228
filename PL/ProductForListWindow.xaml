@@ -25,13 +25,12 @@
             <ComboBox 
                 Name ="CategorySelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged"  >
             </ComboBox>
-            <Label Name ="CategorySelectorLabel" Content="Category:" Grid.Column="0" FontSize="25"/>
+            <Label Name ="CategorySelectorLabel" Content="Category:" Grid.Column="0" FontSize="25" Grid.ColumnSpan="2" Margin="276,0,124,0"/>
 
             <Button x:Name="Add_new_Product" 
                     Content="Add new Product" 
-                    Grid.Row="2" 
-                    HorizontalAlignment="Right" 
-                    Margin="5" 
+                    HorizontalAlignment="Left" 
+                    Margin="10,6,0,4" 
                     Padding="5"
                     Click="Button_Click"
                     />

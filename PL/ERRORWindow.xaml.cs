@@ -20,17 +20,14 @@ namespace PL
     public partial class ERRORWindow : Window
     {
         ProductWindow productWindow;
-        public ERRORWindow(ProductWindow Window)
+
+        public ERRORWindow(ProductWindow Window, string s)
         {
             InitializeComponent();
+            label1.Content = s;
             productWindow = Window;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-     
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             productWindow.Show();

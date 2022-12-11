@@ -102,7 +102,7 @@ namespace PL
             
             catch(Exception s)
             {
-                new ERRORWindow(this).Show();
+                new ERRORWindow(this, s.Message).Show();
             }
             
             

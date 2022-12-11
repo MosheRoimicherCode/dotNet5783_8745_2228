@@ -23,7 +23,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <TextBox x:Name="ProducId" HorizontalAlignment="Left" Margin="108,36,0,0" TextWrapping="Wrap" Text="ProductID" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775" Background="#FFA2CACF" ToolTip="Enter Id Product"/>
+        <TextBox x:Name="ProducId" HorizontalAlignment="Left" Margin="108,36,0,0" TextWrapping="Wrap" Text="ProductID" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775" Background="#FFA2CACF" ToolTip="Enter Id Product" MaxLength="6" MinWidth="6"/>
         <TextBox x:Name="ProductName" HorizontalAlignment="Left" Margin="108,66,0,0" TextWrapping="Wrap" Text="ProductName" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775" Background="#FFA2CACF" ToolTip="Enter the product name."/>
         <TextBox x:Name="ProductPrice" HorizontalAlignment="Left" Margin="105,99,0,0" TextWrapping="Wrap" Text="Product Price" VerticalAlignment="Top" Width="224" TextAlignment="Center" RenderTransformOrigin="0.492,-3.775" Background="#FFA2CACF" ToolTip="Enter the product price."/>
 
