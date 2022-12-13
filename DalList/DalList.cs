@@ -1,7 +1,9 @@
 ﻿namespace Dal;
 using DalApi;
- internal sealed class DalList : IDal
+internal sealed class DalList : IDal
 {
+    private static readonly IDal instance = new DalList();
+
     // Implementation specific data members
     IProduct IDal.Product => new DalProduct();
     IOrder IDal.Order => new DalOrder();
@@ -11,5 +13,5 @@ using DalApi;
     private DalList() { }
 
     // The public Instance property to use
-    public static IDal Instance { get; } = new DalList();
+    public static IDal Instance => instance;
 }

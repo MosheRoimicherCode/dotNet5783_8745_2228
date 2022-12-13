@@ -9,8 +9,8 @@ internal class Program
     {
         try
         {
-            DalList dal = new DalList();               
-       
+            IDal? dal = Factory.Get();
+
             while (true)
             {
                 Console.WriteLine("enter name of Item:");

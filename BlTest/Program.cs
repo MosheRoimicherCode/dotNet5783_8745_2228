@@ -1,16 +1,6 @@
 ﻿using BlApi;
-using BlImplementation;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Linq.Expressions;
-using System.Xml.Linq;
 using BO;
-using System;
-using System.Security.Cryptography.X509Certificates;
-using DalApi;
 using System.ComponentModel.DataAnnotations;
-
 
 internal class Program
 {
@@ -23,7 +13,7 @@ internal class Program
         public double doubleInput;
         public bool boolInput;
         public BO.Enums.Category c;
-    }  //element for support input checks 
+    }  //struck for support input checks 
     static public CheckInput checkInput(string check)
     {
     Reenter:
