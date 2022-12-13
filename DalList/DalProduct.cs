@@ -9,7 +9,7 @@ internal class DalProduct : IProduct
 {
     public int Add(Product product) =>
         DataSource._productList.Exists(productInList => productInList?.ID == product.ID)
-            ? throw new IdException("Product ID already exists")
+            ? throw new IdException("Product ID already exists (DalProduct.Add)")
             : DataSource.AddProduct(product); /// Add Product to Data Base
 
     public Product Get(int ProductID)
@@ -18,7 +18,7 @@ internal class DalProduct : IProduct
                                 where product.ID == ProductID
                                 select product) return product;
 
-        throw new IdException(" Not found ID. (DalProduct.Get Exception)");
+        throw new IdException(" Not found ID. (DalProduct.Get)");
     }///search for product by Id and return the specific product
 
     public Product? Get(Func<Product?, bool> filter) =>
@@ -38,7 +38,7 @@ internal class DalProduct : IProduct
             }
         }
         //if Id not found send a MESSAGE
-        if (flag == false) Console.WriteLine(" Not found ID. (DalProduct.Delete Exception)");
+        if (flag == false) Console.WriteLine(" Not found ID. (DalProduct.Delete)");
         ///delete product from data base by Id
     }
     ///replace product by another inside array

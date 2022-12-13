@@ -49,7 +49,7 @@ internal class DalOrderItem : IOrderItem
         {
             OrderItem? orderItem = new();
             orderItem = _orderItemList[i];
-            if (orderItem?.ID.Equals(OrderItemID) ?? throw new IdException(" null object. (DalOrderItem.Update Exception)"))
+            if (orderItem?.ID.Equals(OrderItemID) ?? throw new IdException("null object. (DalOrderItem.Update Exception)"))
             {
                 int index = _orderItemList.IndexOf(orderItem);
                 _orderItemList.RemoveAt(index);

@@ -15,7 +15,7 @@ internal class Program
             {
                 Console.WriteLine("select an Item: \n 0 - exit \n 1 - product \n 2 - order \n 3 - orderItem \n");
                 string? choice1 = Console.ReadLine();
-                if (choice1 == "0") throw new ProgramExit();
+                if (choice1 == "0") throw new ProgramExit("Exit Program");
 
 
                 Console.WriteLine("enter function number:" +
@@ -32,7 +32,7 @@ internal class Program
                     switch (choice2)
                     {
                         case "0":
-                            throw new ProgramExit();
+                            throw new ProgramExit("Exit Program");
                         case "1":
                             Console.WriteLine("enter ID:");
                             int ID1 = Convert.ToInt32(Console.ReadLine());
@@ -73,10 +73,7 @@ internal class Program
                             break;
                         case "3":
                             var item = dal.Product.GetAll();
-                            foreach (var item2 in item)
-                            {
-                                Console.WriteLine(item2);
-                            }
+                            foreach (var item2 in item) Console.WriteLine(item2);
                             break;
                         case "4":
                             Console.WriteLine("enter ID of exist product:");
@@ -127,7 +124,7 @@ internal class Program
                     switch (choice2)
                     {
                         case "0":
-                            throw new ProgramExit();
+                            throw new ProgramExit("Exit Program");
                         case "1":
                             Console.WriteLine("enter ID:");
                             int ID1 = Convert.ToInt32(Console.ReadLine());
@@ -161,7 +158,8 @@ internal class Program
                             Console.WriteLine(dal.Order.Get(ID2));
                             break;
                         case "3":
-                            dal.Order.GetAll();
+                            var item = dal.Order.GetAll();
+                            foreach (var item2 in item) Console.WriteLine(item2);
                             break;
                         case "4":
                             Console.WriteLine("enter ID of exist product:");
@@ -205,12 +203,13 @@ internal class Program
                     switch (choice2)
                     {
                         case "0":
-                            throw new ProgramExit();
+                            throw new ProgramExit("Exit Program");
                         case "1":
                             Console.WriteLine("enter OrderItem ID:");
                             int ID0 = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("enter ProductID:");
                             int ID1 = Convert.ToInt32(Console.ReadLine());
+                            dal.Product.Get(ID1);
                             Console.WriteLine("enter OrderID:");
                             int ID11 = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("enter price:");
@@ -230,17 +229,17 @@ internal class Program
                         case "2":
                             Console.WriteLine("enter ID:");
                             int ID2 = Convert.ToInt32(Console.ReadLine());
-                            dal.OrderItem.Get(ID2);
-                            Console.WriteLine(ID2);
+                            DO.OrderItem item3 = dal.OrderItem.Get(ID2);
+                            Console.WriteLine(item3.ToString());
                             break;
                         case "3":
-                            dal.OrderItem.GetAll();
+                            var item = dal.OrderItem.GetAll();
+                            foreach (var item2 in item) Console.WriteLine(item2);
                             break;
                         case "4":
                             Console.WriteLine("enter ID of exist OrderItem:");
                             int existID = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("enter new ID:");
-                            int newID = Convert.ToInt32(Console.ReadLine());
+                            dal.OrderItem.Get(existID);                         
                             Console.WriteLine("enter ProductID:");
                             int ID4 = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("enter OrderID:");
@@ -251,18 +250,17 @@ internal class Program
                             int amount4 = Convert.ToInt32(Console.ReadLine());
                             OrderItem oi4 = new()
                             {
-                                ID = newID,
+                                ID = existID,
                                 ProductID = ID4,
                                 OrderID = ID44,
                                 Price = price4,
                                 Amount = amount4
                             };
-                            dal.OrderItem.Update(newID, oi4);
+                            dal.OrderItem.Update(existID, oi4);
                             break;
                         case "5":
                             Console.WriteLine("enter ID:");
                             int ID5 = Convert.ToInt32(Console.ReadLine());
-                          
                             dal.OrderItem.Delete(ID5);
                             Console.WriteLine(ID5);
                             break;
@@ -272,7 +270,7 @@ internal class Program
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Console.WriteLine(e.ToString());
         }
     }
 
