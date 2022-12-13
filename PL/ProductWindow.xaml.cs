@@ -57,6 +57,7 @@ public partial class ProductWindow : Window
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
+        
         var btn = e.OriginalSource as Button;
         
         string productID = ProducId.Text;

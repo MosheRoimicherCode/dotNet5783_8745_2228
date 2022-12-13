@@ -15,7 +15,7 @@
 
 
         <Button x:Name ="buttonProductWindows" Content="Add" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" Height="20" Width="128"
-                Click="Button_Click" Margin="278,214,13,0" Background="#FF0E6C09" Tag="1" Grid.Row="1"
+                Click="Button_Click" Margin="278,173,13,0" Background="#FF0E6C09" Tag="1" Grid.Row="1"
                 >
 
             <Button.RenderTransform>
@@ -41,7 +41,7 @@
                 </LinearGradientBrush>
             </ComboBox.Background>
         </ComboBox>
-        <Button Content="Cancel" Margin="10,211,281,0" VerticalAlignment="Top" Background="#FFB10D0D" Click="Cancel_Button_Click" Tag="2" Grid.Row="1" Width="128"/>
+        <Button Content="Cancel" Margin="10,171,281,0" VerticalAlignment="Top" Background="#FFB10D0D" Click="Cancel_Button_Click" Tag="2" Grid.Row="1" Width="128"/>
         <Label x:Name="Product_properties__Copy" Content="Product ID:" VerticalAlignment="Top" FontStyle="Italic" Cursor="" Margin="86,30,0,0" FontWeight="Bold" FontSize="10" RenderTransformOrigin="0.928,0.7" Width="NaN" Height="NaN" HorizontalAlignment="Left" Grid.RowSpan="2"/>
         <Label x:Name="Product_properties__Copy1" Content="Product Name:" VerticalAlignment="Top" Height="23" Width="88" FontSize="10" FontStyle="Italic" Cursor="" Margin="74,37,257,0" FontWeight="Bold" Grid.Row="1"/>
         <Label x:Name="Product_properties__Copy2" Content="Product Price:" VerticalAlignment="Top" Height="32" Width="74" FontSize="10" FontStyle="Italic" Cursor="" Margin="84,67,261,0" FontWeight="Bold" Grid.Row="1"/>
