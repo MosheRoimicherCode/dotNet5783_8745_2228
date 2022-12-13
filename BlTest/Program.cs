@@ -122,15 +122,12 @@ internal class Program
 
     } /// a create function of BoProduct item for checks
 
-
-
-
     //-----------------------------------------------------------------------------------------------checks user input methods
-
 
     static public void Main()
     {
-        Bl? p = new Bl();
+        IBl? p = BlApi.Factory.Get();
+
         CheckInput verification = new CheckInput(); //for inputs checks
 
 
@@ -262,7 +259,6 @@ internal class Program
                     Console.WriteLine("ERROR choice!");
                     goto MainMenu;
             }
-
 
         OrderOperations:
             Console.WriteLine

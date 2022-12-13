@@ -1,6 +1,4 @@
-﻿using System.Security.Principal;
-
-namespace BlApi
+﻿namespace BlApi
 {
     public interface IBl
     {
@@ -9,5 +7,4 @@ namespace BlApi
         public IOrder Order { get; }
        
     }
-
 }

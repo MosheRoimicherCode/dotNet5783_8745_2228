@@ -1,10 +1,7 @@
-﻿using DalApi;
+﻿namespace Dal; 
+
+using DalApi;
 using DO;
-using System.Data;
-using System.Diagnostics;
-using System.Linq.Expressions;
-using System.Xml.Linq;
-namespace Dal;
 
 internal class Program
 {
