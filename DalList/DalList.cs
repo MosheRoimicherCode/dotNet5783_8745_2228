@@ -1,17 +1,26 @@
 ﻿namespace Dal;
 using DalApi;
+using DO;
+
 internal sealed class DalList : IDal
 {
-    private static readonly IDal instance = new DalList();
+
+    public static IDal? Instance
+    {
+        get { return s_instance; }
+    }//singleton door (Name: Instance)
+
+
+    private static DalList s_instance = new DalList();
+    private DalList()
+    {
+        Product product = new Product();
+        Order order = new Order();
+        OrderItem orderItem = new OrderItem();
+    }
 
     // Implementation specific data members
-    IProduct IDal.Product => new DalProduct();
-    IOrder IDal.Order => new DalOrder();
-    IOrderItem IDal.OrderItem => new DalOrderItem();
-
-    //My singleton
-    private DalList() { }
-
-    // The public Instance property to use
-    public static IDal Instance => instance;
+    IProduct IDal.Product { get; }
+    IOrder IDal.Order {get;}
+    IOrderItem IDal.OrderItem { get; }
 }

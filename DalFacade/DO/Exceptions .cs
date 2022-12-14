@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace DalApi
+namespace DO
 
 {
     [Serializable]
