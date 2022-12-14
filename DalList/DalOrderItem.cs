@@ -1,7 +1,8 @@
-﻿using DalApi;
+﻿namespace Dal; 
+
+using DalApi;
 using DO;
 using static Dal.DataSource;
-namespace Dal;
 
 ///A class for connect with ORderItem struck
 internal class DalOrderItem : IOrderItem

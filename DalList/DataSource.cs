@@ -221,8 +221,8 @@ internal static class DataSource
                 ordItem = new()
                 {
                     ID = Config.GetIdNumberItemOrder(),
-                    ProductID = _productList[i]?.ID ?? throw new DalApi.IdException("Internal error.DataSource.CreateOrderItem"),
-                    OrderID = _orderList[i]?.ID ?? throw new DalApi.IdException("Internal error.DataSource.CreateOrderItem"),
+                    ProductID = _productList[i]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
+                    OrderID = _orderList[i]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
                     Price = _productList[i]?.Price ?? 0,
                     Amount = _randomNum.Next(0, 50),
                 };
@@ -233,8 +233,8 @@ internal static class DataSource
                 ordItem = new()
                 {
                     ID = Config.GetIdNumberItemOrder(),
-                    ProductID = _productList[i]?.ID ?? throw new DalApi.IdException("Internal error.DataSource.CreateOrderItem"),
-                    OrderID = _orderList[i + 10]?.ID ?? throw new DalApi.IdException("Internal error.DataSource.CreateOrderItem"),
+                    ProductID = _productList[i]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
+                    OrderID = _orderList[i + 10]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
                     Price = _productList[i]?.Price ?? 0,
                     Amount = _randomNum.Next(0, 50),
                 };

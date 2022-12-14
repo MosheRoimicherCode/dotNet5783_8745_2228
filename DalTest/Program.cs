@@ -9,8 +9,8 @@ internal class Program
     {
         try
         {
-            IDal dal = Factory.Get() ?? throw new Exception("dal Factory return null value (DalTest.Idal)");
-
+            IDal dal = Factory.Get() ?? throw new FactoryError("dal Factory return null value (DalTest.Idal)");
+            
             while (true)
             {
                 Console.WriteLine("select an Item: \n 0 - exit \n 1 - product \n 2 - order \n 3 - orderItem \n");
@@ -64,7 +64,6 @@ internal class Program
                                 Price = price,
                                 Category = c,
                             };
-                            dal.Product.Add(p1);
                             break;
                         case "2":
                             Console.WriteLine("enter ID:");
@@ -72,8 +71,7 @@ internal class Program
                             Console.WriteLine(dal.Product.Get(ID2));
                             break;
                         case "3":
-                            var item = dal.Product.GetAll();
-                            foreach (var item2 in item) Console.WriteLine(item2);
+                            foreach (var item2 in dal.Product.GetAll()) Console.WriteLine(item2);
                             break;
                         case "4":
                             Console.WriteLine("enter ID of exist product:");
@@ -158,8 +156,7 @@ internal class Program
                             Console.WriteLine(dal.Order.Get(ID2));
                             break;
                         case "3":
-                            var item = dal.Order.GetAll();
-                            foreach (var item2 in item) Console.WriteLine(item2);
+                            foreach (var item2 in (IEnumerable<Product?>?)dal.Order.GetAll()) Console.WriteLine(item2);
                             break;
                         case "4":
                             Console.WriteLine("enter ID of exist product:");
@@ -233,8 +230,7 @@ internal class Program
                             Console.WriteLine(item3.ToString());
                             break;
                         case "3":
-                            var item = dal.OrderItem.GetAll();
-                            foreach (var item2 in item) Console.WriteLine(item2);
+                            foreach (var item2 in (IEnumerable<Product?>?)dal.OrderItem.GetAll()) Console.WriteLine(item2);
                             break;
                         case "4":
                             Console.WriteLine("enter ID of exist OrderItem:");

@@ -1,13 +1,8 @@
-﻿using DalApi;
+﻿namespace Dal; 
+
+using DalApi;
 using DO;
-using System;
 using static Dal.DataSource;
-using System.Linq;
-
-namespace Dal;
-
-
-
 
 ///A class for connect with Order struck
 internal class DalOrder : IOrder

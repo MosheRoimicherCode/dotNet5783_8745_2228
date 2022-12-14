@@ -1,9 +1,11 @@
 ﻿namespace DalApi;
 using System.Reflection;
 using static DalApi.DalConfig;
+using DO;
 
 public static class Factory
 {
+
     public static IDal? Get()
     {
         string dalType = s_dalName
