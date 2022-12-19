@@ -1,11 +1,23 @@
-﻿using DalApi;
-namespace Dal;
+﻿namespace Dal;
+using DalApi;
+using System.ComponentModel;
 
-
-sealed public class DalList : IDal
+internal sealed class DalList : IDal
 {
-    public IProduct Product => new DalProduct();
-    public IOrder Order => new DalOrder();
-    public IOrderItem OrderItem=> new DalOrderItem();
-}
+    private static IDal instance = new DalList();
+    private DalList()
+    {
+        DalProduct dalProduct = new();
+        DalOrder dalOrder = new ();
+        DalOrderItem dalOrderItem = new ();
+    }
 
+    // The public Instance property to use
+    public static IDal Instance => instance ?? new DalList() ;
+
+    // Implementation specific data members
+    IProduct IDal.Product => new DalProduct();
+    IOrder IDal.Order => new DalOrder();
+    IOrderItem IDal.OrderItem => new DalOrderItem();
+
+}

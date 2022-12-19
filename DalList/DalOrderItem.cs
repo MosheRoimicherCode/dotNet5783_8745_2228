@@ -1,7 +1,8 @@
-﻿using DalApi;
+﻿namespace Dal; 
+
+using DalApi;
 using DO;
 using static Dal.DataSource;
-namespace Dal;
 
 ///A class for connect with ORderItem struck
 internal class DalOrderItem : IOrderItem
@@ -49,7 +50,7 @@ internal class DalOrderItem : IOrderItem
         {
             OrderItem? orderItem = new();
             orderItem = _orderItemList[i];
-            if (orderItem?.ID.Equals(OrderItemID) ?? throw new IdException(" null object. (DalOrderItem.Update Exception)"))
+            if (orderItem?.ID.Equals(OrderItemID) ?? throw new IdException("null object. (DalOrderItem.Update Exception)"))
             {
                 int index = _orderItemList.IndexOf(orderItem);
                 _orderItemList.RemoveAt(index);

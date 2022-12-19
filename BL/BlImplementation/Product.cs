@@ -1,7 +1,4 @@
-﻿using BlApi;
-using BO;
-using Dal;
-using DalApi;
+﻿using DalApi;
 using DO;
 
 namespace BlImplementation
@@ -10,10 +7,7 @@ namespace BlImplementation
 
     internal class Product : BlApi.IProduct
     {
-
-        IDal Dal = new DalList ();
-
-
+        IDal? Dal = DalApi.Factory.Get();
 
         public bool CheckNewItem(BO.Product item)
         {

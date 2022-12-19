@@ -1,12 +1,12 @@
 ﻿using BlApi;
-using Dal;
 using DalApi;
+using DO;
 
 namespace BlImplementation
 {
     internal class Order : BlApi.IOrder
     {
-        IDal Dal = new DalList();
+        IDal? Dal = DalApi.Factory.Get();
 
         ///checking the status of the order, returns Enum-status type
         public BO.Enums.Status CheckStatus(DO.Order o)

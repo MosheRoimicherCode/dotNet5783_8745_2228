@@ -14,6 +14,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="images\**" />
+    <EmbeddedResource Remove="images\**" />
+    <None Remove="images\**" />
+    <Page Remove="images\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="250px-770_Eastern_Parkway.jpg" />
     <None Remove="c.jpg" />
     <None Remove="c2.jpg" />
@@ -35,12 +42,6 @@
     <Resource Include="c3.jpg" />
     <Resource Include="images.jpg" />
     <Resource Include="pexels-kai-pilger-996329.jpg" />
-    <Resource Include="yeshiva camp pkudei hashem 2014 099.JPG" />
-    <Resource Include="הורדה.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="images\" />
   </ItemGroup>
 
 </Project>
