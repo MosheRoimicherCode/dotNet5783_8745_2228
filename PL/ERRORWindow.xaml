@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="ERRORWindow" Height="120" Width="200">
     <Grid>
-        <Label x:Name ="label1" Content="     ERROR!&#xD;&#xA;you must enter&#xD;&#xA; correct details" HorizontalAlignment="Center" VerticalAlignment="Top" Height="76" Width="180" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.239,0.176" Margin="0,-7,0,0"/>
-        
+        <Label x:Name ="label1" Content="     ERROR!&#xD;&#xA;you must enter&#xD;&#xA; correct details" HorizontalAlignment="Center" VerticalAlignment="Top" Height="76" Width="200" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.239,0.176" Margin="0,-6,0,0"/>
+
         <Button Content="got it!" HorizontalAlignment="Left" Margin="74,60,0,0" VerticalAlignment="Top" Click="Button_Click_1" Height="20" Width="44"/>
 
     </Grid>
