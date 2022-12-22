@@ -51,7 +51,7 @@ namespace BlImplementation
         public BO.Product Get(int Id)
         {
             if (Id <= 0) throw new BO.IdBOException("Not positive Id!");
-            return ConvertProductToBoProduct(Dal.Product.Get(Id));
+            return ConvertProductToBoProduct((DO.Product)Dal.Product.Get(x => x?.ID == Id));
         }
 
         public BO.ProductItem Get(int Id, BO.Cart cart) 
@@ -72,14 +72,17 @@ namespace BlImplementation
                 item.ID = orderItem.ID;
                 item.AmontInCart = orderItem.Amount;
 
-                if ((Dal.Product.Get(orderItem.ProductID)).InStock  > 0) item.IsInStock = true;
+                if ((Dal.Product.Get(x => x?.ID == orderItem.ProductID)).Value.InStock  > 0) item.IsInStock = true;
                 else { item.IsInStock = false; }
 
                 item.Name = cart.CustomerName;
                 item.Price = orderItem.Price;
 
-                item.Category = (BO.Enums.Category?)Dal.Product.Get(orderItem.ProductID).Category;
-
+                //int idTemp = orderItem.ProductID;
+                //var t = Dal.Product.Get(x => x?.ID == idTemp);
+                //int a = (int)t.Value.Category;
+                //item.Category = (BO.Enums.Category?)Dal.Product.Get(idTemp).Category;
+                item.Category = (BO.Enums.Category?)Dal.Product.Get(x => x?.ID == orderItem.ProductID).Value.Category;
                 return item;
             }
             catch (IdException) { throw new BO.IdBOException("Product with given Id didn't found"); }
@@ -90,7 +93,7 @@ namespace BlImplementation
 
             ///check if received Id exist
             DO.Product? product = new DO.Product();
-            product = Dal.Product.Get(Id);
+            product = Dal.Product.Get(x => x?.ID == Id);
             if (product == null) throw new BO.DeleteProductException("Cant delete product. Id not found.");
 
             //check if product exist inside order - if yes, so throw a message

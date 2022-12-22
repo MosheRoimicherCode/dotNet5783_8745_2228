@@ -9,7 +9,6 @@ namespace DO
         public DalConfigException(string msg) : base(msg) { }
         public DalConfigException(string msg, Exception ex) : base(msg, ex) { }
     }
-
     [Serializable]
     public class FactoryError : Exception
     {
@@ -20,7 +19,6 @@ namespace DO
 
         public override string ToString() => base.ToString();
     }
-
     [Serializable]
     public class IdException : Exception
     {
@@ -31,8 +29,6 @@ namespace DO
 
         public override string ToString() => base.ToString();
     }
-
-
     [Serializable]
     public class ProgramExit : Exception
     {
@@ -43,5 +39,4 @@ namespace DO
 
         public override string ToString() => base.ToString();
     }
-
 }

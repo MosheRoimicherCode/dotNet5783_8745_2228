@@ -45,7 +45,8 @@ namespace BlImplementation
         }
         public BO.Order ConvertOrderToBoOrder(int Id)
         {
-            DO.Order dalOrder = Dal.Order.Get(Id);
+            DO.Order? temp = Dal.Order.Get(x => x?.ID == Id);
+            DO.Order dalOrder = (DO.Order)temp;
             BO.Order boOrder = new BO.Order();
 
             boOrder.ID = dalOrder.ID;
@@ -243,7 +244,8 @@ namespace BlImplementation
             foreach (DO.Order? dalOrder in Dal.Order.GetAll())
                 OrderList.Add(dalOrder ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
 
-            DO.Order order = Dal.Order.Get(Id);
+            DO.Order? temp = Dal.Order.Get(x => x?.ID == Id);
+            DO.Order order = (DO.Order)temp;
             BO.OrderTracking bo = new BO.OrderTracking();
             bo.OrderID = order.ID;
             bo.Status = CheckStatus(order);

@@ -153,7 +153,7 @@ namespace BlImplementation
             {
                 throw new BO.IdBOException("negative Amount");
             }
-            if (item?.Amount > Dal.Product.Get(item?.ProductID??0).InStock)
+            if (item?.Amount > Dal.Product.Get(x => x?.ID == item?.ProductID).Value.InStock)
             {
                 throw new BO.IdBOException("not enough in stock");
             }

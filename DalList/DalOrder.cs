@@ -2,6 +2,9 @@
 
 using DalApi;
 using DO;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Security.Cryptography;
 using static Dal.DataSource;
 
 ///A class for connect with Order struck
@@ -15,51 +18,34 @@ internal class DalOrder : IOrder
 
     public Order Get(int OrderID)
     {
-        foreach (var order in from Order order in _orderList
-                               where order.ID.Equals(OrderID)
-                               select order)
-        {
-            return order;
-        }
-        throw new IdException("Not found ID. (Dalorder.Get Exception)");
-    }///search for order by Id and return the specific order
+        var order = from Order order1 in _orderList
+                    where order1.ID.Equals(OrderID)
+                    select order1;
+        var temp = order.FirstOrDefault();
+        if (temp.ID == 0) throw new IdException("Not found ID. (Dalorder.Get Exception)");
+        return temp;
+    }///search for order by Id and return the specific order -- not in use
 
-    public Order? Get(Func<Order?, bool> filter) =>
-                                                    (from order in _orderList
+    public Order? Get(Func<Order?, bool> filter) => (from order in _orderList
                                                      where filter(order)
                                                      select order).FirstOrDefault();
 
     public void Delete(int OrderId)
     {
-        bool flag = false;
-        for (int i = 0; i < _orderList.Count; i++)
-        {
-            if (_orderList[i]?.ID == OrderId)
-            {
-                _orderList.Remove(_orderList[i]);
-                flag = true;
-            }
-        }
-        //if Id not found send a MESSAGE
-        if (flag == false) Console.WriteLine(" Not found ID. (Dalorder.Delete Exception)");
-        ///delete product from data base by Id
+        try { _orderList.RemoveAll(x => x?.ID == OrderId); }
+        catch (ArgumentNullException) { throw new IdException(" Not found ID. (Dalorder.Delete Exception)"); }
     }
 
     public void Update(int OrderID, Order newOrder)
     {
-        for (int i = 0; i < _orderList.Count; i++)
-        {
-            Order? order = new();
-            order = _orderList[i];
-            if (order?.ID.Equals(OrderID) ?? throw new IdException(" null object. (DalOrder.Update Exception)"))
-            {
-                int index = _orderList.IndexOf(order);
-                _orderList.RemoveAt(index);
-                _orderList.Insert(index, newOrder);
-                return;
-            }
+
+        try { int index = _orderItemList.FindIndex(x => x?.ID == OrderID);
+            
+            _orderList.RemoveAt(index);
+            _orderList.Insert(index, newOrder);
         }
-        throw new IdException("not found id. (DalOrder.Update Exception)");
+        catch { throw new IdException("not found id. (DalOrder.Update Exception)"); }
+
     }///replace order by another inside array
 
     public IEnumerable<Order?> GetAll(Func<Order?, bool>? filter) =>
