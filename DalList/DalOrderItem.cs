@@ -11,22 +11,19 @@ internal class DalOrderItem : IOrderItem
         DataSource._orderItemList.Exists(orderItemInList => orderItemInList?.ID == orderItem.ID)
             ? throw new IdException("OrderItem ID already exists")
             : DataSource.AddOrderItem(orderItem); /// Add OrderItem to Data Base
-
-    public OrderItem Get(int OrderItemID)
-    {
-        foreach (var orderItem in from OrderItem orderItem in _orderItemList
-                              where orderItem.ID.Equals(OrderItemID)
-                              select orderItem)
-        {
-            return orderItem;
-        }
-        throw new IdException("Not found ID. (DalorderItem.Get Exception)");
-    }///search for orderItem by Id and return the specific order
-
+    //public OrderItem Get(int OrderItemID)
+    //{
+    //    foreach (var orderItem in from OrderItem orderItem in _orderItemList
+    //                          where orderItem.ID.Equals(OrderItemID)
+    //                          select orderItem)
+    //    {
+    //        return orderItem;
+    //    }
+    //    throw new IdException("Not found ID. (DalorderItem.Get Exception)");
+    //}///search for orderItem by Id and return the specific order
     public OrderItem? Get(Func<OrderItem?, bool> filter) => (from orderItem in _orderItemList
                                                              where filter(orderItem)
                                                              select orderItem).FirstOrDefault();
-
     public void Delete(int OrderItemId)
     {
         try { _orderItemList.RemoveAll(x => x?.ID == OrderItemId); }
@@ -45,7 +42,6 @@ internal class DalOrderItem : IOrderItem
         //if (flag == false) Console.WriteLine(" Not found ID. (DalorderItem.Delete Exception)");
         /////delete OrsderItem from data base by Id
     }
-
     public void Update(int OrderItemID, OrderItem newOrderItem)
     {
         try
@@ -74,7 +70,6 @@ internal class DalOrderItem : IOrderItem
         //}
         //throw new IdException(" Not found ID. (DalOrderItem.Update Exception)");
     }///replace orderItem by another inside array
-
     public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool>? filter) =>
       filter == null ? _orderItemList.Select(orderItemInList => orderItemInList)
                 : _orderItemList.Where(filter);
