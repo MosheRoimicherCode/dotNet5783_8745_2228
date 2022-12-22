@@ -15,7 +15,6 @@ internal class DalOrder : IOrder
             ? throw new IdException("Order ID already exists")
             : DataSource.AddOrder(order); /// Add Order to Data Base
 
-
     public Order Get(int OrderID)
     {
         var order = from Order order1 in _orderList

@@ -23,42 +23,56 @@ internal class DalOrderItem : IOrderItem
         throw new IdException("Not found ID. (DalorderItem.Get Exception)");
     }///search for orderItem by Id and return the specific order
 
-    public OrderItem? Get(Func<OrderItem?, bool> filter) =>
-                                                    (from orderItem in _orderItemList
-                                                     where filter(orderItem)
-                                                     select orderItem).FirstOrDefault();
+    public OrderItem? Get(Func<OrderItem?, bool> filter) => (from orderItem in _orderItemList
+                                                             where filter(orderItem)
+                                                             select orderItem).FirstOrDefault();
 
     public void Delete(int OrderItemId)
     {
-        bool flag = false;
-        for (int i = 0; i < _orderItemList.Count; i++)
-        {
-            if (_orderItemList[i]?.ID == OrderItemId)
-            {
-                _orderItemList.Remove(_orderItemList[i]);
-                flag = true;
-            }
-        }
-        //if Id not found send a MESSAGE
-        if (flag == false) Console.WriteLine(" Not found ID. (DalorderItem.Delete Exception)");
-        ///delete OrsderItem from data base by Id
+        try { _orderItemList.RemoveAll(x => x?.ID == OrderItemId); }
+        catch (ArgumentNullException) { throw new IdException(" Not found ID. (Dalorder.Delete Exception)"); }
+
+        //bool flag = false;
+        //for (int i = 0; i < _orderItemList.Count; i++)
+        //{
+        //    if (_orderItemList[i]?.ID == OrderItemId)
+        //    {
+        //        _orderItemList.Remove(_orderItemList[i]);
+        //        flag = true;
+        //    }
+        //}
+        ////if Id not found send a MESSAGE
+        //if (flag == false) Console.WriteLine(" Not found ID. (DalorderItem.Delete Exception)");
+        /////delete OrsderItem from data base by Id
     }
 
     public void Update(int OrderItemID, OrderItem newOrderItem)
     {
-        for (int i = 0; i < _orderItemList.Count; i++)
+        try
         {
-            OrderItem? orderItem = new();
-            orderItem = _orderItemList[i];
-            if (orderItem?.ID.Equals(OrderItemID) ?? throw new IdException("null object. (DalOrderItem.Update Exception)"))
-            {
-                int index = _orderItemList.IndexOf(orderItem);
-                _orderItemList.RemoveAt(index);
-                _orderItemList.Insert(index, newOrderItem);
-                return;
-            }
+            int index = _orderItemList.FindIndex(x => x?.ID == OrderItemID);
+
+            _orderItemList.RemoveAt(index);
+            _orderItemList.Insert(index, newOrderItem);
         }
-        throw new IdException(" Not found ID. (DalOrderItem.Update Exception)");
+        catch { throw new IdException("not found id. (DalOrder.Update Exception)"); }
+
+        //for (int i = 0; i < _orderItemList.Count; i++)
+        //{
+           
+
+
+        //    OrderItem? orderItem = new();
+        //    orderItem = _orderItemList[i];
+        //    if (orderItem?.ID.Equals(OrderItemID) ?? throw new IdException("null object. (DalOrderItem.Update Exception)"))
+        //    {
+        //        int index = _orderItemList.IndexOf(orderItem);
+        //        _orderItemList.RemoveAt(index);
+        //        _orderItemList.Insert(index, newOrderItem);
+        //        return;
+        //    }
+        //}
+        //throw new IdException(" Not found ID. (DalOrderItem.Update Exception)");
     }///replace orderItem by another inside array
 
     public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool>? filter) =>
