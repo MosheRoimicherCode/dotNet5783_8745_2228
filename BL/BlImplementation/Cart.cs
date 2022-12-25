@@ -221,7 +221,7 @@ namespace BlImplementation
 
             foreach (BO.OrderItem? item in boCart.Details)
             {
-                DO.OrderItem? newOrderItem = ConvertBo2DoOrderItem(item);
+                DO.OrderItem? newOrderItem = ConvertBo2DoOrderItem(item);  //error
                 Dal.OrderItem.Add(newOrderItem ?? throw new BO.nullObjectBOException("null"));
             }
 
