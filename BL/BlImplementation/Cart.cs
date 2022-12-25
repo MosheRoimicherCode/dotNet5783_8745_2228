@@ -20,6 +20,17 @@ namespace BlImplementation
 
             return BOtemp;
         }
+        private DO.OrderItem ConvertBo2DoOrderItem(BO.OrderItem BOTemp)
+        {
+            DO.OrderItem DOtemp = new();
+            DOtemp.ID = BOTemp.ID;
+            DOtemp.ProductID = BOTemp.ProductID;
+            DOtemp.OrderID = BOTemp.ID;
+            DOtemp.Price = BOTemp.ProductPrice;
+            DOtemp.Amount = BOTemp.Amount;
+
+            return DOtemp;
+        }
         private BO.Product ConvertDo2BoProduct(DO.Product DOTemp)
         {
             BO.Product BOtemp = new();
@@ -146,7 +157,7 @@ namespace BlImplementation
                     else if (NewAmount > item.Amount)
                     {
                         BO.OrderItem newOrderItem = item;
-                        newBoCart.TotalPrice += (NewAmount - newOrderItem.Amount) * newOrderItem.Price;
+                        newBoCart.TotalPrice += (NewAmount - newOrderItem.Amount) * newOrderItem.ProductPrice;
                         newOrderItem.Amount = NewAmount;
                         newBoCart.Details.Remove(item);
                         newBoCart.Details.Add(newOrderItem);
@@ -155,7 +166,7 @@ namespace BlImplementation
                     else if (NewAmount < item.Amount)
                     {
                         BO.OrderItem newOrderItem = item;
-                        newBoCart.TotalPrice -= (newOrderItem.Amount - NewAmount) * newOrderItem.Price;
+                        newBoCart.TotalPrice -= (newOrderItem.Amount - NewAmount) * newOrderItem.ProductPrice;
                         newOrderItem.Amount = NewAmount;
                         newBoCart.Details.Remove(item);
                         newBoCart.Details.Add(newOrderItem);
@@ -208,9 +219,9 @@ namespace BlImplementation
 
             newOrder.ID = Dal.Order.Add(newOrder);
 
-            foreach (DO.OrderItem? item in boCart.Details)
+            foreach (BO.OrderItem? item in boCart.Details)
             {
-                DO.OrderItem? newOrderItem = item;
+                DO.OrderItem? newOrderItem = ConvertBo2DoOrderItem(item);
                 Dal.OrderItem.Add(newOrderItem ?? throw new BO.nullObjectBOException("null"));
             }
 
