@@ -30,18 +30,8 @@ internal class DalOrderItem : IOrderItem
 
     public void Delete(int OrderItemId)
     {
-        bool flag = false;
-        for (int i = 0; i < _orderItemList.Count; i++)
-        {
-            if (_orderItemList[i]?.ID == OrderItemId)
-            {
-                _orderItemList.Remove(_orderItemList[i]);
-                flag = true;
-            }
-        }
-        //if Id not found send a MESSAGE
-        if (flag == false) Console.WriteLine(" Not found ID. (DalorderItem.Delete Exception)");
-        ///delete OrsderItem from data base by Id
+        if (_orderItemList.RemoveAll(orderItem => orderItem?.ID == OrderItemId) == 0)
+            throw new IdException("Can't delete non-existing orderItem");
     }
 
     public void Update(int OrderItemID, OrderItem newOrderItem)

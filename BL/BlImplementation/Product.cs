@@ -1,5 +1,6 @@
 ﻿using DalApi;
 using DO;
+using System.Linq;
 
 namespace BlImplementation
 
@@ -45,13 +46,13 @@ namespace BlImplementation
         
         public void Add(BO.Product item)
         {
-            if (CheckNewItem(item) == true) Dal.Product.Add(ConvertBoProductToProduct(item)); 
+            if (CheckNewItem(item) == true) Dal?.Product.Add(ConvertBoProductToProduct(item)); 
         }
 
         public BO.Product Get(int Id)
         {
             if (Id <= 0) throw new BO.IdBOException("Not positive Id!");
-            return ConvertProductToBoProduct(Dal.Product.Get(Id));
+            return ConvertProductToBoProduct(Dal?.Product.Get(Id) ?? throw new BO.IdBOException("null"));
         }
 
         public BO.ProductItem Get(int Id, BO.Cart cart) 
@@ -65,7 +66,6 @@ namespace BlImplementation
 
                 foreach (DO.OrderItem? itemCart in cart.Details)
                 {
-                    //Console.WriteLine(itemCart.ToString());
                     if (itemCart?.ProductID == Id) orderItem = itemCart?? throw new BO.IdBOException("Product with given Id didn't found");
                 }
 
@@ -90,7 +90,7 @@ namespace BlImplementation
 
             ///check if received Id exist
             DO.Product? product = new DO.Product();
-            product = Dal.Product.Get(Id);
+            product = Dal?.Product.Get(Id);
             if (product == null) throw new BO.DeleteProductException("Cant delete product. Id not found.");
 
             //check if product exist inside order - if yes, so throw a message
@@ -101,17 +101,16 @@ namespace BlImplementation
 
         public void Update(BO.Product item)
         {
-            try { if (CheckNewItem(item) == true) Dal.Product.Update(item.ID, ConvertBoProductToProduct(item)); }
+            try { if (CheckNewItem(item) == true) Dal?.Product.Update(item.ID, ConvertBoProductToProduct(item)); }
 
             catch (IdException) { throw new BO.UpdateProductException("Id not found. Impossible to update."); }
         } /// if received item have right properties and exist, update it. else throw a message.
 
-        public List<BO.ProductForList> GetList(Func<BO.Product?, bool>? filter = null)
-        {//Func<Enums.Category?, bool>? f 
-
+        public List<BO.ProductForList> GetList(Func<BO.Product?, bool>? filter = null) 
+        {
             List<BO.ProductForList> listBoProduct = new();
 
-            foreach (DO.Product? product in Dal.Product.GetAll())
+            foreach (DO.Product? product in Dal?.Product.GetAll()?? throw new BO.nullObjectBOException("null"))
             {
                 if (filter == null || filter(ConvertProductToBoProduct(product?? throw new BO.nullObjectBOException("null"))))
                 {

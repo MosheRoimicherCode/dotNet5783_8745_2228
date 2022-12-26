@@ -12,7 +12,7 @@ internal class DalProduct : IProduct
             ? throw new IdException("Product ID already exists (DalProduct.Add)")
             : DataSource.AddProduct(product); /// Add Product to Data Base
 
-    public Product Get(int ProductID)
+    public Product Get(int ProductID) 
     {
         foreach (var product in from Product product in _productList
                                 where product.ID == ProductID
@@ -28,19 +28,10 @@ internal class DalProduct : IProduct
 
     public void Delete(int ProductID)
     {
-        bool flag = false;
-        for (int i = 0; i < _productList.Count; i++)
-        {
-            if (_productList[i]?.ID == ProductID)
-            {
-                _productList.Remove(_productList[i]);
-                flag = true;
-            }
-        }
-        //if Id not found send a MESSAGE
-        if (flag == false) Console.WriteLine(" Not found ID. (DalProduct.Delete)");
-        ///delete product from data base by Id
+        if (_productList.RemoveAll(product => product?.ID == ProductID) == 0)
+            throw new IdException("Can't delete non-existing product");
     }
+
     ///replace product by another inside array
     public void Update(int ProductID, Product newProduct)
     {

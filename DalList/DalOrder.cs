@@ -31,18 +31,8 @@ internal class DalOrder : IOrder
 
     public void Delete(int OrderId)
     {
-        bool flag = false;
-        for (int i = 0; i < _orderList.Count; i++)
-        {
-            if (_orderList[i]?.ID == OrderId)
-            {
-                _orderList.Remove(_orderList[i]);
-                flag = true;
-            }
-        }
-        //if Id not found send a MESSAGE
-        if (flag == false) Console.WriteLine(" Not found ID. (Dalorder.Delete Exception)");
-        ///delete product from data base by Id
+        if (_orderList.RemoveAll(order => order?.ID == OrderId) == 0)
+            throw new IdException("Can't delete non-existing order");
     }
 
     public void Update(int OrderID, Order newOrder)

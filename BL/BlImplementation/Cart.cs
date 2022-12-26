@@ -8,11 +8,18 @@ namespace BlImplementation
         IDal? Dal = DalApi.Factory.Get();
 
         ///add product to Cart, returns updated cart
-        public BO.Cart Add(BO.Cart boCart, int productId)
+    public BO.Cart Add(BO.Cart boCart, int productId)
     {
-        List<DO.Product?> productList = new();
-        foreach (DO.Product? product in Dal.Product.GetAll())
-            productList.Add(product ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
+        var productList = from DO.Product? product in Dal?.Product.GetAll() ?? throw new BO.nullObjectBOException("null object.BoCart.Add")
+                          where product != null
+                          select product ?? throw new BO.nullObjectBOException("null object.BoCart.Add");
+
+
+
+
+        //List<DO.Product?> productList = new();
+        //foreach (DO.Product? product in Dal?.Product.GetAll()?? throw new BO.nullObjectBOException("null object.BoCart.Add"))
+        //    productList.Add(product ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
 
         List<DO.OrderItem?> OrderItemList = new();
         foreach (DO.OrderItem? orderItem in Dal.OrderItem.GetAll())
