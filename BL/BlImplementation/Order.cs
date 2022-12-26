@@ -40,27 +40,35 @@ namespace BlImplementation
             boOrder.CustomerName = dalOrder?.CustomerName;
             boOrder.CustomerEmail = dalOrder?.CustomerEmail;
             boOrder.CustomeAdress = dalOrder?.CustomeAdress;
+            boOrder.OrderStatus = CheckStatus(dalOrder);
             boOrder.OrderDate = dalOrder?.OrderDate;
             boOrder.ShipDate = dalOrder?.ShipDate;
             boOrder.DeliveryDate = dalOrder?.DeliveryDate;
-            boOrder.OrderStatus = CheckStatus(dalOrder);
+            boOrder.Details = new();
+            boOrder.TotalPrice = 0;
 
             
-            List<DO.OrderItem?> boOrderItemlist = Dal.OrderItem.GetAll(x => x.Value.OrderID == Id).ToList();  //order item list copy
+            List<DO.OrderItem?> DoOrderItemlist = Dal.OrderItem.GetAll(x => x.Value.OrderID == Id).ToList();  //order item list copy
             
-            foreach (var x in boOrderItemlist)
+            List<BO.OrderItem?> BoOrderItemlist = new();
+            foreach (var x in DoOrderItemlist)
             {
                 BO.OrderItem item = new();
+
                 item.ID = x.Value.ID;
-                item.CustomerName = x.Value.
+                item.ProductID= x.Value.ProductID;
+                item.OrderID = x.Value.OrderID;
+                int a = x.Value.ProductID;
+                item.ProductName = Dal.Product.Get(y => y.Value.ID == a)!.Value.Name;
+                item.ProductPrice = Dal.Product.Get(y => y.Value.ID == a)!.Value.Price;
+                item.Amount = x.Value.Amount;
+                item.TotalPrice = item.Amount * item.ProductPrice;
 
-
-
-                boOrderItemlist.Details.Add(item);
+                BoOrderItemlist.Add(item);
             }
 
             double price = 0;
-            foreach (DO.OrderItem item in boOrderItemlist)
+            foreach (DO.OrderItem item in DoOrderItemlist)
             {
                 price += item.Price;
             }
