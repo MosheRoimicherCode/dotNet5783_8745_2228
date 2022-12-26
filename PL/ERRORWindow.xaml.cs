@@ -12,7 +12,7 @@ public partial class ERRORWindow : Window
     public ERRORWindow(ProductWindow Window, string s)
     {
         InitializeComponent();
-        label1.Content = s;
+        label.Content = s;
         productWindow = Window;
     }
 

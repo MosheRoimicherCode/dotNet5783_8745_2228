@@ -57,17 +57,20 @@ public partial class ProductWindow : Window
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        
-        var btn = e.OriginalSource as Button;
-        
-        string productID = ProducId.Text;
-        string productName = ProductName.Text;
-        string productPrice = ProductPrice.Text;
-        string productCategory = Category2.SelectedItem?.ToString() ?? "null";
-        string productInStock = ProductInStock.Text;
-
         try
         {
+            var btn = e.OriginalSource as Button;
+            if (ProducId.Text == "") throw new Exception("ID can not be null!");
+            string productID = ProducId.Text;
+            if (ProductName.Text == "") throw new Exception("name can not be null!");
+            string productName = ProductName.Text;
+            if (ProductPrice.Text == "") throw new Exception("price can not be null!");
+            string productPrice = ProductPrice.Text;
+            if (Category2.SelectedItem?.ToString() == null) throw new Exception("category can not be null!");
+            string productCategory = Category2.SelectedItem?.ToString() ?? "null";
+            if (ProductInStock.Text == "") throw new Exception("instock can not be null!");
+            string productInStock = ProductInStock.Text;
+
             BO.Product newProduct = new()
             {
                 ID = int.Parse(productID),

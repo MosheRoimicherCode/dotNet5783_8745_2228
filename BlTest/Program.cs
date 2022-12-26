@@ -144,7 +144,7 @@ internal class Program
         cart.CustomeAdress = "BneiBrak";
         cart.CustomerEmail = "mroimicher@gmail.com";
         cart.CustomerName = "Moshe";
-        cart.Details = list;
+        //cart.Details = list;
         cart.TotalPrice = 2800;
     ////for checks use---------------------------------e---------------------------------e---------------------------------
 

@@ -31,11 +31,14 @@ namespace BlImplementation
             bo.OrderStatus = CheckStatus(o);
             return bo;
         }
+
+        //this func have to be fixed!
+        //
         public BO.Order ConvertDoOrderToBoOrder(int Id)
         {
             DO.Order? dalOrder = Dal.Order.Get(x => x?.ID == Id)!;
             BO.Order boOrder = new BO.Order();
-            
+
             boOrder.ID = dalOrder.Value.ID;
             boOrder.CustomerName = dalOrder?.CustomerName;
             boOrder.CustomerEmail = dalOrder?.CustomerEmail;
@@ -45,19 +48,19 @@ namespace BlImplementation
             boOrder.DeliveryDate = dalOrder?.DeliveryDate;
             boOrder.OrderStatus = CheckStatus(dalOrder);
 
-            
+
             List<DO.OrderItem?> boOrderItemlist = Dal.OrderItem.GetAll(x => x.Value.OrderID == Id).ToList();  //order item list copy
-            
-            foreach (var x in boOrderItemlist)
-            {
-                BO.OrderItem item = new();
-                item.ID = x.Value.ID;
-                item.CustomerName = x.Value.
+
+            //foreach (var x in boOrderItemlist)
+            //{
+            //    BO.OrderItem item = new();
+            //    item.ID = x.Value.ID;
+            //    item.CustomerName = x.Value.
 
 
 
-                boOrderItemlist.Details.Add(item);
-            }
+            //    boOrderItemlist.Details.Add(item);
+            //}
 
             double price = 0;
             foreach (DO.OrderItem item in boOrderItemlist)
@@ -65,7 +68,7 @@ namespace BlImplementation
                 price += item.Price;
             }
             boOrder.TotalPrice = price;
-           
+
 
             return boOrder;
         }
@@ -229,15 +232,15 @@ namespace BlImplementation
             bo.OrderID = order.ID;
             bo.Status = CheckStatus(order);
             Tuple<DateTime?, String?>? t1 = new Tuple<DateTime?, String?>(order.OrderDate, "Order approved");
-            bo.TupleList = t1;
+            //bo.TupleList = t1;
             if (CheckStatus(order) == BO.Enums.Status.shiped)
             {
                 Tuple<DateTime?, String?>? t2 = new Tuple<DateTime?, String?>(order.OrderDate, "Order shipped");
-                bo.TupleList = t2;
+                //bo.TupleList = t2;
             }
             if (CheckStatus(order) == BO.Enums.Status.provided)
             {
-                bo.TupleList = new Tuple<DateTime?, String?>(order.OrderDate, "Order provided");
+                //bo.TupleList = new Tuple<DateTime?, String?>(order.OrderDate, "Order provided");
             }
             return bo;
         }
