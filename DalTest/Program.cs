@@ -68,7 +68,7 @@ internal class Program
                         case "2":
                             Console.WriteLine("enter ID:");
                             int ID2 = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine(dal.Product.Get(ID2));
+                            Console.WriteLine(dal.Product.Get(x => x?.ID == ID2));
                             break;
                         case "3":
                             foreach (var item2 in dal.Product.GetAll()) Console.WriteLine(item2);
@@ -153,7 +153,7 @@ internal class Program
                         case "2":
                             Console.WriteLine("enter ID:");
                             int ID2 = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine(dal.Order.Get(ID2));
+                            Console.WriteLine(dal.Order.Get(x => x?.ID == ID2));
                             break;
                         case "3":
                             foreach (var item2 in (IEnumerable<Product?>?)dal.Order.GetAll()) Console.WriteLine(item2);
@@ -206,7 +206,7 @@ internal class Program
                             int ID0 = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("enter ProductID:");
                             int ID1 = Convert.ToInt32(Console.ReadLine());
-                            dal.Product.Get(ID1);
+                            dal.Product.Get(x => x?.ID == ID1);
                             Console.WriteLine("enter OrderID:");
                             int ID11 = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("enter price:");
@@ -226,7 +226,7 @@ internal class Program
                         case "2":
                             Console.WriteLine("enter ID:");
                             int ID2 = Convert.ToInt32(Console.ReadLine());
-                            DO.OrderItem item3 = dal.OrderItem.Get(ID2);
+                            DO.OrderItem? item3 = dal.OrderItem.Get(x => x?.ID == ID2);
                             Console.WriteLine(item3.ToString());
                             break;
                         case "3":
@@ -235,7 +235,7 @@ internal class Program
                         case "4":
                             Console.WriteLine("enter ID of exist OrderItem:");
                             int existID = Convert.ToInt32(Console.ReadLine());
-                            dal.OrderItem.Get(existID);                         
+                            dal.OrderItem.Get(x => x?.ID == existID);                         
                             Console.WriteLine("enter ProductID:");
                             int ID4 = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("enter OrderID:");

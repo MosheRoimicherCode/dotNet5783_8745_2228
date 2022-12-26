@@ -11,7 +11,7 @@ public class Order
     public DateTime? OrderDate { get; set; }
     public DateTime? ShipDate { get; set; }
     public DateTime? DeliveryDate { get; set; }
-    public List<DO.OrderItem?>? Details { get; set; }
+    public List<BO.OrderItem>? Details { get; set; }
     public double TotalPrice { get; set; }
 
     // methods
@@ -23,7 +23,7 @@ public class Order
         OrderDate: {OrderDate}
         ShipDate: {ShipDate}
         DeliveryDate: {DeliveryDate}
-        details: {Details}
+        details: {string.Join("\n",Details!)}
         totalPrice {TotalPrice}
     ";
 
