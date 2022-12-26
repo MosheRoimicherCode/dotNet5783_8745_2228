@@ -47,11 +47,7 @@ namespace BlImplementation
             boOrder.Details = new();
             boOrder.TotalPrice = 0;
 
-            
-            List<DO.OrderItem?> DoOrderItemlist = Dal.OrderItem.GetAll(x => x.Value.OrderID == Id).ToList();  //order item list copy
-            
-            List<BO.OrderItem?> BoOrderItemlist = new();
-            foreach (var x in DoOrderItemlist)
+            foreach (var x in Dal.OrderItem.GetAll(x => x.Value.OrderID == Id))  //convert do order item do bo;
             {
                 BO.OrderItem item = new();
 
@@ -64,16 +60,9 @@ namespace BlImplementation
                 item.Amount = x.Value.Amount;
                 item.TotalPrice = item.Amount * item.ProductPrice;
 
-                BoOrderItemlist.Add(item);
+                boOrder.Details.Add(item);
+                boOrder.TotalPrice += x.Value.Price;
             }
-
-            double price = 0;
-            foreach (DO.OrderItem item in DoOrderItemlist)
-            {
-                price += item.Price;
-            }
-            boOrder.TotalPrice = price;
-           
 
             return boOrder;
         }
@@ -226,30 +215,20 @@ namespace BlImplementation
             if (Id <= 0) throw new BO.IdBOException("Negative Id!");
             try
             {
-
-            List<DO.Order?> OrderList = new();
-            foreach (DO.Order? dalOrder in Dal.Order.GetAll())
-                OrderList.Add(dalOrder ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
-
-            DO.Order? temp = Dal.Order.Get(x => x?.ID == Id);
-            DO.Order order = (DO.Order)temp;
-            BO.OrderTracking bo = new();
-            bo.OrderID = order.ID;
-            bo.Status = CheckStatus(order);
-            Tuple<DateTime?, String?>? t1 = new Tuple<DateTime?, String?>(order.OrderDate, "Order approved");
-            bo.TupleList = t1;
-            if (CheckStatus(order) == BO.Enums.Status.shiped)
-            {
-                Tuple<DateTime?, String?>? t2 = new Tuple<DateTime?, String?>(order.OrderDate, "Order shipped");
-                bo.TupleList = t2;
+                DO.Order order = Dal?.Order.Get(x => x?.ID == Id) ?? throw new DO.IdException("ID Order not found");
+                OrderTracking orderTraking = new();
+                orderTraking.OrderID = order.ID;
+                orderTraking.Status = CheckStatus(order);
+                Tuple<DateTime?, String?>? t1 = new Tuple<DateTime?, String?>(order.OrderDate, "Order approved");
+                orderTraking.TupleList?.Add(t1);
+                if (CheckStatus(order) == BO.Enums.Status.shiped)
+                    orderTraking.TupleList?.Add(new Tuple<DateTime?, String?>(order.OrderDate, "Order shipped"));
+                if (CheckStatus(order) == BO.Enums.Status.provided)
+                    orderTraking.TupleList?.Add(new Tuple<DateTime?, String?>(order.OrderDate, "Order provided"));
+                
+                return orderTraking;
             }
-            if (CheckStatus(order) == BO.Enums.Status.provided)
-            {
-                bo.TupleList = new Tuple<DateTime?, String?>(order.OrderDate, "Order provided");
-            }
-            return bo;
-        }
-        catch (IdException) { throw new BO.IdBOException("Order exist. Impossible to update."); }
+            catch (IdException) { };
         }
     
     }
