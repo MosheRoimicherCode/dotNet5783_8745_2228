@@ -1,4 +1,5 @@
 ﻿using BlApi;
+using BO;
 using DalApi;
 using DO;
 
@@ -9,25 +10,12 @@ namespace BlImplementation
         IDal? Dal = DalApi.Factory.Get();
 
         ///checking the status of the order, returns Enum-status type
-        public BO.Enums.Status CheckStatus(DO.Order o)
+        public BO.Enums.Status CheckStatus(DO.Order? o)
         {
-            if (o.ShipDate > DateTime.Now)
-            {
-                return BO.Enums.Status.approved;
-            }
-            else if (o.DeliveryDate > DateTime.Now)
-            {
-                return BO.Enums.Status.shiped;
-            }
-            else if (DateTime.Now > o.DeliveryDate)
-            {
-                return BO.Enums.Status.provided;
-            }
-            else
-            {
-                return BO.Enums.Status.error;
-            }
-
+            if (o?.ShipDate > DateTime.Now)          return BO.Enums.Status.approved;
+            else if (o?.DeliveryDate > DateTime.Now) return BO.Enums.Status.shiped;
+            else if (DateTime.Now > o?.DeliveryDate) return BO.Enums.Status.provided;
+            else                                     return BO.Enums.Status.error;
         }
 
         ///Convert from Order To BoOrder
@@ -43,69 +31,63 @@ namespace BlImplementation
             bo.OrderStatus = CheckStatus(o);
             return bo;
         }
-        public BO.Order ConvertOrderToBoOrder(int Id)
+        public BO.Order ConvertDoOrderToBoOrder(int Id)
         {
-            DO.Order? temp = Dal.Order.Get(x => x?.ID == Id);
-            DO.Order dalOrder = (DO.Order)temp;
+            DO.Order? dalOrder = Dal.Order.Get(x => x?.ID == Id)!;
             BO.Order boOrder = new BO.Order();
-
-            boOrder.ID = dalOrder.ID;
-            boOrder.CustomerName = dalOrder.CustomerName;
-            boOrder.CustomerEmail = dalOrder.CustomerEmail;
-            boOrder.CustomeAdress = dalOrder.CustomeAdress;
-            boOrder.OrderDate = dalOrder.OrderDate;
-            boOrder.ShipDate = dalOrder.ShipDate;
-            boOrder.DeliveryDate = dalOrder.DeliveryDate;
-
-
-            List<DO.OrderItem?> dalOlist = new();
-            foreach (DO.OrderItem? orderItem in Dal.OrderItem.GetAll())
-                dalOlist.Add(orderItem ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
             
-            List<DO.OrderItem?> boOlist = new List<DO.OrderItem?>();
-            foreach (DO.OrderItem item in dalOlist)
+            boOrder.ID = dalOrder.Value.ID;
+            boOrder.CustomerName = dalOrder?.CustomerName;
+            boOrder.CustomerEmail = dalOrder?.CustomerEmail;
+            boOrder.CustomeAdress = dalOrder?.CustomeAdress;
+            boOrder.OrderDate = dalOrder?.OrderDate;
+            boOrder.ShipDate = dalOrder?.ShipDate;
+            boOrder.DeliveryDate = dalOrder?.DeliveryDate;
+            boOrder.OrderStatus = CheckStatus(dalOrder);
+
+            
+            List<DO.OrderItem?> boOrderItemlist = Dal.OrderItem.GetAll(x => x.Value.OrderID == Id).ToList();  //order item list copy
+            
+            foreach (var x in boOrderItemlist)
             {
-                if (item.OrderID == Id)
-                {
-                    boOlist.Add(item);
-                }
+                BO.OrderItem item = new();
+                item.ID = x.Value.ID;
+                item.CustomerName = x.Value.
+
+
+
+                boOrderItemlist.Details.Add(item);
             }
-            boOrder.Details = boOlist;
+
             double price = 0;
-            foreach (DO.OrderItem item in boOlist)
+            foreach (DO.OrderItem item in boOrderItemlist)
             {
                 price += item.Price;
             }
             boOrder.TotalPrice = price;
-            boOrder.OrderStatus = CheckStatus(dalOrder);
+           
 
             return boOrder;
         }
-
 
         /// return a list with all orders
         /// <returns> order list </returns>
         public List<BO.OrderForList> GetList()
         {
-
-            List<DO.Order?> dalOlist = new();
-            foreach (DO.Order? order in Dal.Order.GetAll())
-                dalOlist.Add(order ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
-
-            List<BO.OrderForList?> boOlist = new ();
-            foreach (DO.Order order in dalOlist)
+            List<DO.Order?> dalOrderlist = Dal.Order.GetAll().ToList();
+            List<BO.OrderForList?> boOlist = new();
+            BO.OrderForList boOrderForList = new();
+            foreach (DO.Order order in dalOrderlist)
             {
-                BO.OrderForList boOrderForList = new BO.OrderForList();
                 boOrderForList.ID = order.ID;
                 boOrderForList.CustomerName = order.CustomerName;
+                boOrderForList.OrderStatus = CheckStatus(order);
+
                 int count = 0;
-                Double price = 0;
+                double price = 0;
 
-                List<DO.OrderItem?> OrderItemList = new();
-                foreach (DO.OrderItem? orderItem in Dal.OrderItem.GetAll())
-                    OrderItemList.Add(orderItem ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
-
-
+                List<DO.OrderItem?> OrderItemList = Dal.OrderItem.GetAll().ToList();
+          
                 foreach (DO.OrderItem item in OrderItemList)
                 {
                     if (item.OrderID == boOrderForList.ID)
@@ -116,11 +98,10 @@ namespace BlImplementation
                 }
                 boOrderForList.Amount = count;
                 boOrderForList.TotalPrice = price;
-                boOrderForList.OrderStatus = CheckStatus(order);
 
                 boOlist.Add(boOrderForList);
             }
-            return boOlist;
+            return boOlist!;
         }
 
         ///search for a order with specific Id 
@@ -130,7 +111,7 @@ namespace BlImplementation
             if (Id <= 0) throw new BO.IdBOException("Negative Id!");
             try
             {
-                return ConvertOrderToBoOrder(Id);
+                return ConvertDoOrderToBoOrder(Id);
             }
             catch (IdException) { throw new BO.IdBOException("order with given Id didn't found"); }
         }
@@ -169,9 +150,7 @@ namespace BlImplementation
                             OrderDate = item.OrderDate ?? null,
                             ShipDate = DateTime.Now,
                             DeliveryDate = item.DeliveryDate ?? null
-
                         };
-
                     try
                     {
                         Dal.Order.Update(order.ID, order);
@@ -246,12 +225,10 @@ namespace BlImplementation
 
             DO.Order? temp = Dal.Order.Get(x => x?.ID == Id);
             DO.Order order = (DO.Order)temp;
-            BO.OrderTracking bo = new BO.OrderTracking();
+            BO.OrderTracking bo = new();
             bo.OrderID = order.ID;
             bo.Status = CheckStatus(order);
             Tuple<DateTime?, String?>? t1 = new Tuple<DateTime?, String?>(order.OrderDate, "Order approved");
-            //Tuple<DateTime, String> t1 = new Tuple<DateTime, String>; //(dal.OrderDate, "Order approved");
-            //(DateTime, String) t1 = (dal.OrderDate, "Order approved");
             bo.TupleList = t1;
             if (CheckStatus(order) == BO.Enums.Status.shiped)
             {
