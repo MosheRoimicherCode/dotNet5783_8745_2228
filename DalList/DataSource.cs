@@ -241,6 +241,16 @@ internal static class DataSource
                 AddOrderItem(ordItem);
             }
         }
+
+        p = new()
+        {
+            ID = 222222,
+            Name = "glasses",
+            Price = 200,
+            Category = Category.Business,
+            InStock = 5
+        };
+        AddProduct(p);
     }
 
     static internal class Config

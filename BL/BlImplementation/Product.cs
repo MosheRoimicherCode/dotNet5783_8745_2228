@@ -1,6 +1,7 @@
 ﻿namespace BlImplementation;
 using DalApi;
 using DO;
+using System.Linq;
 
 internal class Product : BlApi.IProduct
 {
@@ -60,7 +61,7 @@ internal class Product : BlApi.IProduct
 
             foreach (BO.OrderItem? itemCart in cart.Details) if (itemCart?.ProductID == Id) orderItem = itemCart ?? throw new BO.IdBOException("Product with given Id didn't found");
 
-            item.ID = orderItem.ID;
+            item.ID = orderItem.ProductID;
             item.AmontInCart = orderItem.Amount;
 
             if ((Dal.Product.Get(x => x?.ID == orderItem.ProductID)).Value.InStock > 0) item.IsInStock = true;

@@ -40,6 +40,7 @@ internal class DalProduct : IProduct
         //if (flag == false) Console.WriteLine(" Not found ID. (DalProduct.Delete)");
         ///delete product from data base by Id
     }
+
     ///replace product by another inside array
     public void Update(int ProductID, Product newProduct)
     {
