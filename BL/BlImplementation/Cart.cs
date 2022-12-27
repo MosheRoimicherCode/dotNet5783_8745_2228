@@ -49,7 +49,7 @@ namespace BlImplementation
             BOtemp.ID = DOTemp.ID;
             BOtemp.CustomerName = DOTemp.CustomerName;
             BOtemp.CustomerEmail = DOTemp.CustomerEmail;
-            BOtemp.CustomeAdress = DOTemp.CustomeAdress;
+            BOtemp.CustomerAdress = DOTemp.CustomeAdress;
             BOtemp.OrderDate = DOTemp.OrderDate;
             BOtemp.ShipDate = DOTemp.ShipDate;
             BOtemp.DeliveryDate = DOTemp.DeliveryDate;

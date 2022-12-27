@@ -6,7 +6,7 @@ public class Order
     public int ID { get; set; }
     public string? CustomerName { get; set; }
     public string? CustomerEmail { get; set; }
-    public string? CustomeAdress { get; set; }
+    public string? CustomerAdress { get; set; }
     public Status? OrderStatus { get; set; }
     public DateTime? OrderDate { get; set; }
     public DateTime? ShipDate { get; set; }
@@ -19,7 +19,7 @@ public class Order
         Product ID:{ID}, 
         CustomerName: {CustomerName}
     	CustomerEmail: {CustomerEmail}
-    	CustomeAdress: {CustomeAdress}
+    	CustomerAdress: {CustomerAdress}
         OrderDate: {OrderDate}
         ShipDate: {ShipDate}
         DeliveryDate: {DeliveryDate}

@@ -235,7 +235,7 @@ internal class Program
                 case "6":
                     Console.WriteLine("-----------------------------------------------LIST--------------------------------------------------------");
 
-                    List<BO.ProductForList> listBoProduct = p.Product.GetList();
+                    List<BO.ProductForList?> listBoProduct = p.Product.GetList();
                     foreach (BO.ProductForList item in listBoProduct)
                     {
                         Console.WriteLine(item);

@@ -112,6 +112,6 @@ internal class Product : BlApi.IProduct
         }
         return L_listBoProduct;
     }
-    public List<ProductForList?> GetList(Func<DO.Product?, bool>? filter) =>
+    public List<ProductForList?> GetList(Func<DO.Product?, bool>? filter = null) =>
         filter == null ? CreateproductForLists() : CreateproductForLists(filter);
 }

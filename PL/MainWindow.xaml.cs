@@ -11,6 +11,6 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
     }
-    private void Button_Click(object sender, RoutedEventArgs e) { new ProductForListWindow().Show(); this.Close(); }
-
+    private void Product_Button_Click(object sender, RoutedEventArgs e) { new ProductForListWindow().Show(); this.Close(); }
+    private void Order_Button_Click(object sender, RoutedEventArgs e) { new OrderForListWindow().Show(); this.Close(); }
 }
