@@ -1,6 +1,9 @@
 ﻿namespace BlImplementation;
+
+using BO;
 using DalApi;
 using DO;
+using System.Collections.Generic;
 using System.Linq;
 
 internal class Product : BlApi.IProduct
@@ -38,18 +41,12 @@ internal class Product : BlApi.IProduct
 
         return product;
     }
-
-    public void Add(BO.Product item)
-    {
-        if (CheckNewItem(item) == true) Dal.Product.Add(ConvertBoProductToProduct(item));
-    }
-
-    public BO.Product Get(int Id)
+    public void Add(BO.Product item) => Dal!.Product.Add(ConvertBoProductToProduct(item));
+    public BO.Product Get(int Id) //need to turn to lambda?
     {
         if (Id <= 0) throw new BO.IdBOException("Not positive Id!");
-        return ConvertProductToBoProduct((DO.Product)Dal.Product.Get(x => x?.ID == Id));
+        return ConvertProductToBoProduct((DO.Product)Dal!.Product.Get(x => x?.ID == Id)!);
     }
-
     public BO.ProductItem Get(int Id, BO.Cart cart)
     {
 
@@ -64,7 +61,7 @@ internal class Product : BlApi.IProduct
             item.ID = orderItem.ProductID;
             item.AmontInCart = orderItem.Amount;
 
-            if ((Dal.Product.Get(x => x?.ID == orderItem.ProductID)).Value.InStock > 0) item.IsInStock = true;
+            if ((Dal.Product.Get(x => x?.ID == orderItem.ProductID)!).Value.InStock > 0) item.IsInStock = true;
             else { item.IsInStock = false; }
 
             item.Name = cart.CustomerName;
@@ -75,17 +72,12 @@ internal class Product : BlApi.IProduct
         }
         catch (IdException) { throw new BO.IdBOException("Product with given Id didn't found"); }
     }
-
     public void Remove(int Id)
     {
-
         ///check if received Id exist
-        DO.Product? product = new DO.Product();
-        product = Dal.Product.Get(x => x?.ID == Id);
-        if (product == null) throw new BO.DeleteProductException("Cant delete product. Id not found.");
-
+        DO.Product product = Dal!.Product.Get(x => x?.ID == Id) ?? throw new BO.DeleteProductException("Cant delete product. Id not found.");
         //check if product exist inside order - if yes, so throw a message
-        if (SearchProductInsideExistOrders(Id).Count() == 0) Dal.Product.Delete(Id);
+        if (Dal!.OrderItem.GetAll(x => x!.Value.ID == Id).Count() == 0) Dal.Product.Delete(Id);
         else throw new BO.IdBOException("Product inside an exist order. cant delete."); ;
     }
     public void Update(BO.Product item)
@@ -94,41 +86,32 @@ internal class Product : BlApi.IProduct
         catch (IdException) { throw new BO.UpdateProductException("Id not found. Impossible to update."); }
     } /// if received item have right properties and exist, update it. else throw a message.
 
-    public List<BO.ProductForList> GetList(Func<BO.Product?, bool>? filter = null)
+    /// <summary>
+    /// create ProductForList from Product based in delegate
+    /// </summary>
+    /// <param name="filter" - delegate ></param>
+    /// <returns> ProductForList item </returns>
+    private List<ProductForList?> CreateproductForLists(Func<DO.Product?, bool>? filter = null)
     {
+        IEnumerable<DO.Product?>? list = null;
+        if (filter != null) { list = Dal!.Product.GetAll(filter); }
+        else { list = Dal!.Product.GetAll(); }
 
-        List<BO.ProductForList> listBoProduct = new();
-
-        foreach (DO.Product? product in Dal.Product.GetAll())
+        List<BO.ProductForList?> L_listBoProduct = new();
+        foreach (DO.Product product in list)  //create list of product for list
         {
-            if (filter == null || filter(ConvertProductToBoProduct(product ?? throw new BO.nullObjectBOException("null"))))
+            BO.Product BOProduct = ConvertProductToBoProduct(product);
+            BO.ProductForList boProductForList = new()
             {
-                BO.ProductForList boProductForList = new()
-                {
-                    ID = product?.ID ?? throw new BO.nullObjectBOException("null ID"),
-                    Name = product?.Name,
-                    Price = product?.Price ?? throw new BO.nullObjectBOException("null ID"),
-                    Category = (BO.Enums.Category?)product?.Category
-                };
-                listBoProduct.Add(boProductForList);
-            }
+                ID = BOProduct.ID,
+                Name = BOProduct.Name,
+                Price = BOProduct.Price,
+                Category = BOProduct?.Category
+            };
+            L_listBoProduct.Add(boProductForList);
         }
-        return listBoProduct;
+        return L_listBoProduct;
     }
-
-    //check if a product are inside any order
-    //return a list or Id order that contain the product
-    public List<int?> SearchProductInsideExistOrders(int ProductId)
-    {
-        List<DO.OrderItem?> dalOlist = new();
-        foreach (DO.OrderItem? orderItem in Dal.OrderItem.GetAll())
-            dalOlist.Add(orderItem ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
-
-        List<int?>? orderItemsWithProduct = new List<int?>();
-        foreach (DO.OrderItem? item in dalOlist)
-        {
-            if (item?.ProductID == ProductId) orderItemsWithProduct.Add(item?.ID);
-        }
-        return orderItemsWithProduct;
-    }
+    public List<ProductForList?> GetList(Func<DO.Product?, bool>? filter) =>
+        filter == null ? CreateproductForLists() : CreateproductForLists(filter);
 }
