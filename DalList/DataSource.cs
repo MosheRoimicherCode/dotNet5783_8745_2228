@@ -7,9 +7,9 @@ using static DO.Enums;
 ///data source class
 internal static class DataSource
 {
-    internal static List<Product?> _productList = new List<Product?>();
-    internal static List<Order?> _orderList = new List<Order?>();
-    internal static List<OrderItem?> _orderItemList = new List<OrderItem?>();
+    internal static List<Product?> _productList = new();
+    internal static List<Order?> _orderList = new();
+    internal static List<OrderItem?> _orderItemList = new();
     static DataSource() => s_Initialize();
 
     /// define arrays for classes;

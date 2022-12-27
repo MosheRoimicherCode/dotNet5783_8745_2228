@@ -13,7 +13,7 @@ namespace BlImplementation
 
             BOtemp.ProductID = DOTemp.ProductID;
             BOtemp.OrderID = DOTemp.ID;
-            BOtemp.ProductName = Dal.Product.Get(x => x?.ID == DOTemp.ID)?.Name;
+            BOtemp.ProductName = Dal!.Product.Get(x => x?.ID == DOTemp.ID)?.Name;
             BOtemp.ProductPrice = DOTemp.Price;
             BOtemp.Amount = DOTemp.Amount;
             BOtemp.TotalPrice = (BOtemp.Amount * BOtemp.ProductPrice);
@@ -66,13 +66,13 @@ namespace BlImplementation
 
             //create a copy of current cart to return it
             List<BO.Product> productList = new();
-            foreach (DO.Product item in Dal.Product.GetAll() ?? throw new BO.nullObjectBOException("null object.BoCart.Add") ) productList.Add(ConvertDo2BoProduct(item));
+            foreach (DO.Product? item in Dal!.Product.GetAll() ?? throw new BO.nullObjectBOException("null object.BoCart.Add") ) productList.Add(ConvertDo2BoProduct(item ?? throw new BO.nullObjectBOException("null object.BoCart.Add")));
 
             List<BO.OrderItem> orderItemList = new();
-            foreach (DO.OrderItem item in Dal.OrderItem.GetAll() ?? throw new BO.nullObjectBOException("null object.BoCart.Add")) orderItemList.Add(ConvertDo2BoOrderItem(item));
+            foreach (DO.OrderItem? item in Dal!.OrderItem.GetAll() ?? throw new BO.nullObjectBOException("null object.BoCart.Add")) orderItemList.Add(ConvertDo2BoOrderItem(item ?? throw new BO.nullObjectBOException("null object.BoCart.Add")));
 
             List<BO.Order> orderList = new();
-            foreach (DO.Order item in Dal.Order.GetAll() ?? throw new BO.nullObjectBOException("null object.BoCart.Add")) orderList.Add(ConvertDo2BoOrder(item));
+            foreach (DO.Order? item in Dal!.Order.GetAll() ?? throw new BO.nullObjectBOException("null object.BoCart.Add")) orderList.Add(ConvertDo2BoOrder(item ?? throw new BO.nullObjectBOException("null object.BoCart.Add")));
 
             BO.Cart newBoCart = new();
 
@@ -137,7 +137,7 @@ namespace BlImplementation
             newBoCart.Details = boCart.Details;
             newBoCart.TotalPrice = boCart.TotalPrice;
 
-            foreach (BO.OrderItem item in boCart.Details)
+            foreach (BO.OrderItem ?item in boCart.Details)
             {
                 if (item?.ProductID == Id)
                 {
@@ -176,9 +176,9 @@ namespace BlImplementation
         {
             foreach (BO.OrderItem? item in boCart.Details)
             {
-                if (Dal!.Product.GetAll(x => x.Value.ID == item?.ID).Count() < 0)  throw new BO.IdBOException("not all the products in cart exist");
+                if (Dal!.Product.GetAll(x => x!.Value.ID == item?.ID).Count() < 0)  throw new BO.IdBOException("not all the products in cart exist");
                 if (item?.Amount <= 0)                                             throw new BO.IdBOException("negative Amount");
-                if (item?.Amount > Dal?.Product?.Get(x => x?.ID == item?.ProductID).Value.InStock) throw new BO.IdBOException("not enough in stock");
+                if (item?.Amount > Dal?.Product?.Get(x => x?.ID == item!.ProductID)!.Value.InStock) throw new BO.IdBOException("not enough in stock");
                 if (boCart.CustomerName == "" || boCart.CustomerName == null)      throw new BO.IdBOException("Customer Name is not empty");
                 if (boCart.CustomeAdress == "" || boCart.CustomeAdress == null)    throw new BO.IdBOException("Customer address is empty");
                 if (boCart.CustomerEmail == "" || boCart.CustomerEmail == null)    throw new BO.IdBOException("Customer email is not valid");
@@ -193,7 +193,7 @@ namespace BlImplementation
 
             foreach (BO.OrderItem? item in boCart.Details)
             {
-                DO.OrderItem? newOrderItem = ConvertBo2DoOrderItem(item);
+                DO.OrderItem? newOrderItem = ConvertBo2DoOrderItem(item ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
                 Dal.OrderItem.Add(newOrderItem ?? throw new BO.nullObjectBOException("null"));
             }
 

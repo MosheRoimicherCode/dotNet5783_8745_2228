@@ -13,7 +13,11 @@ internal class Program
             
             while (true)
             {
-                Console.WriteLine("select an Item: \n 0 - exit \n 1 - product \n 2 - order \n 3 - orderItem \n");
+                Console.WriteLine(" select an Item: \n" +
+                                 "  0 - exit \n " +
+                                 " 1 - product \n " +
+                                 " 2 - order \n " +
+                                 " 3 - orderItem \n");
                 string? choice1 = Console.ReadLine();
                 if (choice1 == "0") throw new ProgramExit("Exit Program");
 
@@ -41,8 +45,8 @@ internal class Program
                             Console.WriteLine("enter price:");
                             double price = Convert.ToDouble(Console.ReadLine());
                             Console.WriteLine("enter category:");
-                            var category = Convert.ToInt32(Console.ReadLine());
-                            Enums.Category c = new Enums.Category();
+                            int category = Convert.ToInt32(Console.ReadLine());
+                            Enums.Category c = new DO.Enums.Category();
                             switch (category)
                             {
                                 case 1:
@@ -64,6 +68,7 @@ internal class Program
                                 Price = price,
                                 Category = c,
                             };
+                            dal.Product.Add(p1);
                             break;
                         case "2":
                             Console.WriteLine("enter ID:");
@@ -156,7 +161,7 @@ internal class Program
                             Console.WriteLine(dal.Order.Get(x => x?.ID == ID2));
                             break;
                         case "3":
-                            foreach (var item2 in (IEnumerable<Product?>?)dal.Order.GetAll()) Console.WriteLine(item2);
+                            foreach (var item2 in dal.Order.GetAll()) Console.WriteLine(item2);
                             break;
                         case "4":
                             Console.WriteLine("enter ID of exist product:");
@@ -230,7 +235,7 @@ internal class Program
                             Console.WriteLine(item3.ToString());
                             break;
                         case "3":
-                            foreach (var item2 in (IEnumerable<Product?>?)dal.OrderItem.GetAll()) Console.WriteLine(item2);
+                            foreach (var item2 in dal.OrderItem.GetAll()) Console.WriteLine(item2);
                             break;
                         case "4":
                             Console.WriteLine("enter ID of exist OrderItem:");
