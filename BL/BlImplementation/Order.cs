@@ -46,7 +46,7 @@ internal class Order : BlApi.IOrder
         boOrder.Details = new();
         boOrder.TotalPrice = 0;
 
-        foreach (var x in Dal!.OrderItem.GetAll(x => x.Value.OrderID == Id))  //convert do order item do bo;
+        foreach (var x in Dal!.OrderItem.GetAll(x => x.Value.OrderID == Id))  //convert do order item do 2 bo;
         {
             BO.OrderItem item = new();
 
@@ -69,7 +69,7 @@ internal class Order : BlApi.IOrder
     /// <returns> order list </returns>
     public List<BO.OrderForList> GetList()
     {
-        List<DO.Order?> dalOrderlist = Dal.Order.GetAll().ToList();
+        IEnumerable<DO.Order?> dalOrderlist = Dal!.Order.GetAll();
         List<BO.OrderForList?> boOlist = new();
         BO.OrderForList boOrderForList = new();
         foreach (DO.Order order in dalOrderlist)
@@ -116,36 +116,22 @@ internal class Order : BlApi.IOrder
     public BO.Order UpdateShipping(int Id)
     {
         if (Id <= 0) throw new BO.IdBOException("Negative Id! .(BO.Order.UpdateShipping)");
-
-        List<DO.Order?> OrderList = new();
-        foreach (DO.Order? order in Dal.Order.GetAll())
-            OrderList.Add(order ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
-
-        foreach (DO.Order item in OrderList)
+        foreach (DO.Order item in Dal!.Order.GetAll(x => x!.Value.ID == Id).ToList())
         {
-
-            if (item.ID == Id)
+            if (item.ShipDate < DateTime.Now) throw new BO.IdBOException("order has already shipped");
+            else if (item.OrderDate > DateTime.Now) throw new BO.IdBOException("order has not ordered yet");
+            else if (item.ShipDate > DateTime.Now && item.OrderDate < DateTime.Now)
+            {
+                DO.Order order = new()
                 {
-                if (item.ShipDate < DateTime.Now)
-                {
-                    throw new BO.IdBOException("order has already shipped");
-                }
-                else if (item.OrderDate > DateTime.Now)
-                {
-                    throw new BO.IdBOException("order has not ordered yet");
-                }
-                else if (item.ShipDate > DateTime.Now && item.OrderDate < DateTime.Now)
-                {
-                    DO.Order order = new()
-                    {
-                        ID = item.ID,
-                        CustomerName = item.CustomerName,
-                        CustomerEmail = item.CustomerEmail,
-                        CustomeAdress = item.CustomeAdress,
-                        OrderDate = item.OrderDate ?? null,
-                        ShipDate = DateTime.Now,
-                        DeliveryDate = item.DeliveryDate ?? null
-                    };
+                    ID = item.ID,
+                    CustomerName = item.CustomerName,
+                    CustomerEmail = item.CustomerEmail,
+                    CustomeAdress = item.CustomeAdress,
+                    OrderDate = item.OrderDate ?? null,
+                    ShipDate = DateTime.Now,
+                    DeliveryDate = item.DeliveryDate ?? null
+                };
                 try
                 {
                     Dal.Order.Update(order.ID, order);
@@ -154,7 +140,6 @@ internal class Order : BlApi.IOrder
                 catch (IdException) { throw new BO.IdBOException("Order exist. Impossible to update."); }
             }
         }
-    }
     throw new BO.IdBOException("order with given Id didn't found");
 }
 
@@ -163,44 +148,29 @@ internal class Order : BlApi.IOrder
     public BO.Order UpdateProviding(int Id)
     {
         if (Id <= 0) throw new BO.IdBOException("Negative Id!");
-
-        List<DO.Order?> OrderList = new();
-        foreach (DO.Order? order in Dal.Order.GetAll())
-            OrderList.Add(order ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
-
-        foreach (DO.Order? item in OrderList)
+        foreach (DO.Order? item in Dal.Order.GetAll(x => x!.Value.ID == Id).ToList())
         {
-            if (item?.ID == Id)
+            if (item?.DeliveryDate < DateTime.Now) throw new BO.IdBOException("order has already provided");
+            else if (item?.ShipDate > DateTime.Now) throw new BO.IdBOException("order has not shipped yet");
+            else if (item?.DeliveryDate > DateTime.Now && item?.ShipDate < DateTime.Now)
             {
-                if (item?.DeliveryDate < DateTime.Now)
+                DO.Order order = new()
                 {
-                    throw new BO.IdBOException("order has already provided");
-                }
-                else if (item?.ShipDate > DateTime.Now)
-                {
-                    throw new BO.IdBOException("order has not shipped yet");
-                }
-                else if (item?.DeliveryDate > DateTime.Now && item?.ShipDate < DateTime.Now)
-                {
-                    DO.Order order = new()
-                    {
-                        ID = item?.ID?? 0,
-                        CustomerName = item?.CustomerName,
-                        CustomerEmail = item?.CustomerEmail,
-                        CustomeAdress = item?.CustomeAdress,
-                        OrderDate = item?.OrderDate,
-                        ShipDate = item?.ShipDate,
-                        DeliveryDate = DateTime.Now
+                    ID = item?.ID ?? 0,
+                    CustomerName = item?.CustomerName,
+                    CustomerEmail = item?.CustomerEmail,
+                    CustomeAdress = item?.CustomeAdress,
+                    OrderDate = item?.OrderDate,
+                    ShipDate = item?.ShipDate,
+                    DeliveryDate = DateTime.Now
 
-                    };
-
-                    try
-                    {
-                        Dal.Order.Update(order.ID, order);
-                        return ConvertOrderToBoOrder(order);
-                    }
-                    catch (IdException) { throw new BO.IdBOException("Order exist. Impossible to update."); }
+                };
+                try
+                {
+                    Dal.Order.Update(order.ID, order);
+                    return ConvertOrderToBoOrder(order);
                 }
+                catch (IdException) { throw new BO.IdBOException("Order  exist. Impossible to update."); }
             }
         }
         throw new BO.IdBOException("order with given Id didn't found");
