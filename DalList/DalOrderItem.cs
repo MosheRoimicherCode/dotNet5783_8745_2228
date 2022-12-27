@@ -22,7 +22,9 @@ internal class DalOrderItem : IOrderItem
     //    throw new IdException("Not found ID. (DalorderItem.Get Exception)");
     //}///search for orderItem by Id and return the specific order
     public OrderItem? Get(Func<OrderItem?, bool> filter) => (from orderItem in _orderItemList
+                                                             orderby orderItem?.ID
                                                              where filter(orderItem)
+                                                             let filterValue = filter(orderItem)
                                                              select orderItem).FirstOrDefault();
     public void Delete(int OrderItemId)
     {

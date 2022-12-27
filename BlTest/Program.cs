@@ -235,11 +235,8 @@ internal class Program
                 case "6":
                     Console.WriteLine("-----------------------------------------------LIST--------------------------------------------------------");
 
-                    List<BO.ProductForList?> listBoProduct = p.Product.GetList();
-                    foreach (BO.ProductForList item in listBoProduct)
-                    {
-                        Console.WriteLine(item);
-                    }
+                    List<BO.ProductForList?> listBoProduct = p.Product.GetList(x => x!.Value.ID > 0);
+                    foreach (BO.ProductForList? item in listBoProduct) Console.WriteLine(item);
                     goto MainMenu;
 
                 case "0":
@@ -274,10 +271,7 @@ internal class Program
 
                 case "2":
                     List<BO.OrderForList> boOrderForList = p.Order.GetList();
-                    foreach (BO.OrderForList item in boOrderForList)
-                    {
-                        Console.WriteLine(item);
-                    }
+                    foreach (BO.OrderForList item in boOrderForList) Console.WriteLine(item);
                     goto MainMenu;
 
                 case "3":

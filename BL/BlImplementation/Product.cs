@@ -10,7 +10,7 @@ internal class Product : BlApi.IProduct
 {
     IDal? Dal = DalApi.Factory.Get();
 
-    public bool CheckNewItem(BO.Product item)
+    private bool CheckNewItem(BO.Product item)
     {
         if (item.ID < 100000) throw new BO.IdBOException("minimum 6 digits for id!");
         if (item.Name == null) throw new BO.ProductNameException("Name can't be null");
@@ -19,7 +19,7 @@ internal class Product : BlApi.IProduct
 
         return true;
     } ///check previews criterion for a new item
-    public BO.Product ConvertProductToBoProduct(DO.Product product)
+    private BO.Product ConvertProductToBoProduct(DO.Product product)
     {
         BO.Product boProduct = new BO.Product();
         boProduct.ID = product.ID;
@@ -30,14 +30,15 @@ internal class Product : BlApi.IProduct
 
         return boProduct;
     }
-    public DO.Product ConvertBoProductToProduct(BO.Product boProduct)
+    private DO.Product ConvertBoProductToProduct(BO.Product boProduct)
     {
         DO.Product product = new DO.Product();
         product.ID = boProduct.ID;
         product.Name = boProduct.Name;
         product.Price = boProduct.Price;
         product.InStock = boProduct.InStock;
-        product.Category = (DO.Enums.Category?)boProduct.Category;
+        DO.Enums.Category? category = (DO.Enums.Category?)boProduct.Category;
+        product.Category = category;
 
         return product;
     }
@@ -53,21 +54,21 @@ internal class Product : BlApi.IProduct
         if (Id <= 0) throw new BO.IdBOException("Not positive Id!");
         try
         {
-            BO.ProductItem item = new();
-            BO.OrderItem orderItem = new();
+            BO.ProductItem? item = new();
+            BO.OrderItem? orderItem = new();
 
             foreach (BO.OrderItem? itemCart in cart.Details) if (itemCart?.ProductID == Id) orderItem = itemCart ?? throw new BO.IdBOException("Product with given Id didn't found");
 
             item.ID = orderItem.ProductID;
             item.AmontInCart = orderItem.Amount;
 
-            if ((Dal.Product.Get(x => x?.ID == orderItem.ProductID)!).Value.InStock > 0) item.IsInStock = true;
+            if ((Dal!.Product.Get(x => x?.ID == orderItem.ProductID)!).Value.InStock > 0) item.IsInStock = true;
             else { item.IsInStock = false; }
 
             item.Name = cart.CustomerName;
             item.Price = orderItem.ProductPrice;
 
-            item.Category = (BO.Enums.Category?)Dal.Product.Get(x => x?.ID == orderItem.ProductID).Value.Category;
+            item.Category = (BO.Enums.Category?)Dal.Product.Get(x => x?.ID == orderItem.ProductID)!.Value.Category;
             return item;
         }
         catch (IdException) { throw new BO.IdBOException("Product with given Id didn't found"); }
@@ -82,7 +83,7 @@ internal class Product : BlApi.IProduct
     }
     public void Update(BO.Product item)
     {
-        try { if (CheckNewItem(item) == true) Dal.Product.Update(item.ID, ConvertBoProductToProduct(item)); }
+        try { if (CheckNewItem(item) == true) Dal!.Product.Update(item.ID, ConvertBoProductToProduct(item)); }
         catch (IdException) { throw new BO.UpdateProductException("Id not found. Impossible to update."); }
     } /// if received item have right properties and exist, update it. else throw a message.
 
@@ -98,9 +99,9 @@ internal class Product : BlApi.IProduct
         else { list = Dal!.Product.GetAll(); }
 
         List<BO.ProductForList?> L_listBoProduct = new();
-        foreach (DO.Product product in list)  //create list of product for list
+        foreach (DO.Product? product in list)  //create list of product for list
         {
-            BO.Product BOProduct = ConvertProductToBoProduct(product);
+            BO.Product BOProduct = ConvertProductToBoProduct((DO.Product)product!);
             BO.ProductForList boProductForList = new()
             {
                 ID = BOProduct.ID,

@@ -9,9 +9,9 @@ using static Dal.DataSource;
 internal class DalOrder : IOrder
 {
     public int Add(Order order) => 
-        DataSource._orderList.Exists(orderInList => orderInList?.ID == order.ID)
+        _orderList.Exists(orderInList => orderInList?.ID == order.ID)
             ? throw new IdException("Order ID already exists")
-            : DataSource.AddOrder(order); /// Add Order to Data Base
+            : AddOrder(order); /// Add Order to Data Base
     public Order? Get(Func<Order?, bool> filter) => (from order in _orderList
                                                     where filter(order)
                                                     select order).FirstOrDefault();
@@ -23,8 +23,9 @@ internal class DalOrder : IOrder
     public void Update(int OrderID, Order newOrder)
     {
         try
-        { 
-            int index = _orderItemList.FindIndex(x => x?.ID == OrderID);
+        {
+            int index = _orderList.Select((order, index) => (order, index)).First(x => x.order.Value.ID == OrderID).index;
+
             _orderList.RemoveAt(index);
             _orderList.Insert(index, newOrder);
         }
