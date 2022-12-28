@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="OrderForListWindow" Height="450" Width="800">
     <Grid>
-        <ListView Name ="OrderListview" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2">
+        <ListView Name ="OrderListview" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2">
             <ListView.View>
 
                 <GridView x:Name="GridView1">

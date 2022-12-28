@@ -21,13 +21,17 @@ public partial class OrderForListWindow : Window
     {
         InitializeComponent();
 
-
         orderForList = p.Order.GetList();
         
         OrderListview.ItemsSource = p.Order.GetList();
-
-
-
-
     }
+
+    private void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        BO.OrderForList orderForList = new();
+        int id = ((BO.OrderForList)OrderListview.SelectedItem).ID;
+        new OrderWindow("update", id).Show();
+        this.Close();
+    }
+
 }
