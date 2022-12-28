@@ -1,0 +1,33 @@
+﻿<Window x:Class="PL.OrderForListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="OrderForListWindow" Height="450" Width="800">
+    <Grid>
+        <ListView Name ="OrderListview" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2">
+            <ListView.View>
+
+                <GridView x:Name="GridView1">
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=ID}" 
+                                Header="Order ID" Width="120"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=CustomerName}" 
+                                Header="customer name" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=OrderStatus}" 
+                                Header="Order Status" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=Amount}" 
+                                Header="Amount" Width="120"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=TotalPrice}" 
+                                Header="total Price" Width="150"/>
+                    
+                 
+                </GridView>
+            </ListView.View>
+
+        </ListView>
+
+    </Grid>
+    
+</Window>

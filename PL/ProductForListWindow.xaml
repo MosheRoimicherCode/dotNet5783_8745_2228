@@ -49,6 +49,7 @@
                                 Header="Price" Width="150"/>
                     <GridViewColumn DisplayMemberBinding= "{Binding Path=Category}" 
                                 Header="Category" Width="150"/>
+                    
                 </GridView>
             </ListView.View>
 

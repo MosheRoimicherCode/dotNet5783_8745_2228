@@ -23,7 +23,7 @@ internal class Order : BlApi.IOrder
         bo.DeliveryDate = o.DeliveryDate;
         bo.OrderDate = o.OrderDate;
         bo.CustomerName = o.CustomerName;
-        bo.CustomeAdress = o.CustomeAdress;
+        bo.CustomerAdress = o.CustomeAdress;
         bo.CustomerEmail = o.CustomerEmail;
         bo.OrderStatus = CheckStatus(o);
         return bo;
@@ -36,7 +36,7 @@ internal class Order : BlApi.IOrder
         boOrder.ID = dalOrder.Value.ID;
         boOrder.CustomerName = dalOrder?.CustomerName;
         boOrder.CustomerEmail = dalOrder?.CustomerEmail;
-        boOrder.CustomeAdress = dalOrder?.CustomeAdress;
+        boOrder.CustomerAdress = dalOrder?.CustomeAdress;
         boOrder.OrderStatus = CheckStatus(dalOrder);
         boOrder.OrderDate = dalOrder?.OrderDate;
         boOrder.ShipDate = dalOrder?.ShipDate;
@@ -69,9 +69,10 @@ internal class Order : BlApi.IOrder
     {
         IEnumerable<DO.Order?> dalOrderlist = Dal!.Order.GetAll();
         List<BO.OrderForList?> boOlist = new();
-        BO.OrderForList boOrderForList = new();
+        
         foreach (DO.Order order in dalOrderlist)
         {
+            BO.OrderForList boOrderForList = new();
             boOrderForList.ID = order.ID;
             boOrderForList.CustomerName = order.CustomerName;
             boOrderForList.OrderStatus = CheckStatus(order);
