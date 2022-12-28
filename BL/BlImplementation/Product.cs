@@ -50,14 +50,21 @@ internal class Product : BlApi.IProduct
     }
     public BO.ProductItem Get(int Id, BO.Cart cart)
     {
-
         if (Id <= 0) throw new BO.IdBOException("Not positive Id!");
         try
         {
             BO.ProductItem? item = new();
-            BO.OrderItem? orderItem = new();
 
-            foreach (BO.OrderItem? itemCart in cart.Details) if (itemCart?.ProductID == Id) orderItem = itemCart ?? throw new BO.IdBOException("Product with given Id didn't found");
+            //BO.OrderItem? orderItem = new();
+            //foreach (BO.OrderItem? itemCart in cart.Details)
+            //    if (itemCart?.ProductID == Id)
+            //        orderItem = itemCart ?? throw new BO.IdBOException("Product with given Id didn't found");
+
+            var orderItemInumerable = from item2 in cart.Details
+                                      where item2.ProductID == Id
+                                      let orderItem2 = item2 ?? throw new BO.IdBOException("Product with given Id didn't found")
+                                      select orderItem2;
+            BO.OrderItem orderItem = orderItemInumerable.FirstOrDefault() ?? throw new BO.IdBOException("Product with given Id didn't found");
 
             item.ID = orderItem.ProductID;
             item.AmontInCart = orderItem.Amount;
