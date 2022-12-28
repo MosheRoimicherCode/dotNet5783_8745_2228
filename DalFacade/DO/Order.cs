@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-namespace DO;
+﻿namespace DO;
 
 ///A class to restore customer details
 public struct Order
@@ -15,7 +14,7 @@ public struct Order
 
     /// funcs
     public override string ToString() => $@"
-        Product ID:{ID}, 
+        Order ID:{ID}, 
         CustomerName: {CustomerName}
     	CustomerEmail: {CustomerEmail}
     	CustomeAdress: {CustomeAdress}

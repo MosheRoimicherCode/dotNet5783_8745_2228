@@ -54,17 +54,7 @@ internal class Product : BlApi.IProduct
         try
         {
             BO.ProductItem? item = new();
-
-            //BO.OrderItem? orderItem = new();
-            //foreach (BO.OrderItem? itemCart in cart.Details)
-            //    if (itemCart?.ProductID == Id)
-            //        orderItem = itemCart ?? throw new BO.IdBOException("Product with given Id didn't found");
-
-            var orderItemInumerable = from item2 in cart.Details
-                                      where item2.ProductID == Id
-                                      let orderItem2 = item2 ?? throw new BO.IdBOException("Product with given Id didn't found")
-                                      select orderItem2;
-            BO.OrderItem orderItem = orderItemInumerable.FirstOrDefault() ?? throw new BO.IdBOException("Product with given Id didn't found");
+            BO.OrderItem orderItem = cart.Details.FirstOrDefault(x => x?.ProductID == Id) ?? throw new BO.IdBOException("Product with given Id didn't found");
 
             item.ID = orderItem.ProductID;
             item.AmontInCart = orderItem.Amount;
@@ -99,27 +89,16 @@ internal class Product : BlApi.IProduct
     /// </summary>
     /// <param name="filter" - delegate ></param>
     /// <returns> ProductForList item </returns>
-    private List<ProductForList?> CreateproductForLists(Func<DO.Product?, bool>? filter = null)
-    {
-        IEnumerable<DO.Product?>? list = null;
-        if (filter != null) { list = Dal!.Product.GetAll(filter); }
-        else { list = Dal!.Product.GetAll(); }
+    private IEnumerable<ProductForList> CreateproductForLists(Func<DO.Product?, bool>? filter = null) =>
 
-        List<BO.ProductForList?> L_listBoProduct = new();
-        foreach (DO.Product? product in list)  //create list of product for list
+        from product in Dal!.Product.GetAll(filter)
+        let BOProduct = ConvertProductToBoProduct((DO.Product)product!)
+        select new BO.ProductForList()
         {
-            BO.Product BOProduct = ConvertProductToBoProduct((DO.Product)product!);
-            BO.ProductForList boProductForList = new()
-            {
-                ID = BOProduct.ID,
-                Name = BOProduct.Name,
-                Price = BOProduct.Price,
-                Category = BOProduct?.Category
-            };
-            L_listBoProduct.Add(boProductForList);
-        }
-        return L_listBoProduct;
-    }
-    public List<ProductForList?> GetList(Func<DO.Product?, bool>? filter = null) =>
-        filter == null ? CreateproductForLists() : CreateproductForLists(filter);
+            ID = BOProduct.ID,
+            Name = BOProduct.Name,
+            Price = BOProduct.Price,
+            Category = BOProduct.Category
+        };
+    public List<ProductForList> GetList(Func<DO.Product?, bool>? filter = null) => CreateproductForLists(filter).ToList();
 }

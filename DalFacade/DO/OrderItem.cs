@@ -1,6 +1,4 @@
-﻿using DO;
-using System.Xml.Linq;
-namespace DO;
+﻿namespace DO;
 
 ///A class to restore the witch products each client request
 public struct OrderItem
@@ -18,6 +16,6 @@ public struct OrderItem
         Product ID: {ProductID}, 
         OrderID: {OrderID}
     	Price: {Price}
-    	Amount in stock: {Amount}";
+    	Amount of product in orderItem: {Amount}";
 
 }

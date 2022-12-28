@@ -12,8 +12,11 @@ public class OrderItem
 
     // methods
     public override string ToString() => $@"
+        OrderItem ID: {ID}
         Product ID: {ProductID}, 
         OrderID: {OrderID}
-    	TotalPrice: {TotalPrice}
-    	Amount in stock: {Amount}";
+        ProductName: {ProductName}
+        ProductPrice: {ProductPrice}
+    	Total price (of order item ID: {ID}): {TotalPrice}
+    	Amount of {ProductName} in order: {Amount}";
 }

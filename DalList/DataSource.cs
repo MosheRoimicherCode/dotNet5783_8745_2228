@@ -214,7 +214,24 @@ internal static class DataSource
         }
         /// end of order creation
 
-        OrderItem ordItem = new OrderItem();
+        OrderItem ordItem = new()
+        {
+            ID = Config.GetIdNumberItemOrder(),
+            ProductID = 222222,
+            OrderID = 21,
+            Price = 200,
+            Amount = 1
+        };
+        AddOrderItem(ordItem);
+        ordItem = new()
+        {
+            ID = Config.GetIdNumberItemOrder(),
+            ProductID = 222222,
+            OrderID = 22,
+            Price = 300,
+            Amount = 5
+        };
+        AddOrderItem(ordItem);
         for (int j = 0; j < 2; j++)
         {
             for (int i = 0; i < 10; i++)
@@ -237,7 +254,7 @@ internal static class DataSource
                     ProductID = _productList[i]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
                     OrderID = _orderList[i + 10]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
                     Price = _productList[i]?.Price ?? 0,
-                    Amount = _randomNum.Next(0, 50),
+                    Amount = _randomNum.Next(0, 50)
                 };
                 AddOrderItem(ordItem);
             }
@@ -258,7 +275,6 @@ internal static class DataSource
     {
         static internal int _idNumberOrder = 1;
         static internal int _idNumberItemOrder = 1;
-
         /// get ID parameters functions
         static public int GetIdNumberOrder() => _idNumberOrder++;
         static public int GetIdNumberItemOrder() => _idNumberItemOrder++;

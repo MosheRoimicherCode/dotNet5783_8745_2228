@@ -1,12 +1,20 @@
 ﻿namespace BlImplementation; 
 
+using BlApi;
 using BO;
 using DalApi;
 using DO;
+using System.Linq;
+using System.Security.Cryptography;
 
 internal class Order : BlApi.IOrder
 {
     IDal? Dal = DalApi.Factory.Get();
+    private double price2;
+    private int a;
+    private double b;
+
+    public double TPrice { get; private set; }
 
     ///checking the status of the order, returns Enum-status type
     public BO.Enums.Status CheckStatus(DO.Order? o)
@@ -44,22 +52,29 @@ internal class Order : BlApi.IOrder
         boOrder.Details = new();
         boOrder.TotalPrice = 0;
 
-        foreach (var x in Dal!.OrderItem.GetAll(x => x.Value.OrderID == Id))  //convert do order item do 2 bo;
-        {
-            BO.OrderItem item = new();
+        var boOrderDetailsTuple = (from orderItem in Dal!.OrderItem.GetAll(x => x.Value.OrderID == Id)
+                 let TotalPrice = boOrder.TotalPrice + Dal.Product.Get(x => x.Value.ID == orderItem.Value.ProductID)!.Value.Price
+                 select (TotalPrice, new List<BO.OrderItem>
+                     (
+                         from orderItem in Dal!.OrderItem.GetAll(x => x!.Value.OrderID == Id)
+                         select new BO.OrderItem()
+                         {
+                             ID = orderItem.Value.ID,
+                             ProductID = orderItem.Value.ProductID,
+                             OrderID = orderItem.Value.OrderID,
+                             ProductName = Dal.Product.Get(x => x.Value.ID == orderItem.Value.ProductID)!.Value.Name,
+                             ProductPrice = Dal.Product.Get(x => x.Value.ID == orderItem.Value.ProductID)!.Value.Price,
+                             Amount = orderItem.Value.Amount,
+                             TotalPrice = orderItem.Value.Amount * Dal.Product.Get(x => x.Value.ID == orderItem.Value.ProductID)!.Value.Price
+                         }
+                     )
+                 )
+                 );
 
-            item.ID = x.Value.ID;
-            item.ProductID= x.Value.ProductID;
-            item.OrderID = x.Value.OrderID;
-            int a = x.Value.ProductID;
-            item.ProductName = Dal.Product.Get(y => y.Value.ID == a)!.Value.Name;
-            item.ProductPrice = Dal.Product.Get(y => y.Value.ID == a)!.Value.Price;
-            item.Amount = x.Value.Amount;
-            item.TotalPrice = item.Amount * item.ProductPrice;
 
-            boOrder.Details.Add(item);
-            boOrder.TotalPrice += x.Value.Price;
-        }
+        boOrder.Details = boOrderDetailsTuple.FirstOrDefault().Item2.ToList();
+        boOrder.TotalPrice = boOrderDetailsTuple.FirstOrDefault().TotalPrice;
+
         return boOrder;
     }
 
@@ -67,35 +82,24 @@ internal class Order : BlApi.IOrder
     /// <returns> order list </returns>
     public List<BO.OrderForList> GetList()
     {
-        IEnumerable<DO.Order?> dalOrderlist = Dal!.Order.GetAll();
-        List<BO.OrderForList?> boOlist = new();
-        
-        foreach (DO.Order order in dalOrderlist)
-        {
-            BO.OrderForList boOrderForList = new();
-            boOrderForList.ID = order.ID;
-            boOrderForList.CustomerName = order.CustomerName;
-            boOrderForList.OrderStatus = CheckStatus(order);
+        var qqq = from order in Dal!.Order.GetAll()
+                  select new BO.OrderForList()
+                  {
+                      ID = order.Value.ID,
+                      CustomerName = order.Value.CustomerName,
+                      OrderStatus = CheckStatus(order),
+                      Amount = GetPriceAndAmount(order.Value.ID).First().Item2,
+                      TotalPrice = GetPriceAndAmount(order.Value.ID).First().Item3
+                  };
+        return qqq.ToList();
+    }
 
-            int count = 0;
-            double price = 0;
-
-            List<DO.OrderItem?> OrderItemList = Dal.OrderItem.GetAll().ToList();
-      
-            foreach (DO.OrderItem item in OrderItemList)
-            {
-                if (item.OrderID == boOrderForList.ID)
-                {
-                    count++;
-                    price += item.Price;
-                }
-            }
-            boOrderForList.Amount = count;
-            boOrderForList.TotalPrice = price;
-
-            boOlist.Add(boOrderForList);
-        }
-        return boOlist!;
+    private IEnumerable<(DO.OrderItem?, int, double)> GetPriceAndAmount(int orderID)
+    {
+        return from orderItem in Dal.OrderItem.GetAll(x => x.Value.OrderID == orderID)
+               let a = orderItem.Value.Amount
+               let b = (orderItem.Value.Amount * orderItem.Value.Price)
+               select (orderItem, a, b);
     }
 
     ///search for a order with specific Id 
@@ -103,10 +107,7 @@ internal class Order : BlApi.IOrder
     public BO.Order Get(int Id)
     {
         if (Id <= 0) throw new BO.IdBOException("Negative Id!");
-        try
-        {
-            return ConvertDoOrderToBoOrder(Id);
-        }
+        try { return ConvertDoOrderToBoOrder(Id); }
         catch (IdException) { throw new BO.IdBOException("order with given Id didn't found"); }
     }
 
@@ -115,7 +116,7 @@ internal class Order : BlApi.IOrder
     public BO.Order UpdateShipping(int Id)
     {
         if (Id <= 0) throw new BO.IdBOException("Negative Id! .(BO.Order.UpdateShipping)");
-        foreach (DO.Order item in Dal!.Order.GetAll(x => x!.Value.ID == Id).ToList())
+        foreach (DO.Order item in Dal!.Order.GetAll(x => x!.Value.ID == Id))
         {
             if (item.ShipDate < DateTime.Now) throw new BO.IdBOException("order has already shipped");
             else if (item.OrderDate > DateTime.Now) throw new BO.IdBOException("order has not ordered yet");
@@ -147,7 +148,7 @@ internal class Order : BlApi.IOrder
     public BO.Order UpdateProviding(int Id)
     {
         if (Id <= 0) throw new BO.IdBOException("Negative Id!");
-        foreach (DO.Order? item in Dal.Order.GetAll(x => x!.Value.ID == Id).ToList())
+        foreach (DO.Order? item in Dal!.Order.GetAll(x => x!.Value.ID == Id))
         {
             if (item?.DeliveryDate < DateTime.Now) throw new BO.IdBOException("order has already provided");
             else if (item?.ShipDate > DateTime.Now) throw new BO.IdBOException("order has not shipped yet");

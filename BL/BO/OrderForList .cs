@@ -1,5 +1,4 @@
 ﻿namespace BO;
-using DO;
 using static BO.Enums;
 public class OrderForList
 {
@@ -12,7 +11,7 @@ public class OrderForList
 
     // methods
     public override string ToString() => $@"
-        Product ID:{ID}, 
+        OrderID:{ID}, 
         CustomerName: {CustomerName}
     	OrderStatus: {OrderStatus}
         Amount: {Amount}
