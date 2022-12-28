@@ -6,7 +6,6 @@ namespace BlImplementation
     internal class Cart : ICart
     {
         IDal? Dal = DalApi.Factory.Get();
-
         private BO.OrderItem ConvertDo2BoOrderItem(DO.OrderItem DOTemp)
         {
             BO.OrderItem BOtemp = new();
@@ -86,6 +85,7 @@ namespace BlImplementation
             //search for product if exist inside cart
             if (newBoCart.Details.Any(x => x?.ProductID == productId))
             { 
+                
                 foreach (BO.Product item in productList)
                 {
                     if (item.ID == productId || item.InStock > 0) //if product it in stock
@@ -110,18 +110,21 @@ namespace BlImplementation
                 {
                     if (item.ID == productId || item.InStock > 0) //if product it in stock
                     {
-                        item.InStock--;  //remove one from stock for orderItem
-                        BO.OrderItem? newOrderItem = new(); //create a new order item 
-                        newOrderItem.ID = -987;
-                        newOrderItem.ProductID = productId;
-                        //newOrderItem.OrderID = 
-                        newOrderItem.ProductName = item.Name;
-                        newOrderItem.ProductPrice = item.Price;
-                        newOrderItem.Amount = 1;
-                        newOrderItem.TotalPrice = item.Price;
+                        item.InStock--; //remove one from stock for orderItem
+                        foreach (BO.OrderItem? orderItem in newBoCart.Details)
+                        {
+                            BO.OrderItem? newOrderItem = new(); //create a new order item 
+                            newOrderItem.ID = orderItem.ID;
+                            newOrderItem.ProductID = productId;
+                            newOrderItem.OrderID = orderItem.OrderID;
+                            newOrderItem.ProductName = orderItem.ProductName;
+                            newOrderItem.ProductPrice = orderItem.ProductPrice;
+                            newOrderItem.Amount = 1;
+                            newOrderItem.TotalPrice = item.Price;
 
-                        newBoCart.Details.Add(newOrderItem);  //a new order item to cart
-                        newBoCart.TotalPrice += item.Price;   //update total price of cart
+                            newBoCart.Details.Add(newOrderItem);  //a new order item to cart
+                            newBoCart.TotalPrice += item.Price;   //update total price of cart
+                        }
                     }
                 }
             }
@@ -137,7 +140,7 @@ namespace BlImplementation
             newBoCart.Details = boCart.Details;
             newBoCart.TotalPrice = boCart.TotalPrice;
 
-            foreach (BO.OrderItem ?item in boCart.Details)
+            foreach (BO.OrderItem? item in boCart.Details)
             {
                 if (item?.ProductID == Id)
                 {

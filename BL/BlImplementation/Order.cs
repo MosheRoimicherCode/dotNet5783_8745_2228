@@ -53,23 +53,23 @@ internal class Order : BlApi.IOrder
         boOrder.TotalPrice = 0;
 
         var boOrderDetailsTuple = (from orderItem in Dal!.OrderItem.GetAll(x => x.Value.OrderID == Id)
-                 let TotalPrice = boOrder.TotalPrice + Dal.Product.Get(x => x.Value.ID == orderItem.Value.ProductID)!.Value.Price
-                 select (TotalPrice, new List<BO.OrderItem>
-                     (
-                         from orderItem in Dal!.OrderItem.GetAll(x => x!.Value.OrderID == Id)
-                         select new BO.OrderItem()
-                         {
-                             ID = orderItem.Value.ID,
-                             ProductID = orderItem.Value.ProductID,
-                             OrderID = orderItem.Value.OrderID,
-                             ProductName = Dal.Product.Get(x => x.Value.ID == orderItem.Value.ProductID)!.Value.Name,
-                             ProductPrice = Dal.Product.Get(x => x.Value.ID == orderItem.Value.ProductID)!.Value.Price,
-                             Amount = orderItem.Value.Amount,
-                             TotalPrice = orderItem.Value.Amount * Dal.Product.Get(x => x.Value.ID == orderItem.Value.ProductID)!.Value.Price
-                         }
-                     )
-                 )
-                 );
+                                   let TotalPrice = boOrder.TotalPrice + Dal.Product.Get(x => x.Value.ID == orderItem.Value.ProductID)!.Value.Price
+                                   select (TotalPrice, new List<BO.OrderItem>
+                                     (
+                                         from orderItem in Dal!.OrderItem.GetAll(x => x!.Value.OrderID == Id)
+                                         select new BO.OrderItem()
+                                         {
+                                             ID = orderItem.Value.ID,
+                                             ProductID = orderItem.Value.ProductID,
+                                             OrderID = orderItem.Value.OrderID,
+                                             ProductName = Dal.Product.Get(x => x.Value.ID == orderItem.Value.ProductID)!.Value.Name,
+                                             ProductPrice = Dal.Product.Get(x => x.Value.ID == orderItem.Value.ProductID)!.Value.Price,
+                                             Amount = orderItem.Value.Amount,
+                                             TotalPrice = orderItem.Value.Amount * Dal.Product.Get(x => x.Value.ID == orderItem.Value.ProductID)!.Value.Price
+                                         }
+                                     )
+                                            )
+                                 );
 
 
         boOrder.Details = boOrderDetailsTuple.FirstOrDefault().Item2.ToList();
@@ -82,7 +82,7 @@ internal class Order : BlApi.IOrder
     /// <returns> order list </returns>
     public List<BO.OrderForList> GetList()
     {
-        var qqq = from order in Dal!.Order.GetAll()
+        var orderFOrListIEnumerable = from order in Dal!.Order.GetAll()
                   select new BO.OrderForList()
                   {
                       ID = order.Value.ID,
@@ -91,12 +91,12 @@ internal class Order : BlApi.IOrder
                       Amount = GetPriceAndAmount(order.Value.ID).First().Item2,
                       TotalPrice = GetPriceAndAmount(order.Value.ID).First().Item3
                   };
-        return qqq.ToList();
+        return orderFOrListIEnumerable.ToList();
     }
 
     private IEnumerable<(DO.OrderItem?, int, double)> GetPriceAndAmount(int orderID)
     {
-        return from orderItem in Dal.OrderItem.GetAll(x => x.Value.OrderID == orderID)
+        return from orderItem in Dal!.OrderItem.GetAll(x => x.Value.OrderID == orderID)
                let a = orderItem.Value.Amount
                let b = (orderItem.Value.Amount * orderItem.Value.Price)
                select (orderItem, a, b);
