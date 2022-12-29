@@ -15,7 +15,7 @@ public partial class ProductForListWindow : Window
 {
     IBl? p = BlApi.Factory.Get();
 
-    IEnumerable<BO.ProductForList?> productForList;
+    IEnumerable<BO.ProductForList> productForList;
     private List<BO.Enums.Category> ListOfCategories = new();
     //private List<string> ListOfCategoriesString = new();
     BO.Enums.Category all = new();
@@ -50,7 +50,7 @@ public partial class ProductForListWindow : Window
         {
             if (categorySelected == BO.Enums.Category.all) ProductListview.ItemsSource = productForList;
 
-            else ProductListview.ItemsSource = productForList.Where(x => x?.Category == categorySelected);
+            else ProductListview.ItemsSource = productForList.Where(x => x.Category == categorySelected);
 
             for (int i = 0; i < ListOfCategories.Count; i++)
                 if (ListOfCategories[i].Equals(categorySelected)) ListOfCategories.Remove(ListOfCategories[i]);
