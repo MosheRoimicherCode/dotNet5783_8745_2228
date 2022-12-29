@@ -14,8 +14,8 @@
             </Grid.RowDefinitions>
 
 
-            <Button x:Name ="buttonProductWindows" Content="Add" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" Height="20" Width="128"
-                Click="Button_Click" Margin="257,193,34,0" Background="#FF0E6C09" Tag="1" Grid.Row="1">
+            <Button x:Name ="update_shiping_button" Content="update shiping" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" Height="76" Width="205"
+                Click="update_shiping_Button_Click" Margin="105,6,0,0" Background="#FF0E6C09" Tag="1" Grid.Row="1" HorizontalAlignment="Left" FontSize="24">
 
                 <Button.RenderTransform>
                     <TransformGroup>
@@ -26,7 +26,19 @@
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
-            
+            <Button x:Name ="update_providing_button" Content="update providing" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" Height="76" Width="205"
+                Click="update_providing_Button_Click" Margin="105,117,0,0" Background="#FF093C6C" Tag="1" Grid.Row="1" HorizontalAlignment="Left" FontSize="24">
+
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-0.278"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+
         </Grid>
     </Grid>
 </Window>

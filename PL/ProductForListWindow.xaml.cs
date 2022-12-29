@@ -41,7 +41,7 @@ public partial class ProductForListWindow : Window
         {
             if (categorySelected == BO.Enums.Category.all) ProductListview.ItemsSource = productForList;
 
-            else ProductListview.ItemsSource = productForList.Where(x => x?.Category == categorySelected);
+            else ProductListview.ItemsSource = productForList.Where(x => x.Category == categorySelected);
 
             for (int i = 0; i < ListOfCategories.Count; i++)
                 if (ListOfCategories[i].Equals(categorySelected)) ListOfCategories.Remove(ListOfCategories[i]);
