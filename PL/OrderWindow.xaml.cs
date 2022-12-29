@@ -12,21 +12,36 @@ using System.Windows.Controls;
 public partial class OrderWindow : Window
 {
     IBl p = Factory.Get();
-
+    int ID;
     public OrderWindow(int id)
     {
         InitializeComponent();
-
+        ID = id;
     }
 
     private void update_shiping_Button_Click(object sender, RoutedEventArgs e)
     {
+        try
+        {
+            p.Order.UpdateShipping(ID);
+        }
+        catch (Exception s)
+        {
+            new ERRORWindow(this, s.Message).Show();
+        }
 
     }
 
     private void update_providing_Button_Click(object sender, RoutedEventArgs e)
     {
-
+        try
+        {
+            p.Order.UpdateProviding(ID);
+        }
+        catch (Exception s)
+        {
+            new ERRORWindow(this, s.Message).Show();
+        }
     }
 
 }

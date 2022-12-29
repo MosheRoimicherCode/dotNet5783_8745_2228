@@ -30,7 +30,7 @@ public partial class OrderForListWindow : Window
     {
         BO.OrderForList orderForList = new();
         int id = ((BO.OrderForList)OrderListview.SelectedItem).ID;
-        //new OrderWindow("update", id).Show();
+        new OrderWindow(id).Show();
         this.Close();
     }
 
