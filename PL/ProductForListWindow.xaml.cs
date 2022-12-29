@@ -15,32 +15,23 @@ public partial class ProductForListWindow : Window
 {
     IBl? p = BlApi.Factory.Get();
 
-    IEnumerable<BO.ProductForList?> productForList;
+    IEnumerable<BO.ProductForList> productForList;
     private List<BO.Enums.Category> ListOfCategories = new();
-    //private List<string> ListOfCategoriesString = new();
     BO.Enums.Category all = new();
 
     public ProductForListWindow()
     {
         InitializeComponent();
-
-        //ListOfCategories.Add(all);
+       
         foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
         {
             ListOfCategories.Add(item);
-            //ListOfCategoriesString.Add(item.ToString());
         }
       
         productForList = p.Product.GetList();
-        //ProductListview.ItemsSource = productForList;
-
         ProductListview.ItemsSource = p.Product.GetList();
-
-        
-
         CategorySelector.ItemsSource = ListOfCategories;
         CategorySelector.SelectedIndex = 3;
-
     }
 
     public void CategorySelector_SelectionChanged(object sender, RoutedEventArgs e)

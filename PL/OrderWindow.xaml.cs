@@ -24,8 +24,6 @@ public partial class OrderWindow : Window
         try
         {
             var btn = e.OriginalSource as Button;
-            if (ID.Text == "") throw new Exception("ID can not be null!");
-            string OrderID = ID.Text;
             if (CustomerName.Text == "") throw new Exception("name can not be null!");
             string OrderCustomerName = CustomerName.Text;
             if (OrderStatus.Text == "") throw new Exception("status can not be null!");
