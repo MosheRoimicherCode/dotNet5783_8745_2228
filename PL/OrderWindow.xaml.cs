@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 
 /// <summary>
-/// Interaction logic for ProductWindow.xaml
+/// Interaction logic for OrderWindow.xaml
 /// </summary>
 public partial class OrderWindow : Window
 {
@@ -24,6 +24,8 @@ public partial class OrderWindow : Window
         try
         {
             p.Order.UpdateShipping(ID);
+            new OrderForListWindow().Show();
+            this.Close();
         }
         catch (Exception s)
         {
@@ -37,6 +39,8 @@ public partial class OrderWindow : Window
         try
         {
             p.Order.UpdateProviding(ID);
+            new OrderForListWindow().Show();
+            this.Close();
         }
         catch (Exception s)
         {
