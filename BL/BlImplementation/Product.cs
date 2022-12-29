@@ -53,19 +53,19 @@ internal class Product : BlApi.IProduct
         if (Id <= 0) throw new BO.IdBOException("Not positive Id!");
         try
         {
-            BO.ProductItem? item = new();
             BO.OrderItem orderItem = cart.Details.FirstOrDefault(x => x?.ProductID == Id) ?? throw new BO.IdBOException("Product with given Id didn't found");
+            BO.ProductItem? item = new()
+            {
+                ID = orderItem.ProductID,
+                AmontInCart = orderItem.Amount,
+                Name = cart.CustomerName,
+                Price = orderItem.ProductPrice,
+                IsInStock = false,
+                Category = (BO.Enums.Category?)Dal!.Product.Get(x => x?.ID == orderItem.ProductID)!.Value.Category
+            };
 
-            item.ID = orderItem.ProductID;
-            item.AmontInCart = orderItem.Amount;
-
-            if ((Dal!.Product.Get(x => x?.ID == orderItem.ProductID)!).Value.InStock > 0) item.IsInStock = true;
+            if ((Dal!.Product.Get(x => x?.ID == orderItem.ProductID)!).Value.InStock > 0) { item.IsInStock = true; }
             else { item.IsInStock = false; }
-
-            item.Name = cart.CustomerName;
-            item.Price = orderItem.ProductPrice;
-
-            item.Category = (BO.Enums.Category?)Dal.Product.Get(x => x?.ID == orderItem.ProductID)!.Value.Category;
             return item;
         }
         catch (IdException) { throw new BO.IdBOException("Product with given Id didn't found"); }
