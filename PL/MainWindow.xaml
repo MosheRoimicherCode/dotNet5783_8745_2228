@@ -7,49 +7,62 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
+    <Window.Resources>
+        <LinearGradientBrush x:Key="BackgroundButton">
+            <GradientStop Color="#FF4C93B3"/>
+            <GradientStop Color="#FF8A63B6" Offset="1"/>
+        </LinearGradientBrush>
+        
+        <Style x:Key="myButtonStyle"
+                TargetType="Button">
+            <Setter Property="FontSize"
+                    Value="36" />
+            <Setter Property="FontFamily"
+                    Value="Bold" />
+            <Setter Property="Width"
+                    Value="204"/>
+            <Setter Property="Height"
+                    Value="100"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border 
+                            CornerRadius="10"
+                            Background="{StaticResource BackgroundButton}"
+                            BorderThickness="5">
+                            <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="{TemplateBinding Padding}" >
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/pexels-kai-pilger-996329.jpg"/>
-        </Grid.Background>
         <Button 
+            Style="{StaticResource myButtonStyle}"
             Content="manager"
             Name ="ManagerButton"
-            HorizontalAlignment="Left"
-            Margin="10,274,0,30" Width="203"
-            Click="Manager_Button_Click" FontSize="36">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF4C93B3"/>
-                    <GradientStop Color="#FF8A63B6" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
+            Margin="586,7,10,297" 
+            Click="Manager_Button_Click"/>
+
         <Button 
+            Style="{StaticResource myButtonStyle}"
             Content="add order"
             Name ="AddOrderButton"
-            HorizontalAlignment="Left"
-            Margin="243,275,0,30" Width="216"
-            Click="Add_Order_Button_Click" FontSize="36">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF4C93B3"/>
-                    <GradientStop Color="#FF8A63B6" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Button 
-            Content="track your order"
+            Margin="583,294,13,10"
+            Click="Add_Order_Button_Click"/>
+
+        <Button
+            
+            Style="{StaticResource myButtonStyle}"
+            Content="track order"
             Name ="OrderTrackingButton"
-            HorizontalAlignment="Left"
-            Margin="492,275,0,30" Width="277"
-            Click="Order_Tracking_Button_Click" FontSize="36">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF4C93B3"/>
-                    <GradientStop Color="#FF8A63B6" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
+            Margin="584,150,12,155"
+            Click="Order_Tracking_Button_Click"/>
 
         <Label Content="ברוכים הבאים לחנות &#xD;&#xA;של משה ומענדי" Margin="0,7,294,0" VerticalAlignment="Top" Height="137" Width="800" FontSize="48" FontFamily="Georgia" Foreground="#FF101010" FontWeight="Bold" RenderTransformOrigin="0.499,0.797" HorizontalAlignment="Right" HorizontalContentAlignment="Right"/>
 

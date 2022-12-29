@@ -21,14 +21,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="250px-770_Eastern_Parkway.jpg" />
     <None Remove="c.jpg" />
-    <None Remove="c2.jpg" />
-    <None Remove="c3.jpg" />
     <None Remove="clothes.jpg" />
-    <None Remove="images.jpg" />
-    <None Remove="pexels-kai-pilger-996329.jpg" />
     <None Remove="yeshiva camp pkudei hashem 2014 099.JPG" />
+    <None Remove="z1_image.jpg" />
+    <None Remove="z2_250px-770_Eastern_Parkway.jpg" />
+    <None Remove="z3_pexels-kai-pilger-996329.jpg" />
+    <None Remove="z4.jpg" />
+    <None Remove="z5.jpg" />
     <None Remove="הורדה.jpg" />
   </ItemGroup>
 
@@ -37,11 +37,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="250px-770_Eastern_Parkway.jpg" />
-    <Resource Include="c2.jpg" />
-    <Resource Include="c3.jpg" />
-    <Resource Include="images.jpg" />
-    <Resource Include="pexels-kai-pilger-996329.jpg" />
+    <Resource Include="z2_250px-770_Eastern_Parkway.jpg" />
+    <Resource Include="z4.jpg" />
+    <Resource Include="z5.jpg" />
+    <Resource Include="z1_image.jpg" />
+    <Resource Include="z3_pexels-kai-pilger-996329.jpg" />
   </ItemGroup>
 
 </Project>
