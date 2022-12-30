@@ -11,19 +11,19 @@ using System.Windows.Controls;
 /// </summary>
 public partial class ProductWindow : Window
 {
-    IBl p = Factory.Get();
+    public static IBl productIBL = Factory.Get();
     string situation;
     private List<BO.Enums.Category> ListOfCategories = new();
 
     public ProductWindow(string str, int id)
     {
         InitializeComponent();
-
+        situation = str;
         BO.Product? productGeted = new();
 
         if (str == "update")
         {
-            productGeted = p.Product.Get(id);
+            productGeted = productIBL.Product.Get(id);
 
             buttonProductWindows.Content = str;
             ProducId.Text = (productGeted.ID).ToString();
@@ -35,12 +35,9 @@ public partial class ProductWindow : Window
             Category2.Text = productGeted.Category.ToString();
         }
         
-        situation = str;
-        foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
-        {
-            ListOfCategories.Add(item);
-            //ListOfCategoriesString.Add(item.ToString());
-        }
+        
+        foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category))) ListOfCategories.Add(item);
+
         Category2.ItemsSource = ListOfCategories;
         ListOfCategories.Remove(BO.Enums.Category.all);
         Category2.SelectedIndex = -1;
@@ -80,18 +77,19 @@ public partial class ProductWindow : Window
                 InStock = int.Parse(productInStock),
             };
 
-                //insert value to category
-            foreach (var item in ListOfCategories)
+                
+            foreach (var item in ListOfCategories)//insert value to category
             {
                 if (productCategory == item.ToString())
                     newProduct.Category = (BO.Enums.Category)Category2.SelectedItem;
             }
-            if (btn.Name == "buttonProductWindows") //else just go out - cancel button
+            if (btn.Name == "buttonProductWindows") //else just jump to cancel button
             {
-                if (situation == "add") p.Product.Add(newProduct);
-                else if (situation == "update") p.Product.Update(newProduct);
+                if (situation == "add") productIBL.Product.Add(newProduct);
+                else if (situation == "update") productIBL.Product.Update(newProduct);
             }
-            new ProductForListWindow().Show();
+            //new ProductForListWindow().Show();
+            GetBindingExpression(ListView.ItemsSourceProperty).UpdateSource();
             this.Close();
         }
         
@@ -104,7 +102,7 @@ public partial class ProductWindow : Window
     }
     private void Cancel_Button_Click(object sender, RoutedEventArgs e)
     {
-        new ProductForListWindow().Show();
+        //new ProductForListWindow().Show();
         this.Close();
     }
 }

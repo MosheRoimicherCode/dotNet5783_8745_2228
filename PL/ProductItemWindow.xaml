@@ -29,7 +29,7 @@
 
         </Grid>
 
-        <ListView Name ="ProductListview" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2">
+        <ListView Name ="ProductListview" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2" ItemsSource="{Binding}">
             <ListView.View>
 
                 <GridView x:Name="GridView1">
@@ -41,11 +41,8 @@
                                 Header="Price" Width="150"/>
                     <GridViewColumn DisplayMemberBinding= "{Binding Path=Category}" 
                                 Header="Category" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding Path=IsInStock}" 
-                                Header="Is In Stock" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding Path=AmountInCart}" 
-                                Header="Amount In Cart" Width="150"/>
-
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=InStock}" 
+                                Header="InStock" Width="150"/>
                 </GridView>
             </ListView.View>
 

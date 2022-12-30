@@ -42,7 +42,6 @@
             <Setter Property="Grid.Row"
                     Value="1"/>
         </Style>
-        
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -53,8 +52,10 @@
         <TextBox Style="{StaticResource TextBoxFormat}" x:Name="ProducId" Margin="163,10,0,0" ToolTip="Enter Id Product" MaxLength="6" MinWidth="6" />
         <TextBox Style="{StaticResource TextBoxFormat}" x:Name="ProductName" Margin="162,40,0,0" ToolTip="Enter the product name."/>
         <TextBox Style="{StaticResource TextBoxFormat}" x:Name="ProductPrice" Margin="161,73,0,0" ToolTip="Enter the product price." />
-        <TextBox  Style="{StaticResource TextBoxFormat}" x:Name="ProductInStock" Margin="162,137,0,0" ToolTip="Enter how many entities of product have in stock."/>
-        <ComboBox Margin="162,104,0,0" VerticalAlignment="Top" Width="224" Height="20" x:Name="Category2" ToolTip="Chose a category." Grid.Row="1" HorizontalAlignment="Left">
+        <TextBox Style="{StaticResource TextBoxFormat}" x:Name="ProductInStock" Margin="162,137,0,0" ToolTip="Enter how many entities of product have in stock."/>
+        <ComboBox x:Name="Category2" ToolTip="Chose a category." Margin="162,104,0,0" VerticalAlignment="Top" Width="224" Height="20"   Grid.Row="1" HorizontalAlignment="Left">
+ 
+            
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1">
                     <GradientStop Color="#FFA2CACF" Offset="1"/>
@@ -63,7 +64,7 @@
         </ComboBox>
         <Button x:Name ="buttonProductWindows" Content="Add" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" Height="20" Width="128"
                 Click="Button_Click" Margin="257,193,34,0" Background="#FF0E6C09" Tag="1" Grid.Row="1">
-
+                
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
