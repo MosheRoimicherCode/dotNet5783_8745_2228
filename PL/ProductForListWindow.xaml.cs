@@ -17,7 +17,6 @@ public partial class ProductForListWindow : Window
 
     IEnumerable<BO.ProductForList> productForList;
     private List<BO.Enums.Category> ListOfCategories = new();
-    BO.Enums.Category all = new();
 
     public ProductForListWindow()
     {
