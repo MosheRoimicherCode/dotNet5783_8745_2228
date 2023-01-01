@@ -48,7 +48,8 @@ internal class Product : BlApi.IProduct
         if (Id <= 0) throw new BO.IdBOException("Not positive Id!");
         return ConvertProductToBoProduct((DO.Product)Dal!.Product.Get(x => x?.ID == Id)!);
     }
-    public BO.ProductItem Get(int Id, BO.Cart cart)
+ 
+    public BO.ProductItem Get(int? Id, BO.Cart cart)
     {
         if (Id <= 0) throw new BO.IdBOException("Not positive Id!");
         try
@@ -70,6 +71,13 @@ internal class Product : BlApi.IProduct
         }
         catch (IdException) { throw new BO.IdBOException("Product with given Id didn't found"); }
     }
+
+    public IEnumerable<BO.ProductItem> GetListOfItems(BO.Cart cart)
+    {
+        return from item in Dal?.Product.GetAll()
+               select Get(item?.ID, cart);    
+    }
+
     public void Remove(int Id)
     {
         ///check if received Id exist

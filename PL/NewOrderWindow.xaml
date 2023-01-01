@@ -6,7 +6,58 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="NewOrderWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Window.Resources>
+
+    </Window.Resources>
+    <Grid Name ="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height = "70*"/>
+            <RowDefinition Height = "500*"/>
+            <RowDefinition Height = "Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
+
+            <ComboBox 
+                Name ="CategorySelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged"  >
+            </ComboBox>
+            <Label Name ="CategorySelectorLabel" Content="Category:" Grid.Column="0" FontSize="25" Grid.ColumnSpan="2" Margin="276,0,124,0"/>
+
+            <Button x:Name="Add_new_Product" 
+                    Content="Add new Product" 
+                    HorizontalAlignment="Left" 
+                    Margin="10,6,0,4" 
+                    Padding="5"
+                    Click="Button_Click"
+                    />
+
+        </Grid>
+
+        <ListView Name ="ProductListview" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2">
+            <ListView.View>
+
+                <GridView x:Name="GridView1">
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=Name}" 
+                                Header="Product name" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=ID}" 
+                                Header="Product ID" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=Price}" 
+                                Header="Price" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=Category}" 
+                                Header="Category" Width="150"/>
+
+                </GridView>
+            </ListView.View>
+
+        </ListView>
+
+
     </Grid>
 </Window>

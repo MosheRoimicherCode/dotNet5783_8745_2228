@@ -12,7 +12,7 @@ namespace BlApi
 
         ///search for a product with specific Id inside client cart (for client user)
         /// <returns> BoProductItem </returns>
-        public ProductItem Get(int Id, Cart cart);
+        public ProductItem Get(int? Id, Cart cart);
 
         ///remove product from data base - for manager user
         public void Remove(int Id);
@@ -23,5 +23,7 @@ namespace BlApi
         /// return a list with all product in client order
         /// <returns> Product list </returns>
         public List<BO.ProductForList> GetList(Func<DO.Product?, bool>? filter = null);
+
+        public IEnumerable<BO.ProductItem> GetListOfItems(BO.Cart cart);
     }
 } /// interface of product items for manager and client

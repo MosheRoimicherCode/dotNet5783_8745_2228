@@ -11,7 +11,7 @@ public partial class ManagerWindow : Window
     {
         InitializeComponent();
     }
-    private void Product_List_Button_Click(object sender, RoutedEventArgs e) { new ProductForListWindow().Show(); this.Close(); }
-    private void Order_List_Button_Click(object sender, RoutedEventArgs e) { new OrderForListWindow().Show(); this.Close(); }
+    private void Product_List_Button_Click(object sender, RoutedEventArgs e) { new ProductForListWindow().Show(); }
+    private void Order_List_Button_Click(object sender, RoutedEventArgs e) { new OrderForListWindow().Show();  }
    
 }
