@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ProductForListWindow" Height="450" Width="800">
+        Title="ProductForListWindow" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" >
     <Window.Resources>
         <LinearGradientBrush x:Key="BackgroundButton">
             <GradientStop Color="BlueViolet"/>
             <GradientStop Color="Orange" Offset="1"/>
+            
         </LinearGradientBrush>
 
         <Style x:Key="myButtonStyle"
@@ -70,17 +72,17 @@
 
         </Grid>
 
-        <ListView Name ="ProductListview" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2" ToolTip="Double click to update a product properties" BorderBrush="{DynamicResource BackgroundButton}" Background="{DynamicResource BackgroundButton}">
+        <ListView Name ="ProductListview" ItemsSource= "{Binding productForListUpdate}" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2" ToolTip="Double click to update a product properties" BorderBrush="{DynamicResource BackgroundButton}" Background="{DynamicResource BackgroundButton}">
             <ListView.View>
 
                 <GridView x:Name="GridView1">
-                    <GridViewColumn DisplayMemberBinding= "{Binding Path=Name}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding Name}" 
                                 Header="Product name" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding Path=ID}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding ID}" 
                                 Header="Product ID" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding Path=Price}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding Price}" 
                                 Header="Price" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding Path=Category}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding Category}" 
                                 Header="Category" Width="150"/>
 
                 </GridView>

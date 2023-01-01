@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,42 +14,57 @@ using BO;
 /// <summary>
 /// Interaction logic for ProductForListWindow.xaml
 /// </summary>
-public partial class ProductForListWindow : Window
+public partial class ProductForListWindow : Window, INotifyPropertyChanged
 {
     IBl? p = BlApi.Factory.Get();
+    
 
-    ObservableCollection<BO.ProductForList> productForList;
     private List<BO.Enums.Category> ListOfCategories = new();
+
+    private List<BO.ProductForList> productForList;
+    public List<BO.ProductForList> productForListUpdate
+    {
+        get { return productForList; }
+        set
+        {
+            productForList = value;
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs("productForListUpdate"));
+            }
+        }
+    }
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public ProductForListWindow()
     {
+        productForList = new List<BO.ProductForList>(p.Product.GetList());
         InitializeComponent();
         foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
         {
             ListOfCategories.Add(item);
         }
 
-        productForList = new ObservableCollection<BO.ProductForList>(p.Product.GetList());
-        DataContext = productForList;
-        //ProductListview.ItemsSource = p.Product.GetList();
         CategorySelector.ItemsSource = ListOfCategories;
         CategorySelector.SelectedIndex = 3;
     }
+
+    
 
     public void CategorySelector_SelectionChanged(object sender, RoutedEventArgs e)
     {
 
         if (CategorySelector.SelectedItem is BO.Enums.Category categorySelected)
         {
-            if (categorySelected == BO.Enums.Category.all) ProductListview.ItemsSource = new ObservableCollection<BO.ProductForList>(p.Product.GetList());
+            if (categorySelected == BO.Enums.Category.all) ProductListview.ItemsSource = productForListUpdate;
 
-            else ProductListview.ItemsSource = new ObservableCollection<BO.ProductForList>(p.Product.GetList()).Where(x => x.Category == categorySelected);
+            else ProductListview.ItemsSource = productForListUpdate.Where(x => x.Category == categorySelected);
 
             for (int i = 0; i < ListOfCategories.Count; i++)
                 if (ListOfCategories[i].Equals(categorySelected)) ListOfCategories.Remove(ListOfCategories[i]);
 
 
-            this.CategorySelector.ItemsSource = new ObservableCollection<BO.Enums.Category>(ListOfCategories);
+            this.CategorySelector.ItemsSource = new List<BO.Enums.Category>(ListOfCategories);
             ListOfCategories.Clear();
             foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
                 ListOfCategories.Add(item);

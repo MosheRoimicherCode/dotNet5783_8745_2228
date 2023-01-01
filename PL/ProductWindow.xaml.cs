@@ -95,7 +95,7 @@ public partial class ProductWindow : Window
                 else if (situation == "update") productIBL.Product.Update(newProduct);
             }
             new ProductForListWindow().Show();
-            //GetBindingExpression(ListView.ItemsSourceProperty).UpdateSource();
+           
             this.Close();
         }
         
@@ -108,7 +108,7 @@ public partial class ProductWindow : Window
     }
     private void Cancel_Button_Click(object sender, RoutedEventArgs e)
     {
-        new ProductForListWindow().Show();
+        //new ProductForListWindow().Show();
         this.Close();
     }
 
