@@ -7,7 +7,34 @@
         mc:Ignorable="d"
         Title="ProductForListWindow" Height="450" Width="800">
     <Window.Resources>
-        
+        <LinearGradientBrush x:Key="BackgroundButton">
+            <GradientStop Color="BlueViolet"/>
+            <GradientStop Color="Orange" Offset="1"/>
+        </LinearGradientBrush>
+
+        <Style x:Key="myButtonStyle"
+                TargetType="Button">
+            <Setter Property="FontSize"
+                    Value="15" />
+            <Setter Property="FontFamily"
+                    Value="Bold" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border 
+                            CornerRadius="10"
+                            Background="{StaticResource BackgroundButton}"
+                            BorderThickness="1">
+                            <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="{TemplateBinding Padding}" >
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid Name ="MainGrid">
         <Grid.ColumnDefinitions>
@@ -26,21 +53,24 @@
             </Grid.ColumnDefinitions >
 
             <ComboBox 
-                Name ="CategorySelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged"  >
+                Name ="CategorySelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged" Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" >
             </ComboBox>
-            <Label Name ="CategorySelectorLabel" Content="Category:" Grid.Column="0" FontSize="25" Grid.ColumnSpan="2" Margin="276,0,124,0"/>
+            <Label Name ="CategorySelectorLabel" Content="Category:" Grid.Column="0" FontSize="20" Margin="276,0,1,0" Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}"/>
 
             <Button x:Name="Add_new_Product" 
                     Content="Add new Product" 
                     HorizontalAlignment="Left" 
-                    Margin="10,6,0,4" 
+                    Margin="10,5,0,17" 
                     Padding="5"
-                    Click="Button_Click"
-                    />
+                    Click="Button_Click" Width="133"
+                    Style="{StaticResource myButtonStyle}"
+                    >
+
+            </Button>
 
         </Grid>
 
-        <ListView Name ="ProductListview" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2">
+        <ListView Name ="ProductListview" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2" ToolTip="Double click to update a product properties" BorderBrush="{DynamicResource BackgroundButton}" Background="{DynamicResource BackgroundButton}">
             <ListView.View>
 
                 <GridView x:Name="GridView1">
