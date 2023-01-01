@@ -5,6 +5,7 @@ using BO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -17,10 +18,11 @@ public partial class ProductWindow : Window
     public static IBl productIBL = Factory.Get();
     string situation;
     private List<BO.Enums.Category> ListOfCategories = new();
-
-    public ProductWindow(string str, int id)
+    Action change;
+    public ProductWindow(string str, int id, Action action)
     {
         InitializeComponent();
+        change = action;    
         situation = str;
         BO.Product? productGeted = new();
 
@@ -94,8 +96,8 @@ public partial class ProductWindow : Window
                 }
                 else if (situation == "update") productIBL.Product.Update(newProduct);
             }
-            new ProductForListWindow().Show();
-           
+            change();
+            //new ProductForListWindow().Show();         
             this.Close();
         }
         

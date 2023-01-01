@@ -21,8 +21,8 @@ public partial class ProductForListWindow : Window, INotifyPropertyChanged
 
     private List<BO.Enums.Category> ListOfCategories = new();
 
-    private List<BO.ProductForList> productForList;
-    public List<BO.ProductForList> productForListUpdate
+    private IEnumerable<BO.ProductForList> productForList;
+    public IEnumerable<BO.ProductForList> productForListUpdate
     {
         get { return productForList; }
         set
@@ -38,8 +38,9 @@ public partial class ProductForListWindow : Window, INotifyPropertyChanged
 
     public ProductForListWindow()
     {
-        productForList = new List<BO.ProductForList>(p.Product.GetList());
+       
         InitializeComponent();
+        productForList = new List<BO.ProductForList>(p.Product.GetList());
         foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
         {
             ListOfCategories.Add(item);
@@ -70,17 +71,20 @@ public partial class ProductForListWindow : Window, INotifyPropertyChanged
                 ListOfCategories.Add(item);
         }
     }
-
+    private void onChange()
+    {
+        productForListUpdate = productForListUpdate?.Select(x => x)!;
+    }
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        new ProductWindow("add", 0).Show();
-        this.Close();
+        new ProductWindow("add", 0, onChange).Show();
+        //this.Close();
     }
 
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         int? id = ((BO.ProductForList)ProductListview.SelectedItem).ID;
-        new ProductWindow("update", (int)id).Show();
-        this.Close();
+        new ProductWindow("update", (int)id, onChange).Show();
+        //this.Close();
     }
 }

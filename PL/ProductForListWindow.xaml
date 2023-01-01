@@ -65,8 +65,7 @@
                     Margin="10,5,0,17" 
                     Padding="5"
                     Click="Button_Click" Width="133"
-                    Style="{StaticResource myButtonStyle}"
-                    >
+                    Style="{StaticResource myButtonStyle}">
 
             </Button>
 

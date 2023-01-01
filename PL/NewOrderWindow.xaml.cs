@@ -4,6 +4,7 @@ using PL;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,9 +23,22 @@ public partial class NewOrderWindow : Window
     IBl? p = BlApi.Factory.Get();
     BO.Cart cart = new BO.Cart();
 
-    ObservableCollection<BO.ProductItem> productItems;
     private List<BO.Enums.Category> ListOfCategories = new();
 
+    private List<BO.ProductItem> productItems;
+    public List<BO.ProductItem> productItemsForUpdate
+    {
+        get { return productItems; }
+        set
+        {
+            productItems = value;
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs("productForListUpdate"));
+            }
+        }
+    }
+    public event PropertyChangedEventHandler? PropertyChanged;
     public NewOrderWindow()
     {
         InitializeComponent();
@@ -33,7 +47,7 @@ public partial class NewOrderWindow : Window
             ListOfCategories.Add(item);
         }
 
-        productItems = new ObservableCollection<BO.ProductItem>(p.Product.GetListOfItems(cart));
+        productItems = new List<BO.ProductItem>(p.Product.GetListOfItems(cart));
         DataContext = productItems;
         //ProductListview.ItemsSource = p.Product.GetList();
         CategorySelector.ItemsSource = ListOfCategories;
@@ -62,14 +76,14 @@ public partial class NewOrderWindow : Window
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        new ProductWindow("add", 0).Show();
+        //new ProductWindow("add", 0).Show();
         this.Close();
     }
 
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         int? id = ((BO.ProductForList)ProductListview.SelectedItem).ID;
-        new ProductWindow("update", (int)id).Show();
+        //new ProductWindow("update", (int)id).Show();
         this.Close();
     }
 }
