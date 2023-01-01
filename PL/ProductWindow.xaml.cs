@@ -1,10 +1,13 @@
 ﻿namespace PL;
 
 using BlApi;
+using BO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 /// <summary>
 /// Interaction logic for ProductWindow.xaml
@@ -77,7 +80,7 @@ public partial class ProductWindow : Window
                 InStock = int.Parse(productInStock),
             };
 
-                
+            
             foreach (var item in ListOfCategories)//insert value to category
             {
                 if (productCategory == item.ToString())
@@ -85,7 +88,10 @@ public partial class ProductWindow : Window
             }
             if (btn.Name == "buttonProductWindows") //else just jump to cancel button
             {
-                if (situation == "add") productIBL.Product.Add(newProduct);
+                if (situation == "add")
+                {
+                    productIBL.Product.Add(newProduct);
+                }
                 else if (situation == "update") productIBL.Product.Update(newProduct);
             }
             new ProductForListWindow().Show();
@@ -104,5 +110,10 @@ public partial class ProductWindow : Window
     {
         new ProductForListWindow().Show();
         this.Close();
+    }
+
+    private void buttonProductWindows_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter) {Button_Click(sender, e);}
     }
 }

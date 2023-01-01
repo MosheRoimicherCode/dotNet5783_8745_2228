@@ -63,16 +63,7 @@
             </ComboBox.Background>
         </ComboBox>
         <Button x:Name ="buttonProductWindows" Content="Add" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" Height="20" Width="128"
-                Click="Button_Click" Margin="257,193,34,0" Background="#FF0E6C09" Tag="1" Grid.Row="1">
-                
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-0.278"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Button.RenderTransform>
+                Click="Button_Click" Margin="257,193,34,0" Background="#FF0E6C09" Tag="1" Grid.Row="1" PreviewKeyDown="buttonProductWindows_KeyDown">
         </Button>
         <Button Content="Cancel" Margin="82,192,209,0" VerticalAlignment="Top" Background="#FFB10D0D" Click="Cancel_Button_Click" Tag="2" Grid.Row="1" Width="128"/>
         

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using BlApi;
+using BO;
 
 
 /// <summary>
@@ -60,10 +61,10 @@ public partial class ProductForListWindow : Window
         this.Close();
     }
 
-    private void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        int id = ((BO.ProductForList)ProductListview.SelectedItem).ID;
-        new ProductWindow("update", id).Show();
+        int? id = ((BO.ProductForList)ProductListview.SelectedItem).ID;
+        new ProductWindow("update", (int)id).Show();
         this.Close();
     }
 }
