@@ -97,7 +97,7 @@ public partial class ProductWindow : Window
                 else if (situation == "update") productIBL.Product.Update(newProduct);
             }
             change();
-            //new ProductForListWindow().Show();         
+            new ProductForListWindow().Show();         
             this.Close();
         }
         

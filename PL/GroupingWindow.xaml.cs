@@ -17,11 +17,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-public partial class NewOrderWindow : Window
+public partial class GroupingWindow : Window
 {
     IBl? p = BlApi.Factory.Get();
     BO.Cart cart = new BO.Cart();
-    
+
 
     private List<BO.Enums.Category> ListOfCategories = new();
 
@@ -39,7 +39,7 @@ public partial class NewOrderWindow : Window
         }
     }
     public event PropertyChangedEventHandler? PropertyChanged;
-    public NewOrderWindow()
+    public GroupingWindow()
     {
         InitializeComponent();
         foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
@@ -50,10 +50,10 @@ public partial class NewOrderWindow : Window
         productItems = new List<BO.ProductItem>(p.Product.GetListOfItems(cart));
 
         DataContext = productItems;
-        
+
         CategorySelector.ItemsSource = ListOfCategories;
         CategorySelector.SelectedIndex = 3;
-        
+
         ProductItemView.ItemsSource = productItems;
 
     }
@@ -90,8 +90,7 @@ public partial class NewOrderWindow : Window
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        new GroupingWindow().Show();
+        new NewOrderWindow().Show();
         this.Close();
     }
 }
- 

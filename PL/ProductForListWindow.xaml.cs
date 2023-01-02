@@ -78,13 +78,13 @@ public partial class ProductForListWindow : Window, INotifyPropertyChanged
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         new ProductWindow("add", 0, onChange).Show();
-        //this.Close();
+        this.Close();
     }
 
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         int? id = ((BO.ProductForList)ProductListview.SelectedItem).ID;
         new ProductWindow("update", (int)id, onChange).Show();
-        //this.Close();
+        this.Close();
     }
 }
