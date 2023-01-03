@@ -84,51 +84,47 @@ namespace BlImplementation
 
             //search for product if exist inside cart
             if (newBoCart.Details.Any(x => x?.ProductID == productId))
-            { 
-                
-                foreach (BO.Product item in productList)
-                {
-                    if (item.ID == productId || item.InStock > 0) //if product it in stock
-                    {
-                        item.InStock--;  //remove one from stock for orderItem
-                        foreach (BO.OrderItem? orderItem in newBoCart.Details)  //search the order item with specific id
-                        {
-                            if (orderItem?.ProductID == productId)
-                            {
-                                orderItem.Amount++; //add one to amount in order item inside cart 
-                                orderItem.TotalPrice += orderItem.ProductPrice; //update the total price in order item
+            {
+                IEnumerable<BO.OrderItem> updateDetails = from product in productList
+                                              where (product.ID == productId && product.InStock > 0)
+                                              from orderItem in boCart.Details
+                                              where orderItem.ProductID == productId
+                                              select new BO.OrderItem()
+                                              {
+                                                  ID = orderItem.ID,
+                                                  ProductID = orderItem.ProductID,
+                                                  OrderID = orderItem.OrderID,
+                                                  ProductName = orderItem.ProductName,
+                                                  ProductPrice = orderItem.ProductPrice,
+                                                  Amount = orderItem.Amount + 1,
+                                                  TotalPrice = orderItem.TotalPrice + orderItem.ProductPrice
+                                              };
 
-                                newBoCart.TotalPrice += orderItem.ProductPrice; //update the total price in cart
-                            }
-                        }
-                    }
-                }
+
+                newBoCart.Details.RemoveAll(x => x?.ProductID == productId);
+                newBoCart.Details.AddRange(updateDetails);
+
             }
             else //if product is not yet inside cart
             {
-                foreach (BO.Product item in productList)
-                {
-                    if (item.ID == productId || item.InStock > 0) //if product it in stock
-                    {
-                        item.InStock--; //remove one from stock for orderItem
-                        foreach (BO.OrderItem? orderItem in orderItemList)
-                        {
-                            BO.OrderItem? newOrderItem = new(); //create a new order item 
-                            newOrderItem.ID = orderItem.ID;
-                            newOrderItem.ProductID = productId;
-                            newOrderItem.OrderID = orderItem.OrderID;
-                            newOrderItem.ProductName = orderItem.ProductName;
-                            newOrderItem.ProductPrice = orderItem.ProductPrice;
-                            newOrderItem.Amount = 1;
-                            newOrderItem.TotalPrice = item.Price;
+                IEnumerable<BO.OrderItem> updateDetails = from product in productList
+                                                          where (product.ID == productId && product.InStock > 0)
+                                                          from orderItem in orderItemList
+                                                          where orderItem.ProductID == productId
+                                                          select new BO.OrderItem()
+                                                          {
+                                                              ID = orderItem.ID,
+                                                              ProductID = orderItem.ProductID,
+                                                              OrderID = orderItem.OrderID,
+                                                              ProductName = orderItem.ProductName,
+                                                              ProductPrice = orderItem.ProductPrice,
+                                                              Amount = 1,
+                                                              TotalPrice = orderItem.ProductPrice
+                                                          };
 
-                            newBoCart.Details.Add(newOrderItem);  //a new order item to cart
-                            newBoCart.TotalPrice += item.Price;   //update total price of cart
-                        }
-                    }
-                }
+                newBoCart.Details.AddRange(updateDetails);
             }
-            
+
             return newBoCart;
         }
         ///updated the amount in the cart

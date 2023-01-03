@@ -34,7 +34,7 @@ public partial class CartWindow : Window
         InitializeComponent();
         CurrentCart = cart;
 
-        _ = p.Cart.Add(CurrentCart, Productid);
+        p.Cart.Add(CurrentCart, Productid);
 
         orderItemFromCart = cart.Details.Select(x => x);
         orderItemFromCartUpdate = orderItemFromCart;
