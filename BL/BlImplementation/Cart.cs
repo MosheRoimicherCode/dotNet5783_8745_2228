@@ -111,7 +111,7 @@ namespace BlImplementation
                     if (item.ID == productId || item.InStock > 0) //if product it in stock
                     {
                         item.InStock--; //remove one from stock for orderItem
-                        foreach (BO.OrderItem? orderItem in newBoCart.Details)
+                        foreach (BO.OrderItem? orderItem in orderItemList)
                         {
                             BO.OrderItem? newOrderItem = new(); //create a new order item 
                             newOrderItem.ID = orderItem.ID;
@@ -128,6 +128,7 @@ namespace BlImplementation
                     }
                 }
             }
+            
             return newBoCart;
         }
         ///updated the amount in the cart

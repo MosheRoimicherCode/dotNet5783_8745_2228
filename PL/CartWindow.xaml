@@ -5,9 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="CartWindow" Height="450" Width="800">
-    <Grid>
-        <Label x:Name="yourCart" Content="your cart" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="424" Height="77" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="36"/>
+        Title="CartWindow" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" >
 
+    <Grid x:Name="Cart_window" Margin="46,46,0,0">
+        <StackPanel HorizontalAlignment="Left" Margin="-16,-28,0,0" Orientation="Horizontal" VerticalAlignment="Top">
+            <Label Content= "Name:"/>
+            <TextBox x:Name="UserName" Text="User Name" TextWrapping="Wrap" Width="120"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Margin="-10,18,0,0" Orientation="Horizontal" VerticalAlignment="Top">
+            <Label Content= "Email:"/>
+            <TextBox x:Name="UserEmail" Text="User Email" TextWrapping="Wrap" Width="120"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Margin="-22,65,0,0" Orientation="Horizontal" VerticalAlignment="Top">
+            <Label Content= "Address:"/>
+
+            <TextBox x:Name="UserAddress" Text="User Address" TextWrapping="Wrap" Width="120"/>
+        </StackPanel>
+        <ListBox x:Name="CartList" ItemsSource="{Binding orderItemFromCartUpdate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="200,-27,26,166">
+            <ListView>
+                <ListView.View>
+                    <GridView x:Name="GridView1">
+                        <GridViewColumn DisplayMemberBinding= "{Binding ID}" 
+                                Header="Order ID" Width="70"/>
+                        <GridViewColumn DisplayMemberBinding= "{Binding ProductID}" 
+                                Header="ProductID" Width="70"/>
+                        <GridViewColumn DisplayMemberBinding= "{Binding OrderID}" 
+                                Header="OrderID " Width="70"/>
+                        <GridViewColumn DisplayMemberBinding= "{Binding ProductName}" 
+                                Header="ProductName" Width="70"/>
+                        <GridViewColumn DisplayMemberBinding= "{Binding ProductPrice}" 
+                                Header="ProductPrice" Width="70"/>
+                        <GridViewColumn DisplayMemberBinding= "{Binding Amount}" 
+                                Header="Price" Width="70"/>
+                        <GridViewColumn DisplayMemberBinding= "{Binding TotalPrice}" 
+                                Header="total Price" Width="70"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </ListBox>
     </Grid>
+
+
 </Window>
