@@ -58,8 +58,8 @@
 
     <Grid Name ="regularView">
         </Grid>
-        <ComboBox Name ="CategorySelector" SelectionChanged="CategorySelector_SelectionChanged" Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" Grid.ColumnSpan="2" Margin="412,0,0,0" />
-        <Label Name ="CategorySelectorLabel" Content="Category:" Grid.Column="0" FontSize="20" Margin="276,0,338,0" Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}"/>
+        <ComboBox Name ="CategorySelector" SelectionChanged="CategorySelector_SelectionChanged" Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" Grid.ColumnSpan="2" Margin="496,0,0,0" />
+        <Label Name ="CategorySelectorLabel" Content="Category:" Grid.Column="0" FontSize="20" Margin="381,0,259,0" Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}"/>
 
 
         <ListView Name ="ProductItemView" ItemsSource= "{Binding productItems}" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2" ToolTip="Double click to update a product properties" BorderBrush="{DynamicResource BackgroundButton}" Background="{DynamicResource BackgroundButton}">
@@ -89,6 +89,16 @@
                     Margin="10,5,0,17" 
                     Padding="5"
                     Click="Button_Click" Width="133"
+                    Style="{StaticResource myButtonStyle}">
+
+        </Button>
+
+        <Button x:Name="cart_button" 
+                    Content="go to cart" 
+                    HorizontalAlignment="Left" 
+                    Margin="168,5,0,16" 
+                    Padding="5"
+                    Click="cart_Button_Click" Width="162"
                     Style="{StaticResource myButtonStyle}">
 
         </Button>
