@@ -23,28 +23,32 @@ using System.Windows.Shapes;
 public partial class ProductItemWindow : Window
 {
     IBl? p = BlApi.Factory.Get();
-    BO.ProductItem productItem;
+    BO.ProductForList productItem;
     BO.Cart cart1;
     int id;
+    int AmountItems;
     public ProductItemWindow(int ID, BO.Cart cart)
     {
         InitializeComponent();
-        productItem = p.Product.Get(ID, cart);
+        productItem = p.Product.GetList(x => x.Value.ID == ID).First();
         
         Name2.Content = productItem.Name;
         ID2.Content = productItem.ID;
         Price2.Content = productItem.Price;
         Category2.Content = productItem.Category;
-        IsInStock2.Content = productItem.IsInStock;
-        AmontInCart2.Content = productItem.AmontInCart;
+        //IsInStock2.Content = productItem.IsInStock;
+        //AmontInCart2.Content = productItem.AmontInCart;
 
         cart1 = cart;
         id = ID;
+        AmountItems = int.Parse(Amount.Text);
     }
 
     private void add_Button_Click(object sender, RoutedEventArgs e)
     {
-        cart1 = p.Cart.Add(cart1, id);
-        cart1 = cart1;
+        /*for (int i = 0; i < AmountItems; i++) */
+        cart1 = p?.Cart.Add(cart1, id)!;
+        new CartWindow(cart1,id).Show();
+        this.Close();
     }
 }
