@@ -21,6 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Class1.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="c.jpg" />
     <None Remove="clothes.jpg" />
     <None Remove="yeshiva camp pkudei hashem 2014 099.JPG" />

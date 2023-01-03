@@ -2,14 +2,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using BlApi;
-using BO;
-
 
 /// <summary>
 /// Interaction logic for ProductForListWindow.xaml
@@ -17,11 +15,9 @@ using BO;
 public partial class ProductForListWindow : Window, INotifyPropertyChanged
 {
     IBl? p = BlApi.Factory.Get();
-    
-
     private List<BO.Enums.Category> ListOfCategories = new();
-
     private IEnumerable<BO.ProductForList> productForList;
+    
     public IEnumerable<BO.ProductForList> productForListUpdate
     {
         get { return productForList; }
@@ -35,11 +31,12 @@ public partial class ProductForListWindow : Window, INotifyPropertyChanged
         }
     }
     public event PropertyChangedEventHandler? PropertyChanged;
-
+    
     public ProductForListWindow()
     {
        
         InitializeComponent();
+        this.DataContext = productForListUpdate;
         productForList = new List<BO.ProductForList>(p.Product.GetList());
         foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
         {
@@ -49,8 +46,6 @@ public partial class ProductForListWindow : Window, INotifyPropertyChanged
         CategorySelector.ItemsSource = ListOfCategories;
         CategorySelector.SelectedIndex = 3;
     }
-
-    
 
     public void CategorySelector_SelectionChanged(object sender, RoutedEventArgs e)
     {
@@ -73,7 +68,7 @@ public partial class ProductForListWindow : Window, INotifyPropertyChanged
     }
     private void onChange()
     {
-        productForListUpdate = productForListUpdate?.Select(x => x)!;
+        productForListUpdate = p.Product.GetList();
     }
     private void Button_Click(object sender, RoutedEventArgs e)
     {

@@ -49,7 +49,7 @@ public partial class ProductWindow : Window
 
         if (str == "update")
         {
-            //define defaul comboBox stand
+            //define default comboBox stand
             if (productGeted.Category.ToString() == "footwear") Category2.SelectedIndex = 0;
             if (productGeted.Category.ToString() == "outerwear") Category2.SelectedIndex = 1;
             if (productGeted.Category.ToString() == "business") Category2.SelectedIndex = 2;
@@ -86,14 +86,11 @@ public partial class ProductWindow : Window
             foreach (var item in ListOfCategories)//insert value to category
             {
                 if (productCategory == item.ToString())
-                    newProduct.Category = (BO.Enums.Category)Category2.SelectedItem;
+                    newProduct.Category = (BO.Enums.Category)Category2.SelectedItem!;
             }
             if (btn.Name == "buttonProductWindows") //else just jump to cancel button
             {
-                if (situation == "add")
-                {
-                    productIBL.Product.Add(newProduct);
-                }
+                if (situation == "add") productIBL.Product.Add(newProduct);
                 else if (situation == "update") productIBL.Product.Update(newProduct);
             }
             change();
