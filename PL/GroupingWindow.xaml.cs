@@ -17,11 +17,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-public partial class NewOrderWindow : Window
+public partial class GroupingWindow : Window
 {
     IBl? p = BlApi.Factory.Get();
-    BO.Cart cart1 = new BO.Cart();
-    
+    BO.Cart cart = new BO.Cart();
+
 
     private List<BO.Enums.Category> ListOfCategories = new();
 
@@ -39,7 +39,7 @@ public partial class NewOrderWindow : Window
         }
     }
     public event PropertyChangedEventHandler? PropertyChanged;
-    public NewOrderWindow()
+    public GroupingWindow()
     {
         InitializeComponent();
         foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
@@ -47,13 +47,13 @@ public partial class NewOrderWindow : Window
             ListOfCategories.Add(item);
         }
 
-        productItems = new List<BO.ProductItem>(p.Product.GetListOfItems(cart1));
+        productItems = new List<BO.ProductItem>(p.Product.GetListOfItems(cart));
 
         DataContext = productItems;
-        
+
         CategorySelector.ItemsSource = ListOfCategories;
         CategorySelector.SelectedIndex = 3;
-        
+
         ProductItemView.ItemsSource = productItems;
 
     }
@@ -64,9 +64,9 @@ public partial class NewOrderWindow : Window
 
         if (CategorySelector.SelectedItem is BO.Enums.Category categorySelected)
         {
-            if (categorySelected == BO.Enums.Category.all) ProductItemView.ItemsSource = new List<BO.ProductItem>(p.Product.GetListOfItems(cart1));
+            if (categorySelected == BO.Enums.Category.all) ProductItemView.ItemsSource = new List<BO.ProductItem>(p.Product.GetListOfItems(cart));
 
-            else ProductItemView.ItemsSource = new List<BO.ProductItem>(p.Product.GetListOfItems(cart1)).Where(x => x.Category == categorySelected);
+            else ProductItemView.ItemsSource = new List<BO.ProductItem>(p.Product.GetListOfItems(cart)).Where(x => x.Category == categorySelected);
 
             for (int i = 0; i < ListOfCategories.Count; i++)
                 if (ListOfCategories[i].Equals(categorySelected)) ListOfCategories.Remove(ListOfCategories[i]);
@@ -83,20 +83,14 @@ public partial class NewOrderWindow : Window
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         int? id = ((BO.ProductItem)ProductItemView.SelectedItem).ID;
-        new ProductItemWindow((int)id, cart1).Show();
+        new ProductItemWindow((int)id, cart).Show();
 
     }
 
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        new GroupingWindow().Show();
+        new NewOrderWindow().Show();
         this.Close();
     }
-
-    private void cart_Button_Click(object sender, RoutedEventArgs e)
-    {
-        new CartWindow(cart1).Show();
-    }
 }
- 
