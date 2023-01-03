@@ -4,6 +4,7 @@ using System.Linq;
 namespace PL;
 
 using BlApi;
+using BO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -43,7 +44,7 @@ public partial class ProductItemWindow : Window
 
     private void add_Button_Click(object sender, RoutedEventArgs e)
     {
-        p.Cart.Add(cart1, id);
+        cart1 = p.Cart.Add(cart1, id);
         cart1 = cart1;
     }
 }
