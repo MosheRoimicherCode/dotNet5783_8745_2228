@@ -1,6 +1,5 @@
 ﻿namespace PL; 
 using BlApi;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,11 +11,13 @@ using System.Windows;
 /// </summary>
 public partial class CartWindow : Window
 {
-    public static IBl p = Factory.Get();
-    IEnumerable<BO.OrderItem>? orderItemFromCart;
+    IBl p = Factory.Get();
+    private BO.Cart CurrentCart = new();
+    private IEnumerable<BO.OrderItem?> orderItemFromCart;
+
     public IEnumerable<BO.OrderItem> orderItemFromCartUpdate
     {
-        get => orderItemFromCart;
+        get => orderItemFromCart!;
         set
         {
             orderItemFromCart = value;
@@ -31,16 +32,21 @@ public partial class CartWindow : Window
     public CartWindow(BO.Cart cart, int Productid)
     {
         InitializeComponent();
-        string CustomerName  = UserName.Text;
-        string CustomeAdress = UserAddress.Text;
-        string CustomerEmail = UserEmail.Text;
+        CurrentCart = cart;
 
-        cart.CustomerName = CustomerName;
-        cart.CustomeAdress = CustomeAdress;
-        cart.CustomerEmail = CustomerEmail;
-        _ = p.Cart.Add(cart, Productid);
+        _ = p.Cart.Add(CurrentCart, Productid);
 
-        orderItemFromCartUpdate = cart.Details.Select(x => x)!; /*?? new ERRORWindow(this, "EMpry cart");*/
+        orderItemFromCart = cart.Details.Select(x => x);
+        orderItemFromCartUpdate = orderItemFromCart;
         this.DataContext = orderItemFromCartUpdate;
     }
+
+    private void SaveCartClick(object sender, RoutedEventArgs e)
+    {
+        CurrentCart.CustomerName = UserName.Text;
+        CurrentCart.CustomeAdress = UserAddress.Text; 
+        CurrentCart.CustomerEmail = UserEmail.Text;
+
+    }
+
 }
