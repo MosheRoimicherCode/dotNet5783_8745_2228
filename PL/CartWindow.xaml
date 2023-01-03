@@ -26,19 +26,19 @@
         <ListView x:Name="CartList" ItemsSource="{Binding}" Margin="200,-27,26,166">
             <ListView.View>
                 <GridView x:Name="GridView2">
-                    <GridViewColumn DisplayMemberBinding= "{Binding orderItemFromCartUpdate.ID}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path = ID}" 
                                 Header="Order ID" Width="70"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding orderItemFromCartUpdate.ProductID}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path = ProductID}" 
                                 Header="ProductID" Width="70"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding orderItemFromCartUpdate.OrderID}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path = OrderID}" 
                                 Header="OrderID " Width="70"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding orderItemFromCartUpdate.ProductName}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path = ProductName}" 
                                 Header="ProductName" Width="70"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding orderItemFromCartUpdate.ProductPrice}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path = ProductPrice}" 
                                 Header="ProductPrice" Width="70"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding orderItemFromCartUpdate.Amount}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path = Amount}" 
                                 Header="Amount" Width="70"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding orderItemFromCartUpdate.TotalPrice}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path = TotalPrice}" 
                                 Header="total Price" Width="70"/>
                 </GridView>
             </ListView.View>
