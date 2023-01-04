@@ -29,8 +29,8 @@ public partial class OrderForListWindow : Window
     private void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         BO.OrderForList orderForList = new();
-        int id = ((BO.OrderForList)OrderListview.SelectedItem).ID;
-        new OrderWindow(id).Show();
+        int OrderId = ((BO.OrderForList)OrderListview.SelectedItem).ID;
+        new OrderWindow(OrderId).Show();
         this.Close();
     }
 
