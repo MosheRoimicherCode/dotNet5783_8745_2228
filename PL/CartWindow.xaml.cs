@@ -66,7 +66,9 @@ namespace PL
 
         private void Confirm_Order(object sender, RoutedEventArgs e)
         {
-            p?.Cart.ConfirmCart(cart, cart.CustomerName!, cart.CustomerEmail!, cart.CustomeAdress!);
+            p.Cart.ConfirmCart(cart, cart.CustomerName!, cart.CustomerEmail!, cart.CustomeAdress!);
+            
+            //new MainWindow().Show();
             //new OrderForListWindow().Show();
             this.Close();
            

@@ -8,13 +8,13 @@
         Title="OrderForListWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Self}}" >
     <Grid>
-        <ListView Name ="OrderListview"  ItemsSource="{Binding orderForListForUpdate}" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2">
+        <ListView Name ="OrderListview"   MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2">
             <ListView.View>
 
                 <GridView x:Name="GridView1">
-                    <GridViewColumn DisplayMemberBinding= "{Binding ID}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=ID}" 
                                 Header="Order ID" Width="120"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding CustomerName}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=CustomerName}" 
                                 Header="customer name" Width="150"/>
                     <GridViewColumn DisplayMemberBinding= "{Binding OrderStatus}" 
                                 Header="Order Status" Width="150"/>
@@ -32,3 +32,4 @@
     </Grid>
     
 </Window>
+<!--ItemsSource="{Binding orderForListForUpdate}"-->

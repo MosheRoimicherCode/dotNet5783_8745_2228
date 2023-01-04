@@ -37,6 +37,7 @@ public partial class ProductForListWindow : Window, INotifyPropertyChanged
        
         InitializeComponent();
         this.DataContext = productForListUpdate;
+
         productForList = new List<BO.ProductForList>(p.Product.GetList());
         foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
         {

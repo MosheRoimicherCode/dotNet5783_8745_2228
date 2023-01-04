@@ -205,7 +205,6 @@ namespace BlImplementation
             };
             newOrder.ID = Dal!.Order.Add(newOrder);
 
-
             foreach (BO.OrderItem? item in boCart.Details)
             {
                 DO.OrderItem? newOrderItem = ConvertBo2DoOrderItem(item ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
