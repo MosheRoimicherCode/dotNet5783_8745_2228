@@ -41,19 +41,13 @@ public partial class NewOrderWindow : Window ,INotifyPropertyChanged
     public NewOrderWindow(BO.Cart? cart = null)
     {
         InitializeComponent();
-        foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
-        {
-            ListOfCategories.Add(item);
-        }
-        if (cart != null)
-        {
-            currentCart = cart;
-        }
-        productItems = new List<BO.ProductItem>(p.Product.GetListOfItems(currentCart));
-        DataContext = productItems;
+        foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category))) ListOfCategories.Add(item);
+        if (cart != null) currentCart = cart;
+        productItemsForUpdate = new List<BO.ProductItem>(p.Product.GetListOfItems(currentCart));
+        DataContext = productItemsForUpdate;
         CategorySelector.ItemsSource = ListOfCategories;
         CategorySelector.SelectedIndex = 3;
-        ProductItemView.ItemsSource = productItems;
+        ProductItemView.ItemsSource = productItemsForUpdate;
     }
 
 

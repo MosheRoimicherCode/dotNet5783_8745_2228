@@ -10,8 +10,11 @@ namespace BlImplementation
 
         public Bl()
         {
+            //if (Product != null)
             Product = new Product();
+            //if (Order != null)
             Order = new Order();
+            //if(Cart != null)
             Cart = new Cart();
         }
     }

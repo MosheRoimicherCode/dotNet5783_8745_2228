@@ -37,7 +37,7 @@ public partial class OrderForListWindow : Window, INotifyPropertyChanged
         InitializeComponent();
 
         orderForListForUpdate = p.Order.GetList();
-        this.DataContext = orderForListForUpdate;
+        //this.DataContext = orderForListForUpdate;
     }
 
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
