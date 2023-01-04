@@ -69,12 +69,16 @@ public partial class ProductForListWindow : Window, INotifyPropertyChanged
     }
     private void onChange()
     {
+
         productForListUpdate = p.Product.GetList();
+        this.Show();
+        this.Close();
+        
     }
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         new ProductWindow("add", 0, onChange).Show();
-        this.Close();
+        //this.Close();
     }
 
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

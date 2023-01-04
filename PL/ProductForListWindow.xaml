@@ -71,7 +71,7 @@
 
         </Grid>
 
-        <ListView Name ="ProductListview" ItemsSource= "{Binding productForListUpdate}" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2" ToolTip="Double click to update a product properties" BorderBrush="{DynamicResource BackgroundButton}" Background="{DynamicResource BackgroundButton}">
+        <ListView Name ="ProductListview" ItemsSource= "{Binding productForListUpdate, Mode=TwoWay}" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2" ToolTip="Double click to update a product properties" BorderBrush="{DynamicResource BackgroundButton}" Background="{DynamicResource BackgroundButton}">
             <ListView.View>
 
                 <GridView x:Name="GridView1">
