@@ -49,37 +49,11 @@ internal class Product : BlApi.IProduct
         return ConvertProductToBoProduct((DO.Product)Dal!.Product.Get(x => x?.ID == Id)!);
     }
 
-    //public BO.ProductItem Get(int? Id, BO.Cart cart, int a)
-    //{
-    //    if (Id <= 0) throw new BO.IdBOException("Not positive Id!");
-    //    try
-    //    {
-    //        int amount;
-    //        BO.OrderItem? orderItem = cart.Details.FirstOrDefault(x => x?.ProductID == Id);
-    //        DO.Product? product = Dal!.Product.Get(x => x?.ID == Id);
-    //        BO.ProductItem item = new()
-    //        {
-    //            ID = (int)(orderItem?.ProductID),
-    //            AmontInCart = orderItem?.Amount ?? 0,
-    //            Name = orderItem?.ProductName,
-    //            Price = (int)orderItem?.ProductPrice,
-    //            IsInStock = false,
-    //            Category = (BO.Enums.Category?)(product?.Category)
-    //        };
-
-    //        if ((Dal!.Product.Get(x => x?.ID == orderItem?.ProductID)!).Value.InStock > 0) { item.IsInStock = true; }
-    //        else { item.IsInStock = false; }
-    //        return item;
-    //    }
-    //    catch (IdException) { throw new BO.IdBOException("Product with given Id didn't found"); }
-    //}
-
     public BO.ProductItem Get(int? Id, BO.Cart cart)
     {
         if (Id <= 0) throw new BO.IdBOException("Not positive Id!");
         try
         {
-            int amount;
             BO.OrderItem? orderItem = cart.Details.FirstOrDefault(x => x?.ProductID == Id);
             DO.Product? product = Dal!.Product.Get(x => x?.ID == Id);
             BO.ProductItem item = new()

@@ -17,11 +17,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-public partial class NewOrderWindow : Window
+public partial class NewOrderWindow : Window ,INotifyPropertyChanged
 {
     IBl? p = BlApi.Factory.Get();
     private BO.Cart currentCart = new();
-    BO.Order newOrder;
 
     private List<BO.Enums.Category> ListOfCategories = new();
 
@@ -65,7 +64,7 @@ public partial class NewOrderWindow : Window
         {
             if (categorySelected == BO.Enums.Category.all) ProductItemView.ItemsSource = new List<BO.ProductItem>(p.Product.GetListOfItems(currentCart));
 
-            else ProductItemView.ItemsSource = new List<BO.ProductItem>(p.Product.GetListOfItems(currentCart)).Where(x => x.Category == categorySelected);
+            else ProductItemView.ItemsSource = new List<BO.ProductItem>(p!.Product.GetListOfItems(currentCart)).Where(x => x.Category == categorySelected);
 
             for (int i = 0; i < ListOfCategories.Count; i++)
                 if (ListOfCategories[i].Equals(categorySelected)) ListOfCategories.Remove(ListOfCategories[i]);

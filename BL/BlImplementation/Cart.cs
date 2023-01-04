@@ -6,53 +6,59 @@ namespace BlImplementation
 {
     internal class Cart : ICart
     {
-        IDal? Dal = DalApi.Factory.Get();
-        private BO.OrderItem ConvertDo2BoOrderItem(DO.OrderItem DOTemp)
+        private static readonly IDal? Dal = DalApi.Factory.Get();
+        private static BO.OrderItem ConvertDo2BoOrderItem(DO.OrderItem DOTemp)
         {
-            BO.OrderItem BOtemp = new();
-
-            BOtemp.ProductID = DOTemp.ProductID;
-            BOtemp.OrderID = DOTemp.ID;
-            BOtemp.ProductName = Dal!.Product.Get(x => x?.ID == DOTemp.ID)?.Name;
-            BOtemp.ProductPrice = DOTemp.Price;
-            BOtemp.Amount = DOTemp.Amount;
+            BO.OrderItem BOtemp = new()
+            {
+                ProductID = DOTemp.ProductID,
+                OrderID = DOTemp.ID,
+                ProductName = Dal!.Product.Get(x => x?.ID == DOTemp.ID)?.Name,
+                ProductPrice = DOTemp.Price,
+                Amount = DOTemp.Amount
+            };
             BOtemp.TotalPrice = (BOtemp.Amount * BOtemp.ProductPrice);
 
             return BOtemp;
         }
-        private DO.OrderItem ConvertBo2DoOrderItem(BO.OrderItem BOTemp)
+        private static DO.OrderItem ConvertBo2DoOrderItem(BO.OrderItem BOTemp)
         {
-            DO.OrderItem DOtemp = new();
-            DOtemp.ID = BOTemp.ID;
-            DOtemp.ProductID = BOTemp.ProductID;
-            DOtemp.OrderID = BOTemp.ID;
-            DOtemp.Price = BOTemp.ProductPrice;
-            DOtemp.Amount = BOTemp.Amount;
+            DO.OrderItem DOtemp = new()
+            {
+                ID = BOTemp.ID,
+                ProductID = BOTemp.ProductID,
+                OrderID = BOTemp.ID,
+                Price = BOTemp.ProductPrice,
+                Amount = BOTemp.Amount
+            };
 
             return DOtemp;
         }
-        private BO.Product ConvertDo2BoProduct(DO.Product DOTemp)
+        private static  BO.Product ConvertDo2BoProduct(DO.Product DOTemp)
         {
-            BO.Product BOtemp = new();
-
-            BOtemp.ID = DOTemp.ID;
-            BOtemp.Name = DOTemp.Name;
-            BOtemp.Price = DOTemp.Price;
-            BOtemp.Category = (BO.Enums.Category)DOTemp.Category!;
-            BOtemp.InStock = DOTemp.InStock;
+            BO.Product BOtemp = new()
+            {
+                ID = DOTemp.ID,
+                Name = DOTemp.Name,
+                Price = DOTemp.Price,
+                Category = (BO.Enums.Category)DOTemp.Category!,
+                InStock = DOTemp.InStock
+            };
 
             return BOtemp;
         }
-        private BO.Order ConvertDo2BoOrder(DO.Order DOTemp)
+        private static BO.Order ConvertDo2BoOrder(DO.Order DOTemp)
         {
-            BO.Order BOtemp = new();
-            BOtemp.ID = DOTemp.ID;
-            BOtemp.CustomerName = DOTemp.CustomerName;
-            BOtemp.CustomerEmail = DOTemp.CustomerEmail;
-            BOtemp.CustomerAdress = DOTemp.CustomeAdress;
-            BOtemp.OrderDate = DOTemp.OrderDate;
-            BOtemp.ShipDate = DOTemp.ShipDate;
-            BOtemp.DeliveryDate = DOTemp.DeliveryDate;
+            BO.Order BOtemp = new()
+            {
+                ID = DOTemp.ID,
+                CustomerName = DOTemp.CustomerName,
+                CustomerEmail = DOTemp.CustomerEmail,
+                CustomerAdress = DOTemp.CustomeAdress,
+                OrderDate = DOTemp.OrderDate,
+                ShipDate = DOTemp.ShipDate,
+                DeliveryDate = DOTemp.DeliveryDate
+            };
             if (DOTemp.ShipDate < DOTemp.DeliveryDate) BOtemp.OrderStatus = BO.Enums.Status.shiped;
             else if (DOTemp.ShipDate < DateTime.Today) BOtemp.OrderStatus = BO.Enums.Status.shiped;
             else BOtemp.OrderStatus = BO.Enums.Status.approved;
@@ -74,13 +80,14 @@ namespace BlImplementation
             List<BO.Order> orderList = new();
             foreach (DO.Order? item in Dal!.Order.GetAll() ?? throw new BO.nullObjectBOException("null object.BoCart.Add")) orderList.Add(ConvertDo2BoOrder(item ?? throw new BO.nullObjectBOException("null object.BoCart.Add")));
 
-            BO.Cart newBoCart = new();
-
-            newBoCart.CustomerName = boCart.CustomerName;
-            newBoCart.CustomerEmail = boCart.CustomerEmail;
-            newBoCart.CustomeAdress = boCart.CustomeAdress;
-            newBoCart.TotalPrice = boCart.TotalPrice;
-            newBoCart.Details = boCart.Details.ToList();
+            BO.Cart newBoCart = new()
+            {
+                CustomerName = boCart.CustomerName,
+                CustomerEmail = boCart.CustomerEmail,
+                CustomeAdress = boCart.CustomeAdress,
+                TotalPrice = boCart.TotalPrice,
+                Details = boCart.Details.ToList()
+            };
             //end of copy cart - end stage 1
 
             //search for product if exist inside cart
@@ -133,12 +140,14 @@ namespace BlImplementation
         ///updated the amount in the cart
         public BO.Cart UpdateAmount(BO.Cart boCart, int Id, int NewAmount)
         {
-            BO.Cart newBoCart = new BO.Cart();
-            newBoCart.CustomerName = boCart.CustomerName;
-            newBoCart.CustomerEmail = boCart.CustomerEmail;
-            newBoCart.CustomeAdress = boCart.CustomeAdress;
-            newBoCart.Details = boCart.Details;
-            newBoCart.TotalPrice = boCart.TotalPrice;
+            BO.Cart newBoCart = new()
+            {
+                CustomerName = boCart.CustomerName,
+                CustomerEmail = boCart.CustomerEmail,
+                CustomeAdress = boCart.CustomeAdress,
+                Details = boCart.Details,
+                TotalPrice = boCart.TotalPrice
+            };
 
             foreach (BO.OrderItem? item in boCart.Details)
             {
@@ -187,20 +196,22 @@ namespace BlImplementation
                 if (boCart.CustomerEmail == "" || boCart.CustomerEmail == null)    throw new BO.IdBOException("Customer email is not valid");
             }
 
-            DO.Order newOrder = new DO.Order();
-            newOrder.CustomerName = Name;
-            newOrder.CustomeAdress = Addres;
-            newOrder.CustomerEmail = Email;
-            newOrder.OrderDate = DateTime.Now;
+            DO.Order newOrder = new()
+            {
+                CustomerName = Name,
+                CustomeAdress = Addres,
+                CustomerEmail = Email,
+                OrderDate = DateTime.Now
+            };
             newOrder.ID = Dal!.Order.Add(newOrder);
-            
+
 
             foreach (BO.OrderItem? item in boCart.Details)
             {
                 DO.OrderItem? newOrderItem = ConvertBo2DoOrderItem(item ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
                 int id = newOrderItem.Value.ProductID;
-                var productFromSource = Dal.Product.Get(x => x.Value.ID == id);
-                
+                var productFromSource = Dal.Product.Get(x => x!.Value.ID == id);
+
                 DO.Product dp = new()
                 {
                     ID = id,

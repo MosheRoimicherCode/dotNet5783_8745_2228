@@ -26,6 +26,7 @@ public partial class GroupingWindow : Window
     private List<BO.Enums.Category> ListOfCategories = new();
 
     private List<BO.ProductItem> productItems;
+
     public List<BO.ProductItem> productItemsForUpdate
     {
         get { return productItems; }
@@ -39,6 +40,7 @@ public partial class GroupingWindow : Window
         }
     }
     public event PropertyChangedEventHandler? PropertyChanged;
+
     public GroupingWindow()
     {
         InitializeComponent();

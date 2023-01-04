@@ -7,12 +7,7 @@ using System.Linq;
 
 internal class Order : BlApi.IOrder
 {
-    IDal? Dal = DalApi.Factory.Get();
-    private double price2;
-    private int a;
-    private double b;
-
-    public double TPrice { get; private set; }
+    readonly IDal? Dal = DalApi.Factory.Get();
 
     ///checking the status of the order, returns Enum-status type
     public BO.Enums.Status CheckStatus(DO.Order? o)
@@ -24,15 +19,17 @@ internal class Order : BlApi.IOrder
     }
     public BO.Order ConvertOrderToBoOrder(DO.Order o)
     {
-        BO.Order bo = new BO.Order();
-        bo.ShipDate = o.ShipDate;
-        bo.DeliveryDate = o.DeliveryDate;
-        bo.OrderDate = o.OrderDate;
-        bo.CustomerName = o.CustomerName;
-        bo.CustomerAdress = o.CustomeAdress;
-        bo.CustomerEmail = o.CustomerEmail;
-        bo.OrderStatus = CheckStatus(o);
-        return bo;
+        return new BO.Order
+        {
+            ShipDate = o.ShipDate,
+            DeliveryDate = o.DeliveryDate,
+            OrderDate = o.OrderDate,
+            CustomerName = o.CustomerName,
+            CustomerAdress = o.CustomeAdress,
+            CustomerEmail = o.CustomerEmail,
+            OrderStatus = CheckStatus(o)
+        };
+        
     }
     public BO.Order ConvertDoOrderToBoOrder(int Id)
     {
@@ -51,7 +48,7 @@ internal class Order : BlApi.IOrder
         boOrder.TotalPrice = 0;
 
         var boOrderDetailsTuple = (from orderItem in Dal!.OrderItem.GetAll(x => x.Value.OrderID == Id)
-                                   let TotalPrice = boOrder.TotalPrice + Dal.Product.Get(x => x.Value.ID == orderItem.Value.ProductID)!.Value.Price
+                                   let TotalPrice = boOrder.TotalPrice + Dal.Product.Get(x => x!.Value.ID == orderItem.Value.ProductID)!.Value.Price
                                    select (TotalPrice, new List<BO.OrderItem>
                                      (
                                          from orderItem in Dal!.OrderItem.GetAll(x => x!.Value.OrderID == Id)
@@ -60,8 +57,8 @@ internal class Order : BlApi.IOrder
                                              ID = orderItem.Value.ID,
                                              ProductID = orderItem.Value.ProductID,
                                              OrderID = orderItem.Value.OrderID,
-                                             ProductName = Dal.Product.Get(x => x.Value.ID == orderItem.Value.ProductID)!.Value.Name,
-                                             ProductPrice = Dal.Product.Get(x => x.Value.ID == orderItem.Value.ProductID)!.Value.Price,
+                                             ProductName = Dal.Product.Get(x => x!.Value.ID == orderItem.Value.ProductID)!.Value.Name,
+                                             ProductPrice = Dal.Product.Get(x => x!.Value.ID == orderItem.Value.ProductID)!.Value.Price,
                                              Amount = orderItem.Value.Amount,
                                              TotalPrice = orderItem.Value.Amount * Dal.Product.Get(x => x.Value.ID == orderItem.Value.ProductID)!.Value.Price
                                          }
@@ -90,10 +87,9 @@ internal class Order : BlApi.IOrder
                    TotalPrice = GetPriceAndAmount(order.Value.ID).First().Item3
                };
     }
-
     private IEnumerable<(DO.OrderItem?, int, double)> GetPriceAndAmount(int orderID)
     {
-        return from orderItem in Dal!.OrderItem.GetAll(x => x.Value.OrderID == orderID)
+        return from orderItem in Dal!.OrderItem.GetAll(x => x!.Value.OrderID == orderID)
                let a = orderItem.Value.Amount
                let b = (orderItem.Value.Amount * orderItem.Value.Price)
                select (orderItem, a, b);

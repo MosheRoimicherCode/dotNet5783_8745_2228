@@ -15,7 +15,7 @@
 
 
             <Button x:Name ="update_shiping_button" Content="update shiping" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" Height="43" Width="183"
-                Click="update_shiping_Button_Click" Margin="16,191,0,0" Background="#FF0E6C09" Tag="1" Grid.Row="1" HorizontalAlignment="Left" FontSize="24">
+                Click="update_shiping_Button_Click" Margin="13,164,0,0" Background="#FF0E6C09" Tag="1" Grid.Row="1" HorizontalAlignment="Left" FontSize="24">
 
                 <Button.RenderTransform>
                     <TransformGroup>
@@ -27,7 +27,7 @@
                 </Button.RenderTransform>
             </Button>
             <Button x:Name ="update_providing_button" Content="update providing" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" Height="43" Width="183"
-                Click="update_providing_Button_Click" Margin="230,191,0,0" Background="#FF093C6C" Tag="1" Grid.Row="1" HorizontalAlignment="Left" FontSize="24">
+                Click="update_providing_Button_Click" Margin="227,164,0,0" Background="#FF093C6C" Tag="1" Grid.Row="1" HorizontalAlignment="Left" FontSize="24">
 
                 <Button.RenderTransform>
                     <TransformGroup>
