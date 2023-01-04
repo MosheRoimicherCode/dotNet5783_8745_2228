@@ -56,13 +56,13 @@
             </Grid.ColumnDefinitions >
         </Grid>
 
-    <Grid Name ="regularView">
+        <Grid Name ="regularView">
         </Grid>
         <ComboBox Name ="CategorySelector" SelectionChanged="CategorySelector_SelectionChanged" Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" Grid.ColumnSpan="2" Margin="496,0,0,0" />
         <Label Name ="CategorySelectorLabel" Content="Category:" Grid.Column="0" FontSize="20" Margin="381,0,259,0" Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}"/>
 
 
-        <ListView Name ="ProductItemView" ItemsSource= "{Binding productItems}" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2" ToolTip="Double click to update a product properties" BorderBrush="{DynamicResource BackgroundButton}" Background="{DynamicResource BackgroundButton}">
+        <ListView Name ="ProductItemView" ItemsSource= "{Binding productItems}" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="384,13,29,26" ToolTip="Double click to update a product properties" BorderBrush="{DynamicResource BackgroundButton}" Background="{DynamicResource BackgroundButton}" Grid.Row="1">
             <ListView.View>
 
                 <GridView x:Name="GridView">
@@ -82,7 +82,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        
+
         <Button x:Name="ChangeView" 
                     Content="ChangeView" 
                     HorizontalAlignment="Left" 
@@ -102,5 +102,9 @@
                     Style="{StaticResource myButtonStyle}">
 
         </Button>
+        <TextBox x:Name="User_name" HorizontalAlignment="Left" Margin="18,17,0,0" Grid.Row="1" TextWrapping="Wrap" Text="User name" VerticalAlignment="Top" Width="120" Background="#FFC7C42D" SelectionOpacity="0.2"/>
+        <TextBox x:Name="User_email" HorizontalAlignment="Left" Margin="18,46,0,0" Grid.Row="1" TextWrapping="Wrap" Text="User email" VerticalAlignment="Top" Width="120" Background="#FFC7C42D" SelectionOpacity="0.2"/>
+        <TextBox x:Name="User_adress" HorizontalAlignment="Left" Margin="18,75,0,0" Grid.Row="1" TextWrapping="Wrap" Text="User address" VerticalAlignment="Top" Width="120" Background="#FFC7C42D" SelectionOpacity="0.2"/>
+        <Label Content="products to add" HorizontalAlignment="Left" Margin="275,16,0,0" Grid.Row="1" VerticalAlignment="Top"/>
     </Grid>
 </Window>

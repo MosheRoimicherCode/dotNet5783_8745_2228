@@ -20,8 +20,8 @@ using System.Windows.Shapes;
 public partial class NewOrderWindow : Window
 {
     IBl? p = BlApi.Factory.Get();
-    BO.Cart cart1 = new BO.Cart();
-    
+    private BO.Cart currentCart = new();
+    BO.Order newOrder;
 
     private List<BO.Enums.Category> ListOfCategories = new();
 
@@ -47,15 +47,11 @@ public partial class NewOrderWindow : Window
             ListOfCategories.Add(item);
         }
 
-        productItems = new List<BO.ProductItem>(p.Product.GetListOfItems(cart1));
-
+        productItems = new List<BO.ProductItem>(p.Product.GetListOfItems(currentCart));
         DataContext = productItems;
-        
         CategorySelector.ItemsSource = ListOfCategories;
         CategorySelector.SelectedIndex = 3;
-        
         ProductItemView.ItemsSource = productItems;
-
     }
 
 
@@ -64,9 +60,9 @@ public partial class NewOrderWindow : Window
 
         if (CategorySelector.SelectedItem is BO.Enums.Category categorySelected)
         {
-            if (categorySelected == BO.Enums.Category.all) ProductItemView.ItemsSource = new List<BO.ProductItem>(p.Product.GetListOfItems(cart1));
+            if (categorySelected == BO.Enums.Category.all) ProductItemView.ItemsSource = new List<BO.ProductItem>(p.Product.GetListOfItems(currentCart));
 
-            else ProductItemView.ItemsSource = new List<BO.ProductItem>(p.Product.GetListOfItems(cart1)).Where(x => x.Category == categorySelected);
+            else ProductItemView.ItemsSource = new List<BO.ProductItem>(p.Product.GetListOfItems(currentCart)).Where(x => x.Category == categorySelected);
 
             for (int i = 0; i < ListOfCategories.Count; i++)
                 if (ListOfCategories[i].Equals(categorySelected)) ListOfCategories.Remove(ListOfCategories[i]);
@@ -82,9 +78,12 @@ public partial class NewOrderWindow : Window
 
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        int? id = ((BO.ProductItem)ProductItemView.SelectedItem).ID;
-        new ProductItemWindow((int)id, cart1).Show();
-
+        int id = ((BO.ProductItem)ProductItemView.SelectedItem).ID;
+        currentCart.CustomerName = User_name.Text;
+        currentCart.CustomeAdress = User_adress.Text;
+        currentCart.CustomerEmail = User_email.Text;
+        currentCart.TotalPrice = 0;
+        currentCart = p?.Cart.Add(currentCart, id); //create a new cart with selected item or add to existing cart
     }
 
 
@@ -96,7 +95,7 @@ public partial class NewOrderWindow : Window
 
     private void cart_Button_Click(object sender, RoutedEventArgs e)
     {
-        new CartWindow(cart1).Show();
+        new Window1(currentCart).Show();
         this.Close();
     }
 }

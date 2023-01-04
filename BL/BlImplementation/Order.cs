@@ -1,11 +1,9 @@
 ﻿namespace BlImplementation; 
 
-using BlApi;
 using BO;
 using DalApi;
 using DO;
 using System.Linq;
-using System.Security.Cryptography;
 
 internal class Order : BlApi.IOrder
 {
