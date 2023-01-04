@@ -5,7 +5,7 @@ namespace BlApi
     {
         /// return a list with all orders
         /// <returns> order list </returns>
-        public List<OrderForList> GetList();
+        public IEnumerable<OrderForList> GetList();
 
         ///search for a order with specific Id 
         /// <returns> IBoOrder item </returns>

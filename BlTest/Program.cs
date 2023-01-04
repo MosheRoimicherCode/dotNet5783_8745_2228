@@ -120,32 +120,32 @@ internal class Program
         CheckInput verification = new CheckInput(); //for inputs checks
 
 
-        ////for checks use---------------------------------e---------------------------------e---------------------------------
-        //DO.OrderItem order = new DO.OrderItem();
-        //order.ID = 789;
-        //order.OrderID = 1;
-        //order.Price = 80;
-        //order.ProductID = 123456;
-        //order.Amount = 5;
+        //for checks use---------------------------------e---------------------------------e---------------------------------
+        DO.OrderItem order = new DO.OrderItem();
+        order.ID = 789;
+        order.OrderID = 1;
+        order.Price = 80;
+        order.ProductID = 123456;
+        order.Amount = 5;
 
-        //DO.OrderItem order2 = new DO.OrderItem();
-        //order2.ID = 987;
-        //order2.OrderID = 2;
-        //order2.Price = 200;
-        //order2.ProductID = 111111;
-        //order2.Amount = 5;
+        DO.OrderItem order2 = new DO.OrderItem();
+        order2.ID = 987;
+        order2.OrderID = 2;
+        order2.Price = 200;
+        order2.ProductID = 111111;
+        order2.Amount = 5;
 
 
-        //List<DO.OrderItem?> list = new List<DO.OrderItem?>();
-        //list.Add(order);
-        //list.Add(order2);
+        List<DO.OrderItem?> list = new List<DO.OrderItem?>();
+        list.Add(order);
+        list.Add(order2);
 
-        //Cart cart = new();
-        //cart.CustomeAdress = "BneiBrak";
-        //cart.CustomerEmail = "mroimicher@gmail.com";
-        //cart.CustomerName = "Moshe";
-        ////cart.Details = list;
-        //cart.TotalPrice = 2800;
+        Cart cart = new();
+        cart.CustomeAdress = "BneiBrak";
+        cart.CustomerEmail = "mroimicher@gmail.com";
+        cart.CustomerName = "Moshe";
+        //cart.Details = list;
+        cart.TotalPrice = 2800;
     ////for checks use---------------------------------e---------------------------------e---------------------------------
 
     MainMenu:
@@ -270,7 +270,7 @@ internal class Program
                     goto MainMenu;
 
                 case "2":
-                    List<BO.OrderForList> boOrderForList = p.Order.GetList();
+                    IEnumerable<BO.OrderForList> boOrderForList = p.Order.GetList();
                     foreach (BO.OrderForList item in boOrderForList) Console.WriteLine(item);
                     goto MainMenu;
 

@@ -15,18 +15,17 @@ public partial class OrderForListWindow : Window
 {
     IBl? p = BlApi.Factory.Get();
 
-    IEnumerable<BO.OrderForList?> orderForList;
+    IEnumerable<BO.OrderForList> orderForList;
 
     public OrderForListWindow()
     {
         InitializeComponent();
 
         orderForList = p.Order.GetList();
-        
-        OrderListview.ItemsSource = p.Order.GetList();
+        this.DataContext = orderForList;
     }
 
-    private void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         BO.OrderForList orderForList = new();
         int OrderId = ((BO.OrderForList)OrderListview.SelectedItem).ID;

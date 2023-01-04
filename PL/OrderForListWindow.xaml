@@ -5,21 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="OrderForListWindow" Height="450" Width="800">
+        Title="OrderForListWindow" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" >
     <Grid>
-        <ListView Name ="OrderListview" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2">
+        <ListView Name ="OrderListview"  ItemsSource="{Binding}" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2">
             <ListView.View>
 
                 <GridView x:Name="GridView1">
-                    <GridViewColumn DisplayMemberBinding= "{Binding Path=ID}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding ID}" 
                                 Header="Order ID" Width="120"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding Path=CustomerName}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding CustomerName}" 
                                 Header="customer name" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding Path=OrderStatus}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding OrderStatus}" 
                                 Header="Order Status" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding Path=Amount}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding Amount}" 
                                 Header="Amount" Width="120"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding Path=TotalPrice}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding TotalPrice}" 
                                 Header="total Price" Width="150"/>
                     
                  

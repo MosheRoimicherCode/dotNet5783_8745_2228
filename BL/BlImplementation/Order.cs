@@ -78,18 +78,17 @@ internal class Order : BlApi.IOrder
 
     /// return a list with all orders
     /// <returns> order list </returns>
-    public List<BO.OrderForList> GetList()
+    public IEnumerable<BO.OrderForList> GetList()
     {
-        var orderFOrListIEnumerable = from order in Dal!.Order.GetAll()
-                  select new BO.OrderForList()
-                  {
-                      ID = order.Value.ID,
-                      CustomerName = order.Value.CustomerName,
-                      OrderStatus = CheckStatus(order),
-                      Amount = GetPriceAndAmount(order.Value.ID).First().Item2,
-                      TotalPrice = GetPriceAndAmount(order.Value.ID).First().Item3
-                  };
-        return orderFOrListIEnumerable.ToList();
+        return from order in Dal!.Order.GetAll()
+               select new BO.OrderForList()
+               {
+                   ID = order.Value.ID,
+                   CustomerName = order.Value.CustomerName,
+                   OrderStatus = CheckStatus(order),
+                   Amount = GetPriceAndAmount(order.Value.ID).First().Item2,
+                   TotalPrice = GetPriceAndAmount(order.Value.ID).First().Item3
+               };
     }
 
     private IEnumerable<(DO.OrderItem?, int, double)> GetPriceAndAmount(int orderID)

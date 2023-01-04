@@ -31,6 +31,7 @@ internal class DalProduct : IProduct
         }
         catch { throw new IdException("not found id. (DalProduct.Update Exception)"); }
     } ///replace product by another inside array
+
     public IEnumerable<Product?> GetAll(Func<Product?, bool>? filter) =>
         filter == null ? _productList.Select(prouductInList => prouductInList)
                   : _productList.Where(filter);

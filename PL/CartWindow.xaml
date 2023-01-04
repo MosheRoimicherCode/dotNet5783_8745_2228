@@ -54,6 +54,7 @@
         <TextBox x:Name="UserAddress" Text="User Address" TextWrapping="Wrap" Margin="255,24,345,22" />
         <TextBox x:Name="UserEmail" Text="User Email" TextWrapping="Wrap" Margin="491,24,109,22" />
         <TextBox x:Name="UserName" Text="Name" TextWrapping="Wrap" Margin="19,25,581,21" />
+        <Button Content="Confirm Order" Click ="Confirm_Order" HorizontalAlignment="Left" Margin="634,33,0,0" Grid.Row="1" VerticalAlignment="Top" Width="83"/>
 
 
         <ListView x:Name="CartList" MouseDoubleClick="MouseDoubleClick" ItemsSource="{Binding}" Margin="27,98,23,52" Grid.Row="1" Grid.ColumnSpan="2" Background="#FF75C535" SelectionChanged="CartList_SelectionChanged">
@@ -70,13 +71,12 @@
                     <GridViewColumn DisplayMemberBinding= "{Binding IsInStock}" 
                                 Header="Is In Stock" Width="70"/>
                     <GridViewColumn DisplayMemberBinding= "{Binding AmontInCart}" 
-                                Header="Amont In Cart" Width="110"/>
+                                Header="Amount In Cart" Width="110"/>
                 </GridView>
             </ListView.View>
         </ListView>
         <Label x:Name="TotalPriceCart" Content="TotalPriceCart" Margin="127,50,0,0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Label Content="total price:" HorizontalAlignment="Left" Margin="19,42,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-7.614,1.489" FontSize="20"/>
-        <Button x:Name="Button1" Content="Button" HorizontalAlignment="Left" Margin="634,33,0,0" Grid.Row="1" VerticalAlignment="Top" Width="83"/>
-
+        
     </Grid>
 </Window>

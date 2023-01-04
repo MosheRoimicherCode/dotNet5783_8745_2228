@@ -64,12 +64,15 @@ namespace PL
             this.Close();
         }
 
-        public void Button1()
+        private void Confirm_Order(object sender, RoutedEventArgs e)
         {
-            p.Cart.ConfirmCart(cart, cart.CustomerName, cart.CustomerEmail, cart.CustomeAdress);
+            p?.Cart.ConfirmCart(cart, cart.CustomerName!, cart.CustomerEmail!, cart.CustomeAdress!);
+            new OrderForListWindow().Show();
+            this.Close();
+           
         }
 
-        public void UpdateUserProperties()
+        private void UpdateUserProperties()
         {
             UserName.IsEnabled = true;
             UserAddress.IsEnabled = true;

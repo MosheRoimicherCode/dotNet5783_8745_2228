@@ -144,7 +144,7 @@ namespace BlImplementation
             {
                 if (item?.ProductID == Id)
                 {
-                    if (NewAmount == item.Amount) throw new BO.IdBOException("Amount has not changed");
+                    if (NewAmount == item.Amount) return newBoCart;
                     else if (NewAmount == 0)
                     {
                         newBoCart.TotalPrice -= item.ProductPrice * item.Amount;
@@ -179,7 +179,7 @@ namespace BlImplementation
         {
             foreach (BO.OrderItem? item in boCart.Details)
             {
-                if (Dal!.Product.GetAll(x => x!.Value.ID == item?.ID).Count() < 0)  throw new BO.IdBOException("not all the products in cart exist");
+                if (Dal!.Product.GetAll(x => x!.Value.ID == item?.ID).Count() < 0) throw new BO.IdBOException("not all the products in cart exist");
                 if (item?.Amount <= 0)                                             throw new BO.IdBOException("negative Amount");
                 if (item?.Amount > Dal?.Product?.Get(x => x?.ID == item!.ProductID)!.Value.InStock) throw new BO.IdBOException("not enough in stock");
                 if (boCart.CustomerName == "" || boCart.CustomerName == null)      throw new BO.IdBOException("Customer Name is not empty");
@@ -193,10 +193,23 @@ namespace BlImplementation
             newOrder.CustomerEmail = Email;
             newOrder.OrderDate = DateTime.Now;
             newOrder.ID = Dal!.Order.Add(newOrder);
+            
 
             foreach (BO.OrderItem? item in boCart.Details)
             {
                 DO.OrderItem? newOrderItem = ConvertBo2DoOrderItem(item ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
+                int id = newOrderItem.Value.ProductID;
+                var productFromSource = Dal.Product.Get(x => x.Value.ID == id);
+                
+                DO.Product dp = new()
+                {
+                    ID = id,
+                    Name = productFromSource!.Value.Name,
+                    Price = productFromSource.Value.Price,
+                    Category = productFromSource.Value.Category,
+                    InStock = productFromSource.Value.InStock - newOrderItem.Value.Amount,
+                };
+                Dal.Product.Update(id, dp);
                 Dal.OrderItem.Add(newOrderItem ?? throw new BO.nullObjectBOException("null"));
             }
 
