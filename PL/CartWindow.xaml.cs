@@ -29,12 +29,12 @@ public partial class CartWindow : Window
     }
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public CartWindow(BO.Cart cart, int Productid)
+    public CartWindow(BO.Cart cart)
     {
         InitializeComponent();
         CurrentCart = cart;
 
-        p.Cart.Add(CurrentCart, Productid);
+        //p.Cart.Add(CurrentCart, Productid);
 
         orderItemFromCart = cart.Details.Select(x => x);
         orderItemFromCartUpdate = orderItemFromCart;
@@ -46,7 +46,8 @@ public partial class CartWindow : Window
         CurrentCart.CustomerName = UserName.Text;
         CurrentCart.CustomeAdress = UserAddress.Text; 
         CurrentCart.CustomerEmail = UserEmail.Text;
-
+        this.Close();
+       
     }
 
 }

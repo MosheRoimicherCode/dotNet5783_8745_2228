@@ -48,7 +48,7 @@ public partial class ProductItemWindow : Window
     {
         /*for (int i = 0; i < AmountItems; i++) */
         cart1 = p?.Cart.Add(cart1, id)!;
-        new CartWindow(cart1,id).Show();
+        //new CartWindow(cart1,id).Show();
         this.Close();
     }
 }

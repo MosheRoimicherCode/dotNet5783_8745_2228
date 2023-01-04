@@ -65,12 +65,12 @@ namespace BlImplementation
 
             //create a copy of current cart to return it
             List<BO.Product> productList = new();
-            foreach (DO.Product? item in Dal!.Product.GetAll() ?? throw new BO.nullObjectBOException("null object.BoCart.Add") ) +productList.Add(ConvertDo2BoProduct(item ?? throw new BO.nullObjectBOException("null object.BoCart.Add")));
+            foreach (DO.Product? item in Dal!.Product.GetAll() ?? throw new BO.nullObjectBOException("null object.BoCart.Add") ) productList.Add(ConvertDo2BoProduct(item ?? throw new BO.nullObjectBOException("null object.BoCart.Add")));
 
             List<BO.OrderItem> orderItemList = new();
             foreach (DO.OrderItem? item in Dal!.OrderItem.GetAll() ?? throw new BO.nullObjectBOException("null object.BoCart.Add")) orderItemList.Add(ConvertDo2BoOrderItem(item ?? throw new BO.nullObjectBOException("null object.BoCart.Add")));
 
-            List<BO.Order> orderList = new();\
+            List<BO.Order> orderList = new();
             foreach (DO.Order? item in Dal!.Order.GetAll() ?? throw new BO.nullObjectBOException("null object.BoCart.Add")) orderList.Add(ConvertDo2BoOrder(item ?? throw new BO.nullObjectBOException("null object.BoCart.Add")));
 
             BO.Cart newBoCart = new();

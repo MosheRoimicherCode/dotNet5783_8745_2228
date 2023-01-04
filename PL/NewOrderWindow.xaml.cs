@@ -96,7 +96,7 @@ public partial class NewOrderWindow : Window
 
     private void cart_Button_Click(object sender, RoutedEventArgs e)
     {
-        //new CartWindow(cart1).Show();
+        new CartWindow(cart1).Show();
         this.Close();
     }
 }
