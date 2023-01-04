@@ -19,7 +19,7 @@ namespace PL
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class CartWindow : Window
     {
         IBl p = Factory.Get();
         private BO.Cart cart = new();
@@ -39,13 +39,13 @@ namespace PL
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public Window1(BO.Cart currentCart)
+        public CartWindow(BO.Cart currentCart)
         {
             InitializeComponent();
-            UserName.Text = currentCart.CustomerName.ToString();
-            UserAddress.Text = currentCart.CustomeAdress.ToString();
-            UserEmail.Text = currentCart.CustomerEmail.ToString();
-            orderItemcartListUpdate = currentCart.Details;
+            UserName.Text = currentCart?.CustomerName?.ToString();
+            UserAddress.Text = currentCart?.CustomeAdress?.ToString();
+            UserEmail.Text = currentCart?.CustomerEmail?.ToString();
+            orderItemcartListUpdate = currentCart?.Details;
             TotalPriceCart.Content = currentCart.TotalPrice.ToString();
             this.DataContext = orderItemcartListUpdate;
 

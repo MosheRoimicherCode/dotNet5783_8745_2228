@@ -24,7 +24,7 @@ public partial class ProductItemWindow : Window
 {
     IBl? p = BlApi.Factory.Get();
     BO.ProductForList productItem;
-    BO.Cart cart1;
+    BO.Cart currentCart;
     int id;
     int AmountItems;
     public ProductItemWindow(int ID, BO.Cart cart)
@@ -39,7 +39,7 @@ public partial class ProductItemWindow : Window
         //IsInStock2.Content = productItem.IsInStock;
         //AmontInCart2.Content = productItem.AmontInCart;
 
-        cart1 = cart;
+        currentCart = cart;
         id = ID;
         AmountItems = int.Parse(Amount.Text);
     }
@@ -47,7 +47,7 @@ public partial class ProductItemWindow : Window
     private void add_Button_Click(object sender, RoutedEventArgs e)
     {
         /*for (int i = 0; i < AmountItems; i++) */
-        cart1 = p?.Cart.Add(cart1, id)!;
+        currentCart = p?.Cart.Add(currentCart, id)!;
         //new CartWindow(cart1,id).Show();
         this.Close();
     }

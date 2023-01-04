@@ -83,7 +83,9 @@ public partial class NewOrderWindow : Window
         currentCart.CustomeAdress = User_adress.Text;
         currentCart.CustomerEmail = User_email.Text;
         currentCart.TotalPrice = 0;
-        currentCart = p?.Cart.Add(currentCart, id); //create a new cart with selected item or add to existing cart
+
+        new ProductItemWindow(id, currentCart).Show();
+        //currentCart = p?.Cart.Add(currentCart, id); //create a new cart with selected item or add to existing cart
     }
 
 
@@ -95,8 +97,8 @@ public partial class NewOrderWindow : Window
 
     private void cart_Button_Click(object sender, RoutedEventArgs e)
     {
-        new Window1(currentCart).Show();
-        this.Close();
+        new CartWindow(currentCart).Show();
+        //this.Close();
     }
 }
  

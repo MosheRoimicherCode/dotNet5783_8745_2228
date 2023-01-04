@@ -23,12 +23,12 @@
     </Window.Resources>
 
     <Grid>
-        <Label x:Name="Name" Content="name:" Margin="112,20,0,0" Style="{StaticResource LabelFormarProductItemWindo}"/>
-        <Label x:Name="ID" Content="ID:" Margin="112,65,0,0"  Style="{StaticResource LabelFormarProductItemWindo}"/>
-        <Label x:Name="Price" Content="Price:" Margin="112,114,0,0"  Style="{StaticResource LabelFormarProductItemWindo}"/>
-        <Label x:Name="Category" Content="Category:" Margin="112,161,0,0" Style="{StaticResource LabelFormarProductItemWindo}"/>
-        <Label x:Name="IsInStock" Content="Is In Stock:" Margin="112,212,0,0"  Style="{StaticResource LabelFormarProductItemWindo}"/>
-        <Label x:Name="AmontInCart" Content="Amont In Cart:" Margin="112,265,0,0"  Style="{StaticResource LabelFormarProductItemWindo}"/>
+        <Label x:Name="Name" Content="name:" Margin="74,20,0,0" Style="{StaticResource LabelFormarProductItemWindo}"/>
+        <Label x:Name="ID" Content="ID:" Margin="74,65,0,0"  Style="{StaticResource LabelFormarProductItemWindo}"/>
+        <Label x:Name="Price" Content="Price:" Margin="71,114,0,0"  Style="{StaticResource LabelFormarProductItemWindo}" Width="135"/>
+        <Label x:Name="Category" Content="Category:" Margin="71,161,0,0" Style="{StaticResource LabelFormarProductItemWindo}" Width="135"/>
+        <Label x:Name="IsInStock" Content="Is In Stock:" Margin="71,212,0,0"  Style="{StaticResource LabelFormarProductItemWindo}" Width="135"/>
+        <Label x:Name="AmontInCart" Content="Amont In Cart:" Margin="71,265,0,0"  Style="{StaticResource LabelFormarProductItemWindo}" Width="186"/>
         <Label x:Name="Name2" Margin="211,21,0,0" Style="{StaticResource LabelFormarProductItemWindo}"/>
         <Label x:Name="ID2" Margin="177,65,0,0"  Style="{StaticResource LabelFormarProductItemWindo}"/>
         <Label x:Name="Price2" Margin="211,114,0,0" Style="{StaticResource LabelFormarProductItemWindo}"/>
