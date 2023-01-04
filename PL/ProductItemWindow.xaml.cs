@@ -4,6 +4,7 @@ using System.Linq;
 namespace PL;
 
 using BlApi;
+using BO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
