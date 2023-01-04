@@ -23,17 +23,17 @@ namespace PL
     {
         IBl p = Factory.Get();
         private BO.Cart cart = new();
-        private IEnumerable<BO.OrderItem>?orderItemcartList;
+        private IEnumerable<BO.ProductItem>?productItemcartList;
       
-        public IEnumerable<BO.OrderItem?> orderItemcartListUpdate
+        public IEnumerable<BO.ProductItem?> productItemcartListUpdate
         {
-            get => orderItemcartList;
+            get => productItemcartList;
             set
             {
-                orderItemcartList = value;
+                productItemcartList = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged(this, new PropertyChangedEventArgs("cartListUpdate"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("productItemcartListUpdate"));
                 }
             }
         }
@@ -45,21 +45,28 @@ namespace PL
             UserName.Text = currentCart?.CustomerName?.ToString();
             UserAddress.Text = currentCart?.CustomeAdress?.ToString();
             UserEmail.Text = currentCart?.CustomerEmail?.ToString();
-            orderItemcartListUpdate = currentCart?.Details;
+            productItemcartListUpdate = p.Product.GetListOfItemsInCart(currentCart);
             TotalPriceCart.Content = currentCart.TotalPrice.ToString();
-            this.DataContext = orderItemcartListUpdate;
+            this.DataContext = productItemcartListUpdate;
 
+            cart = currentCart;
             UserName.IsEnabled = false;
             UserAddress.IsEnabled = false;
             UserEmail.IsEnabled = false;
+            TotalPriceCart.Content = currentCart.TotalPrice.ToString();
         }
 
-        public void CreateUser()
-        {
-              
-            
 
-            
+        private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            int? id = ((BO.ProductItem)CartList.SelectedItem).ID;
+            new ProductInCartWindow((int)id, cart).Show();
+            this.Close();
+        }
+
+        public void Button1()
+        {
+            p.Cart.ConfirmCart(cart, cart.CustomerName, cart.CustomerEmail, cart.CustomeAdress);
         }
 
         public void UpdateUserProperties()
@@ -67,6 +74,11 @@ namespace PL
             UserName.IsEnabled = true;
             UserAddress.IsEnabled = true;
             UserEmail.IsEnabled = true;
+        }
+
+        private void CartList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

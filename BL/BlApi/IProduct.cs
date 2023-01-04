@@ -25,5 +25,7 @@ namespace BlApi
         public List<BO.ProductForList> GetList(Func<DO.Product?, bool>? filter = null);
 
         public IEnumerable<BO.ProductItem> GetListOfItems(BO.Cart cart);
+
+        public IEnumerable<BO.ProductItem> GetListOfItemsInCart(BO.Cart cart);
     }
 } /// interface of product items for manager and client

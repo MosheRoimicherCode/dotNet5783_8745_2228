@@ -39,14 +39,17 @@ public partial class NewOrderWindow : Window
         }
     }
     public event PropertyChangedEventHandler? PropertyChanged;
-    public NewOrderWindow()
+    public NewOrderWindow(BO.Cart? cart = null)
     {
         InitializeComponent();
         foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
         {
             ListOfCategories.Add(item);
         }
-
+        if (cart != null)
+        {
+            currentCart = cart;
+        }
         productItems = new List<BO.ProductItem>(p.Product.GetListOfItems(currentCart));
         DataContext = productItems;
         CategorySelector.ItemsSource = ListOfCategories;
@@ -85,6 +88,7 @@ public partial class NewOrderWindow : Window
         currentCart.TotalPrice = 0;
 
         new ProductItemWindow(id, currentCart).Show();
+        this.Close();
         //currentCart = p?.Cart.Add(currentCart, id); //create a new cart with selected item or add to existing cart
     }
 

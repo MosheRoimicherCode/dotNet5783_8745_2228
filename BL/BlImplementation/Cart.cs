@@ -1,5 +1,6 @@
 ﻿using BlApi;
 using DalApi;
+using System.Diagnostics;
 
 namespace BlImplementation
 {
@@ -121,7 +122,12 @@ namespace BlImplementation
 
                 newBoCart.Details.Add(updateDetails.First());
             }
-
+            newBoCart.TotalPrice = 0;
+            foreach (var item in newBoCart.Details)
+            {
+                newBoCart.TotalPrice += item!.TotalPrice;
+            }
+            
             return newBoCart;
         }
         ///updated the amount in the cart

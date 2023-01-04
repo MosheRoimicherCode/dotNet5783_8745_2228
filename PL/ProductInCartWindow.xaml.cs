@@ -20,18 +20,18 @@ using System.Windows.Shapes;
 /// <summary>
 /// Interaction logic for ProductItemWindow.xaml
 /// </summary>
-public partial class ProductItemWindow : Window
+public partial class ProductInCartWindow : Window
 {
     IBl? p = BlApi.Factory.Get();
     BO.ProductItem productItem;
     BO.Cart currentCart;
     int id;
     int AmountItems;
-    public ProductItemWindow(int ID, BO.Cart cart)
+    public ProductInCartWindow(int ID, BO.Cart cart)
     {
         InitializeComponent();
         productItem = p.Product.Get(ID, cart);
-        
+
         Name2.Content = productItem.Name;
         ID2.Content = productItem.ID;
         Price2.Content = productItem.Price;
@@ -41,18 +41,23 @@ public partial class ProductItemWindow : Window
 
         currentCart = cart;
         id = ID;
-       
+
     }
 
-    private void add_Button_Click(object sender, RoutedEventArgs e)
+    private void Change_button(object sender, RoutedEventArgs e)
     {
         AmountItems = int.Parse(Amount.Text);
-        for (int i = 0; i < AmountItems; i++)
-        {
-            currentCart = p?.Cart.Add(currentCart, id)!;
-        }
-        //new CartWindow(cart1,id).Show();
-        new NewOrderWindow(currentCart).Show();
+        p.Cart.UpdateAmount(currentCart, id, AmountItems);
+        new CartWindow(currentCart).Show();
+        //new NewOrderWindow(currentCart).Show();
+        this.Close();
+    }
+
+    private void Remove_button(object sender, RoutedEventArgs e)
+    {
+        p.Cart.UpdateAmount(currentCart, id, 0);
+        new CartWindow(currentCart).Show();
+        //new NewOrderWindow(currentCart).Show();
         this.Close();
     }
 }

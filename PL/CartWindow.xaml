@@ -56,28 +56,27 @@
         <TextBox x:Name="UserName" Text="Name" TextWrapping="Wrap" Margin="19,25,581,21" />
 
 
-        <ListView x:Name="CartList" ItemsSource="{Binding}" Margin="27,98,23,52" Grid.Row="1" Grid.ColumnSpan="2" Background="#FF75C535">
+        <ListView x:Name="CartList" MouseDoubleClick="MouseDoubleClick" ItemsSource="{Binding}" Margin="27,98,23,52" Grid.Row="1" Grid.ColumnSpan="2" Background="#FF75C535" SelectionChanged="CartList_SelectionChanged">
             <ListView.View>
                 <GridView x:Name="GridView2">
                     <GridViewColumn DisplayMemberBinding= "{Binding ID}" 
                                 Header="ID" Width="70"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding ProductID}" 
-                                Header="ProductID" Width="70"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding OrderID}" 
-                                Header="OrderID " Width="70"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding ProductName}" 
-                                Header="ProductName" Width="70"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding ProductPrice}" 
-                                Header="ProductPrice" Width="70"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding Amount}" 
-                                Header="Amount" Width="70"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding TotalPrice}" 
-                                Header="total Price" Width="70"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding Name}" 
+                                Header="name" Width="70"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding Price}" 
+                                Header="Price" Width="70"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding Category}" 
+                                Header="Category" Width="70"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding IsInStock}" 
+                                Header="Is In Stock" Width="70"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding AmontInCart}" 
+                                Header="Amont In Cart" Width="110"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="CreateUser2" Content="Save User" HorizontalAlignment="Left" Margin="631,58,0,0" VerticalAlignment="Top" Width="86" Grid.Row="1" Height="20"/>
-        <Label x:Name="TotalPriceCart" Content="TotalPriceCart" Margin="20,15,0,0" Grid.Row="1" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label x:Name="TotalPriceCart" Content="TotalPriceCart" Margin="127,50,0,0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label Content="total price:" HorizontalAlignment="Left" Margin="19,42,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-7.614,1.489" FontSize="20"/>
+        <Button x:Name="Button1" Content="Button" HorizontalAlignment="Left" Margin="634,33,0,0" Grid.Row="1" VerticalAlignment="Top" Width="83"/>
 
     </Grid>
 </Window>
