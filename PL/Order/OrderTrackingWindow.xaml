@@ -7,6 +7,21 @@
         mc:Ignorable="d"
         Title="OrderTrackingWindow" Height="450" Width="800">
     <Grid>
-        
+        <ListView Name ="orderTrackingView"   MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2">
+            <ListView.View>
+
+                <GridView x:Name="GridView1">
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=OrderID}" 
+                                Header="Order ID" Width="120"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding Path=Status}" 
+                                Header="Status" Width="150"/>
+
+
+                </GridView>
+            </ListView.View>
+
+        </ListView>
+
     </Grid>
+
 </Window>

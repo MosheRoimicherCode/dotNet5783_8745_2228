@@ -188,4 +188,10 @@ internal class Order : BlApi.IOrder
 
         return orderTraking;
     }
+
+    public IEnumerable<BO.OrderTracking> GetListOfTruckings()
+    {
+        return from item in Dal?.Order.GetAll()
+               select OrderTracking((int)item?.ID!);
+    }
 }
