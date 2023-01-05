@@ -20,8 +20,8 @@
         </Border.Background>
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="#462AD8" Offset="0"/>
-                <GradientStop Color="#FFA51745" Offset="0.452"/>
+                <GradientStop Color="Azure" Offset="0"/>
+
             </LinearGradientBrush>
 
         </Border.BorderBrush>
@@ -38,33 +38,101 @@
                 </Grid.ColumnDefinitions>
 
                 <Button 
-                    Style="{StaticResource myButtonStyle}"
+                    
                     Content="manager"
                     x:Name ="ManagerButton"
-                    Margin="45,376,46,27" 
+                    Margin="5,376,6,22" 
                     Click="Manager_Button_Click"
-                    Height="45"
-                    Width="NaN"
-                />
+                    Width="300"
+                    Height="50"
+                    FontSize="25" >
+
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="{StaticResource BackgroundButton}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#278BEF"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Width="200" Height="40"
+                                CornerRadius="19"
+                                Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
 
                 <Button 
-                    Style="{StaticResource myButtonStyle}"
+                    
                     Content="add order"
                     x:Name ="AddOrderButton"
-                    Margin="45,332,46,71"
+                    Margin="2,329,9,69"
                     Click="Add_Order_Button_Click"
-                    Height="45"
-                    Width="NaN"/>
+                    Width="300"
+                    Height="50"
+                    FontSize="25" >
+
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="{StaticResource BackgroundButton}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#278BEF"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Width="200" Height="40"
+                                CornerRadius="19"
+                                Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
 
                 <Button
-                    Style="{StaticResource myButtonStyle}"
+                    
                     Content="track order"
                     x:Name ="OrderTrackingButton"
-                    Margin="0,287,0,116"
+                    Margin="2,281,0,117"
                     Click="Order_Tracking_Button_Click"
-                    Height="45"
-                    Width="220"
-                    HorizontalAlignment="Center"/>
+                    FontSize="25" 
+                    HorizontalAlignment="Left" 
+                    Width="300"
+                    Height="50">
+
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="{StaticResource BackgroundButton}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#278BEF"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Width="200" Height="40"
+                                CornerRadius="19"
+                                Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
 
 
                 <Button x:Name="btnMinimize"                           
@@ -78,7 +146,7 @@
                     Click="btnMinimize_Click">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background" Value="#28AEED"/>
+                            <Setter Property="Background" Value="Blue"/>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Background" Value="#278BEF"/>
@@ -117,13 +185,22 @@
                     FontFamily="Montserrat"
                     Cursor="Hand"
                     Margin="282,2,1,420" 
-                    Click="btnExit_Click">
-
+                    Click="btnExit_Click" >
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="Red"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#278BEF"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Width="18" Height="18"
                                 CornerRadius="9"
-                                Background="Red">
+                                Background="{TemplateBinding Background}">
                                 <ContentPresenter VerticalAlignment="Center"
                                     HorizontalAlignment="Center"/>
                             </Border>
