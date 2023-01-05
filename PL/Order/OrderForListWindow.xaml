@@ -5,31 +5,110 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="OrderForListWindow" Height="450" Width="800"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}" >
-    <Grid>
-        <ListView Name ="OrderListview"   MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2">
-            <ListView.View>
+        Title="OrderForListWindow" Height="550" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" 
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency ="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        BorderThickness="0">
 
-                <GridView x:Name="GridView1">
-                    <GridViewColumn DisplayMemberBinding= "{Binding Path=ID}" 
+    <Border CornerRadius="20"                    
+            BorderThickness="1" Margin="0,0,1,0" OpacityMask="#FFE51F1F" >
+        <Border.Background>
+            <ImageBrush ImageSource="/Order/z6.jpg" Stretch="Fill" />
+        </Border.Background>
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="Azure" Offset="0"/>
+
+            </LinearGradientBrush>
+
+        </Border.BorderBrush>
+        <Grid>
+            <ListView Name ="OrderListview" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2" Background="Transparent" Foreground="Black" d:IsLocked="True" BorderThickness="0">
+                <ListView.View>
+
+                    <GridView x:Name="GridView1">
+                        <GridViewColumn DisplayMemberBinding= "{Binding Path=ID}" 
                                 Header="Order ID" Width="120"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding Path=CustomerName}" 
+                        <GridViewColumn DisplayMemberBinding= "{Binding Path=CustomerName}" 
                                 Header="customer name" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding OrderStatus}" 
+                        <GridViewColumn DisplayMemberBinding= "{Binding OrderStatus}" 
                                 Header="Order Status" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding Amount}" 
+                        <GridViewColumn DisplayMemberBinding= "{Binding Amount}" 
                                 Header="Amount" Width="120"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding TotalPrice}" 
+                        <GridViewColumn DisplayMemberBinding= "{Binding TotalPrice}" 
                                 Header="total Price" Width="150"/>
-                    
-                 
-                </GridView>
-            </ListView.View>
 
-        </ListView>
 
-    </Grid>
-    
+                    </GridView>
+                </ListView.View>
+
+            </ListView>
+            <Button x:Name="btnMinimize"                           
+                    BorderThickness="0"
+                    Content="-"
+                    Foreground="White"
+                    FontSize="50"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="742,6,27,516" 
+                    Click="btnMinimize_Click">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Blue"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#278BEF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Width="18" Height="18"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Top" Margin="9,-87,9,0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button x:Name="btnExit"                           
+                    BorderThickness="0"
+                    Content="X"
+                    Foreground="White"
+                    FontSize="16"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="769,7,2,518" 
+                    Click="btnExit_Click" >
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Red"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#278BEF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Width="18" Height="18"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}" Margin="-3,0,2,0">
+                            <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <TextBlock HorizontalAlignment="Left" Margin="752,4,0,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" FontSize="18" Foreground="White" Height="17"/>
+        </Grid>
+    </Border>
 </Window>
 <!--ItemsSource="{Binding orderForListForUpdate}"-->

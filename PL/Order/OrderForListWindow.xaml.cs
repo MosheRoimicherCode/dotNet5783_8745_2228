@@ -50,4 +50,7 @@ public partial class OrderForListWindow : Window, INotifyPropertyChanged
         this.Close();
     }
 
+
+    private void btnMinimize_Click(object sender, RoutedEventArgs e) { WindowState = WindowState.Minimized; }
+    private void btnExit_Click(object sender, RoutedEventArgs e) { this.Close(); }
 }
