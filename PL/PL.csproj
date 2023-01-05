@@ -26,13 +26,18 @@
 
   <ItemGroup>
     <None Remove="c.jpg" />
+    <None Remove="cartImageTransparent.png" />
     <None Remove="clothes.jpg" />
+    <None Remove="Order\cartImageTransparent.png" />
+    <None Remove="Order\cartPicture.jpg" />
     <None Remove="yeshiva camp pkudei hashem 2014 099.JPG" />
     <None Remove="z1_image.jpg" />
     <None Remove="z2_250px-770_Eastern_Parkway.jpg" />
     <None Remove="z3_pexels-kai-pilger-996329.jpg" />
     <None Remove="z4.jpg" />
     <None Remove="z5.jpg" />
+    <None Remove="z6.jpg" />
+    <None Remove="z7.jpg" />
     <None Remove="הורדה.jpg" />
   </ItemGroup>
 
@@ -41,11 +46,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="z2_250px-770_Eastern_Parkway.jpg" />
-    <Resource Include="z4.jpg" />
+    <Resource Include="cartImageTransparent.png" />
+    <Resource Include="Order\cartImageTransparent.png" />
+    <Resource Include="Pictures\z2_250px-770_Eastern_Parkway.jpg" />
+    <Resource Include="Pictures\z4.jpg" />
+    <Resource Include="Pictures\z5.jpg" />
+    <Resource Include="Pictures\z1_image.jpg" />
+    <Resource Include="Pictures\z3_pexels-kai-pilger-996329.jpg" />
     <Resource Include="z5.jpg" />
-    <Resource Include="z1_image.jpg" />
-    <Resource Include="z3_pexels-kai-pilger-996329.jpg" />
+    <Resource Include="z6.jpg" />
+    <Resource Include="z7.jpg" />
   </ItemGroup>
 
 </Project>

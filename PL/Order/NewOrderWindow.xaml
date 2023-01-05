@@ -13,6 +13,7 @@
 
         </LinearGradientBrush>
 
+
         <Style x:Key="myButtonStyle"
                 TargetType="Button">
             <Setter Property="FontSize"
@@ -56,13 +57,15 @@
             </Grid.ColumnDefinitions >
         </Grid>
 
-        <Grid Name ="regularView">
+        <Grid Name ="regularView" Grid.RowSpan="2" Height="NaN" Width="NaN" Background="#FFDBDFE2" Grid.ColumnSpan="2">
+            <Rectangle HorizontalAlignment="Left" Height="434" Margin="2,0,0,0" Stroke="Black" VerticalAlignment="Center" Width="212" Fill="#FF333D4F"/>
+            <Ellipse HorizontalAlignment="Left" Height="119" Margin="39,51,0,0" VerticalAlignment="Top" Width="135" Fill="#FFDBDFE2"/>
         </Grid>
-        <ComboBox Name ="CategorySelector" SelectionChanged="CategorySelector_SelectionChanged" Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" Grid.ColumnSpan="2" Margin="496,0,0,0" />
-        <Label Name ="CategorySelectorLabel" Content="Category:" Grid.Column="0" FontSize="20" Margin="381,0,259,0" Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}"/>
+        <ComboBox Name ="CategorySelector" SelectionChanged="CategorySelector_SelectionChanged" Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" Margin="622,179,38,179" Grid.Row="1" Grid.ColumnSpan="2" />
+        <Label Name ="CategorySelectorLabel" Content="Filter Category:" Grid.Column="0" FontSize="15" Margin="516,175,121,174" Grid.Row="1"/>
 
 
-        <ListView Name ="ProductItemView" ItemsSource= "{Binding productItems}" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="384,13,29,26" ToolTip="Double click to update a product properties" BorderBrush="{DynamicResource BackgroundButton}" Background="{DynamicResource BackgroundButton}" Grid.Row="1">
+        <ListView Name ="ProductItemView" ItemsSource= "{Binding productItems}" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="276,214,37,14" ToolTip="Double click to update a product properties" BorderBrush="{DynamicResource BackgroundButton}" Grid.Row="1">
             <ListView.View>
 
                 <GridView x:Name="GridView">
@@ -94,17 +97,30 @@
         </Button>
 
         <Button x:Name="cart_button" 
-                    Content="go to cart" 
-                    HorizontalAlignment="Left" 
-                    Margin="168,5,0,16" 
-                    Padding="5"
-                    Click="cart_Button_Click" Width="162"
-                    Style="{StaticResource myButtonStyle}">
+                    
+                HorizontalAlignment="Left" 
+                Margin="231,15,0,373" 
+                Padding="5"
+                Click="cart_Button_Click" 
+                Width="62" 
+                SnapsToDevicePixels="True" 
+                Grid.RowSpan="2" 
+                Cursor="Hand" 
+                AutomationProperties.ItemType="Go to cart!" 
+                AutomationProperties.Name="" 
+                ClickMode="Press" Focusable="False"
+                BorderThickness="0" MouseEnter="cart_button_MouseEnter"
+                  
+                >
+            <Button.Background>
+                <ImageBrush ImageSource="/Order/cartImageTransparent.png"/>
+            </Button.Background>
+
+
 
         </Button>
-        <TextBox x:Name="User_name" HorizontalAlignment="Left" Margin="18,17,0,0" Grid.Row="1" TextWrapping="Wrap" Text="User name" VerticalAlignment="Top" Width="120" Background="#FFC7C42D" SelectionOpacity="0.2"/>
-        <TextBox x:Name="User_email" HorizontalAlignment="Left" Margin="18,46,0,0" Grid.Row="1" TextWrapping="Wrap" Text="User email" VerticalAlignment="Top" Width="120" Background="#FFC7C42D" SelectionOpacity="0.2"/>
-        <TextBox x:Name="User_adress" HorizontalAlignment="Left" Margin="18,75,0,0" Grid.Row="1" TextWrapping="Wrap" Text="User address" VerticalAlignment="Top" Width="120" Background="#FFC7C42D" SelectionOpacity="0.2"/>
-        <Label Content="products to add" HorizontalAlignment="Left" Margin="275,16,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <TextBox x:Name="User_name" HorizontalAlignment="Left" Margin="24,235,0,0" Grid.Row="1" TextWrapping="Wrap" Text="User name" VerticalAlignment="Top" Width="166" Background="Transparent" SelectionOpacity="0.2" Height="28"/>
+        <TextBox x:Name="User_email" HorizontalAlignment="Left" Margin="24,279,0,0" Grid.Row="1" TextWrapping="Wrap" Text="User email" VerticalAlignment="Top" Width="166" Background="Transparent" SelectionOpacity="0.2" Height="27"/>
+        <TextBox x:Name="User_adress" HorizontalAlignment="Left" Margin="24,323,0,0" Grid.Row="1" TextWrapping="Wrap" Text="User address" VerticalAlignment="Top" Width="166" Background ="Transparent" SelectionOpacity="0.2" Height="28"/>
     </Grid>
 </Window>

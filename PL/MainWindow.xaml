@@ -5,33 +5,133 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="314"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency ="True"
+        Background="Transparent"
+        BorderThickness="0">
 
-    <Grid>
-        <Button 
-            Style="{StaticResource myButtonStyle}"
-            Content="manager"
-            Name ="ManagerButton"
-            Margin="586,7,10,297" 
-            Click="Manager_Button_Click"/>
+    <Border CornerRadius="20"                    
+            BorderThickness="1" Margin="0,0,1,0" OpacityMask="#FFE51F1F" >
+        <Border.Background>
+            <ImageBrush ImageSource="/z7.jpg" Stretch="None" Opacity="0.5"/>
+        </Border.Background>
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#462AD8" Offset="0"/>
+                <GradientStop Color="#FFA51745" Offset="0.452"/>
+            </LinearGradientBrush>
 
-        <Button 
-            Style="{StaticResource myButtonStyle}"
-            Content="add order"
-            Name ="AddOrderButton"
-            Margin="583,294,13,10"
-            Click="Add_Order_Button_Click"/>
+        </Border.BorderBrush>
 
-        <Button
-            
-            Style="{StaticResource myButtonStyle}"
-            Content="track order"
-            Name ="OrderTrackingButton"
-            Margin="584,150,12,155"
-            Click="Order_Tracking_Button_Click"/>
 
-        <Label Content="ברוכים הבאים לחנות &#xD;&#xA;של משה ומענדי" Margin="0,7,294,0" VerticalAlignment="Top" Height="137" Width="800" FontSize="48" FontFamily="Georgia" Foreground="#FF101010" FontWeight="Bold" RenderTransformOrigin="0.499,0.797" HorizontalAlignment="Right" HorizontalContentAlignment="Right"/>
+        <Border CornerRadius="25" >
 
-    </Grid>
+
+            <Grid RenderTransformOrigin="0.674,0.574">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button 
+                    Style="{StaticResource myButtonStyle}"
+                    Content="manager"
+                    x:Name ="ManagerButton"
+                    Margin="45,376,46,27" 
+                    Click="Manager_Button_Click"
+                    Height="45"
+                    Width="NaN"
+                />
+
+                <Button 
+                    Style="{StaticResource myButtonStyle}"
+                    Content="add order"
+                    x:Name ="AddOrderButton"
+                    Margin="45,332,46,71"
+                    Click="Add_Order_Button_Click"
+                    Height="45"
+                    Width="NaN"/>
+
+                <Button
+                    Style="{StaticResource myButtonStyle}"
+                    Content="track order"
+                    x:Name ="OrderTrackingButton"
+                    Margin="0,287,0,116"
+                    Click="Order_Tracking_Button_Click"
+                    Height="45"
+                    Width="220"
+                    HorizontalAlignment="Center"/>
+
+
+                <Button x:Name="btnMinimize"                           
+                    BorderThickness="0"
+                    Content="-"
+                    Foreground="White"
+                    FontSize="16"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="261,2,23,420" 
+                    Click="btnMinimize_Click">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#28AEED"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#278BEF"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Width="18" Height="18"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Label Content="Clothes Store"
+                    Margin="-4,3,0,0" 
+                    VerticalAlignment="Top"
+                    Height="52" Width="237" 
+                    FontSize="30" 
+                    FontFamily="Georgia"
+                    Foreground="#FFFFF8FA"
+                    FontWeight="Bold" 
+                    RenderTransformOrigin="0.499,0.797" 
+                    HorizontalAlignment="Left" 
+                    HorizontalContentAlignment="Right"/>
+
+                <Button x:Name="btnExit"                           
+                    BorderThickness="0"
+                    Content="X"
+                    Foreground="White"
+                    FontSize="16"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="282,2,1,420" 
+                    Click="btnExit_Click">
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Width="18" Height="18"
+                                CornerRadius="9"
+                                Background="Red">
+                                <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+            </Grid>
+        </Border>
+    </Border>
 </Window>
-

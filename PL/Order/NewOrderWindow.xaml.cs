@@ -97,5 +97,9 @@ public partial class NewOrderWindow : Window ,INotifyPropertyChanged
         new CartWindow(currentCart).Show();
         //this.Close();
     }
+
+    private void cart_button_MouseEnter(object sender, MouseEventArgs e)
+    {
+
+    }
 }
- 

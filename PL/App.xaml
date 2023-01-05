@@ -12,7 +12,7 @@
         <Style x:Key="myButtonStyle"
                 TargetType="Button">
             <Setter Property="FontSize"
-                    Value="36" />
+                    Value="25" />
             <Setter Property="FontFamily"
                     Value="Bold" />
             <Setter Property="Width"
