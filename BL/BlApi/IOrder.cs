@@ -25,5 +25,7 @@ namespace BlApi
 
         ///update order by the manager
         //public void UpdateOrder(BoOrder item);
+
+        public IEnumerable<BO.OrderTracking> GetListOfTruckings();
     }
 } /// interface of order items for manager and client

@@ -1,31 +1,53 @@
-﻿using PL;
+﻿namespace PL;
+
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using BlApi;
 
-namespace PL
+
+/// <summary>
+/// Interaction logic for ProductForListWindow.xaml
+/// </summary>
+public partial class OrderTrackingWindow : Window, INotifyPropertyChanged
 {
-    /// <summary>
-    /// Interaction logic for OrderTrackingWindow.xaml
-    /// </summary>
-    public partial class OrderTrackingWindow : Window
+    IBl p = BlApi.Factory.Get();
+
+    IEnumerable<BO.OrderTracking> orderTracking;
+
+    public IEnumerable<BO.OrderTracking> orderTrackingUpdate
     {
-        public OrderTrackingWindow()
+        get { return orderTracking; }
+        set
         {
-            InitializeComponent();
+            orderTracking = value;
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs("orderTrackingUpdate"));
+            }
         }
+    }
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public OrderTrackingWindow()
+    {
+        InitializeComponent();
+        this.DataContext = orderTrackingUpdate;
+
+        orderTrackingUpdate = p.Order.GetListOfTruckings();
+        orderTrackingView.ItemsSource = orderTrackingUpdate;
+
+    }
+
+    private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        BO.OrderForList orderForList = new();
+        int OrderId = ((BO.OrderForList)orderTrackingView.SelectedItem).ID;
+        new OrderWindow(OrderId).Show();
+        this.Close();
     }
 
 }
-
-
