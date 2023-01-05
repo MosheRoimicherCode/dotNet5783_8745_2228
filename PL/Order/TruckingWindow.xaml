@@ -12,7 +12,7 @@
 
                 <GridView x:Name="GridView1">
                     <GridViewColumn DisplayMemberBinding= "{Binding Item1}" 
-                                Header="time" Width="120"/>
+                                Header="time" Width="200"/>
                     <GridViewColumn DisplayMemberBinding= "{Binding Item2}" 
                                 Header="event" Width="150"/>
                 </GridView>

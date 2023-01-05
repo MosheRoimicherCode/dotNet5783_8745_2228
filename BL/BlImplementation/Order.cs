@@ -206,7 +206,10 @@ internal class Order : BlApi.IOrder
         if (CheckStatus(order) == BO.Enums.Status.shiped)
             tupleList1.Add(new Tuple<DateTime?, String?>(order.OrderDate, "Order shipped"));
         if (CheckStatus(order) == BO.Enums.Status.provided)
-            tupleList1.Add(new Tuple<DateTime?, String?>(order.OrderDate, "Order provided"));
+        {
+            tupleList1.Add(new Tuple<DateTime?, String?>(order.ShipDate, "Order shipped"));
+            tupleList1.Add(new Tuple<DateTime?, String?>(order.DeliveryDate, "Order provided"));
+        }
         orderTraking.TupleList = tupleList1;
         return orderTraking;
     }
