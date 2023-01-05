@@ -24,8 +24,10 @@ internal static class DataSource
 
     static internal int AddOrder(Order o)
     {
+        int id = Config._idNumberOrder;
+        o.ID = id;
         _orderList.Add(o);
-        return Config._idNumberOrder;
+        return id;
     }
 
     static internal int AddOrderItem(OrderItem p)
@@ -232,6 +234,7 @@ internal static class DataSource
             Amount = 5
         };
         AddOrderItem(ordItem);
+        
         for (int j = 0; j < 2; j++)
         {
             for (int i = 0; i < 10; i++)
@@ -273,7 +276,7 @@ internal static class DataSource
 
     static internal class Config
     {
-        static internal int _idNumberOrder = 1;
+        static internal int _idNumberOrder = 0;
         static internal int _idNumberItemOrder = 1;
         /// get ID parameters functions
         static public int GetIdNumberOrder() => _idNumberOrder++;

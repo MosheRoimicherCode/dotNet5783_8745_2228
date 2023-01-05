@@ -1,8 +1,10 @@
 ﻿namespace BlImplementation; 
 
+using BlApi;
 using BO;
 using DalApi;
 using DO;
+using System.Collections.Generic;
 using System.Linq;
 
 internal class Order : BlApi.IOrder
@@ -77,15 +79,34 @@ internal class Order : BlApi.IOrder
     /// <returns> order list </returns>
     public IEnumerable<BO.OrderForList> GetList()
     {
-        return from order in Dal!.Order.GetAll()
-               select new BO.OrderForList()
-               {
-                   ID = order.Value.ID,
-                   CustomerName = order.Value.CustomerName,
-                   OrderStatus = CheckStatus(order),
-                   Amount = GetPriceAndAmount(order.Value.ID).First().Item2,
-                   TotalPrice = GetPriceAndAmount(order.Value.ID).First().Item3
-               };
+        List<BO.OrderForList> ordersForList = new();
+        foreach (var item in Dal!.Order.GetAll())
+        {
+            BO.OrderForList orderForList = new();
+            orderForList.ID = item!.Value.ID;
+            orderForList.CustomerName = item!.Value.CustomerName;
+            orderForList.OrderStatus = CheckStatus(item);
+            try
+            {
+                orderForList.Amount = GetPriceAndAmount(item.Value.ID).First().Item2;
+                orderForList.TotalPrice = GetPriceAndAmount(item.Value.ID).First().Item3;
+            }
+            catch(Exception e)
+            {
+
+            }
+            ordersForList.Add(orderForList);
+        }
+        return ordersForList;
+        //return from order in Dal!.Order.GetAll()
+        //       select new BO.OrderForList()
+        //       {
+        //           ID = order.Value.ID,
+        //           CustomerName = order.Value.CustomerName ?? null,
+        //           OrderStatus = CheckStatus(order),
+        //           Amount = GetPriceAndAmount(order.Value.ID).First().Item2,
+        //           TotalPrice = GetPriceAndAmount(order.Value.ID).First().Item3
+        //       };
     }
     private IEnumerable<(DO.OrderItem?, int, double)> GetPriceAndAmount(int orderID)
     {
@@ -180,12 +201,13 @@ internal class Order : BlApi.IOrder
         orderTraking.OrderID = order.ID;
         orderTraking.Status = CheckStatus(order);
         Tuple<DateTime?, String?>? t1 = new Tuple<DateTime?, String?>(order.OrderDate, "Order approved");
-        orderTraking.TupleList?.Add(t1);
+        List<Tuple<DateTime?, string?>?>? tupleList1 = new();
+        tupleList1.Add(t1);
         if (CheckStatus(order) == BO.Enums.Status.shiped)
-            orderTraking.TupleList?.Add(new Tuple<DateTime?, String?>(order.OrderDate, "Order shipped"));
+            tupleList1.Add(new Tuple<DateTime?, String?>(order.OrderDate, "Order shipped"));
         if (CheckStatus(order) == BO.Enums.Status.provided)
-            orderTraking.TupleList?.Add(new Tuple<DateTime?, String?>(order.OrderDate, "Order provided"));
-
+            tupleList1.Add(new Tuple<DateTime?, String?>(order.OrderDate, "Order provided"));
+        orderTraking.TupleList = tupleList1;
         return orderTraking;
     }
 

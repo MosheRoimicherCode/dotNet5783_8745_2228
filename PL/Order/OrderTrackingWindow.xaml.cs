@@ -16,7 +16,7 @@ public partial class OrderTrackingWindow : Window, INotifyPropertyChanged
 {
     IBl p = BlApi.Factory.Get();
 
-    IEnumerable<BO.OrderTracking> orderTracking;
+    IEnumerable<BO.OrderTracking>? orderTracking;
 
     public IEnumerable<BO.OrderTracking> orderTrackingUpdate
     {
@@ -45,9 +45,9 @@ public partial class OrderTrackingWindow : Window, INotifyPropertyChanged
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         BO.OrderForList orderForList = new();
-        int OrderId = ((BO.OrderForList)orderTrackingView.SelectedItem).ID;
-        new OrderWindow(OrderId).Show();
-        this.Close();
+        BO.OrderTracking orderTracking = ((BO.OrderTracking)orderTrackingView.SelectedItem);
+        new TruckingWindow(orderTracking).Show();
+        //this.Close();
     }
 
 }
