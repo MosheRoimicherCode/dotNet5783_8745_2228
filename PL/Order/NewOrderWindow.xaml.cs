@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -79,10 +80,9 @@ public partial class NewOrderWindow : Window ,INotifyPropertyChanged
         currentCart.CustomeAdress = User_adress.Text;
         currentCart.CustomerEmail = User_email.Text;
         currentCart.TotalPrice = 0;
-
+        
         new ProductItemWindow(id, currentCart).Show();
-        this.Close();
-        //currentCart = p?.Cart.Add(currentCart, id); //create a new cart with selected item or add to existing cart
+        Close();
     }
 
 
@@ -94,12 +94,11 @@ public partial class NewOrderWindow : Window ,INotifyPropertyChanged
 
     private void cart_Button_Click(object sender, RoutedEventArgs e)
     {
-        new CartWindow(currentCart).Show();
-        //this.Close();
+        if (currentCart.CustomerName != "User Name" && currentCart.CustomeAdress != "User address" && currentCart.CustomerEmail != "User email") new CartWindow(currentCart).Show();
+        else throw new Exception("Enter user details");
+        this.Close();
     }
 
-    private void cart_button_MouseEnter(object sender, MouseEventArgs e)
-    {
-
-    }
+    private void btnMinimize_Click(object sender, RoutedEventArgs e) { WindowState = WindowState.Minimized; }
+    private void btnExit_Click(object sender, RoutedEventArgs e) { this.Close(); }
 }

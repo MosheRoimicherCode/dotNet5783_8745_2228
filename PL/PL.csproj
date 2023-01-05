@@ -30,6 +30,12 @@
     <None Remove="clothes.jpg" />
     <None Remove="Order\cartImageTransparent.png" />
     <None Remove="Order\cartPicture.jpg" />
+    <None Remove="Order\userTranparent2.png" />
+    <None Remove="Order\z1_image.jpg" />
+    <None Remove="Order\z3_pexels-kai-pilger-996329.jpg" />
+    <None Remove="Order\z5.jpg" />
+    <None Remove="Order\z6.jpg" />
+    <None Remove="Order\z7.jpg" />
     <None Remove="yeshiva camp pkudei hashem 2014 099.JPG" />
     <None Remove="z1_image.jpg" />
     <None Remove="z2_250px-770_Eastern_Parkway.jpg" />
@@ -48,6 +54,12 @@
   <ItemGroup>
     <Resource Include="cartImageTransparent.png" />
     <Resource Include="Order\cartImageTransparent.png" />
+    <Resource Include="Order\userTranparent2.png" />
+    <Resource Include="Order\z1_image.jpg" />
+    <Resource Include="Order\z3_pexels-kai-pilger-996329.jpg" />
+    <Resource Include="Order\z5.jpg" />
+    <Resource Include="Order\z6.jpg" />
+    <Resource Include="Order\z7.jpg" />
     <Resource Include="Pictures\z2_250px-770_Eastern_Parkway.jpg" />
     <Resource Include="Pictures\z4.jpg" />
     <Resource Include="Pictures\z5.jpg" />

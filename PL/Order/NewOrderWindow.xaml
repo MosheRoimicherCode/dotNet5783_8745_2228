@@ -5,12 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="NewOrderWindow" Height="450" Width="800">
+        Title="NewOrderWindow" Height="368" Width="402"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency ="True"
+        Background="Transparent"
+        BorderThickness="0">
     <Window.Resources>
         <LinearGradientBrush x:Key="BackgroundButton">
-            <GradientStop Color="BlueViolet"/>
-            <GradientStop Color="Orange" Offset="1"/>
+            <GradientStop Color="Blue"/>
+            <GradientStop Color="white" Offset="1"/>
 
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="BackgroundButton2">
+            <GradientStop Color="Blue"/>
+            <GradientStop Color="AliceBlue" Offset="1"/>
         </LinearGradientBrush>
 
 
@@ -38,89 +48,162 @@
             </Setter>
         </Style>
     </Window.Resources>
+    <Border CornerRadius="20"                    
+            BorderThickness="1" Margin="0,0,1,0" OpacityMask="#FFE51F1F" >
+        <Border.Background>
+            <ImageBrush ImageSource="/Order/z6.jpg" Stretch="Fill" Opacity="0.5"/>
+        </Border.Background>
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="Azure" Offset="0"/>
 
-    <Grid Name ="MainGrid">
+            </LinearGradientBrush>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150*"/>
-            <ColumnDefinition Width="10*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height = "70*"/>
-            <RowDefinition Height = "500*"/>
-            <RowDefinition Height = "Auto"/>
-        </Grid.RowDefinitions>
-        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2">
+        </Border.BorderBrush>
+
+
+        <Grid Name ="MainGrid" Margin="0,0,0,17">
+            
+
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions >
-        </Grid>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="39*"/>
+                <ColumnDefinition Width="39*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="174*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
 
-        <Grid Name ="regularView" Grid.RowSpan="2" Height="NaN" Width="NaN" Background="#FFDBDFE2" Grid.ColumnSpan="2">
-            <Rectangle HorizontalAlignment="Left" Height="434" Margin="2,0,0,0" Stroke="Black" VerticalAlignment="Center" Width="212" Fill="#FF333D4F"/>
-            <Ellipse HorizontalAlignment="Left" Height="119" Margin="39,51,0,0" VerticalAlignment="Top" Width="135" Fill="#FFDBDFE2"/>
-        </Grid>
-        <ComboBox Name ="CategorySelector" SelectionChanged="CategorySelector_SelectionChanged" Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" Margin="622,179,38,179" Grid.Row="1" Grid.ColumnSpan="2" />
-        <Label Name ="CategorySelectorLabel" Content="Filter Category:" Grid.Column="0" FontSize="15" Margin="516,175,121,174" Grid.Row="1"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height = "27*"/>
+                <RowDefinition Height="13*"/>
+                <RowDefinition Height="70*"/>
+                <RowDefinition Height="102*"/>
+                <RowDefinition Height = "8.414"/>
+                <RowDefinition Height="50.163"/>
+                <RowDefinition Height="17.485"/>
+                <RowDefinition Height="12*"/>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height = "Auto"/>
+            </Grid.RowDefinitions>
+            <Ellipse Grid.Column="1" 
+                     Grid.ColumnSpan="4" 
+                     HorizontalAlignment="Left"
+                     Height="123" Margin="13,17,0,0" 
+                     Grid.RowSpan="4" Stroke="Black" 
+                     VerticalAlignment="Top" Width="122" 
+                     Fill="White"/>
+
+            <Image HorizontalAlignment="Left" Height="181" Margin="-2,-12,0,0" VerticalAlignment="Top" Width="190" Source="/Order/userTranparent2.png" Grid.ColumnSpan="6" Grid.RowSpan="4"/>
 
 
-        <ListView Name ="ProductItemView" ItemsSource= "{Binding productItems}" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="276,214,37,14" ToolTip="Double click to update a product properties" BorderBrush="{DynamicResource BackgroundButton}" Grid.Row="1">
-            <ListView.View>
+            <ComboBox x:Name ="CategorySelector" SelectionChanged="CategorySelector_SelectionChanged" Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" Margin="11,1,13,69" Grid.Column="6" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" />
 
-                <GridView x:Name="GridView">
-                    <GridViewColumn DisplayMemberBinding= "{Binding Name}" 
+            <ListView x:Name ="ProductItemView" ItemsSource= "{Binding productItems}" MouseDoubleClick="MouseDoubleClick" Margin="9,18,11,2" ToolTip="Double click to update a product properties" Grid.Column="6" Grid.RowSpan="7" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.ColumnSpan="3" >
+                <ListView.View>
+
+                    <GridView x:Name="GridView">
+                        <GridViewColumn DisplayMemberBinding= "{Binding Name}" 
                                 Header="Product name" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding ID}" 
+                        <GridViewColumn DisplayMemberBinding= "{Binding ID}" 
                                 Header="Product ID" Width="120"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding Price}" 
+                        <GridViewColumn DisplayMemberBinding= "{Binding Price}" 
                                 Header="Price" Width="120"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding Category}" 
+                        <GridViewColumn DisplayMemberBinding= "{Binding Category}" 
                                 Header="Category" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding IsInStock}" 
+                        <GridViewColumn DisplayMemberBinding= "{Binding IsInStock}" 
                                 Header="Is In Stock" Width="120"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding AmontInCart}" 
+                        <GridViewColumn DisplayMemberBinding= "{Binding AmontInCart}" 
                                 Header="Amont In Cart" Width="120"/>
 
-                </GridView>
-            </ListView.View>
-        </ListView>
-
-        <Button x:Name="ChangeView" 
-                    Content="ChangeView" 
-                    HorizontalAlignment="Left" 
-                    Margin="10,5,0,17" 
-                    Padding="5"
-                    Click="Button_Click" Width="133"
-                    Style="{StaticResource myButtonStyle}">
-
-        </Button>
-
-        <Button x:Name="cart_button" 
-                    
-                HorizontalAlignment="Left" 
-                Margin="231,15,0,373" 
-                Padding="5"
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button x:Name="cart_button" 
+                Margin="39,49,1,0" 
                 Click="cart_Button_Click" 
-                Width="62" 
-                SnapsToDevicePixels="True" 
-                Grid.RowSpan="2" 
-                Cursor="Hand" 
-                AutomationProperties.ItemType="Go to cart!" 
-                AutomationProperties.Name="" 
-                ClickMode="Press" Focusable="False"
-                BorderThickness="0" MouseEnter="cart_button_MouseEnter"
-                  
-                >
-            <Button.Background>
-                <ImageBrush ImageSource="/Order/cartImageTransparent.png"/>
-            </Button.Background>
+                ToolTip="Go to cart!" 
+                BorderThickness="0" 
+                Background="#FF8B8496"
+                Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Height="59" VerticalAlignment="Top" Grid.RowSpan="2" Opacity="0.8">
 
+                <Image HorizontalAlignment="Center" Height="69" VerticalAlignment="Center" Width="69" Source="/Order/cartImageTransparent.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.526,0.523"/>
+            </Button>
 
+            <TextBox x:Name="User_name"
+                     HorizontalAlignment="Center"
+                     Grid.Row="5" TextWrapping="Wrap"
+                     Text="User name" VerticalAlignment="Top" Width="156" Background="#FFE8D7D4" SelectionOpacity="0.2" Height="25" Grid.ColumnSpan="4" Margin="0,22,0,0" Grid.Column="1"/>
+            <TextBox x:Name="User_email" HorizontalAlignment="Center"
+                     Grid.Row="6" TextWrapping="Wrap" Text="User email" 
+                     VerticalAlignment="Top" Width="158" Background="#FFE8D7D4" SelectionOpacity="0.2" Height="25" Grid.ColumnSpan="4" Margin="0,1,0,0" Grid.RowSpan="2" Grid.Column="1"/>
+            <TextBox x:Name="User_adress" HorizontalAlignment="Center" Grid.Row="7"
+                     TextWrapping="Wrap" Text="User address" VerticalAlignment="Top" Width="158" Background ="#FFE8D7D4" SelectionOpacity="0.2" Height="24" Grid.ColumnSpan="4" Margin="0,12,0,0" Grid.RowSpan="2" Grid.Column="1"/>
 
-        </Button>
-        <TextBox x:Name="User_name" HorizontalAlignment="Left" Margin="24,235,0,0" Grid.Row="1" TextWrapping="Wrap" Text="User name" VerticalAlignment="Top" Width="166" Background="Transparent" SelectionOpacity="0.2" Height="28"/>
-        <TextBox x:Name="User_email" HorizontalAlignment="Left" Margin="24,279,0,0" Grid.Row="1" TextWrapping="Wrap" Text="User email" VerticalAlignment="Top" Width="166" Background="Transparent" SelectionOpacity="0.2" Height="27"/>
-        <TextBox x:Name="User_adress" HorizontalAlignment="Left" Margin="24,323,0,0" Grid.Row="1" TextWrapping="Wrap" Text="User address" VerticalAlignment="Top" Width="166" Background ="Transparent" SelectionOpacity="0.2" Height="28"/>
-    </Grid>
+            <Button x:Name="btnMinimize"                           
+                    BorderThickness="0"
+                    Content="-"
+                    Foreground="White"
+                    FontSize="16"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="173,2,0,3" 
+                    Click="btnMinimize_Click" Grid.Column="6" Grid.ColumnSpan="2" d:IsHidden="True">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Blue"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#278BEF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Width="18" Height="18"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button x:Name="btnExit"                           
+                    BorderThickness="0"
+                    Content="X"
+                    Foreground="White"
+                    FontSize="16"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="3,2,0,4" 
+                    Click="btnExit_Click" Grid.Column="8" d:IsHidden="True" >
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Red"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#278BEF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Width="18" Height="18"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}" Margin="-3,0,2,0">
+                            <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+    </Border>
 </Window>

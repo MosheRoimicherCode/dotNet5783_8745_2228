@@ -93,7 +93,6 @@ public partial class ProductWindow : Window
                 if (situation == "add") productIBL.Product.Add(newProduct);
                 else if (situation == "update") productIBL.Product.Update(newProduct);
             }
-            change();
             new ProductForListWindow().Show();         
             this.Close();
         }
