@@ -17,7 +17,7 @@ internal class Order : BlApi.IOrder
         if (o?.ShipDate > DateTime.Now)          return BO.Enums.Status.approved;
         else if (o?.DeliveryDate > DateTime.Now) return BO.Enums.Status.shiped;
         else if (DateTime.Now > o?.DeliveryDate) return BO.Enums.Status.provided;
-        else                                     return BO.Enums.Status.error;
+        else                                     return BO.Enums.Status.approved;
     }
     public BO.Order ConvertOrderToBoOrder(DO.Order o)
     {

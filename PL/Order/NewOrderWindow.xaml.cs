@@ -94,8 +94,7 @@ public partial class NewOrderWindow : Window ,INotifyPropertyChanged
 
     private void cart_Button_Click(object sender, RoutedEventArgs e)
     {
-        if (currentCart.CustomerName != "User Name" && currentCart.CustomeAdress != "User address" && currentCart.CustomerEmail != "User email") new CartWindow(currentCart).Show();
-        else throw new Exception("Enter user details");
+        new CartWindow(currentCart).Show();
         this.Close();
     }
 

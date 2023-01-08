@@ -140,7 +140,7 @@ internal static class DataSource
 
             int rndYear = _randomNum.Next(1995, datetoday.Year);
             int rndMonth = _randomNum.Next(1, 12);
-            int rndDay = _randomNum.Next(1, 31);
+            int rndDay = _randomNum.Next(1, 28);
 
             DateTime generateDate = new DateTime(rndYear, rndMonth, rndDay);
             return generateDate  ;
@@ -215,6 +215,7 @@ internal static class DataSource
             AddOrder(order);
         }
         /// end of order creation
+        Config._idNumberOrder++;
 
         OrderItem ordItem = new()
         {
