@@ -41,7 +41,7 @@ namespace BlImplementation
                 ID = DOTemp.ID,
                 Name = DOTemp.Name,
                 Price = DOTemp.Price,
-                Category = (BO.Enums.Category)DOTemp.Category!,
+                Category = (BO.Category)DOTemp.Category!,
                 InStock = DOTemp.InStock
             };
 
@@ -59,9 +59,9 @@ namespace BlImplementation
                 ShipDate = DOTemp.ShipDate,
                 DeliveryDate = DOTemp.DeliveryDate
             };
-            if (DOTemp.ShipDate < DOTemp.DeliveryDate) BOtemp.OrderStatus = BO.Enums.Status.shiped;
-            else if (DOTemp.ShipDate < DateTime.Today) BOtemp.OrderStatus = BO.Enums.Status.shiped;
-            else BOtemp.OrderStatus = BO.Enums.Status.approved;
+            if (DOTemp.ShipDate < DOTemp.DeliveryDate) BOtemp.OrderStatus = BO.Status.Shipped;
+            else if (DOTemp.ShipDate < DateTime.Today) BOtemp.OrderStatus = BO.Status.Shipped;
+            else BOtemp.OrderStatus = BO.Status.Approved;
             BOtemp.Details = new();
 
             return BOtemp;
@@ -188,9 +188,9 @@ namespace BlImplementation
         {
             foreach (BO.OrderItem? item in boCart.Details)
             {
-                if (Dal!.Product.GetAll(x => x!.Value.ID == item?.ID).Count() < 0) throw new BO.IdBOException("not all the products in cart exist");
+                if (Dal!.Product.GetAll(x => x?.ID == item?.ID).Count() < 0) throw new BO.IdBOException("not all the products in cart exist");
                 if (item?.Amount <= 0)                                             throw new BO.IdBOException("negative Amount");
-                if (item?.Amount > Dal?.Product?.Get(x => x?.ID == item!.ProductID)!.Value.InStock) throw new BO.IdBOException("not enough in stock");
+                if (item?.Amount > Dal?.Product?.Get(x => x?.ID == item!.ProductID)?.InStock) throw new BO.IdBOException("not enough in stock");
                 if (boCart.CustomerName == "" || boCart.CustomerName == null)      throw new BO.IdBOException("Customer Name is not empty");
                 if (boCart.CustomeAdress == "" || boCart.CustomeAdress == null)    throw new BO.IdBOException("Customer address is empty");
                 if (boCart.CustomerEmail == "" || boCart.CustomerEmail == null)    throw new BO.IdBOException("Customer email is not valid");
@@ -208,18 +208,18 @@ namespace BlImplementation
             foreach (BO.OrderItem? item in boCart.Details)
             {
                 DO.OrderItem? newOrderItem = ConvertBo2DoOrderItem(item ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
-                int id = newOrderItem.Value.ProductID;
-                var productFromSource = Dal.Product.Get(x => x!.Value.ID == id);
+                int id = (int)newOrderItem?.ProductID!;
+                var productFromSource = Dal.Product.Get(x => x?.ID == id);
 
                 DO.Product dp = new()
                 {
                     ID = id,
-                    Name = productFromSource!.Value.Name,
-                    Price = productFromSource.Value.Price,
-                    Category = productFromSource.Value.Category,
-                    InStock = productFromSource.Value.InStock - newOrderItem.Value.Amount,
+                    Name = productFromSource?.Name,
+                    Price = (double)productFromSource?.Price!,
+                    Category = productFromSource?.Category,
+                    InStock = (int)productFromSource?.InStock! - (int)newOrderItem?.Amount!,
                 };
-                Dal.Product.Update(id, dp);
+                Dal.Product.Update(dp);
                 Dal.OrderItem.Add(newOrderItem ?? throw new BO.nullObjectBOException("null"));
             }
 

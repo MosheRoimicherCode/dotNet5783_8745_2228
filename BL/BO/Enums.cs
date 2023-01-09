@@ -1,9 +1,5 @@
-﻿
-namespace BO;
+﻿namespace BO;
 
-public struct Enums
-{
-    public enum Category { footwear, outerwear, business, all };
-    public enum Status { approved, shiped, provided, error };
-}
+public enum Category { footwear, outerwear, business, all };
+public enum Status { Approved, Shipped, Provided, error };
 

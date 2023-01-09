@@ -19,11 +19,10 @@ using System.Windows.Shapes;
 
 public partial class GroupingWindow : Window
 {
-    IBl? p = BlApi.Factory.Get();
+    static readonly IBl bl = BlApi.Factory.Get();
     BO.Cart cart = new BO.Cart();
 
-
-    private List<BO.Enums.Category> ListOfCategories = new();
+    private List<BO.Category> ListOfCategories = new();
 
     private List<BO.ProductItem> productItems;
 
@@ -44,12 +43,12 @@ public partial class GroupingWindow : Window
     public GroupingWindow()
     {
         InitializeComponent();
-        foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
+        foreach (BO.Category item in Enum.GetValues(typeof(BO.Category)))
         {
             ListOfCategories.Add(item);
         }
 
-        productItems = new List<BO.ProductItem>(p.Product.GetListOfItems(cart));
+        productItems = new List<BO.ProductItem>(bl.Product.GetListOfItems(cart));
 
         DataContext = productItems;
 
@@ -64,19 +63,19 @@ public partial class GroupingWindow : Window
     public void CategorySelector_SelectionChanged(object sender, RoutedEventArgs e)
     {
 
-        if (CategorySelector.SelectedItem is BO.Enums.Category categorySelected)
+        if (CategorySelector.SelectedItem is BO.Category categorySelected)
         {
-            if (categorySelected == BO.Enums.Category.all) ProductItemView.ItemsSource = new List<BO.ProductItem>(p.Product.GetListOfItems(cart));
+            if (categorySelected == BO.Category.all) ProductItemView.ItemsSource = new List<BO.ProductItem>(bl.Product.GetListOfItems(cart));
 
-            else ProductItemView.ItemsSource = new List<BO.ProductItem>(p.Product.GetListOfItems(cart)).Where(x => x.Category == categorySelected);
+            else ProductItemView.ItemsSource = new List<BO.ProductItem>(bl.Product.GetListOfItems(cart)).Where(x => x.Category == categorySelected);
 
             for (int i = 0; i < ListOfCategories.Count; i++)
                 if (ListOfCategories[i].Equals(categorySelected)) ListOfCategories.Remove(ListOfCategories[i]);
 
 
-            this.CategorySelector.ItemsSource = new ObservableCollection<BO.Enums.Category>(ListOfCategories);
+            this.CategorySelector.ItemsSource = new ObservableCollection<BO.Category>(ListOfCategories);
             ListOfCategories.Clear();
-            foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
+            foreach (BO.Category item in Enum.GetValues(typeof(BO.Category)))
                 ListOfCategories.Add(item);
         }
     }

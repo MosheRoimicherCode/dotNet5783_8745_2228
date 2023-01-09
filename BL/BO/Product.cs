@@ -1,5 +1,5 @@
 ﻿namespace BO;
-using static BO.Enums;
+
 public class Product
 {
 

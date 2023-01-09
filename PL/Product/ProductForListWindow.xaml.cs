@@ -2,89 +2,58 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using BlApi;
 
 /// <summary>
 /// Interaction logic for ProductForListWindow.xaml
 /// </summary>
-public partial class ProductForListWindow : Window, INotifyPropertyChanged
+public partial class ProductForListWindow : Window
 {
-    IBl? p = BlApi.Factory.Get();
-    private List<BO.Enums.Category> ListOfCategories = new();
-    private IEnumerable<BO.ProductForList> productForList;
-    
-    public IEnumerable<BO.ProductForList> productForListUpdate
+    static readonly IBl bl = Factory.Get();
+    public static BO.Category[] ListOfCategories { get; } = (BO.Category[])Enum.GetValues(typeof(BO.Category));
+
+    public static readonly DependencyProperty ProductsDep = DependencyProperty.Register(nameof(products),
+                                                                                        typeof(IEnumerable<BO.ProductForList>),
+                                                                                        typeof(ProductForListWindow));
+    private IEnumerable<BO.ProductForList> products
     {
-        get { return productForList; }
-        set
-        {
-            productForList = value;
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs("productForListUpdate"));
-            }
-        }
+        get => (IEnumerable<BO.ProductForList>)GetValue(ProductsDep);
+        set => SetValue(ProductsDep, value);
     }
-    public event PropertyChangedEventHandler? PropertyChanged;
-    
+
+    public static readonly DependencyProperty CategoryDep = DependencyProperty.Register(nameof(Category),
+                                                                                        typeof(BO.Category),
+                                                                                        typeof(ProductForListWindow));
+    private BO.Category Category
+    {
+        get => (BO.Category)GetValue(CategoryDep);
+        set => SetValue(CategoryDep, value);
+    }
+
     public ProductForListWindow()
     {
-       
+        Category = BO.Category.all;
+        products = bl.Product.GetList();
         InitializeComponent();
-        this.DataContext = productForListUpdate;
-
-        productForList = new List<BO.ProductForList>(p.Product.GetList());
-        foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
-        {
-            ListOfCategories.Add(item);
-        }
-
-        CategorySelector.ItemsSource = ListOfCategories;
-        CategorySelector.SelectedIndex = 3;
     }
 
-    public void CategorySelector_SelectionChanged(object sender, RoutedEventArgs e)
-    {
+    public void CategorySelector_SelectionChanged(object sender, RoutedEventArgs e) => onChange();
 
-        if (CategorySelector.SelectedItem is BO.Enums.Category categorySelected)
-        {
-            if (categorySelected == BO.Enums.Category.all) ProductListview.ItemsSource = productForListUpdate;
-
-            else ProductListview.ItemsSource = productForListUpdate.Where(x => x.Category == categorySelected);
-
-            for (int i = 0; i < ListOfCategories.Count; i++)
-                if (ListOfCategories[i].Equals(categorySelected)) ListOfCategories.Remove(ListOfCategories[i]);
-
-
-            this.CategorySelector.ItemsSource = new List<BO.Enums.Category>(ListOfCategories);
-            ListOfCategories.Clear();
-            foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
-                ListOfCategories.Add(item);
-        }
-    }
     private void onChange()
     {
+        if (Category == BO.Category.all) products = bl.Product.GetList();
+        else products = bl.Product.GetList(x => x!.Category == Category);
+    }
 
-        productForListUpdate = p.Product.GetList();
-        this.Show();
-        this.Close();
-        
-    }
-    private void Button_Click(object sender, RoutedEventArgs e)
-    {
-        new ProductWindow("add", 0, onChange).Show();
-        //this.Close();
-    }
+    private void Button_Click(object sender, RoutedEventArgs e) => new ProductWindow("add", 0, onChange).Show();
 
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        int? id = ((BO.ProductForList)ProductListview.SelectedItem).ID;
-        new ProductWindow("update", (int)id, onChange).Show();
-        this.Close();
+        int id = ((BO.ProductForList)(sender as ListViewItem)!.DataContext).ID;
+        new ProductWindow("update", id, onChange).Show();
     }
 }

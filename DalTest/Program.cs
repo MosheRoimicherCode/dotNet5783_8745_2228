@@ -47,17 +47,17 @@ internal class Program
                             double price = Convert.ToDouble(Console.ReadLine());
                             Console.WriteLine("enter category:");
                             int category = Convert.ToInt32(Console.ReadLine());
-                            Enums.Category c = new DO.Enums.Category();
+                            Category c = new DO.Category();
                             switch (category)
                             {
                                 case 1:
-                                    c = Enums.Category.footwear;
+                                    c = Category.footwear;
                                     break;
                                 case 2:
-                                    c = Enums.Category.outerwear;
+                                    c = Category.outerwear;
                                     break;
                                 case 3:
-                                    c = Enums.Category.Business;
+                                    c = Category.Business;
                                     break;
                             }
                             Console.WriteLine("enter inStock:");
@@ -80,8 +80,6 @@ internal class Program
                             foreach (var item2 in dal.Product.GetAll()) Console.WriteLine(item2);
                             break;
                         case "4":
-                            Console.WriteLine("enter ID of exist product:");
-                            int existID4 = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("enter ID:");
                             int ID4 = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("enter name:");
@@ -90,17 +88,17 @@ internal class Program
                             double price4 = Convert.ToDouble(Console.ReadLine());
                             Console.WriteLine("enter category:");
                             int category4 = Convert.ToInt32(Console.ReadLine());
-                            Enums.Category c4 = new Enums.Category();
+                            Category c4 = new Category();
                             switch (category4)
                             {
                                 case 1:
-                                    c4 = Enums.Category.footwear;
+                                    c4 = Category.footwear;
                                     break;
                                 case 2:
-                                    c4 = Enums.Category.outerwear;
+                                    c4 = Category.outerwear;
                                     break;
                                 case 3:
-                                    c4 = Enums.Category.Business;
+                                    c4 = Category.Business;
                                     break;
                             }
                             Console.WriteLine("enter inStock:");
@@ -113,7 +111,7 @@ internal class Program
                                 Category = c4,
                                 InStock = inStock4
                             };
-                            dal.Product.Update(existID4, p4);
+                            dal.Product.Update(p4);
                             break;
                         case "5":
                             Console.WriteLine("enter ID:");
@@ -165,8 +163,6 @@ internal class Program
                             foreach (var item2 in dal.Order.GetAll()) Console.WriteLine(item2);
                             break;
                         case "4":
-                            Console.WriteLine("enter ID of exist product:");
-                            int existID4 = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("enter ID:");
                             int ID4 = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("enter name:");
@@ -191,7 +187,7 @@ internal class Program
                                 ShipDate = ShipDate4,
                                 DeliveryDate = DeliveryDate4
                             };
-                            dal.Order.Update(existID4, o4);
+                            dal.Order.Update(o4);
                             break;
                         case "5":
                             Console.WriteLine("enter ID:");
@@ -239,7 +235,7 @@ internal class Program
                             foreach (var item2 in dal.OrderItem.GetAll()) Console.WriteLine(item2);
                             break;
                         case "4":
-                            Console.WriteLine("enter ID of exist OrderItem:");
+                            Console.WriteLine("enter ID of OrderItem:");
                             int existID = Convert.ToInt32(Console.ReadLine());
                             dal.OrderItem.Get(x => x?.ID == existID);
                             Console.WriteLine("enter ProductID:");
@@ -258,7 +254,7 @@ internal class Program
                                 Price = price4,
                                 Amount = amount4
                             };
-                            dal.OrderItem.Update(existID, oi4);
+                            dal.OrderItem.Update(oi4);
                             break;
                         case "5":
                             Console.WriteLine("enter ID:");
@@ -282,13 +278,13 @@ internal class Program
             //    from p in order
             //    select 
             //    new XElement("Orders",
-            //    new XElement("ID", p.Value.ID),
-            //    new XElement("CustomerName", p.Value.CustomerName),
-            //    new XElement("CustomerEmail", p.Value.CustomerEmail),
-            //    new XElement("CustomeAdress", p.Value.CustomeAdress),
-            //    new XElement("OrderDate", p.Value.OrderDate),
-            //    new XElement("ShipDate", p.Value.ShipDate),
-            //    new XElement("DeliveryDate", p.Value.DeliveryDate)
+            //    new XElement("ID", p?.ID),
+            //    new XElement("CustomerName", p?.CustomerName),
+            //    new XElement("CustomerEmail", p?.CustomerEmail),
+            //    new XElement("CustomeAdress", p?.CustomeAdress),
+            //    new XElement("OrderDate", p?.OrderDate),
+            //    new XElement("ShipDate", p?.ShipDate),
+            //    new XElement("DeliveryDate", p?.DeliveryDate)
             //    )
             //    )
             //    ;
@@ -301,11 +297,11 @@ internal class Program
             //from p in product
             //select
             //new XElement("Products",
-            //new XElement("ID", p.Value.ID),
-            //new XElement("Name", p.Value.Name),
-            //new XElement("Price", p.Value.Price),
-            //new XElement("Category", p.Value.Category.ToString()),
-            //new XElement("InStock", p.Value.InStock)
+            //new XElement("ID", p?.ID),
+            //new XElement("Name", p?.Name),
+            //new XElement("Price", p?.Price),
+            //new XElement("Category", p?.Category.ToString()),
+            //new XElement("InStock", p?.InStock)
 
             //)
             //)
@@ -319,11 +315,11 @@ internal class Program
             //from p in orderItem
             //select
             //new XElement("OrderItem",
-            //new XElement("ID", p.Value.ID),
-            //new XElement("ProductID", p.Value.ProductID),
-            //new XElement("OrderID", p.Value.OrderID),
-            //new XElement("Price", p.Value.Price),
-            //new XElement("Amount", p.Value.Amount)
+            //new XElement("ID", p?.ID),
+            //new XElement("ProductID", p?.ProductID),
+            //new XElement("OrderID", p?.OrderID),
+            //new XElement("Price", p?.Price),
+            //new XElement("Amount", p?.Amount)
 
             //)
             //)

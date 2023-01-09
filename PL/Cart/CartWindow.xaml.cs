@@ -25,7 +25,7 @@ namespace PL
         private BO.Cart cart = new();
         private IEnumerable<BO.ProductItem>?productItemcartList;
       
-        public IEnumerable<BO.ProductItem?> productItemcartListUpdate
+        public IEnumerable<BO.ProductItem> productItemcartListUpdate
         {
             get => productItemcartList;
             set

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        xmlns:bo="clr-namespace:BO;assembly=BL"
         mc:Ignorable="d"
         Title="ProductForListWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Self}}" >
@@ -11,27 +12,16 @@
         <LinearGradientBrush x:Key="BackgroundButton">
             <GradientStop Color="BlueViolet"/>
             <GradientStop Color="Orange" Offset="1"/>
-            
         </LinearGradientBrush>
 
-        <Style x:Key="myButtonStyle"
-                TargetType="Button">
-            <Setter Property="FontSize"
-                    Value="15" />
-            <Setter Property="FontFamily"
-                    Value="Bold" />
+        <Style x:Key="myButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontFamily" Value="Bold" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border 
-                            CornerRadius="10"
-                            Background="{StaticResource BackgroundButton}"
-                            BorderThickness="1">
-                            <ContentPresenter
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Margin="{TemplateBinding Padding}" >
-                            </ContentPresenter>
+                        <Border CornerRadius="10" BorderThickness="1" Background="{StaticResource BackgroundButton}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -48,45 +38,39 @@
             <RowDefinition Height = "500*"/>
             <RowDefinition Height = "Auto"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2">
+
+        <Grid Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-
-            <ComboBox 
-                Name ="CategorySelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged" Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" >
-            </ComboBox>
-            <Label Name ="CategorySelectorLabel" Content="Category:" Grid.Column="0" FontSize="20" Margin="276,0,1,0" Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}"/>
-
-            <Button x:Name="Add_new_Product" 
-                    Content="Add new Product" 
-                    HorizontalAlignment="Left" 
-                    Margin="10,5,0,17" 
-                    Padding="5"
-                    Click="Button_Click" Width="133"
-                    Style="{StaticResource myButtonStyle}">
-
-            </Button>
-
+            <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      ItemsSource="{x:Static local:ProductForListWindow.ListOfCategories}" SelectedItem="{Binding Category, Mode=TwoWay}"
+                      SelectionChanged="CategorySelector_SelectionChanged"
+                      Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" />
+            <Label Content="Category:" Grid.Column="0" FontSize="20" Margin="276,0,1,0"
+                   Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}"/>
+            <Button Content="Add new Product"  Click="Button_Click" 
+                    HorizontalAlignment="Left" Margin="10,5,0,17" Padding="5" Width="133"
+                    Style="{StaticResource myButtonStyle}"/>
         </Grid>
 
-        <ListView Name ="ProductListview" ItemsSource= "{Binding productForListUpdate, Mode=TwoWay}" MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2" ToolTip="Double click to update a product properties" BorderBrush="{DynamicResource BackgroundButton}" Background="{DynamicResource BackgroundButton}">
+        <ListView ItemsSource= "{Binding products, Mode=TwoWay}" Grid.ColumnSpan="2" Grid.RowSpan="2" 
+                  Margin="0,43,0,0" ToolTip="Double click to update a product properties"
+                  BorderBrush="{DynamicResource BackgroundButton}" Background="{DynamicResource BackgroundButton}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="MouseDoubleClick" Handler="MouseDoubleClick"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
-
-                <GridView x:Name="GridView1">
-                    <GridViewColumn DisplayMemberBinding= "{Binding Name}" 
-                                Header="Product name" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding ID}" 
-                                Header="Product ID" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding Price}" 
-                                Header="Price" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding Category}" 
-                                Header="Category" Width="150"/>
-
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding= "{Binding Name}" Header="Product name" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding ID}" Header="Product ID" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding Price}" Header="Price" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding= "{Binding Category}" Header="Category" Width="150"/>
                 </GridView>
             </ListView.View>
-
         </ListView>
 
 

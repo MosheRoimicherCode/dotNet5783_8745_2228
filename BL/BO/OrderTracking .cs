@@ -1,12 +1,8 @@
 ﻿namespace BO;
-using DO;
 using System.Collections.Generic;
-using static BO.Enums;
-using static System.Formats.Asn1.AsnWriter;
 
 public class OrderTracking
 {
-
     // data
     public int OrderID { get; set; }
     public Status? Status { get; set; }
@@ -18,7 +14,6 @@ public class OrderTracking
     //    Category: {Status}
     //    list: {string.Join("\n", TupleList!)}
     //";
-
 }
 
 

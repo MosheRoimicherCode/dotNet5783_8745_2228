@@ -1,6 +1,3 @@
-﻿using DO;
-namespace DalApi;
-
-public interface IOrderItem : ICrud<OrderItem>
-{
-}
+﻿namespace DalApi;
+using DO;
+public interface IOrderItem : ICrud<OrderItem> {}

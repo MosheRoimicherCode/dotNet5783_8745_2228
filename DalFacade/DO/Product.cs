@@ -1,5 +1,4 @@
-﻿using static DO.Enums;
-namespace DO;
+﻿namespace DO;
 
 ///A class to restore product details
 public struct Product

@@ -1,14 +1,16 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
-using System;
-using System.Collections.Generic;
+using System.Xml.Linq;
 
 internal class DalOrder : IOrder
 {
+    string path = @"..\xml\orders.xml";
     public int Add(Order t)
     {
-        throw new NotImplementedException();
+        XElement newOrder = XElement.Load(path);
+        return 0;    
+           
     }
 
     public void Delete(int n)
@@ -26,7 +28,7 @@ internal class DalOrder : IOrder
         throw new NotImplementedException();
     }
 
-    public void Update(int n, Order t)
+    public void Update(Order t)
     {
         throw new NotImplementedException();
     }

@@ -26,7 +26,7 @@ internal class Product : BlApi.IProduct
         boProduct.Name = product.Name;
         boProduct.Price = product.Price;
         boProduct.InStock = product.InStock;
-        boProduct.Category = (BO.Enums.Category?)product.Category;
+        boProduct.Category = (BO.Category?)product.Category;
 
         return boProduct;
     }
@@ -37,7 +37,7 @@ internal class Product : BlApi.IProduct
         product.Name = boProduct.Name;
         product.Price = boProduct.Price;
         product.InStock = boProduct.InStock;
-        DO.Enums.Category? category = (DO.Enums.Category?)boProduct.Category;
+        DO.Category? category = (DO.Category?)boProduct.Category;
         product.Category = category;
 
         return product;
@@ -58,15 +58,15 @@ internal class Product : BlApi.IProduct
             DO.Product? product = Dal!.Product.Get(x => x?.ID == Id);
             BO.ProductItem item = new()
             {
-                ID = (int)(product?.ID),
+                ID = (int)product?.ID!,
                 AmontInCart = orderItem?.Amount ?? 0,
                 Name = product?.Name,
-                Price = (int)product?.Price,
+                Price = (int)product?.Price!,
                 IsInStock = false,
-                Category = (BO.Enums.Category?)(product?.Category)
+                Category = (BO.Category?)(product?.Category)
             };
 
-            if ((Dal!.Product.Get(x => x?.ID == orderItem?.ProductID)!).Value.InStock > 0) { item.IsInStock = true; }
+            if ((Dal!.Product.Get(x => x?.ID == orderItem?.ProductID)!)?.InStock > 0) { item.IsInStock = true; }
             else { item.IsInStock = false; }
             return item;
         }
@@ -83,7 +83,7 @@ internal class Product : BlApi.IProduct
     {
         return from item in Dal?.Product.GetAll()
                from orderItem in cart.Details
-               where (item.Value.ID == orderItem.ProductID)
+               where (item?.ID == orderItem.ProductID)
                select Get(item?.ID, cart);
     }
 
@@ -92,12 +92,12 @@ internal class Product : BlApi.IProduct
         ///check if received Id exist
         DO.Product product = Dal!.Product.Get(x => x?.ID == Id) ?? throw new BO.DeleteProductException("Cant delete product. Id not found.");
         //check if product exist inside order - if yes, so throw a message
-        if (Dal!.OrderItem.GetAll(x => x!.Value.ID == Id).Count() == 0) Dal.Product.Delete(Id);
+        if (Dal!.OrderItem.GetAll(x => x?.ID == Id).Count() == 0) Dal.Product.Delete(Id);
         else throw new BO.IdBOException("Product inside an exist order. cant delete."); ;
     }
     public void Update(BO.Product item)
     {
-        try { if (CheckNewItem(item) == true) Dal!.Product.Update(item.ID, ConvertBoProductToProduct(item)); }
+        try { if (CheckNewItem(item) == true) Dal!.Product.Update(ConvertBoProductToProduct(item)); }
         catch (IdException) { throw new BO.UpdateProductException("Id not found. Impossible to update."); }
     } /// if received item have right properties and exist, update it. else throw a message.
 
@@ -106,10 +106,11 @@ internal class Product : BlApi.IProduct
     /// </summary>
     /// <param name="filter" - delegate ></param>
     /// <returns> ProductForList item </returns>
-    private IEnumerable<ProductForList> CreateproductForLists(Func<DO.Product?, bool>? filter = null) =>
+    private IEnumerable<ProductForList> CreateproductForLists(Func<BO.Product?, bool>? filter = null) =>
 
-        from product in Dal!.Product.GetAll(filter)
+        from product in Dal!.Product.GetAll()
         let BOProduct = ConvertProductToBoProduct((DO.Product)product!)
+        where filter is null || filter!.Invoke(BOProduct)
         select new BO.ProductForList()
         {
             ID = BOProduct.ID,
@@ -117,5 +118,5 @@ internal class Product : BlApi.IProduct
             Price = BOProduct.Price,
             Category = BOProduct.Category
         };
-    public List<ProductForList> GetList(Func<DO.Product?, bool>? filter = null) => CreateproductForLists(filter).ToList();
+    public IEnumerable<ProductForList> GetList(Func<BO.Product?, bool>? filter = null) => CreateproductForLists(filter).OrderBy(p => p.ID);
 }

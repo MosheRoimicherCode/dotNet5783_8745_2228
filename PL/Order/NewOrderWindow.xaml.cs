@@ -20,10 +20,10 @@ using System.Windows.Shapes;
 
 public partial class NewOrderWindow : Window ,INotifyPropertyChanged
 {
-    IBl? p = BlApi.Factory.Get();
+    IBl bl = BlApi.Factory.Get();
     private BO.Cart currentCart = new();
 
-    private List<BO.Enums.Category> ListOfCategories = new();
+    private List<BO.Category> ListOfCategories = new();
 
     private List<BO.ProductItem> productItems;
     public List<BO.ProductItem> productItemsForUpdate
@@ -42,9 +42,9 @@ public partial class NewOrderWindow : Window ,INotifyPropertyChanged
     public NewOrderWindow(BO.Cart? cart = null)
     {
         InitializeComponent();
-        foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category))) ListOfCategories.Add(item);
+        foreach (BO.Category item in Enum.GetValues(typeof(BO.Category))) ListOfCategories.Add(item);
         if (cart != null) currentCart = cart;
-        productItemsForUpdate = new List<BO.ProductItem>(p.Product.GetListOfItems(currentCart));
+        productItemsForUpdate = new List<BO.ProductItem>(bl.Product.GetListOfItems(currentCart));
         DataContext = productItemsForUpdate;
         CategorySelector.ItemsSource = ListOfCategories;
         CategorySelector.SelectedIndex = 3;
@@ -55,19 +55,19 @@ public partial class NewOrderWindow : Window ,INotifyPropertyChanged
     public void CategorySelector_SelectionChanged(object sender, RoutedEventArgs e)
     {
 
-        if (CategorySelector.SelectedItem is BO.Enums.Category categorySelected)
+        if (CategorySelector.SelectedItem is BO.Category categorySelected)
         {
-            if (categorySelected == BO.Enums.Category.all) ProductItemView.ItemsSource = new List<BO.ProductItem>(p.Product.GetListOfItems(currentCart));
+            if (categorySelected == BO.Category.all) ProductItemView.ItemsSource = new List<BO.ProductItem>(bl.Product.GetListOfItems(currentCart));
 
-            else ProductItemView.ItemsSource = new List<BO.ProductItem>(p!.Product.GetListOfItems(currentCart)).Where(x => x.Category == categorySelected);
+            else ProductItemView.ItemsSource = new List<BO.ProductItem>(bl!.Product.GetListOfItems(currentCart)).Where(x => x.Category == categorySelected);
 
             for (int i = 0; i < ListOfCategories.Count; i++)
                 if (ListOfCategories[i].Equals(categorySelected)) ListOfCategories.Remove(ListOfCategories[i]);
 
 
-            this.CategorySelector.ItemsSource = new ObservableCollection<BO.Enums.Category>(ListOfCategories);
+            this.CategorySelector.ItemsSource = new ObservableCollection<BO.Category>(ListOfCategories);
             ListOfCategories.Clear();
-            foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category)))
+            foreach (BO.Category item in Enum.GetValues(typeof(BO.Category)))
                 ListOfCategories.Add(item);
         }
     }

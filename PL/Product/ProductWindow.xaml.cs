@@ -15,10 +15,10 @@ using System.Windows.Input;
 /// </summary>
 public partial class ProductWindow : Window
 {
-    public static IBl productIBL = Factory.Get();
-    string situation;
-    private List<BO.Enums.Category> ListOfCategories = new();
-    Action change;
+    static readonly IBl bl = Factory.Get();
+    readonly string situation;
+    readonly List<BO.Category> ListOfCategories = new();
+    readonly Action change;
     public ProductWindow(string str, int id, Action action)
     {
         InitializeComponent();
@@ -28,7 +28,7 @@ public partial class ProductWindow : Window
 
         if (str == "update")
         {
-            productGeted = productIBL.Product.Get(id);
+            productGeted = bl.Product.Get(id);
 
             buttonProductWindows.Content = str;
             ProducId.Text = (productGeted.ID).ToString();
@@ -41,10 +41,10 @@ public partial class ProductWindow : Window
         }
         
         
-        foreach (BO.Enums.Category item in Enum.GetValues(typeof(BO.Enums.Category))) ListOfCategories.Add(item);
+        foreach (BO.Category item in Enum.GetValues(typeof(BO.Category))) ListOfCategories.Add(item);
 
         Category2.ItemsSource = ListOfCategories;
-        ListOfCategories.Remove(BO.Enums.Category.all);
+        ListOfCategories.Remove(BO.Category.all);
         Category2.SelectedIndex = -1;
 
         if (str == "update")
@@ -86,14 +86,14 @@ public partial class ProductWindow : Window
             foreach (var item in ListOfCategories)//insert value to category
             {
                 if (productCategory == item.ToString())
-                    newProduct.Category = (BO.Enums.Category)Category2.SelectedItem!;
+                    newProduct.Category = (BO.Category)Category2.SelectedItem!;
             }
-            if (btn.Name == "buttonProductWindows") //else just jump to cancel button
+            if (btn?.Name == "buttonProductWindows") //else just jump to cancel button
             {
-                if (situation == "add") productIBL.Product.Add(newProduct);
-                else if (situation == "update") productIBL.Product.Update(newProduct);
+                if (situation == "add") bl.Product.Add(newProduct);
+                else if (situation == "update") bl.Product.Update(newProduct);
             }
-            new ProductForListWindow().Show();         
+            change();
             this.Close();
         }
         
@@ -101,12 +101,9 @@ public partial class ProductWindow : Window
         {
             new ERRORWindow(this, s.Message).Show();
         }
-        
-        
     }
     private void Cancel_Button_Click(object sender, RoutedEventArgs e)
     {
-        //new ProductForListWindow().Show();
         this.Close();
     }
 

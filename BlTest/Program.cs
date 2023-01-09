@@ -12,7 +12,7 @@ internal class Program
         public int intInput;
         public double doubleInput;
         public bool? boolInput;
-        public Enums.Category? c;
+        public Category? c;
     }  //struck for support input checks 
     static public CheckInput checkInput(string check)
     {
@@ -48,13 +48,13 @@ internal class Program
                 switch (result.intInput)
                 {
                     case 1:
-                        result.c = BO.Enums.Category.footwear;
+                        result.c = BO.Category.footwear;
                         break;
                     case 2:
-                        result.c = BO.Enums.Category.outerwear;
+                        result.c = BO.Category.outerwear;
                         break;
                     case 3:
-                        result.c = BO.Enums.Category.business;
+                        result.c = BO.Category.business;
                         break;
                 }
             }
@@ -235,7 +235,7 @@ internal class Program
                 case "6":
                     Console.WriteLine("-----------------------------------------------LIST--------------------------------------------------------");
 
-                    List<BO.ProductForList> listBoProduct = p.Product.GetList(x => x!.Value.ID > 0);
+                    var listBoProduct = p.Product.GetList(x => x!.ID > 0);
                     foreach (BO.ProductForList? item in listBoProduct) Console.WriteLine(item);
                     goto MainMenu;
 

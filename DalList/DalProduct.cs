@@ -13,26 +13,20 @@ internal class DalProduct : IProduct
             : AddProduct(product); /// Add Product to Data Base
     public Product? Get(Func<Product?, bool> filter) => (from product in _productList
                                                          where filter(product)
-                                                         orderby (product.Value.ID)
+                                                         orderby (product?.ID)
                                                          select product.Value).FirstOrDefault();
     public void Delete(int ProductID)
     {
         try { _productList.RemoveAll(x => x?.ID == ProductID); }
         catch (ArgumentNullException) { throw new IdException(" Not found ID. (Dalproduct.Delete Exception)"); }
     }
-    public void Update(int ProductID, Product newProduct)
+    public void Update(Product newProduct)
     {
-        try
-        {
-            int index = _productList.FindIndex(x => x?.ID == ProductID);
-
-            _productList.RemoveAt(index);
-            _productList.Insert(index, newProduct);
-        }
-        catch { throw new IdException("not found id. (DalProduct.Update Exception)"); }
+        Delete(newProduct.ID);
+        Add(newProduct);
     } ///replace product by another inside array
 
     public IEnumerable<Product?> GetAll(Func<Product?, bool>? filter) =>
         filter == null ? _productList.Select(prouductInList => prouductInList)
                   : _productList.Where(filter);
-}    
+}

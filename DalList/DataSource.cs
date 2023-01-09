@@ -1,8 +1,5 @@
 ﻿namespace Dal;
-
 using DO;
-using System;
-using static DO.Enums;
 
 ///data source class
 internal static class DataSource

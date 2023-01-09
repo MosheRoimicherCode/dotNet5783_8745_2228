@@ -18,6 +18,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{8DA51EE8-D790-4728-B91D-25A5F5783932}"
 	ProjectSection(SolutionItems) = preProject
 		xml\dal-config.xml = xml\dal-config.xml
+		xml\orderItem.xml = xml\orderItem.xml
+		xml\orders.xml = xml\orders.xml
+		xml\products.xml = xml\products.xml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLTest", "BlTest\BLTest.csproj", "{10EE57D6-B643-45DB-B3F9-8E2A9498846A}"

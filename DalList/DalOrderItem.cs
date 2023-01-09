@@ -21,17 +21,12 @@ internal class DalOrderItem : IOrderItem
         try { _orderItemList.RemoveAll(x => x?.ID == OrderItemId); }
         catch (ArgumentNullException) { throw new IdException(" Not found ID. (Dalorder.Delete Exception)"); }
     }
-    public void Update(int OrderItemID, OrderItem newOrderItem)
+    public void Update(OrderItem newOrderItem)
     {
-        try
-        {
-            int index = _orderItemList.FindIndex(x => x?.ID == OrderItemID);
-
-            _orderItemList.RemoveAt(index);
-            _orderItemList.Insert(index, newOrderItem);
-        }
-        catch { throw new IdException("not found id. (DalOrder.Update Exception)"); }
-    }///replace orderItem by another inside array
+        Delete(newOrderItem.ID);
+        Add(newOrderItem);
+    }
+    
     public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool>? filter) =>
       filter == null ? _orderItemList.Select(orderItemInList => orderItemInList)
                 : _orderItemList.Where(filter);

@@ -7,15 +7,15 @@ using System.Windows;
 /// </summary>
 public partial class ERRORWindow : Window
 {
-    ProductWindow productWindow;
-    OrderWindow orderWindow;
-    string s;
+    ProductWindow? productWindow;
+    OrderWindow? orderWindow;
+    readonly string s;
     public ERRORWindow(ProductWindow Window, string s)
     {
         InitializeComponent();
         label.Content = s;
         productWindow = Window;
-        s = "productWindow";
+        this.s = "productWindow";
     }
 
     public ERRORWindow(OrderWindow Window, string s)
@@ -23,16 +23,16 @@ public partial class ERRORWindow : Window
         InitializeComponent();
         label.Content = s;
         orderWindow = Window;
-        s = "orderWindow";
+        this.s = "orderWindow";
     }
 
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
         if (s == "productWindow")
         {
-            productWindow.Show();
+            productWindow?.Show();
             this.Close();
         }
-        else orderWindow.Show();
+        else orderWindow?.Show();
     }
 }

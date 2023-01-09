@@ -1,7 +1,6 @@
 ﻿namespace BO;
-using DO;
 using System.Collections.Generic;
-using static BO.Enums;
+
 public class Cart
 {
 
