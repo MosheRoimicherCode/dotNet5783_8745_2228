@@ -2,6 +2,7 @@
 
 using DalApi;
 using DO;
+using System.Xml.Linq;
 
 internal class Program
 {
@@ -10,7 +11,7 @@ internal class Program
         try
         {
             IDal dal = Factory.Get() ?? throw new FactoryError("dal Factory return null value (DalTest.Idal)");
-            
+
             while (true)
             {
                 Console.WriteLine(" select an Item: \n" +
@@ -153,7 +154,7 @@ internal class Program
                                 ShipDate = ShipDate,
                                 DeliveryDate = DeliveryDate
                             };
-                           dal.Order.Add(o1);
+                            dal.Order.Add(o1);
                             break;
                         case "2":
                             Console.WriteLine("enter ID:");
@@ -240,7 +241,7 @@ internal class Program
                         case "4":
                             Console.WriteLine("enter ID of exist OrderItem:");
                             int existID = Convert.ToInt32(Console.ReadLine());
-                            dal.OrderItem.Get(x => x?.ID == existID);                         
+                            dal.OrderItem.Get(x => x?.ID == existID);
                             Console.WriteLine("enter ProductID:");
                             int ID4 = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("enter OrderID:");
@@ -268,6 +269,70 @@ internal class Program
                     }
                 }
             }
+
+            //var order = dal.Order.GetAll();
+            //var product = dal.Product.GetAll();
+            //var orderItem = dal.OrderItem.GetAll();
+
+            //XElement copyOdDataSource;
+            //string xmlPath = "C:\\Users\\mroim\\Source\\repos\\MosheRoimicherCode\\dotNet5783_8745_2228\\xml\\orders.xml";
+
+
+            //    var orderRoot = new XElement("OrdersXML",
+            //    from p in order
+            //    select 
+            //    new XElement("Orders",
+            //    new XElement("ID", p.Value.ID),
+            //    new XElement("CustomerName", p.Value.CustomerName),
+            //    new XElement("CustomerEmail", p.Value.CustomerEmail),
+            //    new XElement("CustomeAdress", p.Value.CustomeAdress),
+            //    new XElement("OrderDate", p.Value.OrderDate),
+            //    new XElement("ShipDate", p.Value.ShipDate),
+            //    new XElement("DeliveryDate", p.Value.DeliveryDate)
+            //    )
+            //    )
+            //    ;
+            //orderRoot.Save(xmlPath);
+
+            //string xmlPath = "C:\\Users\\mroim\\Source\\repos\\MosheRoimicherCode\\dotNet5783_8745_2228\\xml\\products.xml";
+
+
+            //var orderRoot = new XElement("ProductsXML",
+            //from p in product
+            //select
+            //new XElement("Products",
+            //new XElement("ID", p.Value.ID),
+            //new XElement("Name", p.Value.Name),
+            //new XElement("Price", p.Value.Price),
+            //new XElement("Category", p.Value.Category.ToString()),
+            //new XElement("InStock", p.Value.InStock)
+
+            //)
+            //)
+            //;
+            //orderRoot.Save(xmlPath);
+
+            //string xmlPath = "C:\\Users\\mroim\\Source\\repos\\MosheRoimicherCode\\dotNet5783_8745_2228\\xml\\orderItem.xml";
+
+
+            //var orderRoot = new XElement("OrderItemXML",
+            //from p in orderItem
+            //select
+            //new XElement("OrderItem",
+            //new XElement("ID", p.Value.ID),
+            //new XElement("ProductID", p.Value.ProductID),
+            //new XElement("OrderID", p.Value.OrderID),
+            //new XElement("Price", p.Value.Price),
+            //new XElement("Amount", p.Value.Amount)
+
+            //)
+            //)
+            //;
+            //orderRoot.Save(xmlPath);
+
+
+
+
         }
         catch (Exception e)
         {

@@ -1,18 +1,22 @@
-﻿using DalApi;
+﻿namespace Dal;
+using DalApi;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
-namespace Dal
+internal class DalXml : IDal
 {
-    internal class DalXml : IDal
+    private static IDal instance = new DalXml();
+    private DalXml()
     {
-        public IProduct Product => throw new NotImplementedException();
-
-        public IOrder Order => throw new NotImplementedException();
-
-        public IOrderItem OrderItem => throw new NotImplementedException();
+        DalProduct dalProduct = new();
+        DalOrder dalOrder = new();
+        DalOrderItem dalOrderItem = new();
     }
+    public static IDal Instance => instance ?? new DalXml();
+
+    IProduct IDal.Product => new DalProduct();
+    IOrder IDal.Order => new DalOrder();
+    IOrderItem IDal.OrderItem => new DalOrderItem();
 }
+
+
