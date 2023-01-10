@@ -1,6 +1,5 @@
 ﻿namespace Dal;
 using DalApi;
-using System.ComponentModel;
 
 internal sealed class DalList : IDal
 {
@@ -11,7 +10,6 @@ internal sealed class DalList : IDal
         DalOrder dalOrder = new ();
         DalOrderItem dalOrderItem = new ();
     }
-
     // The public Instance property to use
     public static IDal Instance => instance ?? new DalList() ;
 
@@ -19,5 +17,4 @@ internal sealed class DalList : IDal
     IProduct IDal.Product => new DalProduct();
     IOrder IDal.Order => new DalOrder();
     IOrderItem IDal.OrderItem => new DalOrderItem();
-
 }

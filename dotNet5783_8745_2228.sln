@@ -10,6 +10,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalList", "DalList\DalList.csproj", "{83078725-55CD-4B65-A409-0ACC661A0B2C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalTest", "DalTest\DalTest.csproj", "{696A7FE8-36C6-4000-8D6B-ED2BE03DCD24}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C5B5C4F5-B891-424D-9AA2-431033F53FB0} = {C5B5C4F5-B891-424D-9AA2-431033F53FB0}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{04B3DA85-C95D-46F2-B083-5140402C2D87}"
 EndProject
@@ -17,8 +20,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{DBDF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{8DA51EE8-D790-4728-B91D-25A5F5783932}"
 	ProjectSection(SolutionItems) = preProject
-		xml\dal-config.xml = xml\dal-config.xml
 		config.xml = config.xml
+		xml\dal-config.xml = xml\dal-config.xml
 		xml\orderItem.xml = xml\orderItem.xml
 		xml\orders.xml = xml\orders.xml
 		xml\products.xml = xml\products.xml
