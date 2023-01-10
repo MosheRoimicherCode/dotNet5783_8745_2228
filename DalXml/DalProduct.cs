@@ -6,10 +6,12 @@ using System.Xml.Linq;
 internal class DalProduct : IProduct
 {
     static readonly string path = @"..\xml\orders.xml";
-    static readonly XElement dataBaseOrders = XElement.Load(@"..\xml\orders.xml"); //copy data base to code
+    
 
     public int Add(Product product)
     {
+        XElement dataBaseOrders = XElement.Load(path); //copy data base to code
+
         dataBaseOrders.Add(product); //add new item
         dataBaseOrders.Save(path); //save changes
         return product.ID; //return idOrder
@@ -17,6 +19,7 @@ internal class DalProduct : IProduct
 
     public void Delete(int ID)
     {
+        XElement dataBaseOrders = XElement.Load(path); //copy data base to code
         try
         {
             XElement? newDataBase = (from product in dataBaseOrders.Elements()
@@ -42,16 +45,20 @@ internal class DalProduct : IProduct
         Add(product);
     }
 
-    IEnumerable<Product?> createListFromXml() => (IEnumerable<Product?>)(from product in dataBaseOrders.Elements()
-                                                                     select new DO.Product()
-                                                                     {
-                                                                         ID = Convert.ToInt32(product.Element("ID")?.Value),
-                                                                         Name = product.Element("Name")?.Value,
-                                                                         Price = Convert.ToDouble(product.Element("Price")?.Value),
-                                                                         Category = checkCategoty(product),
-                                                                         InStock = Convert.ToInt32(product.Element("InStock")?.Value),
-                                                                         
-                                                                     });
+    static IEnumerable<Product?> createListFromXml()
+    {
+        XElement dataBaseOrders = XElement.Load(path); //copy data base to code
+        return (IEnumerable<Product?>)(from product in dataBaseOrders.Elements()
+                                select new DO.Product()
+                                {
+                                    ID = Convert.ToInt32(product.Element("ID")?.Value),
+                                    Name = product.Element("Name")?.Value,
+                                    Price = Convert.ToDouble(product.Element("Price")?.Value),
+                                    Category = checkCategoty(product),
+                                    InStock = Convert.ToInt32(product.Element("InStock")?.Value),
+
+                                });
+    }
     static Category checkCategoty(XElement cat)
     {
         switch (cat.Element("Category")?.Value.ToString())

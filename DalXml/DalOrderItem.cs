@@ -6,9 +6,12 @@ using System.Xml.Linq;
 internal class DalOrderItem : IOrderItem
 {
     static readonly string path = @"..\xml\orderItem.xml";
-    static readonly XElement dataBaseOrders = XElement.Load(@"..\xml\orderItem.xml"); //copy data base to code
+    static readonly string pathConfig = @"..\xml\config.xml";
+
     public int Add(OrderItem orderItem)
     {
+        XElement dataBaseOrders = XElement.Load(path); //copy data base to code
+        orderItem.ID = ReturnId(); //get automatic ID 
         dataBaseOrders.Add(orderItem); //add new item
         dataBaseOrders.Save(path); //save changes
         return orderItem.ID; //return idOrder
@@ -16,6 +19,8 @@ internal class DalOrderItem : IOrderItem
 
     public void Delete(int ID)
     {
+        XElement dataBaseOrders = XElement.Load(path); //copy data base to code
+
         try
         {
             XElement? newDataBase = (from order2 in dataBaseOrders.Elements()
@@ -42,13 +47,26 @@ internal class DalOrderItem : IOrderItem
     }
 
     //private methods
-    IEnumerable<OrderItem?> createListFromXml() => (IEnumerable<OrderItem?>)(from OrderItem in dataBaseOrders.Elements()
-                                                                     select new DO.OrderItem()
-                                                                     {
-                                                                         ID = Convert.ToInt32(OrderItem.Element("ID")?.Value),
-                                                                         ProductID = Convert.ToInt32(OrderItem.Element("ProductID")?.Value),
-                                                                         OrderID = Convert.ToInt32(OrderItem.Element("OrderID")?.Value),
-                                                                         Price = Convert.ToDouble(OrderItem.Element("Price")?.Value),
-                                                                         Amount = Convert.ToInt32(OrderItem.Element("Amount")?.Value),
-                                                                     });
+    IEnumerable<OrderItem?> createListFromXml()
+    {
+        XElement dataBaseOrders = XElement.Load(path); //copy data base to code
+
+        return (IEnumerable<OrderItem?>)(from OrderItem in dataBaseOrders.Elements()
+                                  select new DO.OrderItem()
+                                  {
+                                      ID = Convert.ToInt32(OrderItem.Element("ID")?.Value),
+                                      ProductID = Convert.ToInt32(OrderItem.Element("ProductID")?.Value),
+                                      OrderID = Convert.ToInt32(OrderItem.Element("OrderID")?.Value),
+                                      Price = Convert.ToDouble(OrderItem.Element("Price")?.Value),
+                                      Amount = Convert.ToInt32(OrderItem.Element("Amount")?.Value),
+                                  });
+    }
+
+    int ReturnId()
+    {
+        XElement configData = XElement.Load(pathConfig); //copy data base to code
+        int _idNumberOrder = Convert.ToInt32(configData.Element("_idNumberItemOrder")?.Value) + 1; //new id
+        configData.SetAttributeValue("_idNumberItemOrder", _idNumberOrder);
+        return _idNumberOrder;
+    }
 }

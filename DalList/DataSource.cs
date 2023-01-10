@@ -274,7 +274,7 @@ internal static class DataSource
 
     static internal class Config
     {
-        static internal int _idNumberOrder = 0;
+        static internal int _idNumberOrder = 1;
         static internal int _idNumberItemOrder = 1;
         /// get ID parameters functions
         static public int GetIdNumberOrder() => _idNumberOrder++;
