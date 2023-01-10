@@ -18,9 +18,9 @@ internal class DalOrder : IOrder
     {
         try
         {
-            XElement? newDataBase = (from order2 in dataBaseOrders.Elements()
-                                     where Convert.ToInt32(order2.Element("ID")?.Value) == ID
-                                     select order2).FirstOrDefault(); //search element with received id
+            var newDataBase = (from order2 in dataBaseOrders.Elements()
+                               where Convert.ToInt32(order2.Element("ID")?.Value) == ID
+                               select order2).FirstOrDefault(); //search element with received id
             newDataBase?.Remove();   //remove from copy
             newDataBase?.Save(path); //save changes to original
         }

@@ -1,7 +1,6 @@
 ﻿namespace Dal;
 using DalApi;
-using System;
-using System.Diagnostics;
+
 
 internal class DalXml : IDal
 {
