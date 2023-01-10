@@ -5,15 +5,15 @@ using System.Xml.Linq;
 
 internal class DalOrder : IOrder
 {
-    string path = @"..\xml\orders.xml";
-    XElement dataBaseOrders = XElement.Load(@"..\xml\orders.xml"); //copy data base to code
+    static readonly string path = @"..\xml\orders.xml";
+    static readonly XElement dataBaseOrders = XElement.Load(@"..\xml\orders.xml"); //copy data base to code
     public int Add(Order order)
     {
         dataBaseOrders.Add(order); //add new item
         dataBaseOrders.Save(path); //save changes
         return order.ID; //return idOrder
     }
-
+    
     public void Delete(int ID)
     {
         try
@@ -47,7 +47,7 @@ internal class DalOrder : IOrder
                                               select new DO.Order()
                                               {
                                                   ID = Convert.ToInt32(order.Element("ID")?.Value),
-                                                  CustomerName = order.Element("Name")?.Value,
+                                                  CustomerName = order.Element("CustomerName")?.Value,
                                                   CustomeAdress = order.Element("CustomeAdress")?.Value,
                                                   CustomerEmail = order.Element("CustomerEmail")?.Value,
                                                   DeliveryDate = Convert.ToDateTime(order.Element("OrderDate")?.Value),
