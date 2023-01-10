@@ -61,13 +61,14 @@ internal class Program
                                     break;
                             }
                             Console.WriteLine("enter inStock:");
-                            int inStock = Convert.ToInt32(Console.ReadLine());
+                            int inStock2 = Convert.ToInt32(Console.ReadLine());
                             Product p1 = new()
                             {
                                 ID = ID1,
                                 Name = name,
                                 Price = price,
                                 Category = c,
+                                InStock = inStock2
                             };
                             dal.Product.Add(p1);
                             break;

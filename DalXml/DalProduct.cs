@@ -5,14 +5,18 @@ using System.Xml.Linq;
 
 internal class DalProduct : IProduct
 {
-    static readonly string path = @"..\xml\orders.xml";
-    
+    static readonly string path = @"..\xml\products.xml";
 
     public int Add(Product product)
     {
         XElement dataBaseOrders = XElement.Load(path); //copy data base to code
-
-        dataBaseOrders.Add(product); //add new item
+        XElement newProduct = new XElement("Products",
+                                new XElement("ID", product.ID),
+                                new XElement("Name", product.Name),
+                                new XElement("Price", product.Price),
+                                new XElement("Category", product.Category),
+                                new XElement("InStock", product.InStock));
+        dataBaseOrders.Add(newProduct); //add new item
         dataBaseOrders.Save(path); //save changes
         return product.ID; //return idOrder
     }
@@ -22,11 +26,11 @@ internal class DalProduct : IProduct
         XElement dataBaseOrders = XElement.Load(path); //copy data base to code
         try
         {
-            XElement? newDataBase = (from product in dataBaseOrders.Elements()
+            XElement? removrOrder = (from product in dataBaseOrders.Elements()
                                      where Convert.ToInt32(product.Element("ID")?.Value) == ID
-                                     select product).FirstOrDefault(); //search element with received id
-            newDataBase?.Remove();   //remove from copy
-            newDataBase?.Save(path); //save changes to original
+                                     select product).First(); //search element with received id
+            removrOrder.Remove();   //remove from copy
+            dataBaseOrders.Save(path); //save changes to original
         }
         catch { }
     }
@@ -34,21 +38,19 @@ internal class DalProduct : IProduct
     public Product? Get(Func<Product?, bool> filter) => (from order in createListFromXml()
                                                          where filter(order)
                                                          select order).FirstOrDefault();
-
-    public IEnumerable<Product?> GetAll(Func<Product?, bool>? filter) => from order in createListFromXml()
-                                                                         where filter(order)
-                                                                         select order;
-
+    IEnumerable<Product?> ICrud<Product>.GetAll(Func<Product?, bool>? filter) => (IEnumerable<Product?>)(from order in createListFromXml()
+                                                                                                         where filter(order)
+                                                                                                         select order);
     public void Update(Product product)
     {
         Delete(product.ID);
         Add(product);
     }
 
-    static IEnumerable<Product?> createListFromXml()
+    static IEnumerable<Product> createListFromXml()
     {
         XElement dataBaseOrders = XElement.Load(path); //copy data base to code
-        return (IEnumerable<Product?>)(from product in dataBaseOrders.Elements()
+        return (from product in dataBaseOrders.Elements()
                                 select new DO.Product()
                                 {
                                     ID = Convert.ToInt32(product.Element("ID")?.Value),
@@ -74,6 +76,7 @@ internal class DalProduct : IProduct
         }
     }
 
+    
 
 }
 

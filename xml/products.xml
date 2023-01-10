@@ -1,13 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ProductsXML>
   <Products>
-    <ID>123456</ID>
-    <Name>shirt</Name>
-    <Price>80</Price>
-    <Category>outerwear</Category>
-    <InStock>30</InStock>
-  </Products>
-  <Products>
     <ID>111111</ID>
     <Name>shoes</Name>
     <Price>200</Price>
@@ -76,5 +69,12 @@
     <Price>200</Price>
     <Category>Business</Category>
     <InStock>5</InStock>
+  </Products>
+  <Products>
+    <ID>123456</ID>
+    <Name>1</Name>
+    <Price>1</Price>
+    <Category>footwear</Category>
+    <InStock>1</InStock>
   </Products>
 </ProductsXML>
