@@ -1,76 +1,100 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
+using System.Linq;
 using System.Xml.Linq;
 
 internal class DalOrder : IOrder
 {
     static readonly string path = @"..\xml\orders.xml";
     static readonly string pathConfig = @"..\xml\config.xml";
-
+    static string addFunctionality = "add";
 
     public int Add(Order order)
     {
-        XElement dataBaseOrders = XElement.Load(path); //copy data base to code
-        order.ID = ReturnId(); //get automatic ID 
-        dataBaseOrders.Add(order); //add new item
-        dataBaseOrders.Save(path); //save changes
+        XElement dataBase = XElement.Load(path); //copy data base to code
+        if (addFunctionality != "update")  order.ID = ReturnId(); //get new automatic ID 
+
+        XElement newOrder = new XElement("Orders",
+                            new XElement("ID", order.ID),
+                            new XElement("CustomerName", order.CustomerName),
+                            new XElement("CustomerEmail", order.CustomerEmail),
+                            new XElement("CustomeAdress", order.CustomeAdress),
+                            new XElement("OrderDate", order.OrderDate),
+                            new XElement("ShipDate", order.ShipDate),
+                            new XElement("DeliveryDate", order.DeliveryDate));
+
+        dataBase.Add(newOrder); //add new item
+        dataBase.Save(path); //save changes
         return order.ID; //return idOrder
     }
-    
+
     public void Delete(int ID)
     {
-        XElement dataBaseOrders = XElement.Load(path); //copy data base to code
+        XElement dataBase = XElement.Load(path); //copy data base to code
 
         try
         {
-            var newDataBase = (from order2 in dataBaseOrders.Elements()
+            var removeItem = (from order2 in dataBase.Elements()
                                where Convert.ToInt32(order2.Element("ID")?.Value) == ID
                                select order2).FirstOrDefault(); //search element with received id
-            newDataBase?.Remove();   //remove from copy
-            newDataBase?.Save(path); //save changes to original
+            removeItem?.Remove();   //remove from copy
+            dataBase?.Save(path); //save changes to original
         }
         catch { }
     }
 
-    public Order? Get(Func<Order?, bool> filter) => (from order in createListFromXml()
-                                                     where filter(order)
-                                                     select order).FirstOrDefault();
+    public Order? Get(Func<Order?, bool> filter) => (from item in createListFromXml()
+                                                     where filter(item)
+                                                     select item).FirstOrDefault();
 
-    public IEnumerable<Order?> GetAll(Func<Order?, bool> filter) => from order in createListFromXml()
-                                                                    where filter(order)
-                                                                    select order;
+    public IEnumerable<Order?> GetAll(Func<Order?, bool>? filter) =>
+        filter == null ? createListFromXml().Select(prouductInList => prouductInList)
+                  : createListFromXml().Where(filter);
 
     public void Update(Order order)
     {
+        addFunctionality = "update";
         Delete(order.ID);
         Add(order);
+        addFunctionality = "add";
     }
 
 
     //private methods
-    IEnumerable<Order?> createListFromXml()
+    static IEnumerable<Order> createIEnumerableFromXml()
     {
         XElement dataBaseOrders = XElement.Load(path); //copy data base to code
 
-        return (IEnumerable<Order?>)(from order in dataBaseOrders.Elements()
+        return (from item in dataBaseOrders.Elements()
                               select new DO.Order()
                               {
-                                  ID = Convert.ToInt32(order.Element("ID")?.Value),
-                                  CustomerName = order.Element("CustomerName")?.Value,
-                                  CustomeAdress = order.Element("CustomeAdress")?.Value,
-                                  CustomerEmail = order.Element("CustomerEmail")?.Value,
-                                  DeliveryDate = Convert.ToDateTime(order.Element("OrderDate")?.Value),
-                                  ShipDate = Convert.ToDateTime(order.Element("ShipDate")?.Value),
-                                  OrderDate = Convert.ToDateTime(order.Element("OrderDate")?.Value)
+                                  ID = Convert.ToInt32(item.Element("ID")?.Value),
+                                  CustomerName = item.Element("CustomerName")?.Value,
+                                  CustomeAdress = item.Element("CustomeAdress")?.Value,
+                                  CustomerEmail = item.Element("CustomerEmail")?.Value,
+                                  DeliveryDate = Convert.ToDateTime(item.Element("OrderDate")?.Value),
+                                  ShipDate = Convert.ToDateTime(item.Element("ShipDate")?.Value),
+                                  OrderDate = Convert.ToDateTime(item.Element("OrderDate")?.Value)
                               });
+    }
+    static List<Order?> createListFromXml()
+    {
+        List<DO.Order?> b = new();
+        foreach (var item in createIEnumerableFromXml())
+        {
+            DO.Order? orderItem = item;
+            b.Add(orderItem);
+        }
+        return b;
     }
 
     int ReturnId()
     {
         XElement configData = XElement.Load(pathConfig); //copy data base to code
         int _idNumberOrder = Convert.ToInt32(configData.Element("_idNumberOrder")?.Value) + 1; //new id
-        configData.SetAttributeValue("_idNumberOrder", _idNumberOrder);
+        configData.SetElementValue("_idNumberOrder", _idNumberOrder);
+        configData.Save(pathConfig);
         return _idNumberOrder;
     }
 }
