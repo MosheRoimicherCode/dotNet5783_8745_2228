@@ -77,4 +77,11 @@
     <Category>footwear</Category>
     <InStock>1</InStock>
   </Products>
+  <Products>
+    <ID>2</ID>
+    <Name>2</Name>
+    <Price>2</Price>
+    <Category>footwear</Category>
+    <InStock>2</InStock>
+  </Products>
 </ProductsXML>
