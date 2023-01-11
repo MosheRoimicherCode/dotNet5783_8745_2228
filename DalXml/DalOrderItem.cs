@@ -1,6 +1,7 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
+using System.Linq;
 using System.Xml.Linq;
 
 internal class DalOrderItem : IOrderItem
@@ -12,7 +13,15 @@ internal class DalOrderItem : IOrderItem
     {
         XElement dataBaseOrders = XElement.Load(path); //copy data base to code
         orderItem.ID = ReturnId(); //get automatic ID 
-        dataBaseOrders.Add(orderItem); //add new item
+
+        XElement newOrderItem = new XElement("OrderItem",
+                                new XElement("ID", orderItem.ID),
+                                new XElement("ProductID", orderItem.ProductID),
+                                new XElement("OrderID", orderItem.OrderID),
+                                new XElement("Price", orderItem.Price),
+                                new XElement("Amount", orderItem.Amount));
+
+        dataBaseOrders.Add(newOrderItem); //add new item
         dataBaseOrders.Save(path); //save changes
         return orderItem.ID; //return idOrder
     }
@@ -36,21 +45,20 @@ internal class DalOrderItem : IOrderItem
                                                         where filter(OrderItem)
                                                         select OrderItem).FirstOrDefault();
 
-    public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool> filter) => from OrderItem in createListFromXml()
-                                                                        where filter(OrderItem)
-                                                                        select OrderItem;
+    public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool>? filter) =>
+        filter == null ? createListFromXml().Select(prouductInList => prouductInList)
+                  : createListFromXml().Where(filter);
 
-    public void Update(OrderItem orderItemt)
+    public void Update(OrderItem orderItem)
     {
-        Delete(orderItemt.ID);
-        Add(orderItemt);
+        Delete(orderItem.ID);
+        Add(orderItem);
     }
 
     //private methods
-    IEnumerable<OrderItem?> createListFromXml()
+    static IEnumerable<OrderItem?> createIEnumerableFromXml()
     {
         XElement dataBaseOrders = XElement.Load(path); //copy data base to code
-
         return (IEnumerable<OrderItem?>)(from OrderItem in dataBaseOrders.Elements()
                                   select new DO.OrderItem()
                                   {
@@ -61,12 +69,22 @@ internal class DalOrderItem : IOrderItem
                                       Amount = Convert.ToInt32(OrderItem.Element("Amount")?.Value),
                                   });
     }
-
-    int ReturnId()
+    static List<OrderItem?> createListFromXml()
+    {
+        List<DO.OrderItem?> b = new();
+        foreach (var item in createIEnumerableFromXml().ToList())
+        {
+            DO.OrderItem? orderItem = item;
+            b.Add(orderItem);
+        }
+        return b;
+    }
+    static int ReturnId()
     {
         XElement configData = XElement.Load(pathConfig); //copy data base to code
         int _idNumberOrder = Convert.ToInt32(configData.Element("_idNumberItemOrder")?.Value) + 1; //new id
-        configData.SetAttributeValue("_idNumberItemOrder", _idNumberOrder);
+        configData.SetElementValue("_idNumberItemOrder",_idNumberOrder);
+        configData.Save(pathConfig);
         return _idNumberOrder;
     }
 }
