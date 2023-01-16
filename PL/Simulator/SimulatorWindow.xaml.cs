@@ -2,7 +2,6 @@
 
 using BlApi;
 using System.Windows;
-
 public partial class SimulatorWindow : Window
 {
     static readonly IBl bl = BlApi.Factory.Get();
