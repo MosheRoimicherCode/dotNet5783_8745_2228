@@ -36,6 +36,7 @@
     <None Remove="Order\z5.jpg" />
     <None Remove="Order\z6.jpg" />
     <None Remove="Order\z7.jpg" />
+    <None Remove="Simulator\z7.jpg" />
     <None Remove="yeshiva camp pkudei hashem 2014 099.JPG" />
     <None Remove="z1_image.jpg" />
     <None Remove="z2_250px-770_Eastern_Parkway.jpg" />
@@ -65,6 +66,7 @@
     <Resource Include="Pictures\z5.jpg" />
     <Resource Include="Pictures\z1_image.jpg" />
     <Resource Include="Pictures\z3_pexels-kai-pilger-996329.jpg" />
+    <Resource Include="Simulator\z7.jpg" />
     <Resource Include="z5.jpg" />
     <Resource Include="z6.jpg" />
     <Resource Include="z7.jpg" />
