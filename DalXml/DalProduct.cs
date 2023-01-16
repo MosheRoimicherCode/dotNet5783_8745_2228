@@ -58,7 +58,6 @@ internal class DalProduct : IProduct
     }
 
     //private methods
-
     static IEnumerable<Product> createIEnumerableFromXml()
     {
         XElement dataBase = XElement.Load(path); //copy data base to code
