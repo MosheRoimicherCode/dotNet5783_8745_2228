@@ -2,6 +2,7 @@
 using DalApi;
 using DO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
 internal class DalOrder : IOrder
@@ -10,6 +11,7 @@ internal class DalOrder : IOrder
     static readonly string pathConfig = @"..\xml\config.xml";
     static string addFunctionality = "add";
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(Order order)
     {
         XElement dataBase = XElement.Load(path); //copy data base to code
@@ -29,6 +31,7 @@ internal class DalOrder : IOrder
         return order.ID; //return idOrder
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int ID)
     {
         XElement dataBase = XElement.Load(path); //copy data base to code
@@ -44,14 +47,17 @@ internal class DalOrder : IOrder
         catch { }
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Order? Get(Func<Order?, bool> filter) => (from item in createListFromXml()
                                                      where filter(item)
                                                      select item).FirstOrDefault();
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Order?> GetAll(Func<Order?, bool>? filter) =>
         filter == null ? createListFromXml().Select(prouductInList => prouductInList)
                   : createListFromXml().Where(filter);
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Order order)
     {
         addFunctionality = "update";
@@ -88,7 +94,6 @@ internal class DalOrder : IOrder
         }
         return b;
     }
-
     int ReturnId()
     {
         XElement configData = XElement.Load(pathConfig); //copy data base to code

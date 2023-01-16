@@ -2,12 +2,14 @@
 using DalApi;
 using DO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
 internal class DalProduct : IProduct
 {
     static readonly string path = @"..\xml\products.xml";
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(Product product)
     {
         XElement dataBase = XElement.Load(path); //copy data base to code
@@ -24,6 +26,7 @@ internal class DalProduct : IProduct
         return product.ID; //return idOrder
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int ID)
     {
         XElement dataBase = XElement.Load(path); //copy data base to code
@@ -38,13 +41,16 @@ internal class DalProduct : IProduct
         catch { }
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Product? Get(Func<Product?, bool> filter) => (from item in createListFromXml()
                                                          where filter(item)
                                                          select item).FirstOrDefault();
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Product?> GetAll(Func<Product?, bool>? filter) =>
        filter == null ? createListFromXml().Select(prouductInList => prouductInList)
                  : createListFromXml().Where(filter);
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Product product)
     {
         Delete(product.ID);
@@ -91,8 +97,6 @@ internal class DalProduct : IProduct
 
             default: return Category.All;
         }
-    }
-
-    
+    } 
 }
 
