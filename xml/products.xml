@@ -57,20 +57,6 @@
     <InStock>85</InStock>
   </Products>
   <Products>
-    <ID>283944</ID>
-    <Name>crocks</Name>
-    <Price>200</Price>
-    <Category>Business</Category>
-    <InStock>0</InStock>
-  </Products>
-  <Products>
-    <ID>222222</ID>
-    <Name>glasses</Name>
-    <Price>200</Price>
-    <Category>Business</Category>
-    <InStock>5</InStock>
-  </Products>
-  <Products>
     <ID>123456</ID>
     <Name>1</Name>
     <Price>1</Price>
@@ -83,5 +69,19 @@
     <Price>2</Price>
     <Category>footwear</Category>
     <InStock>2</InStock>
+  </Products>
+  <Products>
+    <ID>283944</ID>
+    <Name>crocks</Name>
+    <Price>0</Price>
+    <Category>Business</Category>
+    <InStock>0</InStock>
+  </Products>
+  <Products>
+    <ID>222222</ID>
+    <Name>glasses</Name>
+    <Price>2007</Price>
+    <Category>Business</Category>
+    <InStock>5</InStock>
   </Products>
 </ProductsXML>

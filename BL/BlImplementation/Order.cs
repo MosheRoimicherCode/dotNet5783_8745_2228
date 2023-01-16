@@ -4,20 +4,20 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 internal class Order : BlApi.IOrder
 {
     static readonly IDal dal = DalApi.Factory.Get()!;
 
     ///checking the status of the order, returns Enum-status type
-    public static BO.Status CheckStatus(DO.Order? order) => order! switch
+    private static BO.Status CheckStatus(DO.Order? order) => order! switch
     {
         { DeliveryDate: not null } => BO.Status.Provided,
         { ShipDate: not null } => BO.Status.Shipped,
         _ => BO.Status.Approved
     };
-
-    public static BO.Order ConvertOrderToBoOrder(DO.Order o)
+    private static BO.Order ConvertOrderToBoOrder(DO.Order o)
     {
         return new BO.Order
         {
@@ -31,7 +31,7 @@ internal class Order : BlApi.IOrder
         };
 
     }
-    public static BO.Order ConvertDoOrderToBoOrder(int Id)
+    private static BO.Order ConvertDoOrderToBoOrder(int Id)
     {
         DO.Order? dalOrder = dal?.Order.Get(x => x?.ID == Id)!;
         BO.Order boOrder = new()
@@ -72,9 +72,15 @@ internal class Order : BlApi.IOrder
 
         return boOrder;
     }
+    private static IEnumerable<(DO.OrderItem?, int, double)> GetPriceAndAmount(int orderID) =>
+        from orderItem in dal.OrderItem.GetAll(x => x?.OrderID == orderID)
+        let a = (int)orderItem?.Amount!
+        let b = ((int)orderItem?.Amount! * (double)orderItem?.Price!)
+        select (orderItem, a, b);
 
     /// return a list with all orders
     /// <returns> order list </returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.OrderForList> GetList()
     {
         List<BO.OrderForList> ordersForList = new();
@@ -109,14 +115,10 @@ internal class Order : BlApi.IOrder
         //           TotalPrice = GetPriceAndAmount(order?.ID).First().Item3
         //       };
     }
-    private static IEnumerable<(DO.OrderItem?, int, double)> GetPriceAndAmount(int orderID) =>
-        from orderItem in dal.OrderItem.GetAll(x => x?.OrderID == orderID)
-        let a = (int)orderItem?.Amount!
-        let b = ((int)orderItem?.Amount! * (double)orderItem?.Price!)
-        select (orderItem, a, b);
 
     ///search for a order with specific Id 
     /// <returns> IBoOrder item </returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order Get(int Id)
     {
         if (Id <= 0) throw new BO.IdBOException("Negative Id!");
@@ -126,6 +128,7 @@ internal class Order : BlApi.IOrder
 
     ///search for a order that has not shipped yet with specific Id 
     ///update shipping date, and returns updated order
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order UpdateShipping(int Id)
     {
         if (Id <= 0) throw new BO.IdBOException("Negative Id! .(BO.Order.UpdateShipping)");
