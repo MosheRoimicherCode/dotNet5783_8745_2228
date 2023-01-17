@@ -46,14 +46,14 @@ namespace PL
             UserAddress.Text = currentCart?.CustomeAdress?.ToString();
             UserEmail.Text = currentCart?.CustomerEmail?.ToString();
             productItemcartListUpdate = p.Product.GetListOfItemsInCart(currentCart);
-            TotalPriceCart.Content = currentCart.TotalPrice.ToString();
+            TotalPriceCart.Text = currentCart.TotalPrice.ToString();
             this.DataContext = productItemcartListUpdate;
 
             cart = currentCart;
             UserName.IsEnabled = false;
             UserAddress.IsEnabled = false;
             UserEmail.IsEnabled = false;
-            TotalPriceCart.Content = currentCart.TotalPrice.ToString();
+            TotalPriceCart.Text = currentCart.TotalPrice.ToString();
         }
 
 
@@ -86,5 +86,10 @@ namespace PL
         {
 
         }
+
+        private void BtnMinimize_Click(object sender, RoutedEventArgs e) { WindowState = WindowState.Minimized; }
+        private void BtnExit_Click(object sender, RoutedEventArgs e) { this.Close(); }
+
     }
 }
+

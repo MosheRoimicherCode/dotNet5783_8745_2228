@@ -47,5 +47,7 @@ public partial class OrderWindow : Window
             new ERRORWindow(this, s.Message).Show();
         }
     }
+    private void BtnMinimize_Click(object sender, RoutedEventArgs e) { WindowState = WindowState.Minimized; }
+    private void BtnExit_Click(object sender, RoutedEventArgs e) { this.Close(); }
 
 }
