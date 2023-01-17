@@ -11,7 +11,8 @@
         WindowStyle="None"
         AllowsTransparency ="True"
         Background="Transparent"
-        BorderThickness="0">
+        BorderThickness="0"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Window.Resources>
         <LinearGradientBrush x:Key="BackgroundButton">
             <GradientStop Color="Blue"/>
@@ -100,9 +101,11 @@
             <Image HorizontalAlignment="Left" Height="181" Margin="-2,-12,0,0" VerticalAlignment="Top" Width="190" Source="/Order/userTranparent2.png" Grid.ColumnSpan="6" Grid.RowSpan="4"/>
 
 
-            <ComboBox x:Name ="CategorySelector" SelectionChanged="CategorySelector_SelectionChanged" Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" Margin="11,1,13,69" Grid.Column="6" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" />
+            <ComboBox ItemsSource="{x:Static local:ProductForListWindow.ListOfCategories}" SelectedItem="{Binding Category, Mode=TwoWay}"
+                      SelectionChanged="CategorySelector_SelectionChanged"
+                      Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" Margin="11,10,13,58" Grid.Column="6" Grid.ColumnSpan="3" Grid.RowSpan="3" />
 
-            <ListView x:Name ="ProductItemView" ItemsSource= "{Binding productItems}" MouseDoubleClick="MouseDoubleClick" Margin="10,18,11,2" ToolTip="Double click to update a product properties" Grid.Column="4" Grid.RowSpan="7" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.ColumnSpan="5" >
+            <ListView Name ="listOfProducts" ItemsSource= "{Binding products, Mode=TwoWay}" MouseDoubleClick="MouseDoubleClick" Margin="10,18,11,2" ToolTip="Double click to update a product properties" Grid.Column="4" Grid.RowSpan="7" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.ColumnSpan="5" >
                 <ListView.View>
 
                     <GridView x:Name="GridView">

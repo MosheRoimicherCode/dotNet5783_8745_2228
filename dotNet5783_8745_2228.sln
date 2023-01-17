@@ -34,7 +34,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLTest", "BlTest\BLTest.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{C5B5C4F5-B891-424D-9AA2-431033F53FB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simulator", "Simulator\Simulator.csproj", "{23561801-2354-49BB-86C7-328023D5D838}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simulator", "Simulator\Simulator.csproj", "{23561801-2354-49BB-86C7-328023D5D838}"
 	ProjectSection(ProjectDependencies) = postProject
 		{04B3DA85-C95D-46F2-B083-5140402C2D87} = {04B3DA85-C95D-46F2-B083-5140402C2D87}
 	EndProjectSection

@@ -24,7 +24,7 @@ public interface IProduct
     /// <returns> Product list </returns>
     public IEnumerable<ProductForList> GetList(Func<Product?, bool>? filter = null);
 
-    public IEnumerable<BO.ProductItem> GetListOfItems(BO.Cart cart);
+    public IEnumerable<BO.ProductItem> GetListOfItems(BO.Cart cart, Func<Product?, bool>? filter = null);
 
     public IEnumerable<BO.ProductItem> GetListOfItemsInCart(BO.Cart cart);
 }

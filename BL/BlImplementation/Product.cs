@@ -1,5 +1,6 @@
 ﻿namespace BlImplementation;
 
+using BlApi;
 using BO;
 using DalApi;
 using DO;
@@ -94,9 +95,11 @@ internal class Product : BlApi.IProduct
     }
 
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public IEnumerable<BO.ProductItem> GetListOfItems(BO.Cart cart)
+    public IEnumerable<BO.ProductItem> GetListOfItems(BO.Cart cart, Func<BO.Product?, bool>? filter = null)
     {
         return from item in Dal?.Product.GetAll()
+               let BOProduct = ConvertProductToBoProduct((DO.Product)item!)
+               where filter is null || filter!.Invoke(BOProduct)
                select Get(item?.ID, cart);    
     }
 
