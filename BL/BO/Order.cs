@@ -9,10 +9,11 @@ public class Order
     public string? CustomerAdress { get; set; }
     public Status? OrderStatus { get; set; }
     public DateTime? OrderDate { get; set; }
-    public DateTime? ShipDate { get; set; }
+    public DateTime? ShipDate { get; set; } 
     public DateTime? DeliveryDate { get; set; }
     public List<BO.OrderItem>? Details { get; set; }
     public double TotalPrice { get; set; }
+
 
     // methods
     public override string ToString() => $@"

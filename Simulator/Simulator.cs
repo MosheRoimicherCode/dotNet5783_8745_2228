@@ -1,28 +1,27 @@
-﻿namespace Simulator;
-
-static public class Simulator
+﻿static public class Simulator
 {
-    private static volatile bool flagForStopSimulator;
-    private static void RunSimulator()
+    //static readonly IBl bl = BlApi.Factory.Get();
+
+    static readonly Thread simulator = new(RunSimulator); //create Thread that run simulator
+    static volatile bool flagForStopSimulator;
+    static void RunSimulator()  //body simulator
     {
         flagForStopSimulator = true;
         while (flagForStopSimulator)
         {
             Console.WriteLine(Thread.CurrentThread.Name);
             Thread.Sleep(1000);
+            NextEvent?.Invoke(null, EventArgs.Empty); // send progress event
         }
+        StopThread?.Invoke(null,EventArgs.Empty); //send stop thread
     }
-    static bool somethingHapended() => true;
-    static Thread simulator = new(RunSimulator); //create Thread that make something
     
-    public static void ActivatorSimulator() => simulator.Start(); //public method to start simulator
-    public static void StopSimulator(bool flag) => flagForStopSimulator = flag; //public method to stop simulator
+    static public void StartSimulator() => simulator.Start(); //public method to start simulator
+    static public void StopSimulator(bool flag) => flagForStopSimulator = flag; //public method to stop simulator
 
+    static event EventHandler? StopThread;  // event of stop simulator
+    static event EventHandler? NextEvent;   // event of progress of simulator
 
-    static private event EventHandler StopThread;
-    static private event EventHandler NextEvent;
-
-    public static void Stop() { }
-    public static void NextItem() { }
-
+    static public void AssignEventOfStop() => StopThread(null,EventArgs.Empty);
+    static public void AssignEventOfNext() => NextEvent(null, EventArgs.Empty);
 }
