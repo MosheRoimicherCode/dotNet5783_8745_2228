@@ -83,37 +83,20 @@ internal class Order : BlApi.IOrder
     [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.OrderForList> GetList()
     {
-        List<BO.OrderForList> ordersForList = new();
-        foreach (var item in dal.Order.GetAll())
+        try
         {
-            int id = (int)item?.ID!;
-            BO.OrderForList orderForList = new()
-            {
-                ID = id,
-                CustomerName = item?.CustomerName,
-                OrderStatus = CheckStatus(item)
-            };
-            try
-            {
-                orderForList.Amount = GetPriceAndAmount(id).First().Item2;
-                orderForList.TotalPrice = GetPriceAndAmount(id).First().Item3;
-            }
-            catch (Exception)
-            {
-
-            }
-            ordersForList.Add(orderForList);
+            return from order in dal.Order.GetAll()
+                    let Id = order?.ID ?? 0
+                    select new BO.OrderForList()
+                    {
+                        ID = Id,
+                        CustomerName = order?.CustomerName,
+                        OrderStatus = CheckStatus(order),
+                        Amount = GetPriceAndAmount(Id).First().Item2,
+                        TotalPrice = GetPriceAndAmount(Id).First().Item3
+                    };
         }
-        return ordersForList;
-        //return from order in Dal!.Order.GetAll()
-        //       select new BO.OrderForList()
-        //       {
-        //           ID = order?.ID,
-        //           CustomerName = order?.CustomerName ?? null,
-        //           OrderStatus = CheckStatus(order),
-        //           Amount = GetPriceAndAmount(order?.ID).First().Item2,
-        //           TotalPrice = GetPriceAndAmount(order?.ID).First().Item3
-        //       };
+        catch { return null!; }
     }
 
     ///search for a order with specific Id 
@@ -161,6 +144,7 @@ internal class Order : BlApi.IOrder
 
     ///search for a order that has shipped but has not provided yet with specific Id 
     ///update providing date, and returns updated order
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order UpdateProviding(int Id)
     {
         if (Id <= 0) throw new BO.IdBOException("Negative Id!");
@@ -194,6 +178,7 @@ internal class Order : BlApi.IOrder
 
     ///search for a order with specific Id 
     ///returns OrderTracking of this order
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.OrderTracking OrderTracking(int Id)
     {
         if (Id <= 0) throw new BO.IdBOException("Negative Id!");
@@ -217,9 +202,35 @@ internal class Order : BlApi.IOrder
         return orderTraking;
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.OrderTracking> GetListOfTruckings()
     {
         return from item in dal?.Order.GetAll()
                select OrderTracking((int)item?.ID!);
     }
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
+    public int? ReturnOrderForManage()
+    {
+
+        var minShippedTime = (from time in dal.Order.GetAll()
+                                     where time?.DeliveryDate is null
+                                     select time?.ShipDate).Min(); //order created and shipped earlier status
+
+        var minApprovedTime = (from time in dal.Order.GetAll()
+                                     where time?.ShipDate is null
+                                     select time?.OrderDate).Min(); //order just created earlier status
+
+        switch (minShippedTime < minApprovedTime)
+        {
+            case true:
+                return (from item in dal.Order.GetAll()
+                        where item?.ShipDate == minShippedTime
+                        select item?.ID).First();
+            case false:
+                return (from item in dal.Order.GetAll()
+                        where item?.OrderDate == minApprovedTime
+                        select item?.ID).First();
+        }
+    } //return last updated order status
 }

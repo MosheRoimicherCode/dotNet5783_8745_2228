@@ -1,6 +1,8 @@
-﻿static public class Simulator
+﻿using BlApi;
+
+static public class Simulator
 {
-    //static readonly IBl bl = BlApi.Factory.Get();
+    static readonly IBl bl = BlApi.Factory.Get();
 
     static readonly Thread simulator = new(RunSimulator); //create Thread that run simulator
     static volatile bool flagForStopSimulator;
