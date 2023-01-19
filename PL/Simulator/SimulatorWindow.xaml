@@ -18,7 +18,7 @@
             </Grid.Background>
             <Button Content="Start Simulation" HorizontalAlignment="Left" Click="StartSimulation"
                 Margin="16,342,0,0" VerticalAlignment="Top" Height="34" Width="112"/>
-            <Button Content="Stop Simulation" Margin="0,343,16,0" 
+            <Button Content="Stop Simulation" Margin="0,343,16,0" Click="StopSimulation"
                 VerticalAlignment="Top" HorizontalAlignment="Right" Width="112" Height="34"/>
             <Label Content="ID Order In Progress" HorizontalAlignment="Left" Margin="137,158,0,0" VerticalAlignment="Top" Background="#FFB52121"/>
             <Label Content="Old Status" HorizontalAlignment="Left" Margin="69,210,0,0" VerticalAlignment="Top" Background="#FFB52121"/>
@@ -26,6 +26,9 @@
             <Label Content="future status" HorizontalAlignment="Left" Margin="233,210,0,0" VerticalAlignment="Top" Background="#FFB52121"/>
             <Label Content="Stop time" HorizontalAlignment="Left" Margin="205,265,0,0" VerticalAlignment="Top" Background="#FFB52121"/>
             <ProgressBar HorizontalAlignment="Center" Height="10" Margin="0,8,0,0" VerticalAlignment="Top" Width="362"/>
+
+            <TextBlock x:Name="timerTextBlock"  Text="00:00:00" FontSize="50" 
+                       TextAlignment="Center" Foreground="#FF236AB7" Margin="-1,9,0,318"/>
         </Grid>
     </TabControl>
 

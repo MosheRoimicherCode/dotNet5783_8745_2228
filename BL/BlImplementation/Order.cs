@@ -1,4 +1,6 @@
 ﻿namespace BlImplementation;
+
+using BlApi;
 using BO;
 using DalApi;
 using DO;
@@ -50,21 +52,17 @@ internal class Order : BlApi.IOrder
         var boOrderDetailsTuple = (from orderItem in dal!.OrderItem.GetAll(x => x?.OrderID == Id)
                                    let TotalPrice = boOrder.TotalPrice + dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price
                                    select (TotalPrice, new List<BO.OrderItem>
-                                     (
-                                         from orderItem in dal!.OrderItem.GetAll(x => x?.OrderID == Id)
-                                         select new BO.OrderItem()
-                                         {
-                                             ID = (int)orderItem?.ID!,
-                                             ProductID = (int)orderItem?.ProductID!,
-                                             OrderID = (int)orderItem?.OrderID!,
-                                             ProductName = dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Name,
-                                             ProductPrice = dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price ?? 0,
-                                             Amount = (int)orderItem?.Amount!,
-                                             TotalPrice = (int)orderItem?.Amount! * (double)dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price!,
-                                         }
-                                     )
-                                            )
-                                 );
+                                                (from orderItem in dal!.OrderItem.GetAll(x => x?.OrderID == Id)
+                                                     select new BO.OrderItem()
+                                                     {
+                                                         ID = (int)orderItem?.ID!,
+                                                         ProductID = (int)orderItem?.ProductID!,
+                                                         OrderID = (int)orderItem?.OrderID!,
+                                                         ProductName = dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Name,
+                                                         ProductPrice = dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price ?? 0,
+                                                         Amount = (int)orderItem?.Amount!,
+                                                         TotalPrice = (int)orderItem?.Amount! * (double)dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price!,
+                                                     })));
 
 
         boOrder.Details = boOrderDetailsTuple.FirstOrDefault().Item2.ToList();
@@ -115,10 +113,52 @@ internal class Order : BlApi.IOrder
     public BO.Order UpdateShipping(int Id)
     {
         if (Id <= 0) throw new BO.IdBOException("Negative Id! .(BO.Order.UpdateShipping)");
+        //try
+        //{
+        //    var order = (from item in dal.Order.GetAll()
+        //             where item?.ID == Id && item?.ShipDate is null
+        //             select new DO.Order()
+        //             {
+        //                 ID = (int)item?.ID!,
+        //                 CustomerName = item?.CustomerName,
+        //                 CustomerEmail = item?.CustomerEmail,
+        //                 CustomeAdress = item?.CustomeAdress,
+        //                 OrderDate = item?.OrderDate,
+        //                 ShipDate = DateTime.Now,
+        //                 DeliveryDate = null,
+        //             }).First();
+        //    dal.Order.Update(order);
+        //    return ConvertOrderToBoOrder(order);
+        //}
+        //catch
+        //{
+        //    try
+        //    {
+        //        var order = (from item in dal.Order.GetAll()
+        //                 where item?.ID == Id && item?.DeliveryDate is null
+        //                 select new DO.Order()
+        //                 {
+        //                     ID = (int)item?.ID!,
+        //                     CustomerName = item?.CustomerName,
+        //                     CustomerEmail = item?.CustomerEmail,
+        //                     CustomeAdress = item?.CustomeAdress,
+        //                     OrderDate = item?.OrderDate,
+        //                     ShipDate = item?.ShipDate,
+        //                     DeliveryDate = DateTime.Now,
+        //                 }).First();
+        //        dal.Order.Update(order);
+        //        return ConvertOrderToBoOrder(order);
+        //    }
+        //    catch
+        //    {
+        //        throw new Exception("order deliveried or not found");
+        //    }
+        //}
+
         foreach (var item in dal!.Order.GetAll(x => x?.ID == Id))
         {
-            if (item?.ShipDate < DateTime.Now) throw new BO.IdBOException("order has already shipped");
-            else if (item?.OrderDate > DateTime.Now) throw new BO.IdBOException("order has not ordered yet");
+            if (item?.ShipDate is not null) throw new BO.IdBOException("order has already shipped");
+            else if (item?.OrderDate is null) throw new BO.IdBOException("order has not ordered yet");
             else if (item?.ShipDate > DateTime.Now && item?.OrderDate < DateTime.Now)
             {
                 DO.Order order = new()
@@ -174,6 +214,20 @@ internal class Order : BlApi.IOrder
             }
         }
         throw new BO.IdBOException("order with given Id didn't found");
+    }
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
+    public BO.Order UpdateStatus(int id)
+    {
+        var order = dal.Order.Get(x => x?.ID == id);
+        switch(order?.ShipDate is null)
+        {
+            case true:
+                return UpdateShipping(id);
+                
+            case false:
+                return UpdateProviding(id);
+        }
     }
 
     ///search for a order with specific Id 
