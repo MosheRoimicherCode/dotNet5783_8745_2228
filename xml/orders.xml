@@ -198,4 +198,13 @@
     <ShipDate>2022-12-12T00:00:00</ShipDate>
     <DeliveryDate>2022-12-12T00:00:00</DeliveryDate>
   </Orders>
+  <Orders>
+    <ID>52</ID>
+    <CustomerName>User name</CustomerName>
+    <CustomerEmail>User email</CustomerEmail>
+    <CustomeAdress>User address</CustomeAdress>
+    <OrderDate>2023-01-19T14:33:22.0800608+02:00</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Orders>
 </OrdersXML>
