@@ -56,7 +56,7 @@ public partial class ProductItemWindow : Window
         }
         change();
         //new CartWindow(cart1,id).Show();
-        //new NewOrderWindow(currentCart).Show();
+        new NewOrderWindow(currentCart).Show();
         this.Close();
     }
 }
