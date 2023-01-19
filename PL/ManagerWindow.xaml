@@ -5,34 +5,145 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ManagerWindow" Height="450" Width="800"
-                WindowStartupLocation="CenterScreen">
-    <Grid>
+        Title="ManagerWindow"
+                WindowStartupLocation="CenterOwner" HorizontalAlignment="Stretch"
+                Margin="0,0,0,0" VerticalAlignment="Stretch" Height="300" Width="300"
+                WindowStyle="None" BorderThickness="1" BorderBrush="White"  
+>
+    <Window.Background>
+        <ImageBrush ImageSource="/z1_image.jpg"/>
+    </Window.Background>
+    <Window.Resources>
+        <LinearGradientBrush x:Key="BackgroundButton2">
+            <GradientStop Color="Black" Offset="0.15"/>
+            <GradientStop Color="Blue" Offset="0.25"/>
+            <GradientStop Color="Violet" Offset="0.55" />
+        </LinearGradientBrush>
+    </Window.Resources>
+
+
+    <Grid Margin="12,12,14,12">
         <Button 
             Content="Product list"
             Name ="ProductList"
             HorizontalAlignment="Left"
-            Margin="53,269,0,36" Width="330"
-            Click="Product_List_Button_Click" FontSize="36">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF4C93B3"/>
-                    <GradientStop Color="#FF8A63B6" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
+            Margin="144,118,0,21"
+            Click="Product_List_Button_Click" FontSize="18" Width="120" Foreground="#FFFCFCFC" >
+            
+
+
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="{StaticResource BackgroundButton2}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#278BEF"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Width="auto" Height="auto"
+                                CornerRadius="19"
+                                Background="{TemplateBinding Background}" >
+                        <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
         </Button>
         <Button 
             Content="Order list"
             Name ="OrderList"
-            HorizontalAlignment="Left"
-            Margin="423,269,0,36" Width="330"
-            Click="Order_List_Button_Click" FontSize="36">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF4C93B3"/>
-                    <GradientStop Color="#FF8A63B6" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
+            HorizontalAlignment="Right"
+            Margin="0,29,137,110" 
+            Click="Order_List_Button_Click" FontSize="18"  Width="120" Foreground="#FFFCFCFC"  >
+            
+
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="{StaticResource BackgroundButton2}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#278BEF"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Width="auto" Height="auto"
+                                CornerRadius="19"
+                                Background="{TemplateBinding Background}" >
+                        <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+
+        <Button x:Name="btnMinimize"                           
+                    BorderThickness="0"
+                    Content="-"
+                    Foreground="White"
+                    FontSize="16"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="217,-10,18,240"
+                    Click="BtnMinimize_Click">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="Blue"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#278BEF"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Width="18" Height="18"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button                          
+                    BorderThickness="0"
+                    Content="X"
+                    Foreground="White"
+                    FontSize="16"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="238,-9,-7,243"
+                    Click="BtnExit_Click" >
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="Red"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#278BEF"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Width="18" Height="18"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
         </Button>
     </Grid>
 </Window>

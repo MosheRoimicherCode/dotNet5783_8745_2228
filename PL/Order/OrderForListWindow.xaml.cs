@@ -6,48 +6,37 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using BlApi;
 
 
 /// <summary>
 /// Interaction logic for ProductForListWindow.xaml
 /// </summary>
-public partial class OrderForListWindow : Window, INotifyPropertyChanged
+public partial class OrderForListWindow : Window
 {
-    IBl p = BlApi.Factory.Get();
+    static readonly IBl bl = Factory.Get();
 
-    IEnumerable<BO.OrderForList> orderForList;
+    public static readonly DependencyProperty ordersDep = DependencyProperty.Register(nameof(orders),
+                                                                                        typeof(IEnumerable<BO.OrderForList>),
+                                                                                        typeof(OrderForListWindow));
 
-    public IEnumerable<BO.OrderForList> orderForListForUpdate
+    private IEnumerable<BO.OrderForList> orders
     {
-        get { return orderForList; }
-        set
-        {
-            orderForList = value;
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs("orderForListForUpdate"));
-            }
-        }
+        get => (IEnumerable<BO.OrderForList>)GetValue(ordersDep);
+        set => SetValue(ordersDep, value);
     }
-    public event PropertyChangedEventHandler? PropertyChanged;
 
     public OrderForListWindow()
     {
+        orders = bl.Order.GetList();
         InitializeComponent();
-        this.DataContext = orderForListForUpdate;
-
-        orderForListForUpdate = p.Order.GetList();
-        OrderListview.ItemsSource = orderForListForUpdate;
-        
     }
 
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        BO.OrderForList orderForList = new();
-        int OrderId = ((BO.OrderForList)OrderListview.SelectedItem).ID;
-        new OrderWindow(OrderId).Show();
-        this.Close();
+        int id = ((BO.OrderForList)(sender as ListViewItem)!.DataContext).ID;
+        new OrderWindow(id).Show();
     }
 
 

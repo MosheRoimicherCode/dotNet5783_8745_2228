@@ -1,6 +1,7 @@
 ﻿using BlApi;
 using DalApi;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace BlImplementation
 {
@@ -67,6 +68,7 @@ namespace BlImplementation
             return BOtemp;
         }
         ///add product to Cart, returns updated cart
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Cart Add(BO.Cart boCart, int productId)
         {
 
@@ -138,6 +140,7 @@ namespace BlImplementation
             return newBoCart;
         }
         ///updated the amount in the cart
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Cart UpdateAmount(BO.Cart boCart, int Id, int NewAmount)
         {
             BO.Cart newBoCart = new()
@@ -182,8 +185,9 @@ namespace BlImplementation
             }
             throw new BO.IdBOException("Item not found");
         }
-        
+
         ///Confirm the Cart and build objects of order
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ConfirmCart(BO.Cart boCart, string Name, string Email, string Addres)
         {
             foreach (BO.OrderItem? item in boCart.Details)

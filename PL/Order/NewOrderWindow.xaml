@@ -11,7 +11,8 @@
         WindowStyle="None"
         AllowsTransparency ="True"
         Background="Transparent"
-        BorderThickness="0">
+        BorderThickness="0"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Window.Resources>
         <LinearGradientBrush x:Key="BackgroundButton">
             <GradientStop Color="Blue"/>
@@ -49,9 +50,9 @@
         </Style>
     </Window.Resources>
     <Border CornerRadius="20"                    
-            BorderThickness="1" Margin="0,0,1,0" OpacityMask="#FFE51F1F" >
+            BorderThickness="1" Margin="0,0,1,0">
         <Border.Background>
-            <ImageBrush ImageSource="/Order/z6.jpg" Stretch="Fill" Opacity="0.5"/>
+            <ImageBrush ImageSource="/Order/z6.jpg" Stretch="Fill" Opacity="1"/>
         </Border.Background>
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -62,7 +63,7 @@
         </Border.BorderBrush>
 
 
-        <Grid Name ="MainGrid" Margin="0,0,0,17">
+        <Grid Name ="MainGrid" Margin="0,1,0,16">
 
 
             <Grid.ColumnDefinitions>
@@ -97,12 +98,14 @@
                      VerticalAlignment="Top" Width="122" 
                      Fill="White"/>
 
-            <Image HorizontalAlignment="Left" Height="181" Margin="-2,-12,0,0" VerticalAlignment="Top" Width="190" Source="/Order/userTranparent2.png" Grid.ColumnSpan="6" Grid.RowSpan="4"/>
+            <Image HorizontalAlignment="Left" ToolTip="You don't have permission to insert you image." Height="181" Margin="13,-12,0,0" VerticalAlignment="Top" Width="190" Source="/Order/userTranparent2.png" Grid.ColumnSpan="4" Grid.RowSpan="4"/>
 
 
-            <ComboBox x:Name ="CategorySelector" SelectionChanged="CategorySelector_SelectionChanged" Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" Margin="11,1,13,69" Grid.Column="6" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" />
+            <ComboBox ItemsSource="{x:Static local:ProductForListWindow.ListOfCategories}" SelectedItem="{Binding Category, Mode=TwoWay}"
+                      SelectionChanged="CategorySelector_SelectionChanged"
+                      Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" Margin="0,3,13,58" Grid.Column="4" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Right" Width="507" Grid.Row="1" />
 
-            <ListView x:Name ="ProductItemView" ItemsSource= "{Binding productItems}" MouseDoubleClick="MouseDoubleClick" Margin="10,18,11,2" ToolTip="Double click to update a product properties" Grid.Column="4" Grid.RowSpan="7" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.ColumnSpan="5" >
+            <ListView Name ="listOfProducts" ItemsSource= "{Binding products, Mode=TwoWay}" MouseDoubleClick="MouseDoubleClick" Margin="10,18,11,2" ToolTip="Double click to update a product properties" Grid.Column="4" Grid.RowSpan="7" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.ColumnSpan="5" >
                 <ListView.View>
 
                     <GridView x:Name="GridView">
@@ -123,12 +126,12 @@
                 </ListView.View>
             </ListView>
             <Button x:Name="cart_button" 
-                Margin="1,44,39,0" 
+                Margin="20,43,19,0" 
                 Click="cart_Button_Click" 
                 ToolTip="Go to cart!" 
                 BorderThickness="0" 
                 Background="#FF8B8496"
-                Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Height="59" VerticalAlignment="Top" Opacity="0.8">
+                Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Height="59" VerticalAlignment="Top" Opacity="0.8">
 
                 <Image HorizontalAlignment="Center" Height="69" VerticalAlignment="Center" Width="69" Source="/Order/cartImageTransparent.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.526,0.523"/>
             </Button>
@@ -150,8 +153,8 @@
                     FontSize="16"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="173,2,0,3" 
-                    Click="btnMinimize_Click" Grid.Column="6" Grid.ColumnSpan="2" d:IsHidden="True">
+                    Margin="15,3,21,2" 
+                    Click="btnMinimize_Click" Grid.Column="7" Grid.ColumnSpan="2">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="Blue"/>
@@ -181,8 +184,8 @@
                     FontSize="16"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="3,2,0,4" 
-                    Click="btnExit_Click" Grid.Column="8" d:IsHidden="True" >
+                    Margin="1,0,-3,13" 
+                    Click="btnExit_Click" Grid.Column="8" Grid.RowSpan="2" >
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="Red"/>

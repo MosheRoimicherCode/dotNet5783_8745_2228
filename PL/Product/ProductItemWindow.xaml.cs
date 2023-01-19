@@ -27,11 +27,14 @@ public partial class ProductItemWindow : Window
     BO.Cart currentCart;
     int id;
     int AmountItems;
-    public ProductItemWindow(int ID, BO.Cart cart)
+    readonly Action change;
+    public ProductItemWindow(int ID, BO.Cart cart, Action? action = null)
     {
         InitializeComponent();
         productItem = p.Product.Get(ID, cart);
-        
+
+        change = action;
+
         Name2.Content = productItem.Name;
         ID2.Content = productItem.ID;
         Price2.Content = productItem.Price;
@@ -51,8 +54,9 @@ public partial class ProductItemWindow : Window
         {
             currentCart = p?.Cart.Add(currentCart, id)!;
         }
+        change();
         //new CartWindow(cart1,id).Show();
-        new NewOrderWindow(currentCart).Show();
+        //new NewOrderWindow(currentCart).Show();
         this.Close();
     }
 }

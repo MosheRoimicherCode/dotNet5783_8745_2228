@@ -18,7 +18,8 @@ public partial class MainWindow : Window
     private void Add_Order_Button_Click(object sender, RoutedEventArgs e) { new NewOrderWindow().Show(); }
     private void Order_Tracking_Button_Click(object sender, RoutedEventArgs e) { new OrderTrackingWindow().Show(); }
 
-    private void btnMinimize_Click(object sender, RoutedEventArgs e) { WindowState = WindowState.Minimized;}
-    private void btnExit_Click(object sender, RoutedEventArgs e) { this.Close(); }
+    private void BtnMinimize_Click(object sender, RoutedEventArgs e) { WindowState = WindowState.Minimized;}
+    private void BtnExit_Click(object sender, RoutedEventArgs e) { this.Close(); }
+    private void SimulatorClick(object sender, RoutedEventArgs e) { new SimulatorWindow().Show(); }
 
 }

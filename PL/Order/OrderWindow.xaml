@@ -5,40 +5,138 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="OrderWindow" Height="291" Width="419">
+        Title="OrderWindow" Height="300" Width="300"
+        BorderThickness="1" BorderBrush="White" 
+        WindowStyle="None"
+        >
+    <Window.Resources>
+        <LinearGradientBrush x:Key="BackgroundButton2">
+            <GradientStop Color="white" Offset="0.15"/>
+            <GradientStop Color="Blue" Offset="0.25"/>
+            <GradientStop Color="Violet" Offset="0.55" />
+        </LinearGradientBrush>
+    </Window.Resources>
     <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="34*"/>
-                <RowDefinition Height="241*"/>
-            </Grid.RowDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Order/greenClouthes.jpg" Stretch="Fill"/>
+        </Grid.Background>
+        <Grid Margin="15,16,11,11">
 
 
-            <Button x:Name ="update_shiping_button" Content="update shiping" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" Height="43" Width="183"
-                Click="update_shiping_Button_Click" Margin="13,164,0,0" Background="#FF0E6C09" Tag="1" Grid.Row="1" HorizontalAlignment="Left" FontSize="24">
 
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-0.278"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Button.RenderTransform>
+            <Button x:Name ="update_shiping_button" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" 
+                Click="update_shiping_Button_Click" Margin="139,145,0,0" Tag="1" HorizontalAlignment="Left" FontSize="24" Height="113" Width="128">
+                <TextBlock TextWrapping="Wrap">Update shiping</TextBlock>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="{StaticResource BackgroundButton2}" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#278BEF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Width="auto" Height="auto"
+                                CornerRadius="19"
+                                Background="{TemplateBinding Background}" >
+                            <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
             </Button>
-            <Button x:Name ="update_providing_button" Content="update providing" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" Height="43" Width="183"
-                Click="update_providing_Button_Click" Margin="227,164,0,0" Background="#FF093C6C" Tag="1" Grid.Row="1" HorizontalAlignment="Left" FontSize="24">
 
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-0.278"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Button.RenderTransform>
+
+
+            <Button x:Name ="update_providing_button" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" 
+                    Click="update_providing_Button_Click" Margin="12,24,0,0" Tag="1" HorizontalAlignment="Left" FontSize="24" Height="110" Width="118">
+                <TextBlock TextWrapping="Wrap">Update providing</TextBlock>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="{StaticResource BackgroundButton2}" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#278BEF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Width="auto" Height="auto"
+                                CornerRadius="19"
+                                Background="{TemplateBinding Background}" >
+                            <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+            <Button x:Name="btnMinimize"                           
+                    BorderThickness="0"
+                    Content="-"
+                    Foreground="White"
+                    FontSize="16"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="205,-4,30,234"
+                    Click="BtnMinimize_Click">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Blue"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#278BEF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Width="18" Height="18"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
             </Button>
 
+            <Button                          
+                    BorderThickness="0"
+                    Content="X"
+                    Foreground="White"
+                    FontSize="16"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="230,-3,1,237"
+                    Click="BtnExit_Click" >
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Red"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#278BEF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Width="18" Height="18"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </Grid>
     </Grid>
 </Window>

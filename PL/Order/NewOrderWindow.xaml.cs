@@ -18,71 +18,59 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-public partial class NewOrderWindow : Window ,INotifyPropertyChanged
+public partial class NewOrderWindow : Window 
 {
-    IBl bl = BlApi.Factory.Get();
+    static readonly IBl bl = Factory.Get();
+
     private BO.Cart currentCart = new();
 
-    private List<BO.Category> ListOfCategories = new();
-
-    private List<BO.ProductItem> productItems;
-    public List<BO.ProductItem> productItemsForUpdate
+    public static readonly DependencyProperty ProductsDep = DependencyProperty.Register(nameof(products),
+                                                                                        typeof(IEnumerable<BO.ProductItem>),
+                                                                                        typeof(NewOrderWindow));
+    private IEnumerable<BO.ProductItem> products
     {
-        get { return productItems; }
-        set
-        {
-            productItems = value;
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs("productItemsForUpdate"));
-            }
-        }
+        get => (IEnumerable<BO.ProductItem>)GetValue(ProductsDep);
+        set => SetValue(ProductsDep, value);
     }
-    public event PropertyChangedEventHandler? PropertyChanged;
-    public NewOrderWindow(BO.Cart? cart = null)
+
+    public static readonly DependencyProperty CategoryDep = DependencyProperty.Register(nameof(Category),
+                                                                                        typeof(BO.Category),
+                                                                                        typeof(NewOrderWindow));
+    private BO.Category Category
     {
+        get => (BO.Category)GetValue(CategoryDep);
+        set => SetValue(CategoryDep, value);
+    }
+
+    public NewOrderWindow()
+    {
+        Category = BO.Category.all;
+        products = bl.Product.GetListOfItems(currentCart);
         InitializeComponent();
-        foreach (BO.Category item in Enum.GetValues(typeof(BO.Category))) ListOfCategories.Add(item);
-        if (cart != null) currentCart = cart;
-        productItemsForUpdate = new List<BO.ProductItem>(bl.Product.GetListOfItems(currentCart));
-        DataContext = productItemsForUpdate;
-        CategorySelector.ItemsSource = ListOfCategories;
-        CategorySelector.SelectedIndex = 3;
-        ProductItemView.ItemsSource = productItemsForUpdate;
     }
 
+    public void CategorySelector_SelectionChanged(object sender, RoutedEventArgs e) => onChange();
 
-    public void CategorySelector_SelectionChanged(object sender, RoutedEventArgs e)
+    private void onChange()
     {
-
-        if (CategorySelector.SelectedItem is BO.Category categorySelected)
-        {
-            if (categorySelected == BO.Category.all) ProductItemView.ItemsSource = new List<BO.ProductItem>(bl.Product.GetListOfItems(currentCart));
-
-            else ProductItemView.ItemsSource = new List<BO.ProductItem>(bl!.Product.GetListOfItems(currentCart)).Where(x => x.Category == categorySelected);
-
-            for (int i = 0; i < ListOfCategories.Count; i++)
-                if (ListOfCategories[i].Equals(categorySelected)) ListOfCategories.Remove(ListOfCategories[i]);
-
-
-            this.CategorySelector.ItemsSource = new ObservableCollection<BO.Category>(ListOfCategories);
-            ListOfCategories.Clear();
-            foreach (BO.Category item in Enum.GetValues(typeof(BO.Category)))
-                ListOfCategories.Add(item);
-        }
+        if (Category == BO.Category.all) products = bl.Product.GetListOfItems(currentCart);
+        else products = bl.Product.GetListOfItems(currentCart, x => x!.Category == Category);
+        
     }
-
 
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        int id = ((BO.ProductItem)ProductItemView.SelectedItem).ID;
+        BO.ProductItem select = ((BO.ProductItem)listOfProducts.SelectedItem);
+        //BO.ProductItem select = (BO.ProductItem)(sender as ListViewItem)!.DataContext;
+        int id = select.ID;
+
         currentCart.CustomerName = User_name.Text;
         currentCart.CustomeAdress = User_adress.Text;
         currentCart.CustomerEmail = User_email.Text;
         currentCart.TotalPrice = 0;
         
-        new ProductItemWindow(id, currentCart).Show();
-        Close();
+        new ProductItemWindow(id, currentCart, onChange).Show();
+        //Close();
     }
 
 

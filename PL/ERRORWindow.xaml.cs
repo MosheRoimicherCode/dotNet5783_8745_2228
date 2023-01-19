@@ -28,11 +28,11 @@ public partial class ERRORWindow : Window
 
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
+        this.Close();
         if (s == "productWindow")
         {
             productWindow?.Show();
-            this.Close();
         }
-        else orderWindow?.Show();
+        else orderWindow?.Show(); 
     }
 }
