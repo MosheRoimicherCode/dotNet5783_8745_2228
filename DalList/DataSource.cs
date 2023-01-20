@@ -186,8 +186,7 @@ internal static class DataSource
                 CustomerEmail = "shimonl@gmail.com",
                 CustomeAdress = "770 eastern pky brooklyn NY",
                 OrderDate = dateTimeRandom,
-                ShipDate = dateTimeRandom.AddDays(_randomNum.Next(0, 10)),
-                DeliveryDate = dateTimeRandom.AddDays(_randomNum.Next(10, 20))
+                
             };
             AddOrder(order);
         }
@@ -207,7 +206,7 @@ internal static class DataSource
                 CustomeAdress = "Israel",
                 OrderDate = dateTimeRandom,
                 ShipDate = dateTime1,
-                DeliveryDate = dateTime2
+                DeliveryDate = null
             };
             AddOrder(order);
         }
