@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="CartWindow" Height="477" Width="551"
+        WindowStartupLocation="CenterScreen"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         WindowStyle="None">
     <Window.Resources>
@@ -51,7 +52,7 @@
         <Button
             Content="Confirm Order" Click ="Confirm_Order" 
                 HorizontalAlignment="Left" Margin="285,7,0,0" 
-                VerticalAlignment="Top" Width="168" Height="98" Grid.RowSpan="2" FontSize="20">
+                VerticalAlignment="Top" Width="176" Height="98" Grid.RowSpan="2" FontSize="20">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="{StaticResource BackgroundButton2}"/>
@@ -102,7 +103,7 @@
                     FontSize="16"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="466,4,23,47"
+                    Margin="466,-2,23,53"
                     Click="BtnMinimize_Click" Grid.ColumnSpan="2" >
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -133,7 +134,7 @@
                     FontSize="16"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="493,3,1,45"
+                    Margin="493,-3,1,51"
                     Click="BtnExit_Click" Grid.ColumnSpan="2" >
             <Button.Style>
                 <Style TargetType="{x:Type Button}">

@@ -52,11 +52,19 @@ public partial class ProductItemWindow : Window
         AmountItems = int.Parse(Amount.Text);
         for (int i = 0; i < AmountItems; i++)
         {
-            currentCart = p?.Cart.Add(currentCart, id)!;
+            try
+            {
+                currentCart = p?.Cart.Add(currentCart, id)!;
+            }
+            catch (Exception s)
+            {
+                new ERRORWindow(this, s.Message).Show();
+            }
+
         }
         change();
         //new CartWindow(cart1,id).Show();
-        //new NewOrderWindow(currentCart).Show();
+        new NewOrderWindow(currentCart).Show();
         this.Close();
     }
 }

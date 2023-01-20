@@ -21,7 +21,7 @@ internal static class DataSource
 
     static internal int AddOrder(Order o)
     {
-        int id = Config._idNumberOrder;
+        int id = Config.GetIdNumberOrder();
         o.ID = id;
         _orderList.Add(o);
         return id;
@@ -29,8 +29,10 @@ internal static class DataSource
 
     static internal int AddOrderItem(OrderItem p)
     {
+        int id = Config.GetIdNumberItemOrder();
+        p.ID = id;
         _orderItemList.Add(p);
-        return Config._idNumberItemOrder;
+        return id;
     }
 
     static private void s_Initialize()
@@ -151,7 +153,7 @@ internal static class DataSource
             DateTime dateTimeRandom = randate();
             order = new()
             {
-                ID = Config.GetIdNumberOrder(),
+                ID = Config._idNumberOrder,
                 CustomerName = "mendi welner",
                 CustomerEmail = "meniwell@gmail.com",
                 CustomeAdress = "rambam 5 rishon lezion israel",
@@ -166,7 +168,7 @@ internal static class DataSource
             DateTime dateTimeRandom = randate();
             order = new()
             {
-                ID = Config.GetIdNumberOrder(),
+                ID = Config._idNumberOrder,
                 CustomerName = "yosef cohen",
                 CustomerEmail = "yosefc@gmail.com",
                 CustomeAdress = "ezra 31 rehovot israel",
@@ -181,7 +183,7 @@ internal static class DataSource
             DateTime dateTimeRandom = randate();
             order = new()
             {
-                ID = Config.GetIdNumberOrder(),
+                ID = Config._idNumberOrder,
                 CustomerName = "shimon levi",
                 CustomerEmail = "shimonl@gmail.com",
                 CustomeAdress = "770 eastern pky brooklyn NY",
@@ -211,26 +213,26 @@ internal static class DataSource
             AddOrder(order);
         }
         /// end of order creation
-        Config._idNumberOrder++;
+        //Config._idNumberOrder++;
 
-        OrderItem ordItem = new()
-        {
-            ID = Config.GetIdNumberItemOrder(),
-            ProductID = 222222,
-            OrderID = 21,
-            Price = 200,
-            Amount = 1
-        };
-        AddOrderItem(ordItem);
-        ordItem = new()
-        {
-            ID = Config.GetIdNumberItemOrder(),
-            ProductID = 222222,
-            OrderID = 22,
-            Price = 300,
-            Amount = 5
-        };
-        AddOrderItem(ordItem);
+        OrderItem ordItem = new();
+        //{
+        //    ID = Config._idNumberItemOrder,
+        //    ProductID = 222222,
+        //    OrderID = 21,
+        //    Price = 200,
+        //    Amount = 1
+        //};
+        //AddOrderItem(ordItem);
+        //ordItem = new()
+        //{
+        //    ID = Config._idNumberItemOrder,
+        //    ProductID = 222222,
+        //    OrderID = 22,
+        //    Price = 300,
+        //    Amount = 5
+        //};
+        //AddOrderItem(ordItem);
         
         for (int j = 0; j < 2; j++)
         {
@@ -238,7 +240,7 @@ internal static class DataSource
             {
                 ordItem = new()
                 {
-                    ID = Config.GetIdNumberItemOrder(),
+                    ID = Config._idNumberItemOrder,
                     ProductID = _productList[i]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
                     OrderID = _orderList[i]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
                     Price = _productList[i]?.Price ?? 0,
@@ -250,7 +252,7 @@ internal static class DataSource
             {
                 ordItem = new()
                 {
-                    ID = Config.GetIdNumberItemOrder(),
+                    ID = Config._idNumberItemOrder,
                     ProductID = _productList[i]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
                     OrderID = _orderList[i + 10]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
                     Price = _productList[i]?.Price ?? 0,

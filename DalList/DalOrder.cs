@@ -31,6 +31,7 @@ internal class DalOrder : IOrder
     public void Update(Order newOrder)
     {
         Delete(newOrder.ID);
+        Config._idNumberOrder--;
         Add(newOrder);
     }
 

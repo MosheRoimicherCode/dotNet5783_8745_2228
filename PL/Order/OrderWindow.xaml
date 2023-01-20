@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="OrderWindow" Height="300" Width="300"
+        WindowStartupLocation="CenterScreen"
         BorderThickness="1" BorderBrush="White" 
-        WindowStyle="None"
-        >
+        WindowStyle="None">
     <Window.Resources>
         <LinearGradientBrush x:Key="BackgroundButton2">
             <GradientStop Color="white" Offset="0.15"/>

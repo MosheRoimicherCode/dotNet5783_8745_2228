@@ -26,6 +26,18 @@ public partial class ERRORWindow : Window
         this.s = "orderWindow";
     }
 
+    public ERRORWindow(CartWindow Window, string s)
+    {
+        InitializeComponent();
+        label.Content = s;
+    }
+
+    public ERRORWindow(ProductItemWindow Window, string s)
+    {
+        InitializeComponent();
+        label.Content = s;
+    }
+
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
         this.Close();
@@ -33,6 +45,6 @@ public partial class ERRORWindow : Window
         {
             productWindow?.Show();
         }
-        else orderWindow?.Show(); 
+        //else orderWindow?.Show(); 
     }
 }

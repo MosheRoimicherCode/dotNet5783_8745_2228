@@ -42,9 +42,16 @@ public partial class NewOrderWindow : Window
         set => SetValue(CategoryDep, value);
     }
 
-    public NewOrderWindow()
+    public NewOrderWindow(BO.Cart? cart = null)
     {
         Category = BO.Category.all;
+        if (cart != null)
+        {
+            currentCart = cart;
+            //User_name.Text = cart.CustomerName?.ToString();
+            //User_email.Text = cart.CustomerEmail?.ToString();
+            //User_adress.Text = cart.CustomeAdress?.ToString();
+        }
         products = bl.Product.GetListOfItems(currentCart);
         InitializeComponent();
     }
@@ -70,7 +77,7 @@ public partial class NewOrderWindow : Window
         currentCart.TotalPrice = 0;
         
         new ProductItemWindow(id, currentCart, onChange).Show();
-        //Close();
+        Close();
     }
 
 
@@ -82,7 +89,7 @@ public partial class NewOrderWindow : Window
 
     private void cart_Button_Click(object sender, RoutedEventArgs e)
     {
-        new CartWindow(currentCart).Show();
+        new CartWindow(currentCart, onChange).Show();
         this.Close();
     }
 
