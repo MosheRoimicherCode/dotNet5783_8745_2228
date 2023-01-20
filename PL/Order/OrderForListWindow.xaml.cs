@@ -36,7 +36,7 @@ public partial class OrderForListWindow : Window
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         int id = ((BO.OrderForList)(sender as ListViewItem)!.DataContext).ID;
-        new OrderWindow(id).Show();
+        new OrderWindow(id, this).Show();
     }
 
 

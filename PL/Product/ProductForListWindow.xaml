@@ -7,6 +7,7 @@
         xmlns:bo="clr-namespace:BO;assembly=BL"
         mc:Ignorable="d"
         Title="ProductForListWindow" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
         DataContext="{Binding RelativeSource={RelativeSource Self}}" >
     <Window.Resources>
         <LinearGradientBrush x:Key="BackgroundButton">

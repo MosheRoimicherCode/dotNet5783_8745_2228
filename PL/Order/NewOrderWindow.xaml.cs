@@ -48,8 +48,10 @@ public partial class NewOrderWindow : Window
         if (cart != null)
         {
             currentCart = cart;
+            //User_name.Text = cart.CustomerName?.ToString();
+            //User_email.Text = cart.CustomerEmail?.ToString();
+            //User_adress.Text = cart.CustomeAdress?.ToString();
         }
-        
         products = bl.Product.GetListOfItems(currentCart);
         InitializeComponent();
     }

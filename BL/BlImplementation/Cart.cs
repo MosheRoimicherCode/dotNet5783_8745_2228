@@ -22,13 +22,13 @@ namespace BlImplementation
 
             return BOtemp;
         }
-        private static DO.OrderItem ConvertBo2DoOrderItem(BO.OrderItem BOTemp)
+        private static DO.OrderItem ConvertBo2DoOrderItem(BO.OrderItem BOTemp, int id)
         {
             DO.OrderItem DOtemp = new()
             {
                 ID = BOTemp.ID,
                 ProductID = BOTemp.ProductID,
-                OrderID = BOTemp.ID,
+                OrderID = id,
                 Price = BOTemp.ProductPrice,
                 Amount = BOTemp.Amount
             };
@@ -81,6 +81,9 @@ namespace BlImplementation
 
             List<BO.Order> orderList = new();
             foreach (DO.Order? item in Dal!.Order.GetAll() ?? throw new BO.nullObjectBOException("null object.BoCart.Add")) orderList.Add(ConvertDo2BoOrder(item ?? throw new BO.nullObjectBOException("null object.BoCart.Add")));
+
+            DO.Product? product1 = Dal.Product.Get(x => x.Value.ID == productId);
+            if (product1?.InStock <= 0) throw new BO.InStockException("product not in stock!");
 
             BO.Cart newBoCart = new()
             {
@@ -211,7 +214,7 @@ namespace BlImplementation
 
             foreach (BO.OrderItem? item in boCart.Details)
             {
-                DO.OrderItem? newOrderItem = ConvertBo2DoOrderItem(item ?? throw new BO.nullObjectBOException("null object.BoCart.Add"));
+                DO.OrderItem? newOrderItem = ConvertBo2DoOrderItem(item ?? throw new BO.nullObjectBOException("null object.BoCart.Add"), newOrder.ID);
                 int id = (int)newOrderItem?.ProductID!;
                 var productFromSource = Dal.Product.Get(x => x?.ID == id);
 

@@ -1,7 +1,10 @@
 ﻿namespace BlImplementation;
+
+using BlApi;
 using BO;
 using DalApi;
 using DO;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -78,23 +81,43 @@ internal class Order : BlApi.IOrder
         let b = ((int)orderItem?.Amount! * (double)orderItem?.Price!)
         select (orderItem, a, b);
 
+    private static double GetTotalPrice(int orderID)
+    {
+        double price = 0;
+        foreach (var item in dal.OrderItem.GetAll(x => x?.OrderID == orderID))
+        {
+            price += item.Value.Price;
+        }
+        return price;
+    }
+    private static int GetAmount(int orderID)
+    {
+        int amount = 0;
+        foreach (var item in dal.OrderItem.GetAll(x => x?.OrderID == orderID))
+        {
+            amount += item.Value.Amount;
+        }
+        return amount;
+    }
+
     /// return a list with all orders
     /// <returns> order list </returns>
     [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.OrderForList> GetList()
     {
+        IEnumerable<DO.OrderItem?> all = dal.OrderItem.GetAll();
         try
         {
             return from order in dal.Order.GetAll()
-                    let Id = order?.ID ?? 0
-                    select new BO.OrderForList()
-                    {
-                        ID = Id,
-                        CustomerName = order?.CustomerName,
-                        OrderStatus = CheckStatus(order),
-                        Amount = GetPriceAndAmount(Id).First().Item2,
-                        TotalPrice = GetPriceAndAmount(Id).First().Item3
-                    };
+                   let Id = order?.ID ?? 0
+                   select new BO.OrderForList()
+                   {
+                       ID = Id,
+                       CustomerName = order?.CustomerName,
+                       OrderStatus = CheckStatus(order),
+                       Amount = GetAmount(Id),
+                       TotalPrice = GetTotalPrice(Id)
+                   };
         }
         catch { return null!; }
     }
@@ -117,9 +140,9 @@ internal class Order : BlApi.IOrder
         if (Id <= 0) throw new BO.IdBOException("Negative Id! .(BO.Order.UpdateShipping)");
         foreach (var item in dal!.Order.GetAll(x => x?.ID == Id))
         {
-            if (item?.ShipDate < DateTime.Now) throw new BO.IdBOException("order has already shipped");
-            else if (item?.OrderDate > DateTime.Now) throw new BO.IdBOException("order has not ordered yet");
-            else if (item?.ShipDate > DateTime.Now && item?.OrderDate < DateTime.Now)
+            if (item?.ShipDate != null) throw new BO.IdBOException("order has already shipped");
+            else if (item?.OrderDate == null) throw new BO.IdBOException("order has not ordered yet");
+            else if (item?.ShipDate == null && item?.OrderDate != null)
             {
                 DO.Order order = new()
                 {
@@ -134,6 +157,7 @@ internal class Order : BlApi.IOrder
                 try
                 {
                     dal.Order.Update(order);
+                    IEnumerable<DO.OrderItem?> u = dal.OrderItem.GetAll();
                     return ConvertOrderToBoOrder(order);
                 }
                 catch (IdException) { throw new BO.IdBOException("Order exist. Impossible to update."); }
@@ -150,9 +174,9 @@ internal class Order : BlApi.IOrder
         if (Id <= 0) throw new BO.IdBOException("Negative Id!");
         foreach (DO.Order? item in dal!.Order.GetAll(x => x?.ID == Id))
         {
-            if (item?.DeliveryDate < DateTime.Now) throw new BO.IdBOException("order has already provided");
-            else if (item?.ShipDate > DateTime.Now) throw new BO.IdBOException("order has not shipped yet");
-            else if (item?.DeliveryDate > DateTime.Now && item?.ShipDate < DateTime.Now)
+            if (item?.DeliveryDate != null) throw new BO.IdBOException("order has already provided");
+            else if (item?.ShipDate == null) throw new BO.IdBOException("order has not shipped yet");
+            else if (item?.DeliveryDate == null && item?.ShipDate != null)
             {
                 DO.Order order = new()
                 {

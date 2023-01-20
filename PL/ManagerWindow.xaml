@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="ManagerWindow"
-                WindowStartupLocation="CenterOwner" HorizontalAlignment="Stretch"
-                Margin="0,0,0,0" VerticalAlignment="Stretch" Height="300" Width="300"
+                WindowStartupLocation="CenterScreen" Height="435" Width="586"
                 WindowStyle="None" BorderThickness="1" BorderBrush="White"  
 >
     <Window.Background>
@@ -23,13 +22,18 @@
 
 
     <Grid Margin="12,12,14,12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="78*"/>
+            <ColumnDefinition Width="89*"/>
+            <ColumnDefinition Width="12*"/>
+            <ColumnDefinition Width="379*"/>
+        </Grid.ColumnDefinitions>
         <Button 
             Content="Product list"
             Name ="ProductList"
-            HorizontalAlignment="Left"
-            Margin="144,118,0,21"
-            Click="Product_List_Button_Click" FontSize="18" Width="120" Foreground="#FFFCFCFC" >
-            
+            Margin="126,294,27,24"
+            Click="Product_List_Button_Click" FontSize="24" Foreground="#FFFCFCFC" Grid.Column="3" >
+
 
 
             <Button.Style>
@@ -56,10 +60,9 @@
         <Button 
             Content="Order list"
             Name ="OrderList"
-            HorizontalAlignment="Right"
-            Margin="0,29,137,110" 
-            Click="Order_List_Button_Click" FontSize="18"  Width="120" Foreground="#FFFCFCFC"  >
-            
+            Margin="30,292,286,25" 
+            Click="Order_List_Button_Click" FontSize="24" Foreground="#FFFCFCFC" Grid.ColumnSpan="4"  >
+
 
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -91,8 +94,8 @@
                     FontSize="16"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="217,-10,18,240"
-                    Click="BtnMinimize_Click">
+                    Margin="144,-70,-88,300"
+                    Click="BtnMinimize_Click" Grid.Column="3">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="Blue"/>
@@ -122,8 +125,8 @@
                     FontSize="16"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="238,-9,-7,243"
-                    Click="BtnExit_Click" >
+                    Margin="180,-68,-127,302"
+                    Click="BtnExit_Click" Grid.Column="3" >
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="Red"/>

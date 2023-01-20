@@ -69,12 +69,21 @@ namespace PL
 
         private void Confirm_Order(object sender, RoutedEventArgs e)
         {
-            p.Cart.ConfirmCart(cart, cart.CustomerName!, cart.CustomerEmail!, cart.CustomeAdress!);
-            change();
+            try
+            {
+                p.Cart.ConfirmCart(cart, cart.CustomerName!, cart.CustomerEmail!, cart.CustomeAdress!);
+                this.Close();
+            }
+            catch (Exception s)
+            {
+                new ERRORWindow(this, s.Message).Show();
+            }
+            
+            //change();
             //new MainWindow().Show();
             //new OrderForListWindow().Show();
             IEnumerable<BO.OrderTracking> orderTracking = p.Order.GetListOfTruckings();
-            this.Close();
+            
            
         }
 

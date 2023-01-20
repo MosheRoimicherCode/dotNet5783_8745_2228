@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ProductWindow" Height="291" Width="419">
+        Title="ProductWindow" Height="291" Width="419"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="LabelFormat"
             TargetType="Label">
