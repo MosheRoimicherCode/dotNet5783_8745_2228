@@ -134,47 +134,6 @@ internal class Order : BlApi.IOrder
     public BO.Order UpdateShipping(int Id)
     {
         if (Id <= 0) throw new BO.IdBOException("Negative Id! .(BO.Order.UpdateShipping)");
-        //try
-        //{
-        //    var order = (from item in dal.Order.GetAll()
-        //             where item?.ID == Id && item?.ShipDate is null
-        //             select new DO.Order()
-        //             {
-        //                 ID = (int)item?.ID!,
-        //                 CustomerName = item?.CustomerName,
-        //                 CustomerEmail = item?.CustomerEmail,
-        //                 CustomeAdress = item?.CustomeAdress,
-        //                 OrderDate = item?.OrderDate,
-        //                 ShipDate = DateTime.Now,
-        //                 DeliveryDate = null,
-        //             }).First();
-        //    dal.Order.Update(order);
-        //    return ConvertOrderToBoOrder(order);
-        //}
-        //catch
-        //{
-        //    try
-        //    {
-        //        var order = (from item in dal.Order.GetAll()
-        //                 where item?.ID == Id && item?.DeliveryDate is null
-        //                 select new DO.Order()
-        //                 {
-        //                     ID = (int)item?.ID!,
-        //                     CustomerName = item?.CustomerName,
-        //                     CustomerEmail = item?.CustomerEmail,
-        //                     CustomeAdress = item?.CustomeAdress,
-        //                     OrderDate = item?.OrderDate,
-        //                     ShipDate = item?.ShipDate,
-        //                     DeliveryDate = DateTime.Now,
-        //                 }).First();
-        //        dal.Order.Update(order);
-        //        return ConvertOrderToBoOrder(order);
-        //    }
-        //    catch
-        //    {
-        //        throw new Exception("order deliveried or not found");
-        //    }
-        //}
 
         foreach (var item in dal!.Order.GetAll(x => x?.ID == Id))
         {
@@ -309,4 +268,11 @@ internal class Order : BlApi.IOrder
                 return Id2;
         }
     } //return last updated order status
+
+    public BO.Order UpdateStatus(int id)
+    {
+        if (Get(id).OrderStatus == Status.Approved)
+            return UpdateShipping(id);
+        else { return UpdateProviding(id); }
+    }
 }
