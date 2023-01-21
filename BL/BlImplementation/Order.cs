@@ -50,24 +50,20 @@ internal class Order : BlApi.IOrder
             DeliveryDate = dalOrder?.DeliveryDate,
             Details = new(),
         };
-        var boOrderDetailsTuple = (from orderItem in dal!.OrderItem.GetAll(x => x?.OrderID == Id)
+        var boOrderDetailsTuple = from orderItem in dal!.OrderItem.GetAll(x => x?.OrderID == Id)
                                    let TotalPrice = boOrder.TotalPrice + dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price
                                    select (TotalPrice, new List<BO.OrderItem>
-                                     (
-                                         from orderItem in dal!.OrderItem.GetAll(x => x?.OrderID == Id)
-                                         select new BO.OrderItem()
-                                         {
-                                             ID = (int)orderItem?.ID!,
-                                             ProductID = (int)orderItem?.ProductID!,
-                                             OrderID = (int)orderItem?.OrderID!,
-                                             ProductName = dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Name,
-                                             ProductPrice = dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price ?? 0,
-                                             Amount = (int)orderItem?.Amount!,
-                                             TotalPrice = (int)orderItem?.Amount! * (double)dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price!,
-                                         }
-                                     )
-                                            )
-                                 );
+                                                (from orderItem in dal!.OrderItem.GetAll(x => x?.OrderID == Id)
+                                                 select new BO.OrderItem()
+                                                 {
+                                                     ID = (int)orderItem?.ID!,
+                                                     ProductID = (int)orderItem?.ProductID!,
+                                                     OrderID = (int)orderItem?.OrderID!,
+                                                     ProductName = dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Name,
+                                                     ProductPrice = dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price ?? 0,
+                                                     Amount = (int)orderItem?.Amount!,
+                                                     TotalPrice = (int)orderItem?.Amount! * (double)dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price!,
+                                                 }));
 
 
         boOrder.Details = boOrderDetailsTuple.FirstOrDefault().Item2.ToList();
@@ -80,7 +76,6 @@ internal class Order : BlApi.IOrder
         let a = (int)orderItem?.Amount!
         let b = ((int)orderItem?.Amount! * (double)orderItem?.Price!)
         select (orderItem, a, b);
-
     private static double GetTotalPrice(int orderID)
     {
         double price = 0;
@@ -138,6 +133,7 @@ internal class Order : BlApi.IOrder
     public BO.Order UpdateShipping(int Id)
     {
         if (Id <= 0) throw new BO.IdBOException("Negative Id! .(BO.Order.UpdateShipping)");
+
         foreach (var item in dal!.Order.GetAll(x => x?.ID == Id))
         {
             if (item?.ShipDate != null) throw new BO.IdBOException("order has already shipped");
@@ -172,29 +168,26 @@ internal class Order : BlApi.IOrder
     public BO.Order UpdateProviding(int Id)
     {
         if (Id <= 0) throw new BO.IdBOException("Negative Id!");
-        foreach (DO.Order? item in dal!.Order.GetAll(x => x?.ID == Id))
+        else
         {
-            if (item?.DeliveryDate != null) throw new BO.IdBOException("order has already provided");
-            else if (item?.ShipDate == null) throw new BO.IdBOException("order has not shipped yet");
-            else if (item?.DeliveryDate == null && item?.ShipDate != null)
+            foreach (DO.Order? item in dal!.Order.GetAll(x => x?.ID == Id))
             {
-                DO.Order order = new()
+                if (item?.DeliveryDate != null) throw new BO.IdBOException("order has already provided");
+                else if (item?.DeliveryDate == null && item?.ShipDate != null)
                 {
-                    ID = item?.ID ?? 0,
-                    CustomerName = item?.CustomerName,
-                    CustomerEmail = item?.CustomerEmail,
-                    CustomeAdress = item?.CustomeAdress,
-                    OrderDate = item?.OrderDate,
-                    ShipDate = item?.ShipDate,
-                    DeliveryDate = DateTime.Now
-
-                };
-                try
-                {
+                    DO.Order order = new()
+                    {
+                        ID = item?.ID ?? 0,
+                        CustomerName = item?.CustomerName,
+                        CustomerEmail = item?.CustomerEmail,
+                        CustomeAdress = item?.CustomeAdress,
+                        OrderDate = item?.OrderDate,
+                        ShipDate = item?.ShipDate,
+                        DeliveryDate = DateTime.Now
+                    };
                     dal.Order.Update(order);
                     return ConvertOrderToBoOrder(order);
                 }
-                catch (IdException) { throw new BO.IdBOException("Order  exist. Impossible to update."); }
             }
         }
         throw new BO.IdBOException("order with given Id didn't found");
@@ -227,34 +220,57 @@ internal class Order : BlApi.IOrder
     }
 
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public IEnumerable<BO.OrderTracking> GetListOfTruckings()
-    {
-        return from item in dal?.Order.GetAll()
-               select OrderTracking((int)item?.ID!);
-    }
+    public IEnumerable<BO.OrderTracking> GetListOfTruckings() => from item in dal?.Order.GetAll()
+                                                                 select OrderTracking((int)item?.ID!);
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     public int? ReturnOrderForManage()
     {
 
         var minShippedTime = (from time in dal.Order.GetAll()
-                                     where time?.DeliveryDate is null
-                                     select time?.ShipDate).Min(); //order created and shipped earlier status
+                              where (time?.ShipDate != null && time?.DeliveryDate == null)
+                              orderby (time?.ShipDate)
+                              select time).First()?.ShipDate; //order created and shipped earlier status
+
+
 
         var minApprovedTime = (from time in dal.Order.GetAll()
-                                     where time?.ShipDate is null
-                                     select time?.OrderDate).Min(); //order just created earlier status
+                               where (time?.ShipDate == null)
+                               orderby (time?.OrderDate)
+                               select time).First()?.OrderDate; //order just created earlier status
+
+        //foreach (DO.Order order in dal.Order.GetAll())
+        //{
+        //    if (order.ShipDate != null && order.DeliveryDate == null)
+        //    {
+        //        if (min1 > order.ShipDate) { min1 = (DateTime)order.ShipDate; Id1 = order.ID; }
+        //    }
+        //}
+
+        //List<DateTime> dateTameList2 = new();
+        //foreach (DO.Order order in dal.Order.GetAll())
+        //{
+
+        //    if (order.OrderDate != null && order.ShipDate == null)
+        //    {
+        //        if (min2 > order.OrderDate) { min1 = (DateTime)order.OrderDate; Id2 = order.ID; }
+        //    }
+        //}
 
         switch (minShippedTime < minApprovedTime)
         {
             case true:
-                return (from item in dal.Order.GetAll()
-                        where item?.ShipDate == minShippedTime
-                        select item?.ID).First();
+                return dal?.Order.Get(x => x.Value.ShipDate == minShippedTime)?.ID;
             case false:
-                return (from item in dal.Order.GetAll()
-                        where item?.OrderDate == minApprovedTime
-                        select item?.ID).First();
+                return dal?.Order.Get(x => x.Value.OrderDate == minApprovedTime)?.ID;
         }
     } //return last updated order status
+
+    public BO.Order UpdateStatus(int id)
+    {
+        string status = this.Get(id).OrderStatus.ToString();
+        if (status == "Approved")
+            return UpdateShipping(id);
+        else { return UpdateProviding(id); }
+    }
 }

@@ -188,8 +188,7 @@ internal static class DataSource
                 CustomerEmail = "shimonl@gmail.com",
                 CustomeAdress = "770 eastern pky brooklyn NY",
                 OrderDate = dateTimeRandom,
-                ShipDate = dateTimeRandom.AddDays(_randomNum.Next(0, 10)),
-                DeliveryDate = dateTimeRandom.AddDays(_randomNum.Next(10, 20))
+                
             };
             AddOrder(order);
         }
@@ -198,21 +197,21 @@ internal static class DataSource
         DateTime dateTime1 = new DateTime(2020, 12, 31);
         DateTime dateTime2 = new DateTime(2029, 12, 31);
 
-        //for (int i = 0; i < 2; i++)
-        //{
-        //    DateTime dateTimeRandom = randate();
-        //    order = new()
-        //    {
-        //        ID = Config.GetIdNumberOrder(),
-        //        CustomerName = "momo momo",
-        //        CustomerEmail = "mroimicher@gmail.com",
-        //        CustomeAdress = "Israel",
-        //        OrderDate = dateTimeRandom,
-        //        ShipDate = dateTime1,
-        //        DeliveryDate = dateTime2
-        //    };
-        //    AddOrder(order);
-        //}
+        for (int i = 0; i < 2; i++)
+        {
+            DateTime dateTimeRandom = randate();
+            order = new()
+            {
+                ID = Config.GetIdNumberOrder(),
+                CustomerName = "momo momo",
+                CustomerEmail = "mroimicher@gmail.com",
+                CustomeAdress = "Israel",
+                OrderDate = dateTimeRandom,
+                ShipDate = dateTime1.AddDays(i),
+                DeliveryDate = null
+            };
+            AddOrder(order);
+        }
         /// end of order creation
         //Config._idNumberOrder++;
 

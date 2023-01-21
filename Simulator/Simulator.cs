@@ -1,29 +1,67 @@
 ﻿using BlApi;
+using Microsoft.Exchange.WebServices.Data;
+using System.ComponentModel;
 
+namespace Sim; 
 static public class Simulator
 {
-    static readonly IBl bl = BlApi.Factory.Get();
+    //Observer Pathern
 
-    static readonly Thread simulator = new(RunSimulator); //create Thread that run simulator
-    static volatile bool flagForStopSimulator;
-    static void RunSimulator()  //body simulator
+    //Notify() events
+    public delegate void SimulatorStopEventHandler(EventArgs e);
+    public delegate void SimulatorUpdatedEventHandler(object sender, ProgressChangedEventArgs e);
+    public delegate void FinisgTimeEventHandler(object sender, ProgressChangedEventArgs e);
+
+    public static event SimulatorStopEventHandler? StopEvent;
+    public static event SimulatorUpdatedEventHandler? UpdateEvent;
+    public static event FinisgTimeEventHandler? TimeEvent;
+
+
+    static readonly IBl bl = BlApi.Factory.Get();                                                             //connection to database
+
+    static readonly Thread simulator = new(RunSimulator);                                                   //create Thread that run simulator
+    static public void StartSimulator() => simulator.Start();                                                    //public method to start simulator
+    static void RunSimulator()                                                                                //body simulator
     {
         flagForStopSimulator = true;
         while (flagForStopSimulator)
         {
-            Console.WriteLine(Thread.CurrentThread.Name);
-            Thread.Sleep(1000);
-            NextEvent?.Invoke(null, EventArgs.Empty); // send progress event
+            int? id = bl.Order.ReturnOrderForManage();
+            if (id is not null)
+            {
+                int delay = random.Next(3, 11); //between 3 to 10
+                DateTime finishTime = DateTime.Now + (new TimeSpan(0, 0, 0, delay, 0));
+
+                //if (TimeEvent != null) TimeEvent.Invoke(finishTime);
+
+                BO.Order orderUpdated = bl.Order.UpdateStatus((int)id);
+
+                if (UpdateEvent != null) UpdateEvent.Invoke(orderUpdated,  EventArgs.Empty);
+                
+                Thread.Sleep(delay * 1000); //simulate store work time
+
+                StopEvent?.Invoke(EventArgs.Empty);
+            }
         }
-        StopThread?.Invoke(null,EventArgs.Empty); //send stop thread
     }
-    
-    static public void StartSimulator() => simulator.Start(); //public method to start simulator
-    static public void StopSimulator(bool flag) => flagForStopSimulator = flag; //public method to stop simulator
 
-    static event EventHandler? StopThread;  // event of stop simulator
-    static event EventHandler? NextEvent;   // event of progress of simulator
 
-    static public void AssignEventOfStop() => StopThread(null,EventArgs.Empty);
-    static public void AssignEventOfNext() => NextEvent(null, EventArgs.Empty);
+
+    static volatile bool flagForStopSimulator;                                                               //volatile to stop Thread
+    static public void StopSimulator(bool flag) { }                                                          //public method to stop simulator
+
+    static readonly Random random = new();                                                                   //for pauses - not important
+
+    //Registration
+    public static void RegisterToStopEvent(SimulatorStopEventHandler func) => StopEvent += func;
+    public static void RegisterToUpdateEvent(SimulatorUpdatedEventHandler func) => UpdateEvent += func;
+    public static void RegisterToTimeEvent(FinisgTimeEventHandler func) => TimeEvent += func;
+
+    //Cancel Registration
+    static void CancelRegisterToStopEvent(SimulatorStopEventHandler func) => StopEvent -= func;
+    static void CancelRegisterToUpdateEvent(SimulatorUpdatedEventHandler func) => UpdateEvent -= func;
+    public static void CancelRegisterToTimeEvent(FinisgTimeEventHandler func) => TimeEvent -= func;
+
+
+
 }
