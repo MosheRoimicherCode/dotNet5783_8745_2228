@@ -232,30 +232,10 @@ internal class Order : BlApi.IOrder
                               orderby (time?.ShipDate)
                               select time).First()?.ShipDate; //order created and shipped earlier status
 
-
-
         var minApprovedTime = (from time in dal.Order.GetAll()
                                where (time?.ShipDate == null)
                                orderby (time?.OrderDate)
                                select time).First()?.OrderDate; //order just created earlier status
-
-        //foreach (DO.Order order in dal.Order.GetAll())
-        //{
-        //    if (order.ShipDate != null && order.DeliveryDate == null)
-        //    {
-        //        if (min1 > order.ShipDate) { min1 = (DateTime)order.ShipDate; Id1 = order.ID; }
-        //    }
-        //}
-
-        //List<DateTime> dateTameList2 = new();
-        //foreach (DO.Order order in dal.Order.GetAll())
-        //{
-
-        //    if (order.OrderDate != null && order.ShipDate == null)
-        //    {
-        //        if (min2 > order.OrderDate) { min1 = (DateTime)order.OrderDate; Id2 = order.ID; }
-        //    }
-        //}
 
         switch (minShippedTime < minApprovedTime)
         {
