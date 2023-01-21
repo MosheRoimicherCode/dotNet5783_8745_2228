@@ -9,7 +9,10 @@ public partial class ERRORWindow : Window
 {
     ProductWindow? productWindow;
     OrderWindow? orderWindow;
+    ProductItemWindow? productItemWindow;
     readonly string s;
+    BO.Cart? cart1;
+    int w = 0;
     public ERRORWindow(ProductWindow Window, string s)
     {
         InitializeComponent();
@@ -32,10 +35,13 @@ public partial class ERRORWindow : Window
         label.Content = s;
     }
 
-    public ERRORWindow(ProductItemWindow Window, string s)
+    public ERRORWindow(ProductItemWindow Window, string s, BO.Cart? cart = null)
     {
         InitializeComponent();
         label.Content = s;
+        productItemWindow = Window;
+        cart1 = cart;
+        w = 2;
     }
 
     private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -44,6 +50,10 @@ public partial class ERRORWindow : Window
         if (s == "productWindow")
         {
             productWindow?.Show();
+        }
+        if (w == 2)
+        {
+            new NewOrderWindow(cart1).Show();
         }
         //else orderWindow?.Show(); 
     }
