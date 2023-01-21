@@ -10,11 +10,9 @@ static public class Simulator
     //Notify() events
     public delegate void SimulatorStopEventHandler(EventArgs e);
     public delegate void SimulatorUpdatedEventHandler(object sender, ProgressChangedEventArgs e);
-    public delegate void FinisgTimeEventHandler(object sender, ProgressChangedEventArgs e);
 
     public static event SimulatorStopEventHandler? StopEvent;
     public static event SimulatorUpdatedEventHandler? UpdateEvent;
-    public static event FinisgTimeEventHandler? TimeEvent;
 
 
     static readonly IBl bl = BlApi.Factory.Get();                                                             //connection to database
@@ -32,14 +30,17 @@ static public class Simulator
                 int delay = random.Next(3, 11); //between 3 to 10
                 DateTime finishTime = DateTime.Now + (new TimeSpan(0, 0, 0, delay, 0));
 
-                //if (TimeEvent != null) TimeEvent.Invoke(finishTime);
-
                 BO.Order orderUpdated = bl.Order.UpdateStatus((int)id);
+                //ProgressChangedEventArgs e = new(1,)
 
-                if (UpdateEvent != null) UpdateEvent.Invoke(orderUpdated,  EventArgs.Empty);
+                if (UpdateEvent != null) UpdateEvent.Invoke(orderUpdated, e);
                 
                 Thread.Sleep(delay * 1000); //simulate store work time
 
+            }
+            else
+            {
+                flagForStopSimulator = false;
                 StopEvent?.Invoke(EventArgs.Empty);
             }
         }
@@ -55,12 +56,10 @@ static public class Simulator
     //Registration
     public static void RegisterToStopEvent(SimulatorStopEventHandler func) => StopEvent += func;
     public static void RegisterToUpdateEvent(SimulatorUpdatedEventHandler func) => UpdateEvent += func;
-    public static void RegisterToTimeEvent(FinisgTimeEventHandler func) => TimeEvent += func;
 
     //Cancel Registration
-    static void CancelRegisterToStopEvent(SimulatorStopEventHandler func) => StopEvent -= func;
-    static void CancelRegisterToUpdateEvent(SimulatorUpdatedEventHandler func) => UpdateEvent -= func;
-    public static void CancelRegisterToTimeEvent(FinisgTimeEventHandler func) => TimeEvent -= func;
+    public static void CancelRegisterToStopEvent(SimulatorStopEventHandler func) => StopEvent -= func;
+    public static void CancelRegisterToUpdateEvent(SimulatorUpdatedEventHandler func) => UpdateEvent -= func;
 
 
 

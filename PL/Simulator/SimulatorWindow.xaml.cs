@@ -1,6 +1,5 @@
 ﻿namespace PL;
 
-using BlApi;
 using Sim;
 using System;
 using System.Collections.Generic;
@@ -27,8 +26,8 @@ public partial class SimulatorWindow : Window
     public SimulatorWindow()
     {
         Simulator.RegisterToUpdateEvent(OrderChanged);
-        Simulator.RegisterToStopEvent(StopSimalation);
-        Simulator.RegisterToTimeEvent(TimeChange)
+        //Simulator.RegisterToStopEvent(StopSimalation);
+        //Simulator.RegisterToTimeEvent(TimeChange);
 
         InitializeComponent();
 
@@ -58,6 +57,7 @@ public partial class SimulatorWindow : Window
         string timerText = stopWatch.Elapsed.ToString();
         timerText = timerText.Substring(0, 8);
         this.timerTextBlock.Text = timerText;
+
     }
 
     private void StopSimulation(object sender, RoutedEventArgs e)
@@ -78,9 +78,9 @@ public partial class SimulatorWindow : Window
         }
     }
 
-    private void OrderChanged(BO.Order order)
+    private void OrderChanged(object sender, ProgressChangedEventArgs e)
     {
-        Dispatcher.Invoke(() => { Order = order; } );
+        Dispatcher.Invoke(() => { Order = sender as BO.Order; } );
     }
 
     private void StopSimalation(EventArgs e)
