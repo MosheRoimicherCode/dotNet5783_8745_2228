@@ -26,11 +26,11 @@ public partial class SimulatorWindow : Window
 
     public SimulatorWindow()
     {
-        
-        InitializeComponent();
-
         Simulator.RegisterToUpdateEvent(OrderChanged);
         Simulator.RegisterToStopEvent(StopSimalation);
+        Simulator.RegisterToTimeEvent(TimeChange)
+
+        InitializeComponent();
 
         stopWatch = new Stopwatch();
         timerworker = new BackgroundWorker();
@@ -78,18 +78,24 @@ public partial class SimulatorWindow : Window
         }
     }
 
-    private void OrderChanged(BO.Order order, EventArgs e)
+    private void OrderChanged(BO.Order order)
     {
-        Action<BO.Order, EventArgs> action = OrderChanged;
-        this.Dispatcher.Invoke(action, new object[] { Order = order, EventArgs.Empty });
+        Dispatcher.Invoke(() => { Order = order; } );
     }
 
     private void StopSimalation(EventArgs e)
     {
-        IDOrderInProgress.Content = "Finish Orders";
-        OldStatus.Content = "Finish Orders";
-        StartTime.Content = "Finish Orders";
-        FutureStatus.Content = "Finish Orders";
-        StopTime.Content = "Finish Orders";
+        this.Dispatcher.Invoke(() =>
+        {
+            IDOrderInProgress.Content = "Finish Orders";
+            OldStatus.Content = "Finish Orders";
+            StartTime.Content = "Finish Orders";
+            FutureStatus.Content = "Finish Orders";
+            StopTime.Content = "Finish Orders";
+        }); 
+    }
+    private void TimeChange(DateTime date)
+    {
+        Dispatcher.Invoke(() => StopTime.Content = date.ToString());
     }
 }

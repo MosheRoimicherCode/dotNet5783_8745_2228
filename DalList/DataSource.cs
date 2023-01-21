@@ -207,7 +207,7 @@ internal static class DataSource
                 CustomerEmail = "mroimicher@gmail.com",
                 CustomeAdress = "Israel",
                 OrderDate = dateTimeRandom,
-                ShipDate = dateTime1,
+                ShipDate = dateTime1.AddDays(i),
                 DeliveryDate = null
             };
             AddOrder(order);
