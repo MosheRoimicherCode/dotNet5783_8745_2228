@@ -50,21 +50,21 @@ public partial class ProductItemWindow : Window
     private void add_Button_Click(object sender, RoutedEventArgs e)
     {
         AmountItems = int.Parse(Amount.Text);
-        for (int i = 0; i < AmountItems; i++)
+        try
         {
-            try
+            for (int i = 0; i < AmountItems; i++)
             {
                 currentCart = p?.Cart.Add(currentCart, id)!;
             }
-            catch (Exception s)
-            {
-                new ERRORWindow(this, s.Message).Show();
-            }
-
+            new NewOrderWindow(currentCart).Show();
         }
-        change();
+        catch (Exception s)
+        {
+            new ERRORWindow(this, s.Message, currentCart).Show();
+        }
+        //change();
         //new CartWindow(cart1,id).Show();
-        new NewOrderWindow(currentCart).Show();
+        
         this.Close();
     }
 }
