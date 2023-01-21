@@ -28,7 +28,7 @@ public partial class SimulatorWindow : Window
     {
         Simulator.RegisterToUpdateEvent(OrderChanged);
         Simulator.RegisterToStopEvent(StopSimalation);
-        Simulator.RegisterToTimeEvent(TimeChange)
+        Simulator.RegisterToTimeEvent(TimeChange);
 
         InitializeComponent();
 
