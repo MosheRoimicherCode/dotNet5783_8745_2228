@@ -30,29 +30,29 @@
         <Label Content="Category:" Margin="71,161,0,0" Style="{StaticResource LabelFormarProductItemWindo}" Width="135"/>
         <Label Content="Is In Stock:" Margin="71,212,0,0"  Style="{StaticResource LabelFormarProductItemWindo}" Width="135"/>
         <Label Content="Amount In Cart:" Margin="71,265,0,0"  Style="{StaticResource LabelFormarProductItemWindo}" Width="186"/>
-        <Label x:Name="Name2" Margin="211,21,0,0" Style="{StaticResource LabelFormarProductItemWindo}"/>
-        <Label x:Name="ID2" Margin="177,65,0,0"  Style="{StaticResource LabelFormarProductItemWindo}"/>
-        <Label x:Name="Price2" Margin="211,114,0,0" Style="{StaticResource LabelFormarProductItemWindo}"/>
-        <Label x:Name="Category2" Margin="248,161,0,0"  Style="{StaticResource LabelFormarProductItemWindo}"/>
-        <Label x:Name="IsInStock2" Margin="262,212,0,0"  Style="{StaticResource LabelFormarProductItemWindo}"/>
-        <Label x:Name="AmontInCart2" Margin="302,265,0,0"  Style="{StaticResource LabelFormarProductItemWindo}"/>
+        <Label x:Name="Name2" Margin="211,21,0,0" Style="{StaticResource LabelFormarProductItemWindo}" Width="164"/>
+        <Label x:Name="ID2" Margin="177,65,0,0"  Style="{StaticResource LabelFormarProductItemWindo}" Width="132"/>
+        <Label x:Name="Price2" Margin="211,114,0,0" Style="{StaticResource LabelFormarProductItemWindo}" Width="138"/>
+        <Label x:Name="Category2" Margin="248,161,0,0"  Style="{StaticResource LabelFormarProductItemWindo}" Width="175"/>
+        <Label x:Name="IsInStock2" Margin="262,212,0,0"  Style="{StaticResource LabelFormarProductItemWindo}" Width="134"/>
+        <Label x:Name="AmontInCart2" Margin="302,265,0,0"  Style="{StaticResource LabelFormarProductItemWindo}" Width="136"/>
 
-        <TextBox x:Name="Amount" Margin="551,41,34,325" Text="1" FontSize="24" Width="50" Height="50" Cursor="Wait" ToolTip="How many Item you want to order?" TextAlignment="Center" />
+        <TextBox x:Name="Amount" Margin="664,65,0,0" Text="1" FontSize="24" Width="50" Height="41" Cursor="Wait" ToolTip="How many Item you want to order?" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
         <Button x:Name="change_button" 
                     Content="change amount" 
                     HorizontalAlignment="Left" 
-                    Margin="574,95,0,276" 
+                    Margin="467,60,0,0" 
                     Padding="5"
-                    Click="Change_button" Width="188" FontSize="24">
+                    Click="Change_button" Width="188" FontSize="24" VerticalAlignment="Top" Height="51">
 
         </Button>
 
         <Button x:Name="remove_button" 
             Content="remove product" 
             HorizontalAlignment="Left" 
-            Margin="574,200,0,171" 
+            Margin="467,136,0,0" 
             Padding="5"
-            Click="Remove_button" Width="188" FontSize="24"/>
+            Click="Remove_button" Width="247" FontSize="24" VerticalAlignment="Top" Height="54"/>
     </Grid>
 </Window>
