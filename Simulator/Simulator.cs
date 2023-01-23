@@ -1,6 +1,8 @@
 ﻿using BlApi;
+using BO;
 using Microsoft.Exchange.WebServices.Data;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Sim; 
 static public class Simulator
@@ -8,59 +10,64 @@ static public class Simulator
     //Observer Pathern
 
     //Notify() events
-    public delegate void SimulatorStopEventHandler(EventArgs e);
-    public delegate void SimulatorUpdatedEventHandler(object sender, ProgressChangedEventArgs e);
 
-    public static event SimulatorStopEventHandler? StopEvent;
-    public static event SimulatorUpdatedEventHandler? UpdateEvent;
+
+
+    //private static event Action<DateTime>? EstimatedTime;
+    //public static void RegisterEstimatedTime(Action<DateTime> action) => EstimatedTime += action;
+    //public static void CalcelRegisterEstimatedTime(Action<DateTime> action) => EstimatedTime -= action;
+
+
+    private static event Action<BO.Order>? ChangeOrder;
+    public static void RegisterChangeOrder(Action<Order> action) => ChangeOrder += action;
+    public static void CalcelRegisterChangeOrder(Action<Order> action) => ChangeOrder -= action;
+
+
+    //private static event Action? CompletedSimulation;
+    //public static void RegisterCompletedSimulation(Action action) => CompletedSimulation += action;
+    //public static void CalcelRegisterCompletedSimulation(Action action) => CompletedSimulation -= action;
+
 
 
     static readonly IBl bl = BlApi.Factory.Get();                                                             //connection to database
-
-    static readonly Thread simulator = new(RunSimulator);                                                   //create Thread that run simulator
-    static public void StartSimulator() => simulator.Start();                                                    //public method to start simulator
-    static void RunSimulator()                                                                                //body simulator
+    static public void StartSimulator()                                                                                //body simulator
     {
-        flagForStopSimulator = true;
-        while (flagForStopSimulator)
+        new Thread(() =>
         {
-            int? id = bl.Order.ReturnOrderForManage();
-            if (id is not null)
+            
+            flagForStopSimulator = true;
+
+            while (flagForStopSimulator)
             {
-                int delay = random.Next(3, 11); //between 3 to 10
-                DateTime finishTime = DateTime.Now + (new TimeSpan(0, 0, 0, delay, 0));
+                int id = bl.Order.ReturnOrderForManage() ?? 0;
+                string oldstatus = bl.Order.Get(id).OrderStatus.ToString();
+                if (id != 0)
+                {
+                    int delay = random.Next(3, 11); //between 3 to 100
+                    DateTime finishTime = DateTime.Now + (new TimeSpan(0, 0, 0, delay, 0));
+                    
+                    //EstimatedTime.Invoke(finishTime);
 
-                BO.Order orderUpdated = bl.Order.UpdateStatus((int)id);
-                //ProgressChangedEventArgs e = new(1,)
+                    BO.Order? orderUpdated = bl.Order.UpdateStatus((int)id);
 
-                if (UpdateEvent != null) UpdateEvent.Invoke(orderUpdated, null);
-                
-                Thread.Sleep(delay * 1000); //simulate store work time
+                    //Tuple<int, DateTime, DateTime, string, string> tuple= new(orderUpdated.ID, DateTime.Now, finishTime, oldstatus, orderUpdated.OrderStatus.ToString());
 
+                    ChangeOrder?.Invoke(orderUpdated);
+
+                    Thread.Sleep(delay * 1000); //simulate store work time
+                }
+                else
+                {
+                    flagForStopSimulator = false;
+                    //CompletedSimulation.Invoke();
+                }
             }
-            else
-            {
-                flagForStopSimulator = false;
-                StopEvent?.Invoke(EventArgs.Empty);
-            }
-        }
+        }).Start();
     }
 
 
 
     static volatile bool flagForStopSimulator;                                                               //volatile to stop Thread
-    static public void StopSimulator(bool flag) { }                                                          //public method to stop simulator
 
     static readonly Random random = new();                                                                   //for pauses - not important
-
-    //Registration
-    public static void RegisterToStopEvent(SimulatorStopEventHandler func) => StopEvent += func;
-    public static void RegisterToUpdateEvent(SimulatorUpdatedEventHandler func) => UpdateEvent += func;
-
-    //Cancel Registration
-    public static void CancelRegisterToStopEvent(SimulatorStopEventHandler func) => StopEvent -= func;
-    public static void CancelRegisterToUpdateEvent(SimulatorUpdatedEventHandler func) => UpdateEvent -= func;
-
-
-
 }
