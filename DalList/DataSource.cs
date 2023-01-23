@@ -158,8 +158,8 @@ internal static class DataSource
                 CustomerEmail = "meniwell@gmail.com",
                 CustomeAdress = "rambam 5 rishon lezion israel",
                 OrderDate = dateTimeRandom,
-                ShipDate = dateTimeRandom.AddDays(_randomNum.Next(0, 10)),
-                DeliveryDate = dateTimeRandom.AddDays(_randomNum.Next(10, 20))
+                ShipDate = null,
+                DeliveryDate = null,
             };
             AddOrder(order);
         }

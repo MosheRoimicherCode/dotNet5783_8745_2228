@@ -24,13 +24,15 @@ internal class Order : BlApi.IOrder
     {
         return new BO.Order
         {
+            ID = o.ID,
+            CustomerName = o.CustomerName,
+            CustomerEmail = o.CustomerEmail,
+            CustomerAdress = o.CustomeAdress,
+            OrderStatus = CheckStatus(o),
+            OrderDate = o.OrderDate,
             ShipDate = o.ShipDate,
             DeliveryDate = o.DeliveryDate,
-            OrderDate = o.OrderDate,
-            CustomerName = o.CustomerName,
-            CustomerAdress = o.CustomeAdress,
-            CustomerEmail = o.CustomerEmail,
-            OrderStatus = CheckStatus(o)
+            TotalPrice = GetTotalPrice(o.ID),
         };
 
     }
@@ -186,6 +188,7 @@ internal class Order : BlApi.IOrder
                         DeliveryDate = DateTime.Now
                     };
                     dal.Order.Update(order);
+                    //var a = 
                     return ConvertOrderToBoOrder(order);
                 }
             }
