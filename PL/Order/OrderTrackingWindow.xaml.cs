@@ -12,34 +12,31 @@ using BlApi;
 /// <summary>
 /// Interaction logic for ProductForListWindow.xaml
 /// </summary>
-public partial class OrderTrackingWindow : Window, INotifyPropertyChanged
+public partial class OrderTrackingWindow : Window
 {
+
+    public static readonly DependencyProperty ordersDep = DependencyProperty.Register(nameof(orders),
+                                                                                       typeof(IEnumerable<BO.OrderTracking>),
+                                                                                       typeof(OrderTrackingWindow));
+
+    private IEnumerable<BO.OrderTracking> orders
+    {
+        get => (IEnumerable<BO.OrderTracking>)GetValue(ordersDep);
+        set => SetValue(ordersDep, value);
+    }
+
+
     IBl p = BlApi.Factory.Get();
 
     IEnumerable<BO.OrderTracking>? orderTracking;
 
-    public IEnumerable<BO.OrderTracking> orderTrackingUpdate
-    {
-        get { return orderTracking; }
-        set
-        {
-            orderTracking = value;
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs("orderTrackingUpdate"));
-            }
-        }
-    }
-    public event PropertyChangedEventHandler? PropertyChanged;
-
     public OrderTrackingWindow()
     {
         InitializeComponent();
-        this.DataContext = orderTrackingUpdate;
 
-        orderTrackingUpdate = p.Order.GetListOfTruckings();
-        orderTrackingView.ItemsSource = orderTrackingUpdate;
+        orders = p.Order.GetListOfTruckings();
 
+        
     }
 
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

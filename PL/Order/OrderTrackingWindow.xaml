@@ -6,15 +6,17 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="OrderTrackingWindow" Height="450" Width="800"
-        WindowStartupLocation="CenterScreen">
-    <Grid>
-        <ListView Name ="orderTrackingView"   MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2">
-            <ListView.View>
+        WindowStartupLocation="CenterScreen"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" 
 
+        >
+    <Grid>
+        <ListView Name ="orderTrackingView" ItemsSource="{Binding orders, Mode=TwoWay}"  MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2">
+            <ListView.View>
                 <GridView x:Name="GridView1">
-                    <GridViewColumn DisplayMemberBinding= "{Binding Path=OrderID}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding OrderID}" 
                                 Header="Order ID" Width="120"/>
-                    <GridViewColumn DisplayMemberBinding= "{Binding Path=Status}" 
+                    <GridViewColumn DisplayMemberBinding= "{Binding Status}" 
                                 Header="Status" Width="150"/>
 
 

@@ -58,6 +58,7 @@ public partial class SimulatorWindow : Window
             WorkerReportsProgress = true,
             WorkerSupportsCancellation = true
         };
+
         worker.DoWork += Worker_DoWork;
         worker.ProgressChanged += Worker_ProgressChanged;
         worker.RunWorkerCompleted += worker_RunWorkerCompleted;
@@ -111,10 +112,6 @@ public partial class SimulatorWindow : Window
                 StartTime.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item2;
                 FutureStatus.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item5;
                 StopTime.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item3;
-                break;
-            case 2:
-                try { StopTime.Content = e.UserState; }
-                catch { }
                 break;
             case 3:
                 progressPerSecond = (100 / (int)(e.UserState));

@@ -229,30 +229,33 @@ internal class Order : BlApi.IOrder
     [MethodImpl(MethodImplOptions.Synchronized)]
     public int? ReturnOrderForManage()
     {
-
-        var minShippedTime = (from time in dal.Order.GetAll()
-                              where (time?.ShipDate != null && time?.DeliveryDate == null)
-                              orderby (time?.ShipDate)
-                              select time).First()?.ShipDate; //order created and shipped earlier status
-
-        var minApprovedTime = (from time in dal.Order.GetAll()
-                               where (time?.ShipDate == null)
-                               orderby (time?.OrderDate)
-                               select time).First()?.OrderDate; //order just created earlier status
-
-        switch (minShippedTime < minApprovedTime)
+        try
         {
-            case true:
-                return dal?.Order.Get(x => x.Value.ShipDate == minShippedTime)?.ID;
-            case false:
-                return dal?.Order.Get(x => x.Value.OrderDate == minApprovedTime)?.ID;
+            var orderData = (from order in dal.Order.GetAll()
+                     where (order?.DeliveryDate == null && order?.ShipDate == null)
+                     orderby (order?.OrderDate)
+                     select order).First(); //oldest order without managin
+
+            var ShipData = (from order in dal.Order.GetAll()
+                             where (order?.DeliveryDate == null && order?.ShipDate != null)
+                             orderby (order?.ShipDate)
+                             select order).First(); //oldest order without managin
+            switch(orderData?.OrderDate < ShipData?.ShipDate)
+            {
+                case true:
+                    return orderData?.ID;
+                case false:
+                    return ShipData?.ID;
+            }
         }
+        catch { return 0; }
+
     } //return last updated order status
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order UpdateStatus(int id)
     {
-        string status = this.Get(id).OrderStatus.ToString();
+        string? status = Get(id).OrderStatus.ToString();
         if (status == "Approved")
             return UpdateShipping(id);
         else { return UpdateProviding(id); }
