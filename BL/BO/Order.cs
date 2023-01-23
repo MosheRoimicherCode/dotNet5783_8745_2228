@@ -22,6 +22,7 @@ public class Order
     	CustomerEmail: {CustomerEmail}
     	CustomerAdress: {CustomerAdress}
         OrderDate: {OrderDate}
+        Status: {Status.error}
         ShipDate: {ShipDate}
         DeliveryDate: {DeliveryDate}
         details: {string.Join("\n",Details!)}

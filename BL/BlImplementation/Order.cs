@@ -246,6 +246,7 @@ internal class Order : BlApi.IOrder
         }
     } //return last updated order status
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order UpdateStatus(int id)
     {
         string status = this.Get(id).OrderStatus.ToString();
