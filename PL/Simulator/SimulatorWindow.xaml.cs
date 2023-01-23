@@ -80,7 +80,7 @@ public partial class SimulatorWindow : Window
 
     private void OrderChanged(object sender, ProgressChangedEventArgs e)
     {
-        Dispatcher.Invoke(() => { Order = sender as BO.Order; } );
+        Dispatcher.Invoke(() => { Order = (BO.Order)sender; } );
     }
 
     private void StopSimalation(EventArgs e)

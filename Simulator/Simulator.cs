@@ -33,7 +33,7 @@ static public class Simulator
                 BO.Order orderUpdated = bl.Order.UpdateStatus((int)id);
                 //ProgressChangedEventArgs e = new(1,)
 
-                if (UpdateEvent != null) UpdateEvent.Invoke(orderUpdated, e);
+                if (UpdateEvent != null) UpdateEvent.Invoke(orderUpdated, null);
                 
                 Thread.Sleep(delay * 1000); //simulate store work time
 
