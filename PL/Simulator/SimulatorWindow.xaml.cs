@@ -24,6 +24,7 @@ public partial class SimulatorWindow : Window
         set => SetValue(OrderDep, value);
     }
     
+
     public static readonly DependencyProperty MyClockProperty =
      DependencyProperty.Register(nameof(Clock), typeof(string), typeof(SimulatorWindow));
     public string Clock
