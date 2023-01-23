@@ -17,11 +17,11 @@ public partial class SimulatorWindow : Window
 
 
     public static readonly DependencyProperty OrderDep = 
-        DependencyProperty.Register(nameof(Order),typeof(IEnumerable<BO.Order>),typeof(SimulatorWindow));
+        DependencyProperty.Register(nameof(Order),typeof(BO.Order),typeof(SimulatorWindow));
     private BO.Order Order
     {
         get => (BO.Order)GetValue(OrderDep);
-        set => SetValue(OrderDep, value);
+        set => SetValue (OrderDep, value);
     }
     
 
