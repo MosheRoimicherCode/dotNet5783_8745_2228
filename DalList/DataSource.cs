@@ -167,7 +167,7 @@ internal static class DataSource
         for (int i = 0; i < 5; i++)
         {
             DateTime dateTimeRandom = randate();
-            order = new()
+            order = new() 
             {
                 ID = Config._idNumberOrder,
                 CustomerName = "yosef cohen",
