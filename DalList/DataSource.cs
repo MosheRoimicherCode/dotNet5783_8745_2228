@@ -144,9 +144,10 @@ internal static class DataSource
             DateTime generateDate = new DateTime(rndYear, rndMonth, rndDay);
             return generateDate  ;
         }
-        
 
-        ///creation of orders
+
+
+        //creation of orders
         Order order = new();
         for (int i = 0; i < 10; i++)
         {
@@ -158,15 +159,15 @@ internal static class DataSource
                 CustomerEmail = "meniwell@gmail.com",
                 CustomeAdress = "rambam 5 rishon lezion israel",
                 OrderDate = dateTimeRandom,
-                ShipDate = dateTimeRandom.AddDays(_randomNum.Next(0, 10)),
-                DeliveryDate = dateTimeRandom.AddDays(_randomNum.Next(10, 20))
+                ShipDate = null,
+                DeliveryDate = null,
             };
             AddOrder(order);
         }
         for (int i = 0; i < 5; i++)
         {
             DateTime dateTimeRandom = randate();
-            order = new()
+            order = new() 
             {
                 ID = Config._idNumberOrder,
                 CustomerName = "yosef cohen",
@@ -188,30 +189,72 @@ internal static class DataSource
                 CustomerEmail = "shimonl@gmail.com",
                 CustomeAdress = "770 eastern pky brooklyn NY",
                 OrderDate = dateTimeRandom,
-                
-            };
-            AddOrder(order);
-        }
-
-      
-        DateTime dateTime1 = new DateTime(2020, 12, 31);
-        DateTime dateTime2 = new DateTime(2029, 12, 31);
-
-        for (int i = 0; i < 2; i++)
-        {
-            DateTime dateTimeRandom = randate();
-            order = new()
-            {
-                ID = Config.GetIdNumberOrder(),
-                CustomerName = "momo momo",
-                CustomerEmail = "mroimicher@gmail.com",
-                CustomeAdress = "Israel",
-                OrderDate = dateTimeRandom,
-                ShipDate = dateTime1.AddDays(i),
+                ShipDate = dateTimeRandom + new TimeSpan(4, 0, 1, 0, 0),
                 DeliveryDate = null
             };
             AddOrder(order);
         }
+
+
+        //order = new()
+        //{
+        //    ID = 2,
+        //    CustomerName = "yosef cohen",
+        //    CustomerEmail = "yosefc@gmail.com",
+        //    CustomeAdress = "ezra 31 rehovot israel",
+        //    OrderDate = new (2001, 05, 12),
+
+
+        //};
+        //AddOrder(order);
+
+
+        //order = new()
+        //{
+        //    ID = 1,
+        //    CustomerName = "moshe",
+        //    CustomerEmail = "yosefc@gmail.com",
+        //    CustomeAdress = "ezra 31 rehovot israel",
+        //    OrderDate = new (1999, 05, 12),
+        //    ShipDate = new(2000, 05, 12),
+        //};
+        //AddOrder(order);
+
+        //order = new()
+        //{
+        //    ID = 5,
+        //    CustomerName = "yossi",
+        //    CustomerEmail = "yosefc@gmail.com",
+        //    CustomeAdress = "ezra 31 rehovot israel",
+        //    OrderDate = new(2000, 05, 12),
+        //    ShipDate = new(2000, 05, 13),
+        //    DeliveryDate = new(2000 ,05, 14),
+        //};
+        //AddOrder(order);
+
+
+
+
+
+
+        //DateTime dateTime1 = new DateTime(2020, 12, 31);
+        //DateTime dateTime2 = new DateTime(2029, 12, 31);
+
+        //for (int i = 0; i < 2; i++)
+        //{
+        //    DateTime dateTimeRandom = randate();
+        //    order = new()
+        //    {
+        //        ID = Config.GetIdNumberOrder(),
+        //        CustomerName = "momo momo",
+        //        CustomerEmail = "mroimicher@gmail.com",
+        //        CustomeAdress = "Israel",
+        //        OrderDate = dateTimeRandom,
+        //        ShipDate = dateTime1.AddDays(i),
+        //        DeliveryDate = null
+        //    };
+        //    AddOrder(order);
+        //}
         /// end of order creation
         //Config._idNumberOrder++;
 
@@ -234,33 +277,33 @@ internal static class DataSource
         //};
         //AddOrderItem(ordItem);
         
-        for (int j = 0; j < 2; j++)
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                ordItem = new()
-                {
-                    ID = Config._idNumberItemOrder,
-                    ProductID = _productList[i]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
-                    OrderID = _orderList[i]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
-                    Price = _productList[i]?.Price ?? 0,
-                    Amount = _randomNum.Next(0, 50),
-                };
-                AddOrderItem(ordItem);
-            }
-            for (int i = 0; i < 10; i++)
-            {
-                ordItem = new()
-                {
-                    ID = Config._idNumberItemOrder,
-                    ProductID = _productList[i]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
-                    OrderID = _orderList[i + 10]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
-                    Price = _productList[i]?.Price ?? 0,
-                    Amount = _randomNum.Next(0, 50)
-                };
-                AddOrderItem(ordItem);
-            }
-        }
+        //for (int j = 0; j < 2; j++)
+        //{
+        //    for (int i = 0; i < 10; i++)
+        //    {
+        //        ordItem = new()
+        //        {
+        //            ID = Config._idNumberItemOrder,
+        //            ProductID = _productList[i]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
+        //            OrderID = _orderList[i]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
+        //            Price = _productList[i]?.Price ?? 0,
+        //            Amount = _randomNum.Next(0, 50),
+        //        };
+        //        AddOrderItem(ordItem);
+        //    }
+        //    for (int i = 0; i < 10; i++)
+        //    {
+        //        ordItem = new()
+        //        {
+        //            ID = Config._idNumberItemOrder,
+        //            ProductID = _productList[i]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
+        //            OrderID = _orderList[i + 10]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
+        //            Price = _productList[i]?.Price ?? 0,
+        //            Amount = _randomNum.Next(0, 50)
+        //        };
+        //        AddOrderItem(ordItem);
+        //    }
+        //}
 
         p = new()
         {

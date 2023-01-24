@@ -256,7 +256,8 @@ internal class Program
                 "2 - getting a lists of orders  \n  " +
                 "3 - Update Shipping \n  " +
                 "4 - update Providing \n  " +
-                "5 - Order Tracking \n"
+                "5 - Order Tracking \n" +
+                "6 - EarlierOrder \n"
             );
             string? OrderOperationsChoice = Console.ReadLine();
             switch (OrderOperationsChoice)
@@ -294,6 +295,21 @@ internal class Program
                     BO.OrderTracking boOrderTracking = new OrderTracking();
                     if (verification.boolInput == true) boOrderTracking = p.Order.OrderTracking(verification.intInput);
                     Console.WriteLine(boOrderTracking);
+                    goto MainMenu;
+
+                case "6":
+                    bool flag = true;
+                    
+                    while (flag)
+                    {
+                        int id = (int)p.Order.ReturnOrderForManage();
+                        Console.WriteLine("Executing: "+id+"\n");
+                        Console.WriteLine("older status: "+p.Order.Get(id).OrderStatus+"\n");
+                        p.Order.UpdateStatus(id);
+                        Console.WriteLine("older status: "+p.Order.Get(id).OrderStatus+"\n");
+                        id = (int)p.Order.ReturnOrderForManage();
+                        if (p.Order.ReturnOrderForManage() == 0) flag = false;
+                    }
                     goto MainMenu;
 
                 case "0":

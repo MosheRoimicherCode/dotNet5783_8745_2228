@@ -22,17 +22,17 @@
                 Margin="16,342,0,0" VerticalAlignment="Top" Height="34" Width="112"/>
             <Button Content="Stop Simulation" Margin="0,343,16,0" Click="StopSimulation"
                 VerticalAlignment="Top" HorizontalAlignment="Right" Width="112" Height="34"/>
-            
+
             <Label x:Name="IDOrderInProgress" Content="ID Order In Progress"
                    HorizontalAlignment="Left" Margin="137,158,0,0" VerticalAlignment="Top" 
                    Background="#FFB52121"/>
             <Label x:Name="OldStatus" Content="Old Status" HorizontalAlignment="Left"
-                   Margin="69,210,0,0" VerticalAlignment="Top" Background="#FFB52121"/>
+                   Margin="87,214,0,0" VerticalAlignment="Top" Background="#FFB52121"/>
             <Label x:Name="StartTime" Content="Satrt time" HorizontalAlignment="Left"
-                   Margin="135,265,0,0" VerticalAlignment="Top" Background="#FFB52121"/>
+                   Margin="90,268,0,0" VerticalAlignment="Top" Background="#FFB52121"/>
             <Label x:Name="FutureStatus" Content="future status" HorizontalAlignment="Left"
-                   Margin="233,210,0,0" VerticalAlignment="Top" Background="#FFB52121"/>
-            <Label x:Name="StopTime" Content="Stop time" HorizontalAlignment="Left" 
+                   Margin="257,212,0,0" VerticalAlignment="Top" Background="#FFB52121"/>
+            <Label x:Name="StopTime" Content="Stop time" HorizontalAlignment="Center" 
                    Margin="205,265,0,0" VerticalAlignment="Top" Background="#FFB52121"/>
 
             <ProgressBar Value="{Binding ProgressBarValue, RelativeSource={RelativeSource AncestorType=Window}}" HorizontalAlignment="Center" Height="10" Margin="0,8,0,0" 

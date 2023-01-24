@@ -30,6 +30,7 @@ public partial class OrderForListWindow : Window
     public OrderForListWindow()
     {
         orders = bl.Order.GetList();
+
         InitializeComponent();
     }
 
