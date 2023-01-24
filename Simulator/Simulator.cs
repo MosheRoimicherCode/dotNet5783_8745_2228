@@ -39,11 +39,12 @@ static public class Simulator
 
             while (flagForStopSimulator)
             {
-                int id = bl.Order.ReturnOrderForManage() ?? 0;
-                string oldstatus = bl.Order.Get(id).OrderStatus.ToString();
-                if (id != 0)
+                int? id = bl.Order.ReturnOrderForManage();
+
+                if (id != null)
                 {
-                    int delay = random.Next(3, 11); //between 3 to 100
+                    string oldstatus = bl.Order.Get((int)id).OrderStatus.ToString();
+                    int delay = random.Next(3, 5); //between 3 to 100
                     Bar.Invoke(delay);
                     DateTime finishTime = DateTime.Now + (new TimeSpan(0, 0, 0, delay, 0));
                     

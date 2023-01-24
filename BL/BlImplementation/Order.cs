@@ -14,12 +14,13 @@ internal class Order : BlApi.IOrder
     static readonly IDal dal = DalApi.Factory.Get()!;
 
     ///checking the status of the order, returns Enum-status type
-    private static BO.Status CheckStatus(DO.Order? order) => order! switch
+    private static BO.Status CheckStatus(DO.Order? order)
     {
-        { DeliveryDate: not null } => BO.Status.Provided,
-        { ShipDate: not null } => BO.Status.Shipped,
-        _ => BO.Status.Approved
-    };
+        if (order?.DeliveryDate != null) { return BO.Status.Provided; }
+        else if (order?.ShipDate != null) { return BO.Status.Shipped; }
+        else { return BO.Status.Approved; }
+    }
+
     private static BO.Order ConvertOrderToBoOrder(DO.Order o)
     {
         return new BO.Order
@@ -52,6 +53,7 @@ internal class Order : BlApi.IOrder
             DeliveryDate = dalOrder?.DeliveryDate,
             Details = new(),
         };
+        var a = boOrder.OrderStatus;
         var boOrderDetailsTuple = from orderItem in dal!.OrderItem.GetAll(x => x?.OrderID == Id)
                                    let TotalPrice = boOrder.TotalPrice + dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price
                                    select (TotalPrice, new List<BO.OrderItem>
@@ -67,8 +69,7 @@ internal class Order : BlApi.IOrder
                                                      TotalPrice = (int)orderItem?.Amount! * (double)dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price!,
                                                  }));
 
-
-        boOrder.Details = boOrderDetailsTuple.FirstOrDefault().Item2.ToList();
+        try {  boOrder.Details = boOrderDetailsTuple.FirstOrDefault().Item2.ToList(); } catch { } 
         boOrder.TotalPrice = boOrderDetailsTuple.FirstOrDefault().TotalPrice ?? 0;
 
         return boOrder;
@@ -174,9 +175,9 @@ internal class Order : BlApi.IOrder
         {
             foreach (DO.Order? item in dal!.Order.GetAll(x => x?.ID == Id))
             {
-                if (item?.DeliveryDate != null) throw new BO.IdBOException("order has already provided");
-                else if (item?.DeliveryDate == null && item?.ShipDate != null)
-                {
+                //if (item?.DeliveryDate != null) throw new BO.IdBOException("order has already provided");
+                //else if (item?.DeliveryDate == null && item?.ShipDate != null)
+                //{
                     DO.Order order = new()
                     {
                         ID = item?.ID ?? 0,
@@ -188,9 +189,8 @@ internal class Order : BlApi.IOrder
                         DeliveryDate = DateTime.Now
                     };
                     dal.Order.Update(order);
-                    //var a = 
                     return ConvertOrderToBoOrder(order);
-                }
+                //}
             }
         }
         throw new BO.IdBOException("order with given Id didn't found");
@@ -229,18 +229,20 @@ internal class Order : BlApi.IOrder
     [MethodImpl(MethodImplOptions.Synchronized)]
     public int? ReturnOrderForManage()
     {
-        try
-        {
-            var orderData = (from order in dal.Order.GetAll()
-                     where (order?.DeliveryDate == null && order?.ShipDate == null)
-                     orderby (order?.OrderDate)
-                     select order).First(); //oldest order without managin
 
-            var ShipData = (from order in dal.Order.GetAll()
-                             where (order?.DeliveryDate == null && order?.ShipDate != null)
-                             orderby (order?.ShipDate)
-                             select order).First(); //oldest order without managin
-            switch(orderData?.OrderDate < ShipData?.ShipDate)
+        var orderData = (from order in dal.Order.GetAll()
+                         where (order?.DeliveryDate == null && order?.ShipDate == null)
+                         orderby (order?.OrderDate)
+                         select order).FirstOrDefault(); //oldest order without managin
+
+        var ShipData = (from order in dal.Order.GetAll()
+                        where (order?.DeliveryDate == null && order?.ShipDate != null)
+                        orderby (order?.ShipDate)
+                        select order).FirstOrDefault(); //oldest order without managin
+
+        if (orderData != null && ShipData != null)
+        {
+            switch (orderData?.OrderDate < ShipData?.ShipDate)
             {
                 case true:
                     return orderData?.ID;
@@ -248,7 +250,10 @@ internal class Order : BlApi.IOrder
                     return ShipData?.ID;
             }
         }
-        catch { return 0; }
+        else if (orderData != null && ShipData == null) return orderData?.ID;
+        else if (orderData == null && ShipData != null) return ShipData?.ID;
+        else return null;
+
 
     } //return last updated order status
 
