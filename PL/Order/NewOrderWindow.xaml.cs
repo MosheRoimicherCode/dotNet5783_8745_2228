@@ -72,8 +72,8 @@ public partial class NewOrderWindow : Window
         int id = select.ID;
         currentCart.TotalPrice = 0;
         
-        new ProductItemWindow(id, currentCart, onChange).Show();
-        Close();
+        new ProductItemWindow(id, currentCart, onChange, this).Show();
+        
     }
 
 

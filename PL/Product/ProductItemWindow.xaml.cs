@@ -28,7 +28,8 @@ public partial class ProductItemWindow : Window
     int id;
     int AmountItems;
     readonly Action change;
-    public ProductItemWindow(int ID, BO.Cart cart, Action? action = null)
+    NewOrderWindow? newOrderWindow;
+    public ProductItemWindow(int ID, BO.Cart cart, Action? action = null, NewOrderWindow? window = null)
     {
         InitializeComponent();
         productItem = p.Product.Get(ID, cart);
@@ -42,9 +43,11 @@ public partial class ProductItemWindow : Window
         IsInStock2.Content = productItem.IsInStock;
         AmontInCart2.Content = productItem.AmontInCart;
 
+        newOrderWindow = window;
+
         currentCart = cart;
         id = ID;
-       
+        this.newOrderWindow = newOrderWindow;
     }
 
     private void add_Button_Click(object sender, RoutedEventArgs e)
@@ -56,10 +59,12 @@ public partial class ProductItemWindow : Window
             {
                 currentCart = p?.Cart.Add(currentCart, id)!;
             }
+            newOrderWindow?.Close();
             new NewOrderWindow(currentCart).Show();
         }
         catch (Exception s)
         {
+            newOrderWindow?.Close();
             new ERRORWindow(this, s.Message, currentCart).Show();
         }
         //change();

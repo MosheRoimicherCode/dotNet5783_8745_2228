@@ -27,7 +27,8 @@ public partial class ProductInCartWindow : Window
     BO.Cart currentCart;
     int id;
     int AmountItems;
-    public ProductInCartWindow(int ID, BO.Cart cart)
+    CartWindow? cartWindow;
+    public ProductInCartWindow(int ID, BO.Cart cart, CartWindow? window = null)
     {
         InitializeComponent();
         productItem = p.Product.Get(ID, cart);
@@ -38,26 +39,28 @@ public partial class ProductInCartWindow : Window
         Category2.Content = productItem.Category;
         IsInStock2.Content = productItem.IsInStock;
         AmontInCart2.Content = productItem.AmontInCart;
+        Amount.Text = productItem.AmontInCart.ToString();
+        cartWindow = window;
 
         currentCart = cart;
         id = ID;
-
+        this.cartWindow = cartWindow;
     }
 
     private void Change_button(object sender, RoutedEventArgs e)
     {
         AmountItems = int.Parse(Amount.Text);
         p.Cart.UpdateAmount(currentCart, id, AmountItems);
+        cartWindow?.Close();
         new CartWindow(currentCart).Show();
-        //new NewOrderWindow(currentCart).Show();
         this.Close();
     }
 
     private void Remove_button(object sender, RoutedEventArgs e)
     {
         p.Cart.UpdateAmount(currentCart, id, 0);
+        cartWindow?.Close();
         new CartWindow(currentCart).Show();
-        //new NewOrderWindow(currentCart).Show();
         this.Close();
     }
 }

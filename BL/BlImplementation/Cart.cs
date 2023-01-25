@@ -193,6 +193,8 @@ namespace BlImplementation
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void ConfirmCart(BO.Cart boCart, string Name, string Email, string Addres)
         {
+            if (boCart.Details.Count == 0) throw new BO.IdBOException("cart can not be empty!");
+           
             foreach (BO.OrderItem? item in boCart.Details)
             {
                 if (Dal!.Product.GetAll(x => x?.ID == item?.ID).Count() < 0) throw new BO.IdBOException("not all the products in cart exist");

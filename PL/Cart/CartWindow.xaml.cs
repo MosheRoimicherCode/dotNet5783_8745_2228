@@ -56,8 +56,7 @@ namespace PL
         private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             int? id = ((BO.ProductItem)CartList.SelectedItem).ID;
-            new ProductInCartWindow((int)id, cart).Show();
-            this.Close();
+            new ProductInCartWindow((int)id, cart, this).Show();
         }
 
         private void Confirm_Order(object sender, RoutedEventArgs e)
