@@ -130,4 +130,16 @@ internal class Product : BlApi.IProduct
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<ProductForList> GetList(Func<BO.Product?, bool>? filter = null) => CreateproductForLists(filter).OrderBy(p => p.ID);
+
+    public void Delete(int id)
+    {
+        Dal?.Product.Delete(id);
+        foreach (var item in Dal!.OrderItem.GetAll())
+        {
+            if (item?.OrderID == id)
+            {
+                Dal?.OrderItem.Delete(item.Value.ID);
+            }
+        }
+    }
 }

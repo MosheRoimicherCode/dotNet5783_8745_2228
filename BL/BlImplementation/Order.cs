@@ -69,7 +69,9 @@ internal class Order : BlApi.IOrder
                                                      TotalPrice = (int)orderItem?.Amount! * (double)dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price!,
                                                  }));
 
-        try {  boOrder.Details = boOrderDetailsTuple.FirstOrDefault().Item2.ToList(); } catch { } 
+        try {  boOrder.Details = boOrderDetailsTuple.FirstOrDefault().Item2.ToList(); } catch { }
+        IEnumerable<DO.OrderItem?> orderItem1 = dal!.OrderItem.GetAll();
+       
         boOrder.TotalPrice = boOrderDetailsTuple.FirstOrDefault().TotalPrice ?? 0;
 
         return boOrder;
@@ -175,9 +177,10 @@ internal class Order : BlApi.IOrder
         {
             foreach (DO.Order? item in dal!.Order.GetAll(x => x?.ID == Id))
             {
-                //if (item?.DeliveryDate != null) throw new BO.IdBOException("order has already provided");
-                //else if (item?.DeliveryDate == null && item?.ShipDate != null)
-                //{
+                if (item?.DeliveryDate != null) throw new BO.IdBOException("order has already provided");
+                else if (item?.ShipDate == null) throw new BO.IdBOException("order has not shiped yet");
+                else if (item?.DeliveryDate == null && item?.ShipDate != null)
+                {
                     DO.Order order = new()
                     {
                         ID = item?.ID ?? 0,
@@ -190,7 +193,7 @@ internal class Order : BlApi.IOrder
                     };
                     dal.Order.Update(order);
                     return ConvertOrderToBoOrder(order);
-                //}
+                }
             }
         }
         throw new BO.IdBOException("order with given Id didn't found");

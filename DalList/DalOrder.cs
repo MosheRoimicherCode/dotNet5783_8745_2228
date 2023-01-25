@@ -30,9 +30,7 @@ internal class DalOrder : IOrder
     [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Order newOrder)
     {
-        Delete(newOrder.ID);
-        Config._idNumberOrder--;
-        Add(newOrder);
+        UpdateOrderInPlace(newOrder);
     }
 
     [MethodImpl(MethodImplOptions.Synchronized)]

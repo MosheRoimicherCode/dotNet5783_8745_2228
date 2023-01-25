@@ -27,5 +27,7 @@ public interface IProduct
     public IEnumerable<BO.ProductItem> GetListOfItems(BO.Cart cart, Func<Product?, bool>? filter = null);
 
     public IEnumerable<BO.ProductItem> GetListOfItemsInCart(BO.Cart cart);
+
+    public void Delete(int id);
 }
 /// interface of product items for manager and client

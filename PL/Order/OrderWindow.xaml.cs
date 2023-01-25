@@ -15,11 +15,16 @@ public partial class OrderWindow : Window
     IBl p = Factory.Get();
     int ID;
     OrderForListWindow orderForListWindow;
+
     public OrderWindow(int id, OrderForListWindow window)
     {
         InitializeComponent();
         ID = id;
         orderForListWindow = window;
+        
+        BO.Order order = p.Order.Get(id);
+        List<BO.OrderItem>? orders = order.Details;
+        OrderList.DataContext = orders;
     }
 
     private void update_shiping_Button_Click(object sender, RoutedEventArgs e)

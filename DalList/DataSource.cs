@@ -27,6 +27,18 @@ internal static class DataSource
         return id;
     }
 
+    static internal int UpdateOrderInPlace(Order o)
+    {
+        for (int i = 0; i < _orderList.Count(); i++)
+        {
+            if (_orderList[i]?.ID == o.ID)
+            {
+                _orderList[i] = o;
+            }
+        }
+        return o.ID;
+    }
+
     static internal int AddOrderItem(OrderItem p)
     {
         int id = Config.GetIdNumberItemOrder();
@@ -142,7 +154,7 @@ internal static class DataSource
             int rndDay = _randomNum.Next(1, 28);
 
             DateTime generateDate = new DateTime(rndYear, rndMonth, rndDay);
-            return generateDate  ;
+            return generateDate;
         }
 
 
@@ -167,7 +179,7 @@ internal static class DataSource
         for (int i = 0; i < 5; i++)
         {
             DateTime dateTimeRandom = randate();
-            order = new() 
+            order = new()
             {
                 ID = Config._idNumberOrder,
                 CustomerName = "yosef cohen",
@@ -232,11 +244,6 @@ internal static class DataSource
         //};
         //AddOrder(order);
 
-
-
-
-
-
         //DateTime dateTime1 = new DateTime(2020, 12, 31);
         //DateTime dateTime2 = new DateTime(2029, 12, 31);
 
@@ -276,34 +283,34 @@ internal static class DataSource
         //    Amount = 5
         //};
         //AddOrderItem(ordItem);
-        
-        //for (int j = 0; j < 2; j++)
-        //{
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        ordItem = new()
-        //        {
-        //            ID = Config._idNumberItemOrder,
-        //            ProductID = _productList[i]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
-        //            OrderID = _orderList[i]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
-        //            Price = _productList[i]?.Price ?? 0,
-        //            Amount = _randomNum.Next(0, 50),
-        //        };
-        //        AddOrderItem(ordItem);
-        //    }
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        ordItem = new()
-        //        {
-        //            ID = Config._idNumberItemOrder,
-        //            ProductID = _productList[i]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
-        //            OrderID = _orderList[i + 10]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
-        //            Price = _productList[i]?.Price ?? 0,
-        //            Amount = _randomNum.Next(0, 50)
-        //        };
-        //        AddOrderItem(ordItem);
-        //    }
-        //}
+
+        for (int j = 0; j < 3; j++)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                ordItem = new()
+                {
+                    ID = Config._idNumberItemOrder,
+                    ProductID = _productList[_randomNum.Next(0, 10)]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
+                    OrderID = _orderList[_randomNum.Next(0, 10)]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
+                    Price = _productList[_randomNum.Next(0, 10)]?.Price ?? 0,
+                    Amount = _randomNum.Next(0, 50),
+                };
+                AddOrderItem(ordItem);
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                ordItem = new()
+                {
+                    ID = Config._idNumberItemOrder,
+                    ProductID = _productList[_randomNum.Next(0, 10)]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
+                    OrderID = _orderList[_randomNum.Next(10, 20)]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
+                    Price = _productList[_randomNum.Next(0, 10)]?.Price ?? 0,
+                    Amount = _randomNum.Next(0, 50)
+                };
+                AddOrderItem(ordItem);
+            }
+        }
 
         p = new()
         {
@@ -314,7 +321,15 @@ internal static class DataSource
             InStock = 5
         };
         AddProduct(p);
-    }
+
+        List<OrderItem?> _orderItemList1 = _orderItemList;
+}
+
+    
+
+    
+
+    
 
     static internal class Config
     {

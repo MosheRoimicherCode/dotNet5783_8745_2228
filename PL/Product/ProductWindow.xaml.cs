@@ -2,6 +2,8 @@
 
 using BlApi;
 using BO;
+using PL.Order;
+using PL.Product;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,12 +21,17 @@ public partial class ProductWindow : Window
     readonly string situation;
     readonly List<BO.Category> ListOfCategories = new();
     readonly Action change;
-    public ProductWindow(string str, int id, Action action)
+    ProductForListWindow ProductForListWindow;
+    int ID;
+    public ProductWindow(string str, int id, Action action, ProductForListWindow? window = null)
     {
         InitializeComponent();
         change = action;    
         situation = str;
         BO.Product? productGeted = new();
+
+        ProductForListWindow = window;
+        ID = id;
 
         if (str == "update")
         {
@@ -105,6 +112,11 @@ public partial class ProductWindow : Window
     private void Cancel_Button_Click(object sender, RoutedEventArgs e)
     {
         this.Close();
+    }
+
+    private void delete_Button_Click(object sender, RoutedEventArgs e)
+    {
+        new DeleteProductWindow(ID, ProductForListWindow, this).Show();
     }
 
     private void buttonProductWindows_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="OrderWindow" Height="300" Width="300"
+        Title="OrderWindow" Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
         BorderThickness="1" BorderBrush="White" 
         WindowStyle="None">
@@ -22,11 +22,30 @@
         </Grid.Background>
         <Grid Margin="15,16,11,11">
 
-
+            <ListView x:Name="OrderList" ItemsSource="{Binding}" Margin="19,59,24,107" Background="#FFCECDCD">
+                <ListView.View>
+                    <GridView x:Name="GridView2">
+                        <GridViewColumn DisplayMemberBinding= "{Binding ID}" 
+                                Header="ID" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding= "{Binding ProductID}" 
+                                Header="Product ID" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding= "{Binding OrderID}" 
+                                Header="Order ID" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding= "{Binding ProductName}" 
+                                Header="Product Name" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding= "{Binding ProductPrice}" 
+                                Header="Product Price" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding= "{Binding Amount}" 
+                                Header="Amount" Width="80"/>
+                        <GridViewColumn DisplayMemberBinding= "{Binding TotalPrice}" 
+                                Header="TotalPrice" Width="80"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
 
             <Button x:Name ="update_shiping_button" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" 
-                Click="update_shiping_Button_Click" Margin="144,37,0,0" Tag="1" HorizontalAlignment="Left" FontSize="24" Height="87" Width="128">
-                <TextBlock TextWrapping="Wrap">Update shiping</TextBlock>
+                Click="update_shiping_Button_Click" Margin="302,333,0,0" Tag="1" HorizontalAlignment="Left" FontSize="24" Height="64" Width="180">
+                <TextBlock TextWrapping="Wrap" FontSize="18">Update shiping</TextBlock>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="{StaticResource BackgroundButton2}" />
@@ -52,8 +71,8 @@
 
 
             <Button x:Name ="update_providing_button" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" 
-                    Click="update_providing_Button_Click" Margin="10,37,0,0" Tag="1" HorizontalAlignment="Left" FontSize="24" Height="87" Width="118">
-                <TextBlock TextWrapping="Wrap"><Run FlowDirection="RightToLeft" Language="he-il" Text=" "/><Run Text="Update providing"/></TextBlock>
+                    Click="update_providing_Button_Click" Margin="42,333,0,0" Tag="1" HorizontalAlignment="Left" FontSize="24" Height="64" Width="208">
+                <TextBlock TextWrapping="Wrap" FontSize="18"><Run FlowDirection="RightToLeft" Language="he-il" Text=" "/><Run Text="Update providing"/></TextBlock>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="{StaticResource BackgroundButton2}" />
@@ -83,7 +102,7 @@
                     FontSize="16"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="205,-4,30,234"
+                    Margin="457,-89,-222,319"
                     Click="BtnMinimize_Click">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -114,7 +133,7 @@
                     FontSize="16"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="230,-3,1,237"
+                    Margin="483,-87,-252,321"
                     Click="BtnExit_Click" >
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -138,7 +157,7 @@
                 </Button.Template>
             </Button>
             <Button x:Name ="delete_order" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" 
-                Click="delete_order_Button_Click" Margin="0,155,0,0" Tag="1" HorizontalAlignment="Center" FontSize="24" Height="94" Width="118">
+                Click="delete_order_Button_Click" Margin="532,335,0,0" Tag="1" HorizontalAlignment="Left" FontSize="18" Height="60" Width="202">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="{StaticResource BackgroundButton2}" />
@@ -160,7 +179,7 @@
                     </ControlTemplate>
                 </Button.Template>
 
-                <TextBlock TextWrapping="Wrap" Text="delete order"/>
+                <TextBlock TextWrapping="Wrap" Text="delete order" FontSize="18"/>
 
             </Button>
         </Grid>

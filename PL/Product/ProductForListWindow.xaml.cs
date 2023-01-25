@@ -52,6 +52,6 @@ public partial class ProductForListWindow : Window
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         int id = ((BO.ProductForList)(sender as ListViewItem)!.DataContext).ID;
-        new ProductWindow("update", id, onChange).Show();
+        new ProductWindow("update", id, onChange, this).Show();
     }
 }
