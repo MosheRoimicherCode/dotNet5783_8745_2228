@@ -26,6 +26,13 @@ internal class DalOrderItem : IOrderItem
         catch (ArgumentNullException) { throw new IdException(" Not found ID. (Dalorder.Delete Exception)"); }
     }
     [MethodImpl(MethodImplOptions.Synchronized)]
+
+    public void DeleteProduct(int productId)
+    {
+        _orderItemList.RemoveAll(x => x?.ProductID == productId);
+    }
+    [MethodImpl(MethodImplOptions.Synchronized)]
+
     public void Update(OrderItem newOrderItem)
     {
         Delete(newOrderItem.ID);

@@ -134,12 +134,6 @@ internal class Product : BlApi.IProduct
     public void Delete(int id)
     {
         Dal?.Product.Delete(id);
-        foreach (var item in Dal!.OrderItem.GetAll())
-        {
-            if (item?.OrderID == id)
-            {
-                Dal?.OrderItem.Delete(item.Value.ID);
-            }
-        }
+        Dal?.OrderItem.DeleteProduct(id);
     }
 }

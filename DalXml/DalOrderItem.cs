@@ -46,6 +46,22 @@ internal class DalOrderItem : IOrderItem
     }
 
     [MethodImpl(MethodImplOptions.Synchronized)]
+    public void DeleteProduct(int productId)
+    {
+        XElement dataBase = XElement.Load(path); //copy data base to code
+        try
+        {
+            XElement? removeItem = (from order2 in dataBase.Elements()
+                                    where Convert.ToInt32(order2.Element("ProductID")?.Value) == productId
+                                    select order2).First(); //search element with received id
+            removeItem.Remove();   //remove from copy
+            dataBase.Save(path); //save changes to original
+        }
+        catch { }
+    }
+    
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderItem? Get(Func<OrderItem?, bool> filter) => (from item in createListFromXml()
                                                         where filter(item)
                                                         select item).FirstOrDefault();
