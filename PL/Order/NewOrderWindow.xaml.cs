@@ -70,10 +70,6 @@ public partial class NewOrderWindow : Window
         BO.ProductItem select = ((BO.ProductItem)listOfProducts.SelectedItem);
         //BO.ProductItem select = (BO.ProductItem)(sender as ListViewItem)!.DataContext;
         int id = select.ID;
-
-        currentCart.CustomerName = User_name.Text;
-        currentCart.CustomeAdress = User_adress.Text;
-        currentCart.CustomerEmail = User_email.Text;
         currentCart.TotalPrice = 0;
         
         new ProductItemWindow(id, currentCart, onChange).Show();

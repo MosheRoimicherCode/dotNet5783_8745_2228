@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="CartWindow" Height="477" Width="551"
+        Title="CartWindow" Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         WindowStyle="None">
@@ -29,7 +29,7 @@
         <ImageBrush ImageSource="/Cart/rack-clothing-shopping-unsplash.jpg"/>
     </Window.Background>
 
-    <Grid Name ="MainGrid" Margin="12,10,11,8" >
+    <Grid Name ="MainGrid" Margin="12,10,11,0" Height="447" VerticalAlignment="Top" >
 
 
         <Grid.ColumnDefinitions>
@@ -42,16 +42,16 @@
             <RowDefinition Height = "Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBox x:Name="UserAddress" Text="User Address" TextWrapping="Wrap" Margin="26,34,230,32" Background="#FFCECDCD" Foreground="#FF171315" Height="20"/>
-        <TextBox x:Name="UserEmail" Text="User Email" TextWrapping="Wrap" Margin="26,59,230,1" Background="#FFCECDCD" Height="20"/>
-        <TextBox x:Name="UserName" Text="Name" TextWrapping="Wrap" Margin="26,9,230,57" Background="#FFCECDCD" Height="20"/>
-        <TextBox x:Name="totalPrice" Text="Total Price" TextWrapping="Wrap" Margin="26,7,400,337" Background="#FFCECDCD" Grid.Row="1"/>
-        <TextBox x:Name="TotalPriceCart"  Text="TotalPriceCart" TextWrapping="Wrap" Margin="99,7,230,337" Background="#FFCECDCD" Grid.Row="1"/>
+        <TextBox x:Name="UserName"  Text="user name" TextWrapping="Wrap" Margin="26,3,230,60" Background="#FFCECDCD"/>
+        <TextBox x:Name="UserAddress" Text="User Address" TextWrapping="Wrap" Margin="26,31,230,29" Background="#FFCECDCD" Foreground="#FF171315"/>
+        <TextBox x:Name="UserEmail" Text="User Email" TextWrapping="Wrap" Margin="26,60,230,0" Background="#FFCECDCD"/>
+        <Label x:Name="totalPrice" Content="Total Price:" Margin="26,30,614,303" Background="#FFCECDCD" Grid.Row="1"/>
+        <Label x:Name="TotalPriceCart"  Content="TotalPriceCart" Margin="104,30,225,303" Background="#FFCECDCD" Grid.Row="1"/>
 
 
         <Button
             Content="Confirm Order" Click ="Confirm_Order" 
-                HorizontalAlignment="Left" Margin="285,7,0,0" 
+                HorizontalAlignment="Left" Margin="522,9,0,0" 
                 VerticalAlignment="Top" Width="176" Height="98" Grid.RowSpan="2" FontSize="20">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -76,7 +76,7 @@
         </Button>
 
 
-        <ListView x:Name="CartList" MouseDoubleClick="MouseDoubleClick" ItemsSource="{Binding}" Margin="17,40,12,17" Grid.Row="1" SelectionChanged="CartList_SelectionChanged" Background="#FFCECDCD">
+        <ListView x:Name="CartList" MouseDoubleClick="MouseDoubleClick" ItemsSource="{Binding}" Margin="19,82,24,35" Grid.Row="1" SelectionChanged="CartList_SelectionChanged" Background="#FFCECDCD" Grid.ColumnSpan="2">
             <ListView.View>
                 <GridView x:Name="GridView2">
                     <GridViewColumn DisplayMemberBinding= "{Binding ID}" 
@@ -103,7 +103,7 @@
                     FontSize="16"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="466,-2,23,53"
+                    Margin="692,-2,23,53"
                     Click="BtnMinimize_Click" Grid.ColumnSpan="2" >
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -134,7 +134,7 @@
                     FontSize="16"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="493,-3,1,51"
+                    Margin="728,-3,1,51"
                     Click="BtnExit_Click" Grid.ColumnSpan="2" >
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -157,5 +157,5 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-    </Grid>
+        </Grid>
 </Window>

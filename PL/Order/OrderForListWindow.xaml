@@ -17,7 +17,10 @@
     <Border CornerRadius="20"                    
             BorderThickness="1" Margin="0,0,1,0" OpacityMask="#FFE51F1F" >
         <Border.Background>
-            <ImageBrush ImageSource="/Order/z6.jpg" Stretch="Fill" />
+            <LinearGradientBrush>
+                <GradientStop Color="BlueViolet"/>
+                <GradientStop Color="Orange" Offset="1"/>
+            </LinearGradientBrush>
         </Border.Background>
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">

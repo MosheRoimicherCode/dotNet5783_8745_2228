@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="NewOrderWindow" Height="368" Width="800"
+        Title="NewOrderWindow" Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         WindowStyle="None"
@@ -103,9 +103,9 @@
 
             <ComboBox ItemsSource="{x:Static local:ProductForListWindow.ListOfCategories}" SelectedItem="{Binding Category, Mode=TwoWay}"
                       SelectionChanged="CategorySelector_SelectionChanged"
-                      Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" Margin="0,3,13,58" Grid.Column="4" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Right" Width="507" Grid.Row="1" />
+                      Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" Margin="0,3,13,67" Grid.Column="2" Grid.ColumnSpan="7" Grid.RowSpan="2" HorizontalAlignment="Right" Width="598" Grid.Row="1" />
 
-            <ListView Name ="listOfProducts" ItemsSource= "{Binding products, Mode=TwoWay}" MouseDoubleClick="MouseDoubleClick" Margin="10,18,11,2" ToolTip="Double click to update a product properties" Grid.Column="4" Grid.RowSpan="7" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.ColumnSpan="5" >
+            <ListView Name ="listOfProducts" ItemsSource= "{Binding products, Mode=TwoWay}" MouseDoubleClick="MouseDoubleClick" Margin="77,46,11,2" ToolTip="Double click to update a product properties" Grid.Column="2" Grid.RowSpan="7" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.ColumnSpan="7" >
                 <ListView.View>
 
                     <GridView x:Name="GridView">
@@ -126,25 +126,16 @@
                 </ListView.View>
             </ListView>
             <Button x:Name="cart_button" 
-                Margin="20,43,19,0" 
+                Margin="10,11,29,0" 
                 Click="cart_Button_Click" 
                 ToolTip="Go to cart!" 
                 BorderThickness="0" 
                 Background="#FF8B8496"
-                Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Height="59" VerticalAlignment="Top" Opacity="0.8">
+                Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Height="60" VerticalAlignment="Top" Opacity="0.8">
 
                 <Image HorizontalAlignment="Center" Height="69" VerticalAlignment="Center" Width="69" Source="/Order/cartImageTransparent.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.526,0.523"/>
             </Button>
 
-            <TextBox x:Name="User_name"
-                     HorizontalAlignment="Left"
-                     Grid.Row="5" TextWrapping="Wrap"
-                     Text="User name" VerticalAlignment="Top" Width="156" Background="#FFE8D7D4" SelectionOpacity="0.2" Height="25" Grid.ColumnSpan="3" Margin="14,9,0,0" Grid.Column="1"/>
-            <TextBox x:Name="User_email" HorizontalAlignment="Left"
-                     Grid.Row="5" TextWrapping="Wrap" Text="User email" 
-                     VerticalAlignment="Top" Width="158" Background="#FFE8D7D4" SelectionOpacity="0.2" Height="25" Grid.ColumnSpan="3" Margin="13,39,0,0" Grid.Column="1" Grid.RowSpan="2"/>
-            <TextBox x:Name="User_adress" HorizontalAlignment="Left" Grid.Row="6"
-                     TextWrapping="Wrap" Text="User address" VerticalAlignment="Top" Width="158" Background ="#FFE8D7D4" SelectionOpacity="0.2" Height="24" Grid.ColumnSpan="3" Margin="13,17,0,0" Grid.Column="1" Grid.RowSpan="3"/>
 
             <Button x:Name="btnMinimize"                           
                     BorderThickness="0"

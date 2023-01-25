@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="314"
+        Title="MainWindow" Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         WindowStyle="None"
@@ -16,7 +16,7 @@
     <Border CornerRadius="20"                    
             BorderThickness="1" Margin="0,0,1,0" OpacityMask="#FFE51F1F" >
         <Border.Background>
-            <ImageBrush ImageSource="/z7.jpg" Stretch="None" />
+            <ImageBrush ImageSource="/z3_pexels-kai-pilger-996329.jpg" />
         </Border.Background>
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -37,9 +37,8 @@
                     
                     Content="manager"
                     x:Name ="ManagerButton"
-                    Margin="5,376,6,22" 
+                    Margin="539,300,30,-5" 
                     Click="Manager_Button_Click"
-                    Width="300"
                     Height="50"
                     FontSize="25" >
 
@@ -55,9 +54,9 @@
                     </Button.Style>
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Width="200" Height="40"
+                            <Border Width="220" Height="60"
                                 CornerRadius="19"
-                                Background="{TemplateBinding Background}">
+                                Background="{TemplateBinding Background}" Margin="-4,-16,11,-16">
                                 <ContentPresenter VerticalAlignment="Center"
                                     HorizontalAlignment="Center"/>
                             </Border>
@@ -69,10 +68,8 @@
                     
                     Content="add order"
                     x:Name ="AddOrderButton"
-                    Margin="2,329,9,69"
+                    Margin="277,334,286,30"
                     Click="Add_Order_Button_Click"
-                    Width="300"
-                    Height="50"
                     FontSize="25" >
 
                     <Button.Style>
@@ -87,7 +84,7 @@
                     </Button.Style>
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Width="200" Height="40"
+                            <Border Width="220" Height="60"
                                 CornerRadius="19"
                                 Background="{TemplateBinding Background}">
                                 <ContentPresenter VerticalAlignment="Center"
@@ -101,7 +98,7 @@
                     
                     Content="track order"
                     x:Name ="OrderTrackingButton"
-                    Margin="2,281,0,117"
+                    Margin="-2,354,0,44"
                     Click="Order_Tracking_Button_Click"
                     FontSize="25" 
                     HorizontalAlignment="Left" 
@@ -120,9 +117,9 @@
                     </Button.Style>
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Width="200" Height="40"
+                            <Border Width="220" Height="60"
                                 CornerRadius="19"
-                                Background="{TemplateBinding Background}">
+                                Background="{TemplateBinding Background}" Margin="40,-18,40,-10">
                                 <ContentPresenter VerticalAlignment="Center"
                                     HorizontalAlignment="Center"/>
                             </Border>
@@ -137,7 +134,7 @@
                     FontSize="16"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="261,2,23,420" 
+                    Margin="687,2,23,420" 
                     Click="BtnMinimize_Click">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
@@ -168,7 +165,7 @@
                     FontSize="16"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="282,2,1,420" 
+                    Margin="728,2,1,420" 
                     Click="BtnExit_Click" >
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
@@ -191,14 +188,30 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <Button
-                    Content="Simulator"
-                    Margin="-41,1,0,397"
+                <Label Content=""
+                    Margin="0,88,0,0" 
+                    VerticalAlignment="Top"
+                    Height="116" 
+                    FontSize="65" 
+                    FontFamily="Georgia"
+                    Foreground="Black" 
+                    RenderTransformOrigin="0.499,0.797" 
+                    HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="797" FontWeight="Bold" VerticalContentAlignment="Center" Opacity="0.5">
+                    <Label.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="Black"/>
+                            <GradientStop Color="White" Offset="1"/>
+                            <GradientStop Color="#FFA9950E"/>
+                        </LinearGradientBrush>
+                    </Label.Background>
+                </Label>
+                <Button 
+                    
+                    Content="simulator"
+                    x:Name ="AddOrderButton_Copy"
+                    Margin="-6,-2,597,366"
                     Click="SimulatorClick"
-                    FontSize="25" 
-                    HorizontalAlignment="Left" 
-                    Width="300"
-                    Height="50">
+                    FontSize="25" >
 
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
@@ -212,7 +225,7 @@
                     </Button.Style>
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Width="200" Height="40"
+                            <Border Width="150" Height="50"
                                 CornerRadius="19"
                                 Background="{TemplateBinding Background}">
                                 <ContentPresenter VerticalAlignment="Center"
@@ -222,15 +235,14 @@
                     </Button.Template>
                 </Button>
                 <Label Content="Clothes Store"
-                    Margin="32,68,42,0" 
+                    Margin="0,94,0,0" 
                     VerticalAlignment="Top"
-                    Height="52" 
-                    FontSize="30" 
+                    Height="104" 
+                    FontSize="65" 
                     FontFamily="Georgia"
-                    Foreground="#FFFFF8FA"
-                    FontWeight="Bold" 
+                    Foreground="Black" 
                     RenderTransformOrigin="0.499,0.797" 
-                    HorizontalContentAlignment="Right"/>
+                    HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="559" FontWeight="Bold" VerticalContentAlignment="Center"/>
             </Grid>
         </Border>
     </Border>

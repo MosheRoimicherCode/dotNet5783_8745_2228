@@ -43,20 +43,13 @@ namespace PL
         public CartWindow(BO.Cart currentCart, Action? action = null)
         {
             InitializeComponent();
-            UserName.Text = currentCart?.CustomerName?.ToString();
-            UserAddress.Text = currentCart?.CustomeAdress?.ToString();
-            UserEmail.Text = currentCart?.CustomerEmail?.ToString();
             productItemcartListUpdate = p.Product.GetListOfItemsInCart(currentCart);
-            TotalPriceCart.Text = currentCart.TotalPrice.ToString();
+            TotalPriceCart.Content = currentCart.TotalPrice.ToString();
             this.DataContext = productItemcartListUpdate;
 
             change = action;
-
             cart = currentCart;
-            UserName.IsEnabled = false;
-            UserAddress.IsEnabled = false;
-            UserEmail.IsEnabled = false;
-            TotalPriceCart.Text = currentCart.TotalPrice.ToString();
+            TotalPriceCart.Content = currentCart.TotalPrice.ToString();
         }
 
 
@@ -71,6 +64,9 @@ namespace PL
         {
             try
             {
+                cart.CustomerName = UserName.Text;
+                cart.CustomeAdress = UserAddress.Text;
+                cart.CustomerEmail = UserEmail.Text;
                 p.Cart.ConfirmCart(cart, cart.CustomerName!, cart.CustomerEmail!, cart.CustomeAdress!);
                 this.Close();
             }
@@ -102,6 +98,15 @@ namespace PL
         private void BtnMinimize_Click(object sender, RoutedEventArgs e) { WindowState = WindowState.Minimized; }
         private void BtnExit_Click(object sender, RoutedEventArgs e) { this.Close(); new NewOrderWindow(cart).Show(); }
 
+        private void totalPrice_TextChanged()
+        {
+
+        }
+
+        private void UserName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
 
