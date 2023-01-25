@@ -1,6 +1,7 @@
 ﻿namespace PL;
 
 using BlApi;
+using PL.Order;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -53,6 +54,12 @@ public partial class OrderWindow : Window
             Close();
         }
     }
+
+    private void delete_order_Button_Click(object sender, RoutedEventArgs e)
+    {
+        new deleteOrderWindow(ID, orderForListWindow, this).Show();
+    }
+
     private void BtnMinimize_Click(object sender, RoutedEventArgs e) { WindowState = WindowState.Minimized; }
     private void BtnExit_Click(object sender, RoutedEventArgs e) { this.Close(); }
 

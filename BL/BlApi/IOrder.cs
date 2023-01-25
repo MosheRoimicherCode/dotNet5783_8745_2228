@@ -30,5 +30,6 @@ namespace BlApi
         //get last managed order id
         public int? ReturnOrderForManage();
         public BO.Order UpdateStatus(int id);
+        public void Delete(int id);
     }
 } /// interface of order items for manager and client

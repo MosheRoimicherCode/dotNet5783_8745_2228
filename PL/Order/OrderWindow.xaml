@@ -25,7 +25,7 @@
 
 
             <Button x:Name ="update_shiping_button" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" 
-                Click="update_shiping_Button_Click" Margin="139,145,0,0" Tag="1" HorizontalAlignment="Left" FontSize="24" Height="113" Width="128">
+                Click="update_shiping_Button_Click" Margin="144,37,0,0" Tag="1" HorizontalAlignment="Left" FontSize="24" Height="87" Width="128">
                 <TextBlock TextWrapping="Wrap">Update shiping</TextBlock>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -52,8 +52,8 @@
 
 
             <Button x:Name ="update_providing_button" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" 
-                    Click="update_providing_Button_Click" Margin="12,24,0,0" Tag="1" HorizontalAlignment="Left" FontSize="24" Height="110" Width="118">
-                <TextBlock TextWrapping="Wrap">Update providing</TextBlock>
+                    Click="update_providing_Button_Click" Margin="10,37,0,0" Tag="1" HorizontalAlignment="Left" FontSize="24" Height="87" Width="118">
+                <TextBlock TextWrapping="Wrap"><Run FlowDirection="RightToLeft" Language="he-il" Text=" "/><Run Text="Update providing"/></TextBlock>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="{StaticResource BackgroundButton2}" />
@@ -136,6 +136,32 @@
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
+            </Button>
+            <Button x:Name ="delete_order" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" 
+                Click="delete_order_Button_Click" Margin="0,155,0,0" Tag="1" HorizontalAlignment="Center" FontSize="24" Height="94" Width="118">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="{StaticResource BackgroundButton2}" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#278BEF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Width="auto" Height="auto"
+                            CornerRadius="19"
+                            Background="{TemplateBinding Background}" >
+                            <ContentPresenter VerticalAlignment="Center"
+                                HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+                <TextBlock TextWrapping="Wrap" Text="delete order"/>
+
             </Button>
         </Grid>
     </Grid>

@@ -265,4 +265,9 @@ internal class Order : BlApi.IOrder
             return UpdateShipping(id);
         else { return UpdateProviding(id); }
     }
+
+    public void Delete(int id)
+    {
+        dal.Order.Delete(id);
+    }
 }
