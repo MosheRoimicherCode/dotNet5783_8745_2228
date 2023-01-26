@@ -133,7 +133,6 @@ internal class Order : BlApi.IOrder
         return amount;
     }
 
-
     /// return a list with all orders
     /// <returns> order list </returns>
     [MethodImpl(MethodImplOptions.Synchronized)]
@@ -174,7 +173,6 @@ internal class Order : BlApi.IOrder
         catch (IdException) { throw new BO.IdBOException("order with given Id didn't found"); }
     }
 
-
     /// <summary>
     /// This method updates the shipping date of an order with the given ID. 
     /// </summary>
@@ -213,7 +211,6 @@ internal class Order : BlApi.IOrder
         }
         throw new BO.IdBOException("order with given Id didn't found");
     }
-
 
     /// <summary>
     /// This code updates the delivery date of an order with the given ID.
@@ -259,7 +256,6 @@ internal class Order : BlApi.IOrder
         // if the order with the given Id is not found, throw an exception
         throw new BO.IdBOException("order with given Id didn't found");
     }
-
 
     /// <summary>
     /// This function is used to track the status of an order given its ID.
@@ -317,7 +313,6 @@ internal class Order : BlApi.IOrder
     [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.OrderTracking> GetListOfTruckings() => from item in dal?.Order.GetAll()
                                                                  select OrderTracking((int)item?.ID!);
-
     /// <summary>
     /// return the last managed order.
     /// </summary>
@@ -384,5 +379,4 @@ internal class Order : BlApi.IOrder
     /// /// </summary>
     /// <param name="id"></param>
     public void Delete(int id) => dal.Order.Delete(id);
-
 }
