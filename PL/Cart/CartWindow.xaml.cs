@@ -23,29 +23,38 @@ namespace PL
     {
         IBl p = Factory.Get();
         private BO.Cart cart = new();
-        private IEnumerable<BO.ProductItem>?productItemcartList;
         readonly Action change;
 
-        public IEnumerable<BO.ProductItem> productItemcartListUpdate
+        public static readonly DependencyProperty ProductsDep = DependencyProperty.Register(nameof(productItemcartListUpdate2),
+                                                                                       typeof(IEnumerable<BO.ProductItem>),
+                                                                                       typeof(CartWindow));
+        private IEnumerable<BO.ProductItem> productItemcartListUpdate2
         {
-            get => productItemcartList;
-            set
-            {
-                productItemcartList = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("productItemcartListUpdate"));
-                }
-            }
+            get => (IEnumerable<BO.ProductItem>)GetValue(ProductsDep);
+            set => SetValue(ProductsDep, value);
         }
-        public event PropertyChangedEventHandler? PropertyChanged;
+
+
+        //public IEnumerable<BO.ProductItem> productItemcartListUpdate
+        //{
+        //    get => productItemcartList;
+        //    set
+        //    {
+        //        productItemcartList = value;
+        //        if (PropertyChanged != null)
+        //        {
+        //            PropertyChanged(this, new PropertyChangedEventArgs("productItemcartListUpdate"));
+        //        }
+        //    }
+        //}
+        //public event PropertyChangedEventHandler? PropertyChanged;
 
         public CartWindow(BO.Cart currentCart, Action? action = null)
         {
             InitializeComponent();
-            productItemcartListUpdate = p.Product.GetListOfItemsInCart(currentCart);
+            productItemcartListUpdate2 = p.Product.GetListOfItemsInCart(currentCart);
             TotalPriceCart.Content = currentCart.TotalPrice.ToString();
-            this.DataContext = productItemcartListUpdate;
+            this.DataContext = productItemcartListUpdate2;
 
             change = action;
             cart = currentCart;

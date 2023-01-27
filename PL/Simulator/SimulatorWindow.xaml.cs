@@ -80,6 +80,7 @@ public partial class SimulatorWindow : Window
         Simulator.RegisterChangeOrder(UpdateWindow);
         Simulator.RegisterCompletedSimulation(FinishSimulator);
         Simulator.RegisterBar(UpdateBar);
+        
         Simulator.StartSimulator(); //start order simulator
 
         while (isTimerRun)
@@ -124,16 +125,17 @@ public partial class SimulatorWindow : Window
 
     private void worker_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
     {
-
         Simulator.CalcelRegisterChangeOrder(UpdateWindow);
         Simulator.CalcelRegisterCompletedSimulation(FinishSimulator);
 
+        //FinishSimulator();
         MessageBox.Show("Simulation Stoped");
         Close();
     }
 
     private void FinishSimulator()
     {
+
         this.Dispatcher.Invoke(() =>
         {
             IDOrderInProgress.Content = "Finish Orders";

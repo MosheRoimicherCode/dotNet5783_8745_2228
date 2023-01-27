@@ -45,7 +45,7 @@ static public class Simulator
                 if (id != null)
                 {
                     string oldstatus = bl.Order.Get((int)id).OrderStatus.ToString();
-                    int delay = random.Next(3, 11); //between 3 to 10
+                    int delay = random.Next(1,2); //between 3 to 10
                     //bar progress update
                     Bar.Invoke(delay);
 

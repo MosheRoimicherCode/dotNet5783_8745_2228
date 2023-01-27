@@ -45,13 +45,7 @@ public partial class NewOrderWindow : Window
     public NewOrderWindow(BO.Cart? cart = null)
     {
         Category = BO.Category.all;
-        if (cart != null)
-        {
-            currentCart = cart;
-            //User_name.Text = cart.CustomerName?.ToString();
-            //User_email.Text = cart.CustomerEmail?.ToString();
-            //User_adress.Text = cart.CustomeAdress?.ToString();
-        }
+        if (cart != null) currentCart = cart;
         products = bl.Product.GetListOfItems(currentCart);
         InitializeComponent();
     }
@@ -67,13 +61,13 @@ public partial class NewOrderWindow : Window
 
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        BO.ProductItem select = ((BO.ProductItem)listOfProducts.SelectedItem);
-        //BO.ProductItem select = (BO.ProductItem)(sender as ListViewItem)!.DataContext;
-        int id = select.ID;
-        currentCart.TotalPrice = 0;
-        
-        new ProductItemWindow(id, currentCart, onChange, this).Show();
-        
+        if (listOfProducts.SelectedItem != null)
+        {
+            BO.ProductItem select = ((BO.ProductItem)listOfProducts.SelectedItem);
+            int id = select.ID;
+            currentCart.TotalPrice = 0;
+            new ProductItemWindow(id, currentCart, onChange, this).Show();
+        }
     }
 
 
@@ -86,7 +80,7 @@ public partial class NewOrderWindow : Window
     private void cart_Button_Click(object sender, RoutedEventArgs e)
     {
         new CartWindow(currentCart, onChange).Show();
-        this.Close();
+        //this.Close();
     }
 
     private void btnMinimize_Click(object sender, RoutedEventArgs e) { WindowState = WindowState.Minimized; }
