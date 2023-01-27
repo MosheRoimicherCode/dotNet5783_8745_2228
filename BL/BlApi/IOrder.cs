@@ -31,5 +31,6 @@ namespace BlApi
         public int? ReturnOrderForManage();
         public BO.Order UpdateStatus(int id);
         public void Delete(int id);
+        public void AddOrderItem(BO.ProductItem productItem, int orderId);
     }
 } /// interface of order items for manager and client

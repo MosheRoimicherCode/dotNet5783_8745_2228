@@ -46,7 +46,11 @@ public partial class ProductWindow : Window
             ProductInStock.Text = productGeted.InStock.ToString();
             Category2.Text = productGeted.Category.ToString();
         }
-        
+        else
+        {
+            deleteProduct.IsEnabled = false;
+            deleteProduct.Opacity = 0;
+        }
         
         foreach (BO.Category item in Enum.GetValues(typeof(BO.Category))) ListOfCategories.Add(item);
 

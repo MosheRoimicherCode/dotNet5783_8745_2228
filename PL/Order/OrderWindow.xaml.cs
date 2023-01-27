@@ -2,6 +2,7 @@
 
 using BlApi;
 using PL.Order;
+using PL.Product;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -15,6 +16,7 @@ public partial class OrderWindow : Window
     IBl p = Factory.Get();
     int ID;
     OrderForListWindow orderForListWindow;
+    BO.Order order;
 
     public OrderWindow(int id, OrderForListWindow window)
     {
@@ -22,7 +24,7 @@ public partial class OrderWindow : Window
         ID = id;
         orderForListWindow = window;
         
-        BO.Order order = p.Order.Get(id);
+        order = p.Order.Get(id);
         List<BO.OrderItem>? orders = order.Details;
         OrderList.DataContext = orders;
     }
@@ -58,6 +60,17 @@ public partial class OrderWindow : Window
             new ERRORWindow(this, s.Message).Show();
             Close();
         }
+    }
+
+    private void add_products_Button_Click(object sender, RoutedEventArgs e)
+    {
+        new AddProductsWindow(order).Show();
+        //new NewOrderWindow(order).Show();
+    }
+
+    private void update_order_Button_Click(object sender, RoutedEventArgs e)
+    {
+        new AddProductsWindow(order).Show();
     }
 
     private void delete_order_Button_Click(object sender, RoutedEventArgs e)

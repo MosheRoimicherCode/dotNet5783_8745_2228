@@ -73,23 +73,23 @@ internal class Order : BlApi.IOrder
         };
         var a = boOrder.OrderStatus;
         var boOrderDetailsTuple = from orderItem in dal!.OrderItem.GetAll(x => x?.OrderID == Id)
-                                   let TotalPrice = boOrder.TotalPrice + dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price
-                                   select (TotalPrice, new List<BO.OrderItem>
-                                                (from orderItem in dal!.OrderItem.GetAll(x => x?.OrderID == Id)
-                                                 select new BO.OrderItem()
-                                                 {
-                                                     ID = (int)orderItem?.ID!,
-                                                     ProductID = (int)orderItem?.ProductID!,
-                                                     OrderID = (int)orderItem?.OrderID!,
-                                                     ProductName = dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Name,
-                                                     ProductPrice = dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price ?? 0,
-                                                     Amount = (int)orderItem?.Amount!,
-                                                     TotalPrice = (int)orderItem?.Amount! * (double)dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price!,
-                                                 }));
+                                  let TotalPrice = boOrder.TotalPrice + dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price
+                                  select (TotalPrice, new List<BO.OrderItem>
+                                               (from orderItem in dal!.OrderItem.GetAll(x => x?.OrderID == Id)
+                                                select new BO.OrderItem()
+                                                {
+                                                    ID = (int)orderItem?.ID!,
+                                                    ProductID = (int)orderItem?.ProductID!,
+                                                    OrderID = (int)orderItem?.OrderID!,
+                                                    ProductName = dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Name,
+                                                    ProductPrice = dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price ?? 0,
+                                                    Amount = (int)orderItem?.Amount!,
+                                                    TotalPrice = (int)orderItem?.Amount! * (double)dal.Product.Get(x => x?.ID == orderItem?.ProductID)?.Price!,
+                                                }));
 
-        try {  boOrder.Details = boOrderDetailsTuple.FirstOrDefault().Item2.ToList(); } catch { }
+        try { boOrder.Details = boOrderDetailsTuple.FirstOrDefault().Item2.ToList(); } catch { }
         IEnumerable<DO.OrderItem?> orderItem1 = dal!.OrderItem.GetAll();
-       
+
         boOrder.TotalPrice = boOrderDetailsTuple.FirstOrDefault().TotalPrice ?? 0;
 
         return boOrder;
@@ -349,13 +349,13 @@ internal class Order : BlApi.IOrder
         var orderData = (from order in dal.Order.GetAll()
                          where (order?.DeliveryDate == null && order?.ShipDate == null)
                          orderby (order?.OrderDate)
-                         select order).FirstOrDefault(); 
+                         select order).FirstOrDefault();
 
         //serach all order that are just shiped but not delivered yet from managr. then order them by date
         var ShipData = (from order in dal.Order.GetAll()
                         where (order?.DeliveryDate == null && order?.ShipDate != null)
                         orderby (order?.ShipDate)
-                        select order).FirstOrDefault(); 
+                        select order).FirstOrDefault();
 
         //check if we have both type of order to manage
         //is yex, check the earlier one and manage
@@ -404,4 +404,16 @@ internal class Order : BlApi.IOrder
     /// <param name="id"></param>
     public void Delete(int id) => dal.Order.Delete(id);
 
+    public void AddOrderItem(BO.ProductItem productItem, int orderId)
+    {
+        DO.OrderItem newOrderItem = new()
+        {
+            ProductID = productItem.ID,
+            OrderID = orderId,
+            Price = productItem.Price,
+            Amount = 1
+        };
+
+        dal.OrderItem.Add(newOrderItem);
+    }
 }

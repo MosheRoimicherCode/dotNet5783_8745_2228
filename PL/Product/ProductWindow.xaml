@@ -66,7 +66,7 @@
         <Button x:Name ="buttonProductWindows" Content="Add" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" Height="20"
                 Click="Button_Click" Margin="291,193,34,0" Background="#FF0E6C09" Tag="1" Grid.Row="1" PreviewKeyDown="buttonProductWindows_KeyDown"/>
         <Button Content="Cancel" Margin="162,193,157,0" VerticalAlignment="Top" Background="#FFB10D0D" Click="Cancel_Button_Click" Tag="2" Grid.Row="1"/>
-        <Button Content="delete product" Margin="28,193,291,0" VerticalAlignment="Top" Background="#FF022DB3" Click="delete_Button_Click" Tag="2" Grid.Row="1"/>
+        <Button x:Name="deleteProduct" Content="delete product" Margin="28,193,291,0" VerticalAlignment="Top" Background="#FF022DB3" Click="delete_Button_Click" Tag="2" Grid.Row="1"/>
 
         <Label Style="{StaticResource LabelFormat}" x:Name="Product_properties__Copy"  Content="Product ID:" Margin="66,7,0,0" />
         <Label Style="{StaticResource LabelFormat}" x:Name="Product_properties__Copy1" Content="Product Name:" Margin="49,37,0,0"  />

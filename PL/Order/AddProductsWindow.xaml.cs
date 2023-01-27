@@ -18,45 +18,34 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-public partial class NewOrderWindow : Window 
+public partial class AddProductsWindow : Window
 {
     static readonly IBl bl = Factory.Get();
 
     private BO.Cart currentCart = new();
 
-    public static readonly DependencyProperty ProductsDep = DependencyProperty.Register(nameof(products),
+    public static readonly DependencyProperty Products = DependencyProperty.Register(nameof(items),
                                                                                         typeof(IEnumerable<BO.ProductItem>),
-                                                                                        typeof(NewOrderWindow));
-    private IEnumerable<BO.ProductItem> products
+                                                                                        typeof(AddProductsWindow));
+    private IEnumerable<BO.ProductItem> items
     {
-        get => (IEnumerable<BO.ProductItem>)GetValue(ProductsDep);
-        set => SetValue(ProductsDep, value);
+        get => (IEnumerable<BO.ProductItem>)GetValue(Products);
+        set => SetValue(Products, value);
     }
 
     public static readonly DependencyProperty CategoryDep = DependencyProperty.Register(nameof(Category),
                                                                                         typeof(BO.Category),
-                                                                                        typeof(NewOrderWindow));
+                                                                                        typeof(AddProductsWindow));
     private BO.Category Category
     {
         get => (BO.Category)GetValue(CategoryDep);
         set => SetValue(CategoryDep, value);
     }
 
-    public NewOrderWindow(BO.Cart? cart = null)
+    public AddProductsWindow(BO.Order order)
     {
         Category = BO.Category.all;
-        if (cart != null)
-        {
-            currentCart = cart;
-        }
-        products = bl.Product.GetListOfItems(currentCart);
-        InitializeComponent();
-    }
-
-    public NewOrderWindow(BO.Order? order)
-    {
-        Category = BO.Category.all;
-        products = bl.Product.GetListOfItems(currentCart);
+        items = bl.Product.GetListOfItems(currentCart);
         InitializeComponent();
     }
 
@@ -64,9 +53,9 @@ public partial class NewOrderWindow : Window
 
     private void onChange()
     {
-        if (Category == BO.Category.all) products = bl.Product.GetListOfItems(currentCart);
-        else products = bl.Product.GetListOfItems(currentCart, x => x!.Category == Category);
-        
+        if (Category == BO.Category.all) items = bl.Product.GetListOfItems(currentCart);
+        else items = bl.Product.GetListOfItems(currentCart, x => x!.Category == Category);
+
     }
 
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -74,9 +63,9 @@ public partial class NewOrderWindow : Window
         BO.ProductItem select = ((BO.ProductItem)listOfProducts.SelectedItem);
         int id = select.ID;
         currentCart.TotalPrice = 0;
-        
-        new ProductItemWindow(id, currentCart, onChange, this).Show();
-        
+
+        new AddWindow(id, currentCart, onChange).Show();
+
     }
 
 
