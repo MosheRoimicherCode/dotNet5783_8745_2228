@@ -66,7 +66,7 @@ static public class Simulator
                 else
                 {
                     flagForStopSimulator = false;
-                    CompletedSimulation.Invoke();
+                    //CompletedSimulation.Invoke();
                 }
             }
         }).Start();
