@@ -29,7 +29,7 @@ public partial class ProductItemWindow : Window
     int AmountItems;
     readonly Action change;
     NewOrderWindow? newOrderWindow;
-    public ProductItemWindow(int ID, BO.Cart cart, Action? action = null, NewOrderWindow? window = null)
+    public ProductItemWindow(int ID, BO.Cart cart, Action? action = null, NewOrderWindow? window = null, BO.Order order = null)
     {
         InitializeComponent();
         productItem = p.Product.Get(ID, cart);
@@ -48,6 +48,10 @@ public partial class ProductItemWindow : Window
         currentCart = cart;
         id = ID;
         this.newOrderWindow = newOrderWindow;
+        if (order != null)
+        {
+            cart_button.Content = "add to order";
+        }
     }
 
     private void add_Button_Click(object sender, RoutedEventArgs e)

@@ -10,6 +10,6 @@ namespace BlApi
         public Cart UpdateAmount(Cart boCart, int Id, int NewAmount);
 
         ///Confirm the Cart and build objects of order
-        public void ConfirmCart(Cart boCart, string Name, string Email, string Addres);
+        public void ConfirmCart(Cart boCart, string Name, string Email, string Addres, int ID);
     }
 } /// interface of product items for manager and client

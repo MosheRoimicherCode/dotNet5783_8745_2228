@@ -21,8 +21,11 @@ using System.Windows.Shapes;
 public partial class NewOrderWindow : Window 
 {
     static readonly IBl bl = Factory.Get();
+    int orderId;
 
-    private BO.Cart currentCart = new();
+    BO.Cart currentCart = new();
+    BO.Order currentOrder = new();
+    bool manager = false;
 
     public static readonly DependencyProperty ProductsDep = DependencyProperty.Register(nameof(products),
                                                                                         typeof(IEnumerable<BO.ProductItem>),
@@ -53,11 +56,22 @@ public partial class NewOrderWindow : Window
         InitializeComponent();
     }
 
-    public NewOrderWindow(BO.Order? order)
+    public NewOrderWindow(BO.Order order)
     {
-        Category = BO.Category.all;
-        products = bl.Product.GetListOfItems(currentCart);
         InitializeComponent();
+        manager = true;
+        Category = BO.Category.all;
+        currentCart.Details = order.Details;
+        currentCart.CustomerName = order.CustomerName;
+        currentCart.CustomerEmail = order.CustomerEmail;
+        currentCart.CustomeAdress = order.CustomerAdress;
+        currentCart.TotalPrice = order.TotalPrice;
+        currentOrder = order;
+        //currentOrder.ID = order.ID;
+        orderId = currentCart.Details[0].OrderID;
+        manager = true;
+        products = bl.Product.GetListOfItems(currentCart);
+        
     }
 
     public void CategorySelector_SelectionChanged(object sender, RoutedEventArgs e) => onChange();
@@ -75,7 +89,7 @@ public partial class NewOrderWindow : Window
         int id = select.ID;
         currentCart.TotalPrice = 0;
         
-        new ProductItemWindow(id, currentCart, onChange, this).Show();
+        new ProductItemWindow(id, currentCart, onChange, this, currentOrder).Show();
         
     }
 
@@ -88,7 +102,8 @@ public partial class NewOrderWindow : Window
 
     private void cart_Button_Click(object sender, RoutedEventArgs e)
     {
-        new CartWindow(currentCart, onChange).Show();
+        new CartWindow(currentCart, currentCart.Details[0].OrderID, onChange).Show();
+        
         this.Close();
     }
 

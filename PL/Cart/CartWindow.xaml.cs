@@ -23,8 +23,10 @@ namespace PL
     {
         IBl p = Factory.Get();
         private BO.Cart cart = new();
+        private int orderId;
         private IEnumerable<BO.ProductItem>?productItemcartList;
         readonly Action change;
+        bool manager = false;
 
         public IEnumerable<BO.ProductItem> productItemcartListUpdate
         {
@@ -40,7 +42,7 @@ namespace PL
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public CartWindow(BO.Cart currentCart, Action? action = null)
+        public CartWindow(BO.Cart currentCart, int id, Action? action = null)
         {
             InitializeComponent();
             productItemcartListUpdate = p.Product.GetListOfItemsInCart(currentCart);
@@ -50,6 +52,17 @@ namespace PL
             change = action;
             cart = currentCart;
             TotalPriceCart.Content = currentCart.TotalPrice.ToString();
+            orderId = id;
+
+            if (currentCart.CustomerName != null) { UserName.Text = currentCart.CustomerName; }
+            if (currentCart.CustomerEmail != null) { UserEmail.Text = currentCart.CustomerEmail; }
+            if (currentCart.CustomeAdress != null) { UserAddress.Text = currentCart.CustomeAdress; }
+
+            if (currentCart.CustomerName != null)
+            {
+                ConfirmOrder.Content = "change order";
+                manager = true;
+            }
         }
 
 
@@ -63,10 +76,14 @@ namespace PL
         {
             try
             {
+                if (manager == true)
+                {
+                    p.Order.Delete(orderId);
+                }
                 cart.CustomerName = UserName.Text;
                 cart.CustomeAdress = UserAddress.Text;
                 cart.CustomerEmail = UserEmail.Text;
-                p.Cart.ConfirmCart(cart, cart.CustomerName!, cart.CustomerEmail!, cart.CustomeAdress!);
+                p.Cart.ConfirmCart(cart, cart.CustomerName!, cart.CustomerEmail!, cart.CustomeAdress!, orderId);
                 this.Close();
             }
             catch (Exception s)

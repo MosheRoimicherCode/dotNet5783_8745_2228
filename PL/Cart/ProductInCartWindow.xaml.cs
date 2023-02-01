@@ -52,7 +52,7 @@ public partial class ProductInCartWindow : Window
         AmountItems = int.Parse(Amount.Text);
         p.Cart.UpdateAmount(currentCart, id, AmountItems);
         cartWindow?.Close();
-        new CartWindow(currentCart).Show();
+        new CartWindow(currentCart, 0).Show();
         this.Close();
     }
 
@@ -60,7 +60,7 @@ public partial class ProductInCartWindow : Window
     {
         p.Cart.UpdateAmount(currentCart, id, 0);
         cartWindow?.Close();
-        new CartWindow(currentCart).Show();
+        new CartWindow(currentCart,0).Show();
         this.Close();
     }
 }

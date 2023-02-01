@@ -402,9 +402,13 @@ internal class Order : BlApi.IOrder
     /// delete function
     /// /// </summary>
     /// <param name="id"></param>
-    public void Delete(int id) => dal.Order.Delete(id);
+    public void Delete(int id)
+    {
+        dal.Order.Delete(id);
+        dal.OrderItem.Delete(id);
+    }
 
-    public void AddOrderItem(BO.ProductItem productItem, int orderId)
+        public void AddOrderItem(BO.ProductItem productItem, int orderId)
     {
         DO.OrderItem newOrderItem = new()
         {

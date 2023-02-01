@@ -44,7 +44,7 @@
             </ListView>
 
             <Button x:Name ="update_shiping_button" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" 
-                Click="update_shiping_Button_Click" Margin="209,335,0,0" Tag="1" HorizontalAlignment="Left" FontSize="24" Height="64" Width="163">
+                Click="update_shiping_Button_Click" Margin="302,333,0,0" Tag="1" HorizontalAlignment="Left" FontSize="24" Height="64" Width="163">
                 <TextBlock TextWrapping="Wrap" FontSize="18">Update shiping</TextBlock>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -181,54 +181,6 @@
 
                 <TextBlock TextWrapping="Wrap" Text="delete order" FontSize="18"/>
 
-            </Button>
-            <Button x:Name ="add_products" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" 
-                Click="add_products_Button_Click" Margin="19,0,0,0" Tag="1" HorizontalAlignment="Left" FontSize="24" Height="44" Width="163">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="{StaticResource BackgroundButton2}" />
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#278BEF"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Width="auto" Height="auto"
-                            CornerRadius="19"
-                            Background="{TemplateBinding Background}" >
-                            <ContentPresenter VerticalAlignment="Center"
-                                HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-                <TextBlock TextWrapping="Wrap" FontSize="18" Text="add products"/>
-            </Button>
-            <Button x:Name ="update_order" VerticalAlignment="Top" RenderTransformOrigin="-0.321,0.518" 
-                Click="update_order_Button_Click" Margin="397,333,0,0" Tag="1" HorizontalAlignment="Left" FontSize="24" Height="64" Width="163">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="{StaticResource BackgroundButton2}" />
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#278BEF"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Width="auto" Height="auto"
-                            CornerRadius="19"
-                            Background="{TemplateBinding Background}" >
-                            <ContentPresenter VerticalAlignment="Center"
-                                HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-                <TextBlock TextWrapping="Wrap" FontSize="18" Text="Update order"/>
             </Button>
         </Grid>
     </Grid>

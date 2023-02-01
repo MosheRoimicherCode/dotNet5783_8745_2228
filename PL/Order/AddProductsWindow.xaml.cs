@@ -77,7 +77,7 @@ public partial class AddProductsWindow : Window
 
     private void cart_Button_Click(object sender, RoutedEventArgs e)
     {
-        new CartWindow(currentCart, onChange).Show();
+        new CartWindow(currentCart, 0 ,onChange).Show();
         this.Close();
     }
 

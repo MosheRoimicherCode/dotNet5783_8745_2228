@@ -60,7 +60,7 @@
                 <ComboBox
                       ItemsSource="{x:Static local:ProductForListWindow.ListOfCategories}" SelectedItem="{Binding Category, Mode=TwoWay}"
                       SelectionChanged="CategorySelector_SelectionChanged"
-                      Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" Grid.ColumnSpan="2" Margin="344,6,23,-6" />
+                      Background="{DynamicResource BackgroundButton}" BorderBrush="{DynamicResource BackgroundButton}" Grid.ColumnSpan="2" Margin="344,6,84,-6" />
                 <Label Content="Category:" Grid.Column="0" FontSize="20" Margin="218,6,58,-6" BorderBrush="{DynamicResource BackgroundButton}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FFBDAFAF"/>
                 <Button Content="Add new Product"  Click="Button_Click" 
                     HorizontalAlignment="Left" Margin="12,8,0,-6" Padding="5" Width="189"
@@ -87,6 +87,7 @@
                     </Button.Template>
                 </Button>
 
+
             </Grid>
 
             <ListView ItemsSource= "{Binding products, Mode=TwoWay}" 
@@ -107,6 +108,86 @@
                 </ListView.View>
             </ListView>
 
+            <Button x:Name="btnMinimize"                           
+                    BorderThickness="0"
+                    Content="-"
+                    Foreground="White"
+                    FontSize="16"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="-60,0,325,339"
+                    Click="BtnMinimize_Click" RenderTransformOrigin="1,0" Height="138" VerticalAlignment="Bottom" Grid.RowSpan="2">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="0"/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Blue"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#278BEF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Width="18" Height="18"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button                          
+                    BorderThickness="0"
+                    Content="X"
+                    Foreground="White"
+                    FontSize="16"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="710,-11,-32,14"
+                    Click="BtnExit_Click" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" >
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Red"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#278BEF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Width="18" Height="18"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
         </Grid>
+
     </Border>
+
 </Window>

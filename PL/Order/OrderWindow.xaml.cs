@@ -27,6 +27,7 @@ public partial class OrderWindow : Window
         order = p.Order.Get(id);
         List<BO.OrderItem>? orders = order.Details;
         OrderList.DataContext = orders;
+        
     }
 
     private void update_shiping_Button_Click(object sender, RoutedEventArgs e)
@@ -70,7 +71,7 @@ public partial class OrderWindow : Window
 
     private void update_order_Button_Click(object sender, RoutedEventArgs e)
     {
-        new AddProductsWindow(order).Show();
+        new NewOrderWindow(order).Show();
     }
 
     private void delete_order_Button_Click(object sender, RoutedEventArgs e)

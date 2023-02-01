@@ -272,7 +272,7 @@ namespace BlImplementation
         /// <exception cref="BO.IdBOException"></exception>
         /// <exception cref="BO.nullObjectBOException"></exception>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void ConfirmCart(BO.Cart boCart, string Name, string Email, string Addres)
+        public void ConfirmCart(BO.Cart boCart, string Name, string Email, string Addres, int ID = 0)
         {
             // Check if the cart is empty
             if (boCart.Details.Count == 0) throw new BO.IdBOException("cart can not be empty!");

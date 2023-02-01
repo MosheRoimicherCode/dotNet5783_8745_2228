@@ -54,4 +54,6 @@ public partial class ProductForListWindow : Window
         int id = ((BO.ProductForList)(sender as ListViewItem)!.DataContext).ID;
         new ProductWindow("update", id, onChange, this).Show();
     }
+    private void BtnMinimize_Click(object sender, RoutedEventArgs e) { WindowState = WindowState.Minimized; }
+    private void BtnExit_Click(object sender, RoutedEventArgs e) { this.Close(); }
 }

@@ -49,7 +49,7 @@
         <Label x:Name="TotalPriceCart"  Content="TotalPriceCart" Margin="104,30,225,303" Background="#FFCECDCD" Grid.Row="1"/>
 
 
-        <Button
+        <Button x:Name="ConfirmOrder"
             Content="Confirm Order" Click ="Confirm_Order" 
                 HorizontalAlignment="Left" Margin="522,9,0,0" 
                 VerticalAlignment="Top" Width="176" Height="98" Grid.RowSpan="2" FontSize="20">
