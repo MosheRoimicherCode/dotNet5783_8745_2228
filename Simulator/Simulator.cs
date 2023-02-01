@@ -1,8 +1,4 @@
 ﻿using BlApi;
-using BO;
-using Microsoft.Exchange.WebServices.Data;
-using System.ComponentModel;
-using System.Diagnostics;
 
 namespace Sim;
 static public class Simulator
