@@ -78,7 +78,7 @@ public partial class SimulatorWindow : Window
     private void Worker_DoWork(object sender, DoWorkEventArgs e)
     {
         Simulator.RegisterChangeOrder(UpdateWindow);
-        Simulator.RegisterCompletedSimulation(FinishSimulator);
+        //Simulator.RegisterCompletedSimulation(FinishSimulator);
         Simulator.RegisterBar(UpdateBar);
         
         Simulator.StartSimulator(); //start order simulator
@@ -126,29 +126,13 @@ public partial class SimulatorWindow : Window
     private void worker_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
     {
         Simulator.CalcelRegisterChangeOrder(UpdateWindow);
-        Simulator.CalcelRegisterCompletedSimulation(FinishSimulator);
+        //Simulator.CalcelRegisterCompletedSimulation(FinishSimulator);
 
         
         MessageBox.Show("Simulation Stoped");
-        //FinishSimulator();
         this.Close();
     }
 
-    private void FinishSimulator()
-    {
-
-        //this.Dispatcher.Invoke(() =>
-        //{
-        //    IDOrderInProgress.Content = "Finish Orders";
-        //    OldStatus.Content = "Finish Orders";
-        //    StartTime.Content = "Finish Orders";
-        //    FutureStatus.Content = "Finish Orders";
-        //    StopTime.Content = "Finish Orders";
-        //});
-
-        worker.CancelAsync();
-        
-    }
     private void StopSimulation(object sender, RoutedEventArgs e)
     {
         if (isTimerRun)
