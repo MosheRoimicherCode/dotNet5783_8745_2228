@@ -1,12 +1,9 @@
 ﻿namespace BlImplementation;
 
-using BlApi;
 using BO;
 using DalApi;
 using DO;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -26,9 +23,13 @@ internal class Order : BlApi.IOrder
         else { return BO.Status.Approved; }
     }
 
-    // This function converts a DO.Order object to a BO.Order object. 
-    // It assigns the values of the properties of the input object to the corresponding properties of the new object.
-    // Additionally, it calls the CheckStatus and GetTotalPrice methods to set the OrderStatus and TotalPrice properties respectively.
+    /// <summary>
+    /// This function converts a DO.Order object to a BO.Order object. 
+    /// It assigns the values of the properties of the input object to the corresponding properties of the new object.
+    /// This function converts a DO.Order object to a BO.Order object. 
+    /// </summary>
+    /// <param name="o"></param>
+    /// <returns></returns>s to set the OrderStatus and TotalPrice properties respectively.
     private static BO.Order ConvertOrderToBoOrder(DO.Order o)
     {
         return new BO.Order
@@ -43,16 +44,12 @@ internal class Order : BlApi.IOrder
             DeliveryDate = o.DeliveryDate,
             TotalPrice = GetTotalPrice(o.ID),
         };
-
     }
 
     /// <summary>
     /// This code is a C# function that converts an order from the data access layer (DAL) to a business object (BO) representation.
     /// The function starts by retrieving an order from the DAL by calling the "Get" method with a lambda expression to filter the order by its ID.
-    ///Then it creates a new instance of the BO.Order object, and assigns values to its properties. It assigns the ID, CustomerName, CustomerEmail,
-    ///CustomerAdress, OrderStatus, OrderDate, ShipDate, DeliveryDate properties of the input "DO.Order" object to the corresponding properties of the new "BO.Order" object.
-    ///The function then uses a LINQ query to retrieve all the order items of the order and performs some calculations to get the total price and the details of the order.
-    ///Then it assigns the details and the total price to the BO.Order object
+    ///Then it creates a new instance of the BO.Order object, and assigns values to its properties. 
     ///Finally, it returns the BO.Order object
     /// </summary>
     private static BO.Order ConvertDoOrderToBoOrder(int Id)
@@ -98,7 +95,7 @@ internal class Order : BlApi.IOrder
     /// <summary>
     /// This function is used to retrieve all the order items of a specific order by the order ID, and then it calculates the amount 
     /// and total price of each item using the let clause. Finally, it returns a collection of tuples that contain the order item, amount, and total price.
-    ///his function can be useful in retrieving specific data from an order and it's items for further processing or displaying on the UI.
+    /// this function it useful for further processing or displaying on the UI.
     /// </summary>
     /// <param name="orderID"></param>
     /// <returns> IEnumerable<(DO.OrderItem?, int, double) </returns>
@@ -107,9 +104,10 @@ internal class Order : BlApi.IOrder
         let a = (int)orderItem?.Amount!
         let b = ((int)orderItem?.Amount! * (double)orderItem?.Price!)
         select (orderItem, a, b);
-    //This function takes in an order ID as a parameter and calculates the total price of the order
-    //by iterating through all items in the order and adding their prices together.
-    //It then returns the total price as a double.
+
+    ///This function takes in an order ID as a parameter and calculates the total price of the order
+    ///by iterating through all items in the order and adding their prices together.
+    ///It then returns the total price as a double.
     private static double GetTotalPrice(int orderID)
     {
         double price = 0;
@@ -119,9 +117,12 @@ internal class Order : BlApi.IOrder
         }
         return price;
     }
-    // This function is used to retrieve the amount of items in an order
-    // by summing up the amount of each item in the order.
-    // It takes in an orderID as a parameter, and returns the total amount of items in the order.
+
+    /// <summary>
+    /// This function is used to retrieve the amount of items in an order
+    /// </summary>
+    /// <param name="orderID"></param>
+    /// <returns></returns>kes in an orderID as a parameter, and returns the total amount of items in the order.
     private static int GetAmount(int orderID)
     {
         int amount = 0;
@@ -131,7 +132,6 @@ internal class Order : BlApi.IOrder
         }
         return amount;
     }
-
 
     /// return a list with all orders
     /// <returns> order list </returns>
@@ -160,10 +160,9 @@ internal class Order : BlApi.IOrder
         catch { return null!; }
     }
 
-
     ///search for a order with specific Id 
     /// This method retrieves an order from the database using its Id.
-    ///If the Id is negative, an exception is thrown.
+    /// If the Id is negative, an exception is thrown.
     /// If the order is not found in the database, an exception is thrown.
     /// The method also converts the retrieved order from its data object representation to its business object representation
     [MethodImpl(MethodImplOptions.Synchronized)]
@@ -174,15 +173,8 @@ internal class Order : BlApi.IOrder
         catch (IdException) { throw new BO.IdBOException("order with given Id didn't found"); }
     }
 
-
     /// <summary>
     /// This method updates the shipping date of an order with the given ID. 
-    /// It first checks if the ID is valid (greater than 0) and throws an exception if it's not.
-    /// Then it checks if the order has already been shipped or not yet ordered. If it has already been shipped, it throws an exception.
-    /// If the order has not yet been shipped and has been ordered, it updates the shipping date to the current date and time. 
-    /// It then calls the ConvertOrderToBoOrder method to convert the updated DO.Order object to a BO.Order object.
-    /// If there is any exception while updating the order, it throws an exception with the message "Order exist. Impossible to update."
-    /// If the order with the given ID is not found, it throws an exception with the message "order with given Id didn't found"
     /// </summary>
     /// <param name="Id"></param>
     /// <returns></returns>
@@ -220,13 +212,7 @@ internal class Order : BlApi.IOrder
         throw new BO.IdBOException("order with given Id didn't found");
     }
 
-
     /// <summary>
-    /// This code updates the delivery date of an order with the given ID.
-    /// First, it checks if the ID is negative and throws an exception if it is.
-    /// Then, it loops through all orders in the database and checks if the order has already been provided or not yet shipped.
-    /// If the order has not yet been provided and has been shipped, it creates a new DO.Order object with the updated delivery date and updates the database with this new object.
-    /// Finally, it converts the updated DO.Order object to a BO.Order object and returns it.
     /// This code updates the delivery date of an order with the given ID.
     /// </summary>
     /// <param name="Id"></param>
@@ -271,20 +257,11 @@ internal class Order : BlApi.IOrder
         throw new BO.IdBOException("order with given Id didn't found");
     }
 
-
     /// <summary>
     /// This function is used to track the status of an order given its ID.
-    /// First, it checks if the ID is a negative number and throws an exception if it is.
-    /// It then retrieves the order from the data access layer using the provided ID and assigns it to the variable "order".
-    /// If the order is not found, it throws an exception. 
-    /// It creates an OrderTracking object and assigns the Order ID and status of the order to it.
-    /// It then creates a Tuple containing the order date and the status "Order approved" and adds it to a list of Tuples.
-    /// If the order's status is "Shipped", it adds a Tuple with the Ship Date and status "Order shipped" to the list.
-    /// If the order's status is "Provided", it adds Tuples with the Ship Date and status "Order shipped" and the Delivery Date and status "Order provided" to the list.
-    /// Finally, it assigns the list of Tuples to the OrderTracking object and returns it.
     /// </summary>
     /// <param name="Id"></param>
-    /// <returns></returns>
+    /// <returns>it assigns the list of Tuples to the OrderTracking object and returns it.</returns>
     /// <exception cref="BO.IdBOException"></exception>
     /// <exception cref="DO.IdException"></exception>
     [MethodImpl(MethodImplOptions.Synchronized)]
@@ -336,7 +313,6 @@ internal class Order : BlApi.IOrder
     [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.OrderTracking> GetListOfTruckings() => from item in dal?.Order.GetAll()
                                                                  select OrderTracking((int)item?.ID!);
-
     /// <summary>
     /// return the last managed order.
     /// </summary>

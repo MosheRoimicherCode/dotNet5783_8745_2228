@@ -20,6 +20,11 @@ internal class DalOrder : IOrder
                                                     where filter(order)
                                                     select order).FirstOrDefault();
 
+    /// <summary>
+    /// delete order
+    /// </summary>
+    /// <param name="OrderId"></param>
+    /// <exception cref="IdException"></exception>
     [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int OrderId)
     {
@@ -27,12 +32,21 @@ internal class DalOrder : IOrder
         { throw new IdException(" Not found ID. (Dalorder.Delete Exception)"); }
     }
 
+    /// <summary>
+    /// update parameters of order
+    /// </summary>
+    /// <param name="newOrder"></param>
     [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Order newOrder)
     {
         UpdateOrderInPlace(newOrder);
     }
 
+    /// <summary>
+    /// return IEnumerable<Order?> of Orders based on delegate
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Order?> GetAll(Func<Order?, bool>? filter) =>
        filter == null ? _orderList.Select(orderInList => orderInList)

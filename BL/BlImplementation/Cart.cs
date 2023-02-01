@@ -10,11 +10,9 @@ namespace BlImplementation
         private static readonly IDal? Dal = DalApi.Factory.Get();
 
         /// <summary>
-        /// This code is a method that converts an object of type "DO.OrderItem" to an object of type "BO.OrderItem". 
+        /// This method converts an object of type "DO.OrderItem" to an object of type "BO.OrderItem". 
         /// The method takes in a single parameter "DOTemp" which is of type "DO.OrderItem". 
         /// It creates a new object of type "BO.OrderItem" called "BOtemp" and assigns values to its properties based on the values of the properties of "DOTemp".
-        /// The "ProductName" property is assigned the result of a call to the "Dal.Product.Get()" method, which looks for a product with an ID matching the ID of the "DOTemp" object. 
-        /// The "TotalPrice" property is calculated by multiplying the "Amount" and "ProductPrice" properties. Finally, the "BOtemp" object is returned.
         /// </summary>
         /// <param name="DOTemp"></param>
         /// <returns></returns>
@@ -34,15 +32,14 @@ namespace BlImplementation
         }
 
         /// <summary>
-        /// This code is a method that converts an object of type "BO.OrderItem" to an object of type "DO.OrderItem". 
+        /// This method converts an object of type "BO.OrderItem" to an object of type "DO.OrderItem". 
         /// The method takes in two parameters, "BOTemp" which is of type "BO.OrderItem" and "id" which is an integer. 
         /// It creates a new object of type "DO.OrderItem" called "DOtemp" and assigns values to its properties based on 
-        /// the values of the properties of "BOTemp". The "ID" property is assigned the value of the "id" parameter.
-        /// The "Amount" property is assigned the value of the "Amount" property of "BOTemp". Finally, the "DOtemp" object is returned.
+        /// the values of the properties of "BOTemp". 
         /// </summary>
         /// <param name="BOTemp"></param>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>"DOtemp" object is returned.</returns>
         private static DO.OrderItem ConvertBo2DoOrderItem(BO.OrderItem BOTemp, int id)
         {
             DO.OrderItem DOtemp = new()
@@ -259,9 +256,7 @@ namespace BlImplementation
         /// <summary>
         /// This code is a method named "ConfirmCart" that takes in a Cart object, a Name, an Email, and an Address as parameters.
         /// The method first checks if the cart is empty and throws an exception if it is. 
-        /// /// It then iterates over each item in the cart's details collection, checking for various conditions such as if the product exists in the database, 
-        /// if the item's amount is negative or more than the stock, and if the customer's name, address, and email are empty or null. 
-        /// If any of these conditions are met, an exception is thrown. 
+        /// It then iterates over each item in the cart's details collection, checking for various conditions such as if the product exists in the database, 
         /// If all conditions are met, the code creates a new Order object with the customer's information, adds it to the database, and updates the product's stock in the data source. 
         /// It also converts the BO OrderItem to a DO OrderItem and adds it to the data source.
         /// </summary>

@@ -13,12 +13,20 @@ internal class DalOrderItem : IOrderItem
         DataSource._orderItemList.Exists(orderItemInList => orderItemInList?.ID == orderItem.ID)
             ? throw new IdException("OrderItem ID already exists")
             : DataSource.AddOrderItem(orderItem); /// Add OrderItem to Data Base  
+
+    ///get order based on delegate. using LINQ methods
     [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderItem? Get(Func<OrderItem?, bool> filter) => (from orderItem in _orderItemList
                                                              orderby orderItem?.ID
                                                              where filter(orderItem)
                                                              let filterValue = filter(orderItem)
                                                              select orderItem).FirstOrDefault();
+
+    /// <summary>
+    /// delete OrderItem based on id
+    /// </summary>
+    /// <param name="OrderItemId"></param>
+    /// <exception cref="IdException"></exception>
     [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int OrderItemId)
     {
@@ -27,6 +35,7 @@ internal class DalOrderItem : IOrderItem
     }
     [MethodImpl(MethodImplOptions.Synchronized)]
 
+    ///remove product from all orderItems
     public void DeleteProduct(int productId)
     {
         _orderItemList.RemoveAll(x => x?.ProductID == productId);
@@ -39,6 +48,11 @@ internal class DalOrderItem : IOrderItem
         Add(newOrderItem);
     }
 
+    /// <summary>
+    /// get IEnumerable<OrderItem?> object based on delegate filter
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool>? filter) =>
       filter == null ? _orderItemList.Select(orderItemInList => orderItemInList)
