@@ -5,12 +5,11 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-	<BaseOutputPath>$(SolutionDir)\bin\</BaseOutputPath>
-	<OutputPath>$(SolutionDir)\bin\</OutputPath>
-	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-	<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-	<UseCommonOutputDirectory>true</UseCommonOutputDirectory>
-
+    <BaseOutputPath>$(SolutionDir)\bin\</BaseOutputPath>
+    <OutputPath>$(SolutionDir)\bin\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,10 +17,6 @@
     <EmbeddedResource Remove="images\**" />
     <None Remove="images\**" />
     <Page Remove="images\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Class1.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -79,11 +74,5 @@
     <Resource Include="z6.jpg" />
     <Resource Include="z7.jpg" />
   </ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\DalFacade\DalFacade.csproj" />
-		<ProjectReference Include="..\DalList\DalList.csproj" />
-		<ProjectReference Include="..\DalXml\DalXml.csproj" />
-	</ItemGroup>
 
 </Project>
