@@ -1,6 +1,7 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
+using System.Globalization;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Runtime.CompilerServices;
@@ -18,7 +19,7 @@ internal class DalOrder : IOrder
     {
         XElement dataBase = XElement.Load(path); //copy data base to code
         if (addFunctionality != "update")  order.ID = ReturnId(); //get new automatic ID 
-
+        
         XElement newOrder = new XElement("Orders",
                             new XElement("ID", order.ID),
                             new XElement("CustomerName", order.CustomerName),
@@ -68,7 +69,6 @@ internal class DalOrder : IOrder
         addFunctionality = "add";
     }
 
-
     //private methods
     static IEnumerable<Order> createIEnumerableFromXml()
     {
@@ -79,31 +79,19 @@ internal class DalOrder : IOrder
         {
             XmlReader reader = XmlReader.Create(path);
 
-            reader.ReadToFollowing("DeliveryDate");
-            DateTime? dateDeliveryDate;
-            try { dateDeliveryDate = reader.ReadElementContentAsDateTime().Date; }
-            catch { dateDeliveryDate = null; }
-
-            reader.ReadToFollowing("ShipDate");
-            DateTime? dateShipDate;
-            try { dateShipDate = reader.ReadElementContentAsDateTime().Date; }
-            catch { dateShipDate = null; }
-
-            reader.ReadToFollowing("OrderDate");
-            DateTime? dateOrderDate;
-            try { dateOrderDate = reader.ReadElementContentAsDateTime().Date; }
-            catch { dateOrderDate = null; }
-
             DO.Order order = new()
             {
                 ID = Convert.ToInt32(item.Element("ID")?.Value),
                 CustomerName = item.Element("CustomerName")?.Value,
                 CustomeAdress = item.Element("CustomeAdress")?.Value,
                 CustomerEmail = item.Element("CustomerEmail")?.Value,
-                DeliveryDate = dateDeliveryDate,
-                ShipDate = dateShipDate,
-                OrderDate = dateOrderDate,
+                OrderDate = DateTime.ParseExact(item.Element("OrderDate")?.Value.Substring(0, 10), "yyyy-MM-dd", null)
             };
+
+            try {order.ShipDate = DateTime.ParseExact(item.Element("ShipDate")?.Value.Substring(0, 10), "yyyy-MM-dd", null);}
+            catch { order.ShipDate = null; }
+            try { order.DeliveryDate = DateTime.ParseExact(item.Element("DeliveryDate")?.Value.Substring(0, 10), "yyyy-MM-dd", null); }
+            catch { order.DeliveryDate = null; }
 
             orderList.Add(order);
         }

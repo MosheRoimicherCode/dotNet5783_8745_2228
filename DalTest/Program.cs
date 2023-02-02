@@ -138,11 +138,10 @@ internal class Program
                             Console.WriteLine("enter adress:");
                             string? adress = Console.ReadLine();
                             Console.WriteLine("enter OrderDate:");
-                            DateTime OrderDate = Convert.ToDateTime(Console.ReadLine());
-                            Console.WriteLine("enter ShipDate:");
-                            DateTime ShipDate = Convert.ToDateTime(Console.ReadLine());
-                            Console.WriteLine("enter DeliveryDate:");
-                            DateTime DeliveryDate = Convert.ToDateTime(Console.ReadLine());
+                            DateTime OrderDate = DateTime.Now;
+                            DateTime? ShipDate = null; //Convert.ToDateTime(Console.ReadLine());
+                            //Console.WriteLine("enter DeliveryDate:");
+                            DateTime? DeliveryDate = null;//Convert.ToDateTime(Console.ReadLine());
                             Order o1 = new()
                             {
                                 ID = ID1,
@@ -333,7 +332,7 @@ internal class Program
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.ToString());
+            Console.WriteLine("error");
         }
     }
 
