@@ -61,7 +61,7 @@ internal class DalProduct : IProduct
     static IEnumerable<Product> createIEnumerableFromXml()
     {
         XElement dataBase = XElement.Load(path); //copy data base to code
-        return (from product in dataBase.Elements()
+        var a =  (from product in dataBase.Elements()
                 select new DO.Product()
                 {
                     ID = Convert.ToInt32(product.Element("ID")?.Value),
@@ -69,8 +69,8 @@ internal class DalProduct : IProduct
                     Price = Convert.ToDouble(product.Element("Price")?.Value),
                     Category = checkCategoty(product),
                     InStock = Convert.ToInt32(product.Element("InStock")?.Value),
-
                 });
+        return a;
     }
     static List<Product?> createListFromXml()
     {

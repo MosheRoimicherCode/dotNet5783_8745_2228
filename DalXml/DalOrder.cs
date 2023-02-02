@@ -2,7 +2,9 @@
 using DalApi;
 using DO;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Runtime.CompilerServices;
+using System.Xml;
 using System.Xml.Linq;
 
 internal class DalOrder : IOrder
@@ -70,27 +72,53 @@ internal class DalOrder : IOrder
     //private methods
     static IEnumerable<Order> createIEnumerableFromXml()
     {
-        XElement dataBaseOrders = XElement.Load(path); //copy data base to code
+        XElement dataBase = XElement.Load(path); //copy data base to code
 
-        return (from item in dataBaseOrders.Elements()
-                              select new DO.Order()
-                              {
-                                  ID = Convert.ToInt32(item.Element("ID")?.Value),
-                                  CustomerName = item.Element("CustomerName")?.Value,
-                                  CustomeAdress = item.Element("CustomeAdress")?.Value,
-                                  CustomerEmail = item.Element("CustomerEmail")?.Value,
-                                  DeliveryDate = Convert.ToDateTime(item.Element("OrderDate")?.Value),
-                                  ShipDate = Convert.ToDateTime(item.Element("ShipDate")?.Value),
-                                  OrderDate = Convert.ToDateTime(item.Element("OrderDate")?.Value)
-                              });
+        List<DO.Order> orderList = new();
+        foreach ( var item in dataBase.Elements())
+        {
+            XmlReader reader = XmlReader.Create(path);
+
+            reader.ReadToFollowing("DeliveryDate");
+            DateTime? dateDeliveryDate;
+            try { dateDeliveryDate = reader.ReadElementContentAsDateTime().Date; }
+            catch { dateDeliveryDate = null; }
+
+            reader.ReadToFollowing("ShipDate");
+            DateTime? dateShipDate;
+            try { dateShipDate = reader.ReadElementContentAsDateTime().Date; }
+            catch { dateShipDate = null; }
+
+            reader.ReadToFollowing("OrderDate");
+            DateTime? dateOrderDate;
+            try { dateOrderDate = reader.ReadElementContentAsDateTime().Date; }
+            catch { dateOrderDate = null; }
+
+            DO.Order order = new()
+            {
+                ID = Convert.ToInt32(item.Element("ID")?.Value),
+                CustomerName = item.Element("CustomerName")?.Value,
+                CustomeAdress = item.Element("CustomeAdress")?.Value,
+                CustomerEmail = item.Element("CustomerEmail")?.Value,
+                DeliveryDate = dateDeliveryDate,
+                ShipDate = dateShipDate,
+                OrderDate = dateOrderDate,
+            };
+
+            orderList.Add(order);
+        }
+        var a = from item in orderList select item;
+        return a;
     }
+
     static List<Order?> createListFromXml()
     {
         List<DO.Order?> b = new();
-        foreach (var item in createIEnumerableFromXml())
+
+        foreach (var item in createIEnumerableFromXml().ToList())
         {
-            DO.Order? orderItem = item;
-            b.Add(orderItem);
+            DO.Order? order = item;
+            b.Add(order);
         }
         return b;
     }
