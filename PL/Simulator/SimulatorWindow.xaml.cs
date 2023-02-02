@@ -10,48 +10,38 @@ using System.Windows.Controls;
 
 public partial class SimulatorWindow : Window
 {
-    private Stopwatch stopWatch;
     private bool isTimerRun;
     BackgroundWorker worker;
 
-
-    public static readonly DependencyProperty OrderDep = 
-        DependencyProperty.Register(nameof(Order),typeof(BO.Order),typeof(SimulatorWindow));
+    public static readonly DependencyProperty OrderDep =
+        DependencyProperty.Register(nameof(Order), typeof(BO.Order), typeof(SimulatorWindow));
     private BO.Order Order
     {
         get => (BO.Order)GetValue(OrderDep);
-        set => SetValue (OrderDep, value);
+        set => SetValue(OrderDep, value);
     }
-    
 
     public static readonly DependencyProperty MyClockProperty =
      DependencyProperty.Register(nameof(Clock), typeof(string), typeof(SimulatorWindow));
     public string Clock
     {
         get => (string)GetValue(MyClockProperty);
-        set =>SetValue(MyClockProperty, value); 
+        set => SetValue(MyClockProperty, value);
     }
-    
 
     public static readonly DependencyProperty MyProgressBarValueProperty =
         DependencyProperty.Register(nameof(ProgressBarValue), typeof(double), typeof(SimulatorWindow));
-
     public double ProgressBarValue
     {
         get { return (double)GetValue(MyProgressBarValueProperty); }
         set { SetValue(MyProgressBarValueProperty, value); }
     }
 
-
-
-
     public SimulatorWindow()
     {
         InitializeComponent();
 
-        stopWatch = new Stopwatch();
-        stopWatch.Start();
-        Clock = stopWatch.Elapsed.ToString().Substring(0, 8);
+        Clock = DateTime.Now.ToString("HH:mm:ss");
 
         worker = new BackgroundWorker()
         {
@@ -70,7 +60,6 @@ public partial class SimulatorWindow : Window
     {
         if (!isTimerRun)
         {
-            stopWatch.Start();
             isTimerRun = true;
             worker.RunWorkerAsync(); //call DOWork function
         }
@@ -80,7 +69,7 @@ public partial class SimulatorWindow : Window
         Simulator.RegisterChangeOrder(UpdateWindow);
         //Simulator.RegisterCompletedSimulation(FinishSimulator);
         Simulator.RegisterBar(UpdateBar);
-        
+
         Simulator.StartSimulator(); //start order simulator
 
         while (isTimerRun)
@@ -94,15 +83,15 @@ public partial class SimulatorWindow : Window
 
     DateTime delay;
     DateTime now;
-    double progressPerSecond; 
+    double progressPerSecond;
     private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
     {
 
 
         switch (e.ProgressPercentage)
-        {    
+        {
             case 0:
-                Clock = stopWatch.Elapsed.ToString().Substring(0, 8);
+                Clock = DateTime.Now.ToString("HH:mm:ss");
                 ProgressBarValue += progressPerSecond;
                 break;
             case 1:
@@ -119,7 +108,7 @@ public partial class SimulatorWindow : Window
                 break;
             default:
                 break;
-        }  
+        }
     }
 
 
@@ -128,17 +117,10 @@ public partial class SimulatorWindow : Window
         Simulator.CalcelRegisterChangeOrder(UpdateWindow);
         //Simulator.CalcelRegisterCompletedSimulation(FinishSimulator);
 
-        
+
         MessageBox.Show("Simulation Stoped");
         this.Close();
     }
 
-    private void StopSimulation(object sender, RoutedEventArgs e)
-    {
-        if (isTimerRun)
-        {
-            stopWatch.Stop();
-            isTimerRun = false;
-        }
-    }
+    private void StopSimulation(object sender, RoutedEventArgs e)  {if (isTimerRun) isTimerRun = false; }
 }
