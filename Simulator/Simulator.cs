@@ -22,33 +22,33 @@ static public class Simulator
     public static void RegisterCompletedSimulation(Action action) => CompletedSimulation += action;
     public static void CalcelRegisterCompletedSimulation(Action action) => CompletedSimulation -= action;
 
+
     //connection to database
     static readonly IBl bl = BlApi.Factory.Get();
     
     //body simulator
     static public void StartSimulator()                                                                                
     {
-        //create e new thred to simulater order management
+        //create e new Thread to simulator order management
         new Thread(() =>
         {
-
             flagForStopSimulator = true;
 
             while (flagForStopSimulator)
             {
                 int? id = bl.Order.ReturnOrderForManage();
-
-                if (id != null)
+                if (id == null && flagForStopSimulator == true) flagForStopSimulator = false; //if have no more order to update, finish simulation
+                else if (id != null)
                 {
                     string oldstatus = bl.Order.Get((int)id).OrderStatus.ToString();
-                    int delay = random.Next(3,11); //between 3 to 10
+                    int delay = random.Next(3,4); //between 3 to 10
                     //bar progress update
                     Bar.Invoke(delay);
 
                     //finish time to end order
                     DateTime finishTime = DateTime.Now + (new TimeSpan(0, 0, 0, delay, 0));
 
-                    //send furute status to UI
+                    //send future status to UI
                     BO.Order? orderUpdated = bl.Order.UpdateStatus((int)id);
 
                     //update UI fields
@@ -58,14 +58,12 @@ static public class Simulator
                     //simulate store work time
                     Thread.Sleep(delay * 1000); 
                 }
-                //id have no more order to update, finish simulation
-                else
-                {
-                    flagForStopSimulator = false;
-                    //CompletedSimulation.Invoke();
-                }
             }
         }).Start();
+    }
+    static public void StopSimulation()
+    {
+        flagForStopSimulator = false;
     }
 
     //volatile to stop Thread

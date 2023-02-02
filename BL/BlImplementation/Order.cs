@@ -312,7 +312,7 @@ internal class Order : BlApi.IOrder
     /// <returns></returns>
     [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.OrderTracking> GetListOfTruckings() => from item in dal?.Order.GetAll()
-                                                                 select OrderTracking((int)item?.ID!);
+                                                                       select OrderTracking((int)item?.ID!);
     /// <summary>
     /// return the last managed order.
     /// </summary>

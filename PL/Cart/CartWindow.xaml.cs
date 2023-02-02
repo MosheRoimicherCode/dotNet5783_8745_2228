@@ -101,12 +101,7 @@ namespace PL
                 new ERRORWindow(this, s.Message).Show();
             }
             
-            //change();
-            //new MainWindow().Show();
-            //new OrderForListWindow().Show();
             IEnumerable<BO.OrderTracking> orderTracking = p.Order.GetListOfTruckings();
-            
-           
         }
 
         private void UpdateUserProperties()

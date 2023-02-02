@@ -51,7 +51,7 @@ public partial class SimulatorWindow : Window
 
         worker.DoWork += Worker_DoWork;
         worker.ProgressChanged += Worker_ProgressChanged;
-        //worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+        worker.RunWorkerCompleted += worker_RunWorkerCompleted;
 
     }
 
@@ -67,7 +67,7 @@ public partial class SimulatorWindow : Window
     private void Worker_DoWork(object sender, DoWorkEventArgs e)
     {
         Simulator.RegisterChangeOrder(UpdateWindow);
-        //Simulator.RegisterCompletedSimulation(FinishSimulator);
+        Simulator.RegisterCompletedSimulation(final);
         Simulator.RegisterBar(UpdateBar);
 
         Simulator.StartSimulator(); //start order simulator
@@ -99,12 +99,12 @@ public partial class SimulatorWindow : Window
                 delay = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item3;
                 IDOrderInProgress.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item1;
                 OldStatus.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item4;
-                StartTime.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item2;
+                StartTime.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item2.ToString("HH:mm:ss");
                 FutureStatus.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item5;
-                StopTime.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item3;
+                StopTime.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item3.ToString("HH:mm:ss");
                 break;
             case 3:
-                progressPerSecond = (100 / (int)(e.UserState));
+                progressPerSecond = (double)(100 / (int)(e.UserState));
                 break;
             default:
                 break;
@@ -114,13 +114,25 @@ public partial class SimulatorWindow : Window
 
     private void worker_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
     {
-        Simulator.CalcelRegisterChangeOrder(UpdateWindow);
-        //Simulator.CalcelRegisterCompletedSimulation(FinishSimulator);
+        //Simulator.CalcelRegisterChangeOrder(UpdateWindow);
+        //Simulator.CalcelRegisterCompletedSimulation(final);
 
 
         MessageBox.Show("Simulation Stoped");
-        this.Close();
+        Close();
     }
 
-    private void StopSimulation(object sender, RoutedEventArgs e)  {if (isTimerRun) isTimerRun = false; }
+    private void StopSimulation(object sender, RoutedEventArgs e)  
+    {
+        if (isTimerRun)
+        {
+            isTimerRun = false;
+            Simulator.StopSimulation();
+        }
+    }
+
+    private void final()
+    {
+        worker.CancelAsync();
+    }
 }
