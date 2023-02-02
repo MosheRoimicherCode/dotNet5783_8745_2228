@@ -30,7 +30,7 @@ internal class DalOrderItem : IOrderItem
     [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int OrderItemId)
     {
-        try { _orderItemList.RemoveAll(x => x?.ID == OrderItemId); }
+        try { _orderItemList.RemoveAll(x => x?.OrderID == OrderItemId); }
         catch (ArgumentNullException) { throw new IdException(" Not found ID. (Dalorder.Delete Exception)"); }
     }
     [MethodImpl(MethodImplOptions.Synchronized)]
