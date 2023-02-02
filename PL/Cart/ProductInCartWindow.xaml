@@ -37,7 +37,7 @@
         <Label x:Name="IsInStock2" Margin="262,212,0,0"  Style="{StaticResource LabelFormarProductItemWindo}" Width="134"/>
         <Label x:Name="AmontInCart2" Margin="302,265,0,0"  Style="{StaticResource LabelFormarProductItemWindo}" Width="136"/>
 
-        <TextBox x:Name="Amount" Margin="664,65,0,0" Text="1" FontSize="24" Width="50" Height="41" Cursor="Wait" ToolTip="How many Item you want to order?" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <TextBox x:Name="Amount" Margin="664,65,0,0" Text="1" FontSize="24" Width="50" Height="41" ToolTip="How many Item you want to order?" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
         <Button x:Name="change_button" 
                     Content="change amount" 

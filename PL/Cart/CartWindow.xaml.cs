@@ -119,14 +119,36 @@ namespace PL
         private void BtnMinimize_Click(object sender, RoutedEventArgs e) { WindowState = WindowState.Minimized; }
         private void BtnExit_Click(object sender, RoutedEventArgs e) { this.Close(); new NewOrderWindow(cart).Show(); }
 
-        private void totalPrice_TextChanged()
-        {
 
+        private void UserName_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (UserName.Text == "User Name") UserName.Text = "";
         }
 
-        private void UserName_TextChanged(object sender, TextChangedEventArgs e)
+        private void UserName_MouseLeave(object sender, MouseEventArgs e)
         {
+            if (UserName.Text == "") UserName.Text = "User Name";
+        }
 
+
+        private void UserName_MouseEnter1(object sender, MouseEventArgs e)
+        {
+            if (UserAddress.Text == "User Address")  UserAddress.Text = "";
+        }
+
+        private void UserName_MouseLeave1(object sender, MouseEventArgs e)
+        {
+            if (UserAddress.Text == "") UserAddress.Text = "User Address";
+        }
+
+        private void UserName_MouseEnter2(object sender, MouseEventArgs e)
+        {
+            if (UserEmail.Text == "User Email") UserEmail.Text = "";
+        }
+
+        private void UserName_MouseLeave2(object sender, MouseEventArgs e)
+        {
+            if (UserEmail.Text == "") UserEmail.Text = "User Email";
         }
     }
 }

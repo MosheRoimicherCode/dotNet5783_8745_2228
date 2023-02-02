@@ -67,7 +67,6 @@ public partial class NewOrderWindow : Window
         currentCart.CustomeAdress = order.CustomerAdress;
         currentCart.TotalPrice = order.TotalPrice;
         currentOrder = order;
-        //currentOrder.ID = order.ID;
         orderId = currentCart.Details[0].OrderID;
         manager = true;
         products = bl.Product.GetListOfItems(currentCart);
@@ -102,9 +101,17 @@ public partial class NewOrderWindow : Window
 
     private void cart_Button_Click(object sender, RoutedEventArgs e)
     {
-        new CartWindow(currentCart, currentCart.Details[0].OrderID, onChange).Show();
-        
-        this.Close();
+
+        try
+        {
+            new CartWindow(currentCart, currentCart.Details[0].OrderID, onChange).Show();
+
+            this.Close();
+        }
+        catch
+        {
+            MessageBox.Show("Empty Cart. Please chouse first product.");
+        }
     }
 
     private void btnMinimize_Click(object sender, RoutedEventArgs e) { WindowState = WindowState.Minimized; }

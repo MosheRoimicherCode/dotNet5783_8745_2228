@@ -130,8 +130,9 @@
                 Click="cart_Button_Click" 
                 ToolTip="Go to cart!" 
                 BorderThickness="0" 
-                Background="#FF8B8496"
-                Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Height="60" VerticalAlignment="Top" Opacity="0.8">
+                Background="#FF5F27B8"
+                Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" 
+                Height="60" VerticalAlignment="Top" Opacity="0.8" Foreground="#FFED3333">
 
                 <Image HorizontalAlignment="Center" Height="69" VerticalAlignment="Center" Width="69" Source="/Order/cartImageTransparent.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.526,0.523"/>
             </Button>
