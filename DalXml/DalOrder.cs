@@ -1,9 +1,7 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
-using System.Globalization;
 using System.Linq;
-using System.Reflection.PortableExecutable;
 using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Linq;
