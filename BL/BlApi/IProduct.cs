@@ -29,5 +29,7 @@ public interface IProduct
     public IEnumerable<BO.ProductItem> GetListOfItemsInCart(BO.Cart cart);
 
     public void Delete(int id);
+
+    public bool ProductExistInsideOrders(int id);
 }
 /// interface of product items for manager and client

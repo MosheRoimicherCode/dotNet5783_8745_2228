@@ -49,8 +49,8 @@ public partial class SimulatorWindow : Window
             WorkerSupportsCancellation = true
         };
 
-        worker.DoWork += Worker_DoWork;
-        worker.ProgressChanged += Worker_ProgressChanged;
+        worker.DoWork += Worker_DoWork!;
+        worker.ProgressChanged += Worker_ProgressChanged!;
         worker.RunWorkerCompleted += worker_RunWorkerCompleted;
 
     }
@@ -96,15 +96,15 @@ public partial class SimulatorWindow : Window
                 break;
             case 1:
                 ProgressBarValue = 0;
-                delay = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item3;
-                IDOrderInProgress.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item1;
-                OldStatus.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item4;
-                StartTime.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item2.ToString("HH:mm:ss");
-                FutureStatus.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item5;
-                StopTime.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item3.ToString("HH:mm:ss");
+                delay = (e.UserState as Tuple<int, DateTime, DateTime, string, string>)!.Item3;
+                IDOrderInProgress.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>)!.Item1;
+                OldStatus.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>)!.Item4;
+                StartTime.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>)!.Item2.ToString("HH:mm:ss");
+                FutureStatus.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>)!.Item5;
+                StopTime.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>)!.Item3.ToString("HH:mm:ss");
                 break;
             case 3:
-                progressPerSecond = (double)(100 / (int)(e.UserState));
+                progressPerSecond = (double)(100 / (int)(e.UserState!));
                 break;
             default:
                 break;

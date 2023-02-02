@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 
 internal class Product : BlApi.IProduct
 {
-    IDal? Dal = DalApi.Factory.Get();
+    readonly IDal? Dal = DalApi.Factory.Get();
 
     /// <summary>
     /// check previews criterion for a new item
@@ -202,8 +202,9 @@ internal class Product : BlApi.IProduct
     {
         ///check if received Id exist
         DO.Product product = Dal!.Product.Get(x => x?.ID == Id) ?? throw new BO.DeleteProductException("Cant delete product. Id not found.");
-        //check if product exist inside order - if yes, so throw a message
-        if (Dal!.OrderItem.GetAll(x => x?.ID == Id).Count() == 0) Dal.Product.Delete(Id);
+        //check if product exist inside orders - if yes, so throw a message
+        if (Dal!.OrderItem.GetAll(x => x!.Value.ProductID == Id).Count() == 0) Dal.Product.Delete(Id);
+
         else throw new BO.IdBOException("Product inside an exist order. cant delete."); ;
     }
     [MethodImpl(MethodImplOptions.Synchronized)]
@@ -222,7 +223,16 @@ internal class Product : BlApi.IProduct
 
     public void Delete(int id)
     {
-        Dal?.Product.Delete(id);
+        if (ProductExistInsideOrders(id)) throw new IdBOException("Product Exist in order. impossible to delete");
+        
+        Dal.Product.Delete(id);
         Dal?.OrderItem.DeleteProduct(id);
+        
+    }
+
+    public bool ProductExistInsideOrders(int id)
+    {
+        if (Dal!.OrderItem.GetAll(x => x!.Value.ProductID == id).Count() != 0) return true;
+        else return false;
     }
 }

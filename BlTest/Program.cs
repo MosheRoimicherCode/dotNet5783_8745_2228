@@ -302,12 +302,12 @@ internal class Program
                     
                     while (flag)
                     {
-                        int id = (int)p.Order.ReturnOrderForManage();
+                        int id = (int)p.Order.ReturnOrderForManage()!;
                         Console.WriteLine("Executing: "+id+"\n");
                         Console.WriteLine("older status: "+p.Order.Get(id).OrderStatus+"\n");
                         p.Order.UpdateStatus(id);
                         Console.WriteLine("older status: "+p.Order.Get(id).OrderStatus+"\n");
-                        id = (int)p.Order.ReturnOrderForManage();
+                        id = (int)p.Order.ReturnOrderForManage()!;
                         if (p.Order.ReturnOrderForManage() == 0) flag = false;
                     }
                     goto MainMenu;
