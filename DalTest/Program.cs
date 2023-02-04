@@ -129,28 +129,21 @@ internal class Program
                         case "0":
                             throw new ProgramExit("Exit Program");
                         case "1":
-                            Console.WriteLine("enter ID:");
-                            int ID1 = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("enter name:");
                             string? name = Console.ReadLine();
                             Console.WriteLine("enter email:");
                             string? email = Console.ReadLine();
                             Console.WriteLine("enter adress:");
                             string? adress = Console.ReadLine();
-                            Console.WriteLine("enter OrderDate:");
-                            DateTime OrderDate = DateTime.Now;
-                            DateTime? ShipDate = null; //Convert.ToDateTime(Console.ReadLine());
-                            //Console.WriteLine("enter DeliveryDate:");
-                            DateTime? DeliveryDate = null;//Convert.ToDateTime(Console.ReadLine());
                             Order o1 = new()
                             {
-                                ID = ID1,
+                                ID = 0,
                                 CustomerName = name,
                                 CustomerEmail = email,
                                 CustomeAdress = adress,
-                                OrderDate = OrderDate,
-                                ShipDate = ShipDate,
-                                DeliveryDate = DeliveryDate
+                                OrderDate = DateTime.Now,
+                                ShipDate = null,
+                                DeliveryDate = null
                             };
                             dal.Order.Add(o1);
                             break;
@@ -172,11 +165,23 @@ internal class Program
                             Console.WriteLine("enter address:");
                             string? adress4 = Console.ReadLine();
                             Console.WriteLine("enter OrderDate:");
-                            DateTime OrderDate4 = Convert.ToDateTime(Console.ReadLine());
-                            Console.WriteLine("enter ShipDate:");
-                            DateTime ShipDate4 = Convert.ToDateTime(Console.ReadLine());
-                            Console.WriteLine("enter DeliveryDate:");
-                            DateTime DeliveryDate4 = Convert.ToDateTime(Console.ReadLine());
+                            DateTime? OrderDate4;
+                            DateTime? ShipDate4;
+                            DateTime? DeliveryDate4;
+                            try
+                            {
+                                OrderDate4 = Convert.ToDateTime(Console.ReadLine());
+                                Console.WriteLine("enter ShipDate:");
+                                ShipDate4 = Convert.ToDateTime(Console.ReadLine());
+                                Console.WriteLine("enter DeliveryDate:");
+                                DeliveryDate4 = Convert.ToDateTime(Console.ReadLine());
+                            }
+                            catch 
+                            { 
+                                OrderDate4 = null;
+                                ShipDate4 = null;
+                                DeliveryDate4 = null;
+                            }
                             Order o4 = new()
                             {
                                 ID = ID4,

@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using BlApi;
 
 
@@ -33,10 +34,11 @@ public partial class OrderTrackingWindow : Window
     public OrderTrackingWindow()
     {
         InitializeComponent();
+        int id = int.Parse(idButton.Text);
+        orders = from i in p.Order.GetListOfTruckings()
+                 where i.OrderID == id
+                 select i;
 
-        orders = p.Order.GetListOfTruckings();
-
-        
     }
 
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -47,4 +49,15 @@ public partial class OrderTrackingWindow : Window
         //this.Close();
     }
 
+    private void idButton_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        try
+        {
+            int id = int.Parse(idButton.Text);
+            orders = from i in p.Order.GetListOfTruckings()
+                     where i.OrderID == id
+                     select i;
+        }
+        catch { }
+    }
 }

@@ -10,48 +10,38 @@ using System.Windows.Controls;
 
 public partial class SimulatorWindow : Window
 {
-    private Stopwatch stopWatch;
     private bool isTimerRun;
     BackgroundWorker worker;
 
-
-    public static readonly DependencyProperty OrderDep = 
-        DependencyProperty.Register(nameof(Order),typeof(BO.Order),typeof(SimulatorWindow));
+    public static readonly DependencyProperty OrderDep =
+        DependencyProperty.Register(nameof(Order), typeof(BO.Order), typeof(SimulatorWindow));
     private BO.Order Order
     {
         get => (BO.Order)GetValue(OrderDep);
-        set => SetValue (OrderDep, value);
+        set => SetValue(OrderDep, value);
     }
-    
 
     public static readonly DependencyProperty MyClockProperty =
      DependencyProperty.Register(nameof(Clock), typeof(string), typeof(SimulatorWindow));
     public string Clock
     {
         get => (string)GetValue(MyClockProperty);
-        set =>SetValue(MyClockProperty, value); 
+        set => SetValue(MyClockProperty, value);
     }
-    
 
     public static readonly DependencyProperty MyProgressBarValueProperty =
         DependencyProperty.Register(nameof(ProgressBarValue), typeof(double), typeof(SimulatorWindow));
-
     public double ProgressBarValue
     {
         get { return (double)GetValue(MyProgressBarValueProperty); }
         set { SetValue(MyProgressBarValueProperty, value); }
     }
 
-
-
-
     public SimulatorWindow()
     {
         InitializeComponent();
 
-        stopWatch = new Stopwatch();
-        stopWatch.Start();
-        Clock = stopWatch.Elapsed.ToString().Substring(0, 8);
+        Clock = DateTime.Now.ToString("HH:mm:ss");
 
         worker = new BackgroundWorker()
         {
@@ -59,9 +49,9 @@ public partial class SimulatorWindow : Window
             WorkerSupportsCancellation = true
         };
 
-        worker.DoWork += Worker_DoWork;
-        worker.ProgressChanged += Worker_ProgressChanged;
-        //worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+        worker.DoWork += Worker_DoWork!;
+        worker.ProgressChanged += Worker_ProgressChanged!;
+        worker.RunWorkerCompleted += worker_RunWorkerCompleted;
 
     }
 
@@ -70,7 +60,6 @@ public partial class SimulatorWindow : Window
     {
         if (!isTimerRun)
         {
-            stopWatch.Start();
             isTimerRun = true;
             worker.RunWorkerAsync(); //call DOWork function
         }
@@ -78,9 +67,9 @@ public partial class SimulatorWindow : Window
     private void Worker_DoWork(object sender, DoWorkEventArgs e)
     {
         Simulator.RegisterChangeOrder(UpdateWindow);
-        //Simulator.RegisterCompletedSimulation(FinishSimulator);
+        Simulator.RegisterCompletedSimulation(final);
         Simulator.RegisterBar(UpdateBar);
-        
+
         Simulator.StartSimulator(); //start order simulator
 
         while (isTimerRun)
@@ -94,51 +83,56 @@ public partial class SimulatorWindow : Window
 
     DateTime delay;
     DateTime now;
-    double progressPerSecond; 
+    double progressPerSecond;
     private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
     {
 
 
         switch (e.ProgressPercentage)
-        {    
+        {
             case 0:
-                Clock = stopWatch.Elapsed.ToString().Substring(0, 8);
+                Clock = DateTime.Now.ToString("HH:mm:ss");
                 ProgressBarValue += progressPerSecond;
                 break;
             case 1:
                 ProgressBarValue = 0;
-                delay = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item3;
-                IDOrderInProgress.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item1;
-                OldStatus.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item4;
-                StartTime.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item2;
-                FutureStatus.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item5;
-                StopTime.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>).Item3;
+                delay = (e.UserState as Tuple<int, DateTime, DateTime, string, string>)!.Item3;
+                IDOrderInProgress.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>)!.Item1;
+                OldStatus.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>)!.Item4;
+                StartTime.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>)!.Item2.ToString("HH:mm:ss");
+                FutureStatus.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>)!.Item5;
+                StopTime.Content = (e.UserState as Tuple<int, DateTime, DateTime, string, string>)!.Item3.ToString("HH:mm:ss");
                 break;
             case 3:
-                progressPerSecond = (100 / (int)(e.UserState));
+                progressPerSecond = (double)(100 / (int)(e.UserState!));
                 break;
             default:
                 break;
-        }  
+        }
     }
 
 
     private void worker_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
     {
-        Simulator.CalcelRegisterChangeOrder(UpdateWindow);
-        //Simulator.CalcelRegisterCompletedSimulation(FinishSimulator);
+        //Simulator.CalcelRegisterChangeOrder(UpdateWindow);
+        //Simulator.CalcelRegisterCompletedSimulation(final);
 
-        
+
         MessageBox.Show("Simulation Stoped");
-        this.Close();
+        Close();
     }
 
-    private void StopSimulation(object sender, RoutedEventArgs e)
+    private void StopSimulation(object sender, RoutedEventArgs e)  
     {
         if (isTimerRun)
         {
-            stopWatch.Stop();
             isTimerRun = false;
+            Simulator.StopSimulation();
         }
+    }
+
+    private void final()
+    {
+        worker.CancelAsync();
     }
 }

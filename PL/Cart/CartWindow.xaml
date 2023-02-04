@@ -42,9 +42,9 @@
             <RowDefinition Height = "Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBox x:Name="UserName"  Text="user name" TextWrapping="Wrap" Margin="26,3,230,60" Background="#FFCECDCD"/>
-        <TextBox x:Name="UserAddress" Text="User Address" TextWrapping="Wrap" Margin="26,31,230,29" Background="#FFCECDCD" Foreground="#FF171315"/>
-        <TextBox x:Name="UserEmail" Text="User Email" TextWrapping="Wrap" Margin="26,60,230,0" Background="#FFCECDCD"/>
+        <TextBox x:Name="UserName"  Text="User Name" TextWrapping="Wrap" Margin="26,3,230,60" Background="#FFCECDCD" MouseEnter="UserName_MouseEnter" MouseLeave="UserName_MouseLeave"/>
+        <TextBox x:Name="UserAddress" Text="User Address" TextWrapping="Wrap" Margin="26,31,230,29" Background="#FFCECDCD" Foreground="#FF171315" MouseEnter="UserName_MouseEnter1" MouseLeave="UserName_MouseLeave1"/>
+        <TextBox x:Name="UserEmail" Text="User Email" TextWrapping="Wrap" Margin="26,60,230,0" Background="#FFCECDCD" MouseEnter="UserName_MouseEnter2" MouseLeave="UserName_MouseLeave2"/>
         <Label x:Name="totalPrice" Content="Total Price:" Margin="26,30,614,303" Background="#FFCECDCD" Grid.Row="1"/>
         <Label x:Name="TotalPriceCart"  Content="TotalPriceCart" Margin="104,30,225,303" Background="#FFCECDCD" Grid.Row="1"/>
 

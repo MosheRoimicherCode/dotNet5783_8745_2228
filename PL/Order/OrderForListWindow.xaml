@@ -55,35 +55,6 @@
                 </ListView.View>
 
             </ListView>
-            <Button x:Name="btnMinimize"                           
-                    BorderThickness="0"
-                    Content="-"
-                    Foreground="White"
-                    FontSize="50"
-                    FontFamily="Montserrat"
-                    Cursor="Hand"
-                    Margin="742,6,27,516" 
-                    Click="btnMinimize_Click">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="Blue"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#278BEF"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Width="18" Height="18"
-                                CornerRadius="9"
-                                Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Top" Margin="9,-87,9,0"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
 
             <Button x:Name="btnExit"                           
                     BorderThickness="0"
@@ -92,7 +63,7 @@
                     FontSize="16"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="769,7,2,518" 
+                    Margin="756,11,12,512" 
                     Click="btnExit_Click" >
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -115,7 +86,36 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <TextBlock HorizontalAlignment="Left" Margin="752,4,0,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" FontSize="18" Foreground="White" Height="17"/>
+            <Button x:Name="btnMinimize"                           
+                BorderThickness="0"
+                Content="-"
+                Foreground="White"
+                FontSize="16"
+                FontFamily="Montserrat"
+                Cursor="Hand"
+                Margin="729,12,39,511" 
+                Click="btnExit_Click" >
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Blue"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#278BEF"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Width="18" Height="18"
+                            CornerRadius="9"
+                            Background="{TemplateBinding Background}" Margin="-3,0,2,0">
+                            <ContentPresenter VerticalAlignment="Center"
+                                HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </Grid>
     </Border>
 </Window>

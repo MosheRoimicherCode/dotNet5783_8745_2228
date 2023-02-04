@@ -45,6 +45,7 @@ internal class DalProduct : IProduct
     public Product? Get(Func<Product?, bool> filter) => (from item in createListFromXml()
                                                          where filter(item)
                                                          select item).FirstOrDefault();
+    
     [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Product?> GetAll(Func<Product?, bool>? filter) =>
        filter == null ? createListFromXml().Select(prouductInList => prouductInList)

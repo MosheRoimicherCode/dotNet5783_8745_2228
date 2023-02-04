@@ -1,12 +1,12 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
-using System.Globalization;
 using System.Linq;
-using System.Reflection.PortableExecutable;
 using System.Runtime.CompilerServices;
-using System.Xml;
 using System.Xml.Linq;
+
+
+
 
 internal class DalOrder : IOrder
 {
@@ -14,12 +14,14 @@ internal class DalOrder : IOrder
     static readonly string pathConfig = @"..\xml\config.xml";
     static string addFunctionality = "add";
 
+
     [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(Order order)
     {
         XElement dataBase = XElement.Load(path); //copy data base to code
-        if (addFunctionality != "update")  order.ID = ReturnId(); //get new automatic ID 
-        
+
+        if (addFunctionality != "update") order.ID = ReturnId(); //get new automatic ID 
+
         XElement newOrder = new XElement("Orders",
                             new XElement("ID", order.ID),
                             new XElement("CustomerName", order.CustomerName),
@@ -38,14 +40,13 @@ internal class DalOrder : IOrder
     public void Delete(int ID)
     {
         XElement dataBase = XElement.Load(path); //copy data base to code
-
         try
         {
-            var removeItem = (from order2 in dataBase.Elements()
-                               where Convert.ToInt32(order2.Element("ID")?.Value) == ID
-                               select order2).FirstOrDefault(); //search element with received id
-            removeItem?.Remove();   //remove from copy
-            dataBase?.Save(path); //save changes to original
+            XElement? removeItem = (from order2 in dataBase.Elements()
+                                    where Convert.ToInt32(order2.Element("ID")?.Value) == ID
+                                    select order2).FirstOrDefault(); //search element with received id
+            removeItem.Remove(); //remove from copy
+            dataBase.Save(path); //save changes to original
         }
         catch { }
     }
@@ -77,7 +78,6 @@ internal class DalOrder : IOrder
         List<DO.Order> orderList = new();
         foreach ( var item in dataBase.Elements())
         {
-            XmlReader reader = XmlReader.Create(path);
 
             DO.Order order = new()
             {
