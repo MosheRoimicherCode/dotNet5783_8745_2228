@@ -348,7 +348,7 @@ internal class Program
                     goto MainMenu;
 
                 case "3":                
-                    p.Cart.ConfirmCart(cart, cart.CustomerName, cart.CustomerEmail, cart.CustomeAdress);
+                    p.Cart.ConfirmCart(cart, cart.CustomerName, cart.CustomerEmail, cart.CustomeAdress, 0);
                     goto MainMenu;
 
                 case "0":
