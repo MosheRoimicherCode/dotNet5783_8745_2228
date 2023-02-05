@@ -44,6 +44,12 @@ public partial class ERRORWindow : Window
         w = 2;
     }
 
+    public ERRORWindow(string s)
+    {
+        InitializeComponent();
+        label.Content = s;
+    }
+
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
         this.Close();

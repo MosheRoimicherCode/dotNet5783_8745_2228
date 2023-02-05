@@ -30,6 +30,22 @@ public partial class OrderWindow : Window
         
     }
 
+    public OrderWindow(int id)
+    {
+        InitializeComponent();
+        ID = id;
+
+        order = p.Order.Get(id);
+        List<BO.OrderItem>? orders = order.Details;
+        OrderList.DataContext = orders;
+        update_providing_button.IsEnabled = false;
+        update_providing_button.Opacity = 0;
+        update_shiping_button.IsEnabled = false;
+        update_shiping_button.Opacity = 0;
+        delete_order.IsEnabled = false;
+        delete_order.Opacity = 0;
+    }
+
     private void update_shiping_Button_Click(object sender, RoutedEventArgs e)
     {
         try
