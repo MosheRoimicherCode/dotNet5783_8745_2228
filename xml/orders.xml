@@ -1,15 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <OrdersXML>
   <Orders>
-    <ID>1</ID>
-    <CustomerName>mendi welner</CustomerName>
-    <CustomerEmail>meniwell@gmail.com</CustomerEmail>
-    <CustomeAdress>rambam 5 rishon lezion israel</CustomeAdress>
-    <OrderDate>2022-06-22T00:00:00</OrderDate>
-    <ShipDate>2022-06-28T00:00:00</ShipDate>
-    <DeliveryDate>2022-07-07T00:00:00</DeliveryDate>
-  </Orders>
-  <Orders>
     <ID>2</ID>
     <CustomerName>mendi welner</CustomerName>
     <CustomerEmail>meniwell@gmail.com</CustomerEmail>
@@ -170,41 +161,5 @@
     <OrderDate>2017-05-15T00:00:00</OrderDate>
     <ShipDate>2017-05-22T00:00:00</ShipDate>
     <DeliveryDate>2017-06-02T00:00:00</DeliveryDate>
-  </Orders>
-  <Orders>
-    <ID>29</ID>
-    <CustomerName>555</CustomerName>
-    <CustomerEmail>555</CustomerEmail>
-    <CustomeAdress>555</CustomeAdress>
-    <OrderDate>2023-02-02T21:02:18.0914657+02:00</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
-  </Orders>
-  <Orders>
-    <ID>31</ID>
-    <CustomerName>5</CustomerName>
-    <CustomerEmail>55</CustomerEmail>
-    <CustomeAdress>555</CustomeAdress>
-    <OrderDate>2023-02-02T21:10:06.2146467+02:00</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
-  </Orders>
-  <Orders>
-    <ID>36</ID>
-    <CustomerName>2</CustomerName>
-    <CustomerEmail>2</CustomerEmail>
-    <CustomeAdress>2</CustomeAdress>
-    <OrderDate>2023-02-02T21:37:40.143284+02:00</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
-  </Orders>
-  <Orders>
-    <ID>37</ID>
-    <CustomerName>111</CustomerName>
-    <CustomerEmail>111</CustomerEmail>
-    <CustomeAdress>111</CustomeAdress>
-    <OrderDate>2023-02-02T21:48:03.8880266+02:00</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
   </Orders>
 </OrdersXML>
