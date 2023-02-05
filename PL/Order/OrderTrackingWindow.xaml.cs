@@ -60,4 +60,17 @@ public partial class OrderTrackingWindow : Window
         }
         catch { }
     }
+
+   
+    private void order_show_button(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            int id = int.Parse(idButton.Text);
+            new OrderWindow(id).Show();
+        }
+        catch { }
+    }
+
+
 }

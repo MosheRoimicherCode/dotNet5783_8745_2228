@@ -7,9 +7,7 @@
         mc:Ignorable="d"
         Title="OrderTrackingWindow" Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}" 
-
-        >
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <ListView Name ="orderTrackingView" ItemsSource="{Binding orders, Mode=TwoWay}"  MouseDoubleClick="MouseDoubleClick" Grid.ColumnSpan="2" Margin="0,43,0,0" Grid.RowSpan="2">
             <ListView.View>
@@ -25,7 +23,8 @@
         <TextBox x:Name="idButton"
             HorizontalAlignment="Left" Margin="110,16,0,0" 
                  TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" TextChanged="idButton_TextChanged"/>
-
+        <Button Content="show your order" Click="order_show_button" HorizontalAlignment="Left" Margin="270,10,0,0" VerticalAlignment="Top" Width="155" Height="24" FontSize="14"/>
+        
     </Grid>
 
 </Window>

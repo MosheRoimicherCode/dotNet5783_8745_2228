@@ -29,13 +29,6 @@
     <InStock>80</InStock>
   </Products>
   <Products>
-    <ID>197238</ID>
-    <Name>suit</Name>
-    <Price>1000</Price>
-    <Category>Business</Category>
-    <InStock>90</InStock>
-  </Products>
-  <Products>
     <ID>372892</ID>
     <Name>tie</Name>
     <Price>150</Price>
@@ -72,9 +65,16 @@
   </Products>
   <Products>
     <ID>123456</ID>
-    <Name>specila</Name>
+    <Name>1</Name>
     <Price>1</Price>
     <Category>footwear</Category>
     <InStock>1</InStock>
+  </Products>
+  <Products>
+    <ID>197238</ID>
+    <Name>suit</Name>
+    <Price>1000</Price>
+    <Category>Business</Category>
+    <InStock>89</InStock>
   </Products>
 </ProductsXML>

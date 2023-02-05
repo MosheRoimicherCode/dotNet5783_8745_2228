@@ -1,5 +1,6 @@
 ﻿namespace PL;
 
+using Sim;
 using System.ComponentModel;
 using System.Windows;
 
@@ -8,6 +9,7 @@ using System.Windows;
 /// </summary>
 public partial class MainWindow : Window 
 {
+    bool sim = true;
     public MainWindow()
     {
         InitializeComponent();
@@ -20,6 +22,17 @@ public partial class MainWindow : Window
 
     private void BtnMinimize_Click(object sender, RoutedEventArgs e) { WindowState = WindowState.Minimized;}
     private void BtnExit_Click(object sender, RoutedEventArgs e) { this.Close(); }
-    private void SimulatorClick(object sender, RoutedEventArgs e) { new SimulatorWindow().Show(); }
+    private void SimulatorClick(object sender, RoutedEventArgs e)
+    {
+        if (!sim)
+        {
+            new ERRORWindow("The simulator cannot be run again!").Show();
+        }
+        else
+        {
+            new SimulatorWindow().Show();
+            sim = false;
+        }
+    }
 
 }

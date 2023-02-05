@@ -84,12 +84,13 @@ public partial class NewOrderWindow : Window
 
     private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        BO.ProductItem select = ((BO.ProductItem)listOfProducts.SelectedItem);
-        int id = select.ID;
-        currentCart.TotalPrice = 0;
-        
-        new ProductItemWindow(id, currentCart, onChange, this, currentOrder).Show();
-        
+        if (listOfProducts.SelectedItem != null)
+        {
+            int id = ((BO.ProductItem)listOfProducts.SelectedItem).ID;
+            currentCart.TotalPrice = 0;
+
+            new ProductItemWindow(id, currentCart, onChange, this, currentOrder).Show();
+        }
     }
 
 

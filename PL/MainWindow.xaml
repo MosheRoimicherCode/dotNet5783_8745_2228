@@ -208,7 +208,7 @@
                 <Button 
                     
                     Content="simulator"
-                    x:Name ="AddOrderButton_Copy"
+                    x:Name ="simulator_button"
                     Margin="-6,-2,597,366"
                     Click="SimulatorClick"
                     FontSize="25" >
