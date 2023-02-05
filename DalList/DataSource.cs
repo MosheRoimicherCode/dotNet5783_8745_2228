@@ -291,9 +291,9 @@ internal static class DataSource
                 ordItem = new()
                 {
                     ID = Config._idNumberItemOrder,
-                    ProductID = _productList[_randomNum.Next(0, 10)]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
-                    OrderID = _orderList[_randomNum.Next(0, 10)]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
-                    Price = _productList[_randomNum.Next(0, 10)]?.Price ?? 0,
+                    ProductID = _productList[(i + j)%10]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
+                    OrderID = _orderList[i]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
+                    Price = _productList[(i + j) % 10]?.Price ?? 0,
                     Amount = _randomNum.Next(0, 50),
                 };
                 AddOrderItem(ordItem);
@@ -303,9 +303,9 @@ internal static class DataSource
                 ordItem = new()
                 {
                     ID = Config._idNumberItemOrder,
-                    ProductID = _productList[_randomNum.Next(0, 10)]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
-                    OrderID = _orderList[_randomNum.Next(10, 20)]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
-                    Price = _productList[_randomNum.Next(0, 10)]?.Price ?? 0,
+                    ProductID = _productList[(i + j) % 10]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
+                    OrderID = _orderList[i+10]?.ID ?? throw new DO.IdException("Internal error.DataSource.CreateOrderItem"),
+                    Price = _productList[(i + j) % 10]?.Price ?? 0,
                     Amount = _randomNum.Next(0, 50)
                 };
                 AddOrderItem(ordItem);
