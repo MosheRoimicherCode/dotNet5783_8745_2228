@@ -284,7 +284,7 @@ internal static class DataSource
         //};
         //AddOrderItem(ordItem);
 
-        for (int j = 0; j < 3; j++)
+        for (int j = 0; j < 6; j++)
         {
             for (int i = 0; i < 10; i++)
             {
